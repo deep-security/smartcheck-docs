@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Create a view</title>
+</head>
+<body>
+<h1>Create a view</h1>
+<p>Deep Security Smart Check uses &ldquo;views&rdquo; to determine which images to scan in your registries. For example, you can configure a view that scans only the images in your registries that are tagged with the &ldquo;latest&rdquo; tag. When you run a scan from the Smart Check admin console, you run the scan against a view, not a registry. The default view configuration includes all images in the registry.</p>
+<ol>
+  <li>Click<strong> ≡ </strong>in the upper-left corner of the Smart Check administrator console.</li>
+  <li>Click <strong>Configuration &gt; Configure Views</strong>.</li>
+  <li>Click the<strong> + </strong>icon to add a view, or select a view and click <strong>Edit</strong>.</li>
+  <li>On the Add View page, in the <strong>Name</strong> field, enter a descriptive name for the view. This name will appear on the Summary page and on the Views page.</li>
+  <li>In the <strong>Description</strong> field, enter an optional description of the view. This is useful if you need to capture more information than the Name field allows.</li>
+  <li>By default, a scan will start as soon as you click <strong>Create View</strong>. If you don&rsquo;t want that to happen, turn off the <strong>Start scan when view is created </strong>toggle option.</li>
+  <li>In the <strong>Available Registries</strong> list, select one of the registries that you&rsquo;ve added to Smart Check and click Add. You can add more than one registry to the view.</li>
+  <li>Filters appear, allowing you to include or exclude images based on any segment of their fully qualified name in the form <code>&lt;repository&gt;/&lt;image&gt;:&lt;tag&gt;</code>. For example, the include filter <code>*latest*</code> would match <code>smartcheck/scan:latest</code> and <code>smartcheck/auth:latest</code>. The default include filter of <code>*</code> will select all images in the registry.</li>
+  <li>Click <strong>Create View</strong>.</li>
+</ol>
+</body>
+</html>

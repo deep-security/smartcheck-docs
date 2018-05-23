@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Start a scan</title>
+</head>
+
+<body>
+<h1>Start a scan</h1>
+<p>When Smart Check receives a request to scan a view, it pulls the image(s) specified in the view being scanned, unpacks each layer, and performs malware and vulnerability scans on the content.</p>
+<p>There are several ways that a view scan can be triggered:</p>
+<ul>
+  <li>Smart Check automatically starts a scan at midnight UTC for all views that have been created with the<strong> Scan on an ongoing basis</strong> option selected.</li>
+  <li>You can manually start a scan by clicking the <strong>Scan Now</strong> button.</li>
+  <li>You can start a scan through the Smart Check API. You can access the API documentation from the menu in the Smart Check admin console.</li>
+</ul>
+<h2>Manually start a scan</h2>
+<ol>
+  <li>On the Summary page or on the Views page, click the name of the view that you want to scan.</li>
+  <li>Click <strong>Scan Now</strong>.</li>
+  <li>A confirmation message appears. Click <strong>OK</strong>.</li>
+</ol>
+<p>To confirm that scans are running, you can check the scan history page, available from the menu in the Smart Check admin console. Running scans have a spinning icon next to them.</p>
+<h2>See scan results</h2>
+<p>There are several ways to get scan results:</p>
+<ul>
+  <li>You can add a Webhook through the Smart Check API with a destination URL that will be called automatically when results are ready. See the API docs for details. Your Webhook receiver could, for example, process the scan result and forward a notification to Slack or ServiceNow if appropriate.</li>
+  <li>You can request the results directly through the Smart Check API. For details, refer to the API documentation, which is available from the menu in the Smart Check admin console.</li>
+  <li>You can check the scan results in the Smart Check administrator console:
+    <p>On the Summary page or the Views page, click the <strong>View</strong>. You&rsquo;ll see a summary that includes information about the latest scan, like the number of vulnerabilities and malware found.</p>
+    <p>To see specific information about an individual image, click the image to display its scan history. Click a scan to display information about it.</p>
+  </li>
+</ul>
+
+</body>
+</html>

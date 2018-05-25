@@ -1,18 +1,210 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>Deployment Guide | Deep Security Smart Check</title>
+    <meta charset="utf-8">
+    <title>Deployment Guide | Deep Security Smart Check</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-<h1>Deep Security Smart Check Deployment Guide</h1>
-<p>Deep Security Smart Check is a container image scanner from Trend Micro. This guide describes how Smart Check works and how to use the Smart Check console.</p>
-<ul>
-  <li><a href="smart-check-about.html">About Deep Security Smart Check</a></li>
-  <li><a href="smart-check-install.html">Install Deep Security Smart Check</a></li>
-  <li><a href="smart-check-first-steps.html">First steps after installation</a></li>
-  <li><a href="smart-check-api.html">Access the API documentation</a></li>
-</ul>
+    <article class="main-container">
+        <section>
+            <h1>Deep Security Smart Check Deployment Guide</h1>
+            <p>Deep Security™ Smart Check is a container image scanner from Trend Micro™. This guide describes how Smart Check works and how to use the Smart Check console. It contains:</p>
+            <ul>
+                <li><a href="#about-smart-check" title="About Smart Check" target="_self">About Smart Check</a>                
+                  <ul>
+                    <li><a href="#dev-ops" title="How does Smart Check fit into a DevOps pipeline?" target="_self">How does Smart Check fit into a DevOps pipeline?</a></li>
+                    <li><a href="#supported-registries" title="Supported registries" target="_self">Supported registries</a></li>
+                    <li><a href="#system-requirements" title="System requirements" target="se">System requirements</a></li>
+                  </ul>
+                </li>
+                <li><a href="#install" title="Install Smart Check" target="_self">Install Smart Check</a>
+                  <ul>
+                    <li><a href="#get-url" title="Get the URL of the Smart Check administrator console" target="_self">Get the URL of the Smart Check administrator console</a></li>
+                    <li><a href="#get-default-user" title="Get the initial administrator user name and password" target="_self">Get the initial administrator user name and password</a></li>
+                  </ul>
+                </li>
+                <li><a href="#first-steps" title="First steps" target="_self">First steps</a>
+                  <ul>
+                    <li><a href="#log-in" title="Log in to the Smart Check administrator console" target="_self">Log in to the Smart Check administrator console</a></li>
+                    <li><a href="#configure-users" title="Configure Smart Check users" target="_self">Configure Smart Check users</a></li>
+                    <li><a href="#registry" title="Add or edit a registry" target="_self">Add or edit a registry</a></li>
+                    <li><a href="#create-view" title="Create a view" target="_self">Create a view</a></li>
+                    <li><a href="#start-scan" title="Start a scan" target="_self">Start a scan</a></li>
+                    <li><a href="#get-results" title="See scan results" target="_self">See scan results</a></li>
+                  </ul>
+                </li>
+                <li><a href="#access-api" title="Access the API documentation" target="_self">Access the API documentation</a></li>
+            </ul>
+        </section>
+        <section>
+            <h2><a name="about-smart-check"></a>About Deep Security Smart Check</h2>
+				<p>Deep Security™ Smart Check performs pre-runtime scans of Docker™ images to detect OS vulnerabilities and malware, enabling you to fix issues before they reach the orchestration environment (for example, Kubernetes®).</p>
+				<p>Deep Security Smart Check receives up-to-date threat data from private Trend Micro endpoints. Smart Check obtains malware information from the Trend Micro Smart Protection Network ™ and, for Windows images, detects threats using Trend Micro XGen™ machine learning algorithms. Deep Security Smart Check will find vulnerabilities in these Linux® distributions:</p>
+				<ul>
+					<li>Red Hat® Enterprise Linux</li>
+					<li>CentOS™</li>
+					<li>Oracle® Linux</li>
+					<li>Ubuntu™</li>
+					<li>Debian®</li>
+					<li>Alpine™</li>
+				</ul>
+					<h3><a name="dev-ops"></a>How does Smart Check fit into a DevOps pipeline?</h3>
+						<p>Deep Security Smart Check provides a valuable step in your continuous integration (CI) or continuous delivery (CD) pipeline.</p>
+						<p>For example, Jenkins® projects can automatically build, test, and then push Docker images to a Docker registry. Once pushed, the image may be instantly available to run in an orchestration environment. If malware or vulnerabilities exist in the image, then they become a risk when the image is run. Since images are intended to be immutable, the right time to scan the image is when it's first pushed to the registry.</p>
+						<p>That&rsquo;s where Deep Security Smart Check fits in – it can scan Docker images in any registry that implements the Docker Registry API. All Deep Security Smart Check operations are available through a documented collection of APIs to simplify integration into your CI/CD pipeline. Deep Security Smart Check APIs can be invoked automatically by your CI/CD system to start scans when an image is pushed to a Docker registry. Scan results are also available through the API.</p>
+						<p>The Smart Check API includes a Webhook facility that allows CI/CD components to register to receive notifications of scan events, including &lsquo;scan-completed&rsquo;, allowing you to automate workflows. For example, a Docker image signing service could register to receive scan results and then use those results to decide whether a particular image should be digitally signed and promoted to a &ldquo;blessed&rdquo; repository that is available to your orchestration environment. You could also set a Webhook to call a receiver service that forwards scan results to a Slack channel or ServiceNow account.</p>
+						<p>Deep Security Smart Check also includes an administrator console that provides:</p>
+				<ul>
+					<li>a dashboard (system-wide summary of scan information, including metrics)</li>
+					<li>view summary (including scan results and metrics for the view)</li>
+					<li>user management</li>
+					<li>registry and view configuration</li>
+					<li>access to scan results</li>
+					<li>scan history</li>
+				</ul>
+			<h3><a name="supported-registries"></a>Supported registries</h3>
+            <p>Deep Security Smart Check supports the scanning of Docker images in any registry that supports the Docker Registry V2 API. This initial release supports:</p>
+            <ul>
+                <li>Docker Trusted Registry (DTR)</li>
+                <li>Google Container Registry (GCR)</li>
+                <li>Amazon Elastic Container Registry (ECR)</li>
+            </ul>
+            <p>To integrate Deep Security Smart Check into your pipeline, you will likely need to write integration logic to trigger scanning based on the event model of your registry. For example, Google Container Registry uses a pub/sub model to publish events about registry activity and Docker Trusted Registry uses a Webhook model.</p>
+            <h3><a name="system-requirements"></a>System requirements</h3>
+            <p>This initial release of Deep Security Smart Check requires:</p>
+            <ul>
+                <li>Kubernetes 1.8.7</li>
+                <li>Helm/Tiller 2.8.1</li>
+                <li>Docker 17.06</li>
+                <li>Google Chrome to access the Smart Check administrator console. Other modern browsers may work with Smart Check but are not officially supported.</li>
+            </ul>
+        </section>
+        <section>
+            <h2><a name="install"></a>Install Deep Security Smart Check</h2>
+            <p>In this initial release, Deep Security Smart Check is supported on the Kubernetes platform and uses the Helm package manager for Kubernetes. You must have a running Kubernetes cluster in order to deploy Smart Check. For instructions on how to deploy Smart Check with Helm, see the Deep Security Smart Check readme: <a href="https://github.com/deep-security/smartcheck-helm" target="_blank" title="https://github.com/deep-security/smartcheck-helm" alt="https://github.com/deep-security/smartcheck-helm">https://github.com/deep-security/smartcheck-helm</a>. By default, the Helm deployment will retrieve the Smart Check Docker images from DockerHub: <a href="https://hub.docker.com/r/deepsecurity/" target="_blank" title="https://hub.docker.com/r/deepsecurity/" alt="https://hub.docker.com/r/deepsecurity/">https://hub.docker.com/r/deepsecurity/</a>.</p>
+            <p>At the end of the install, you&rsquo;ll see commands that enable you to get the URL of the Smart Check administrator console and to get the initial administrator user name and password. The commands are also provided in the sections below.</p>
+            <h3><a name="get-url"></a>Get the URL of the Smart Check administrator console</h3>
+            <p>To get the URL of the Smart Check admin console, configure kubectl with your cluster credentials and run these commands:</p>
+            <p><code>$ export SERVICE_IP=$(kubectl get svc proxy –o jsonpath='{.status.loadBalancer.ingress[0].ip}')</code></p>
+            <p><code>$ echo https://$SERVICE_IP:443</code></p>
+            <h3><a name="get-default-user"></a>Get the initial administrator user name and password</h3>
+            <p>To get the user name and password you can use to log into the Smart Check application for the first time, configure kubectl with your cluster credentials and run these commands:</p>
+            <p><code>$ echo Username: $(kubectl get secrets -o jsonpath='{ .data.userName }' deepsecurity-smartcheck-auth | base64 --decode)</code></p>
+            <p><code>$ echo Password: $(kubectl get secrets -o jsonpath='{ .data.password }' deepsecurity-smartcheck-auth | base64 --decode)</code></p>
+        </section>
+        <section>
+            <h2><a name="first-steps"></a>First steps after installation</h2>
+            <p>After installing Smart Check:</p>
+            <ol>
+                    <li><a href="#log-in" title="Log in to the Smart Check administrator console" target="_self">Log in to the Smart Check administrator console</a></li>
+                    <li><a href="#configure-users" title="Configure Smart Check users" target="_self">Configure Smart Check users</a></li>
+                    <li><a href="#registry" title="Add or edit a registry" target="_self">Add or edit a registry</a>. You can add one or more registries that you want to scan.</li>
+                    <li><a href="#create-view" title="Create a view" target="_self">Create a view</a></li>
+                    <li><a href="#start-scan" title="Start a scan" target="_self">Start a scan</a></li>
+            </ol>
+            <h3><a name="log-in"></a>Log in to the Smart Check administrator console</h3>
+            <ol>
+                <li>Go to the URL provided at the end of the installation. If you don&rsquo;t have the URL, see <a href="#get-url">Get the URL of the Smart Check administrator console</a>.</li>
+                <li>Enter the initial administrator username and password and click Login. If you don't have the user credentials, see <a href="#get-default-user">Get the initial administrator user name and password</a>.</li>
+            </ol>
+            <p>The Deep Security Smart Check administrator console appears.</p>
+            <p>The first time you log in, you will be prompted to change the password for the default administrator.</p>
+            <h3><a name="configure-users"></a>Configure Smart Check users</h3>
+            <p>Deep Security Smart Check has a default administrator account, but you can add other user accounts.</p>
+            <h4><a name="add-user"></a>Add or edit a user</h4>
+            <ol>
+                <li>Click<strong> ≡ </strong>in the upper-left corner of the Smart Check administrator console.</li>
+                <li>Click <strong>Configuration &gt; Manage Users</strong>.</li>
+                <li>On the Users page, click the<strong> + </strong>icon to add a user or click an existing user to edit.</li>
+                <li>On the Edit User page, enter the <strong>User ID</strong> that the user will use to log in to Deep Security Smart Check. The User ID has a maximum of 64 characters.</li>
+                <li>Enter the user&rsquo;s full name.</li>
+                <li>Enter a password and confirm the password. The user should change this password when they log in to Deep Security Smart Check for the first time.</li>
+                <li>Select a role to assign to the user. Smart Check has three types of roles:
+                    <ul>
+                        <li><strong>Administrator:</strong> Full control</li>
+                        <li><strong>User: </strong>Can do everything except add, edit, or delete users, registries, and views. Users can perform other operations like requesting scans and adding Webhooks.</li>
+                        <li><strong>Auditor: </strong>Read-only access</li>
+                    </ul>
+                </li>
+                <li>Click <strong>Save</strong>.</li>
+            </ol>
+            <h4><a name="delete-user"></a>Delete a user</h4>
+            <ol>
+                <li>Click<strong> ≡ </strong>in the upper-left corner of the Smart Check administrator console.</li>
+                <li>Click <strong>Configuration &gt; Manage Users</strong>.</li>
+                <li>On the Users page, click the user you want to remove.</li>
+                <li>On the Edit User page, click <strong>Delete User</strong>.</li>
+            </ol>
+            <p><strong>Note: </strong>You must have at least one user with the administrator role or you will lose administrator-level access to the system.</p>
+            <h3><a name="registry"></a>Add or edit a registry</h3>
+            <p>Before Smart Check can scan your images, it needs to know which registries contain the images that you want to scan. You can add one or more registries to Deep Security Smart Check.</p>
+            <h4><a name="before-registry"></a>Before adding a registry</h4>
+            <p>When you add a registry, you will need to provide authentication credentials that Deep Security Smart Check will use to access your repository. You can provide a username and password or a JSON key file.</p>
+            <p>If you are using Google Container Registry, create a service account and use its JSON key file. The service account must have at least the <strong>Storage Object Viewer</strong> role and both the <strong>Google Cloud Resource Manager API</strong> and <strong>Google Container Registry API</strong> must be enabled. Google provides <a href="https://cloud.google.com/container-registry/docs/advanced-authentication" target="_blank" title="Advanced Authentication Methods" alt="Advanced Authentication Methods">an overview</a> and <a href="https://support.google.com/cloud/answer/6158849#serviceaccounts" target="_blank" title="Service accounts" alt="Service accounts">detailed instructions</a> for creating service accounts.</p>
+            <h4><a name="add-registry"></a>Add a registry</h4>
+            <ol>
+                <li>Click<strong> ≡ </strong>in the upper-left corner of the Smart Check administrator console.</li>
+                <li>Click <strong>Configuration &gt; Configure Registries</strong>.</li>
+                <li>Click the<strong> + </strong>icon to add a registry.</li>
+                <li>On the Add Registry page, in the <strong>Name</strong> field, enter a descriptive name for the registry. This name does not necessarily need to match the namespace of your Docker registry. If you plan to add multiple registries, you&rsquo;ll use this name to tell them apart in the Smart Check administrator console. The name should be short but meaningful. The Name has a maximum of 256 characters.</li>
+                <li>In the <strong>Description</strong> field, enter an optional description of the registry. This is useful if you need to capture a bit more information than the Name field allows.</li>
+                <li>In the <strong>Registry</strong> field, enter the hostname or IP address of the Docker registry you want to scan.</li>
+                <li>By default, Deep Security Smart Check validates the TLS certificate associated with your registry. This validation requires that Smart Check trust the certificate of the CA that issued the registry certificate. If you don&rsquo;t have the CA certificate, you can select <strong>Skip registry certificate validation (insecure)</strong>.</li>
+                <li>Click <strong>Add Authentication</strong> to provide authentication credentials that Deep Security Smart Check will use to access your repository. You can provide a username and password or a JSON key file.</li>
+                <li>Click <strong>Submit</strong>.</li>
+            </ol>
+            <h3><a name="create-view"></a>Create a view</h3>
+            <p>Deep Security Smart Check uses &ldquo;views&rdquo; to determine which images to scan in your registries. For example, you can configure a view that scans only the images in your registries that are tagged with the &ldquo;latest&rdquo; tag. When you run a scan from the Smart Check admin console, you run the scan against a view, not a registry. The default view configuration includes all images in the registry.</p>
+            <ol>
+                <li>Click<strong> ≡ </strong>in the upper-left corner of the Smart Check administrator console.</li>
+                <li>Click <strong>Configuration &gt; Configure Views</strong>.</li>
+                <li>Click the<strong> + </strong>icon to add a view, or select a view and click <strong>Edit</strong>.</li>
+                <li>On the Add View page, in the <strong>Name</strong> field, enter a descriptive name for the view. This name will appear on the Summary page and on the Views page.</li>
+                <li>In the <strong>Description</strong> field, enter an optional description of the view. This is useful if you need to capture more information than the Name field allows.</li>
+                <li>By default, a scan will start as soon as you click <strong>Create View</strong>. If you don&rsquo;t want that to happen, turn off the <strong>Start scan when view is created </strong>toggle option.</li>
+                <li>In the <strong>Available Registries</strong> list, select one of the registries that you&rsquo;ve added to Smart Check and click Add. You can add more than one registry to the view.</li>
+                <li>Filters appear, allowing you to include or exclude images based on any segment of their fully qualified name in the form <code>&lt;repository&gt;/&lt;image&gt;:&lt;tag&gt;</code>. For example, the include filter <code>*latest*</code> would match <code>smartcheck/scan:latest</code> and <code>smartcheck/auth:latest</code>. The default include filter of <code>*</code> will select all images in the registry.</li>
+                <li>Click <strong>Create View</strong>.</li>
+            </ol>
+            <h3><a name="start-scan"></a>Start a scan</h3>
+            <p>When Smart Check receives a request to scan a view, it pulls the image(s) specified in the view being scanned, unpacks each layer, and performs malware and vulnerability scans on the content.</p>
+            <p>There are several ways that a view scan can be triggered:</p>
+            <ul>
+                <li>Smart Check automatically starts a scan at midnight UTC for all views that have been created with the<strong> Scan on an ongoing basis</strong> option selected.</li>
+                <li>You can manually start a scan by clicking the <strong>Scan Now</strong> button.</li>
+                <li>You can start a scan through the Smart Check API. You can access the API documentation from the menu in the Smart Check admin console.</li>
+            </ul>
+            <h4><a name="sc-manual-scan"></a>Manually start a scan</h4>
+            <ol>
+                <li>On the Summary page or on the Views page, click the name of the view that you want to scan.</li>
+                <li>Click <strong>Scan Now</strong>.</li>
+                <li>A confirmation message appears. Click <strong>OK</strong>.</li>
+            </ol>
+            <p>To confirm that scans are running, you can check the scan history page, available from the menu in the Smart Check admin console. Running scans have a spinning icon next to them.</p>
+            <h3><a name="get-results"></a>See scan results</h3>
+            <p>There are several ways to get scan results:</p>
+            <ul>
+                <li>You can add a Webhook through the Smart Check API with a destination URL that will be called automatically when results are ready. See the API docs for details. Your Webhook receiver could, for example, process the scan result and forward a notification to Slack or ServiceNow if appropriate.</li>
+                <li>You can request the results directly through the Smart Check API. For details, refer to the API documentation, which is available from the menu in the Smart Check admin console.</li>
+                <li>You can check the scan results in the Smart Check administrator console:
+                    <p>On the Summary page or the Views page, click the <strong>View</strong>. You&rsquo;ll see a summary that includes information about the latest scan, like the number of vulnerabilities and malware found.</p>
+                    <p>To see specific information about an individual image, click the image to display its scan history. Click a scan to display information about it.</p>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2><a name="access-api"></a>Access the API documentation</h2>
+            <p>Everything you can do in Smart Check is also available as an API operation.</p>
+            <p>You can find the API documentation in the Smart Check administrator console:</p>
+            <ol>
+                <li>Click<strong> ≡ </strong>in the upper-left corner of the Smart Check administrator console.</li>
+                <li>Click <strong>API Documentation</strong>.</li>
+            </ol>
+        </section>
+    </article>
 </body>
+
 </html>

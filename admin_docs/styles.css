@@ -729,6 +729,7 @@ h4,
 h5,
 h6 {
   font-weight: bold;
+  line-height: 1.25em;
 }
 
 a {
@@ -895,8 +896,11 @@ h6 {
 /* MAIN **********************************************************************/
 .main-container {
   max-width: 1200px !important;
+  padding-left: 40px;
+  padding-right: 40px;
   margin-right: auto;
   margin-left: auto;
+  box-sizing: content-box;
 }
 
 article {
@@ -1020,4 +1024,14 @@ article {
 
 .hts-messages {
   border-radius: 3px;
+}
+
+
+
+/* RESPONSIVE STYLES *********************************************************/
+@media screen and (max-width: 1200px) {
+  .main-container {
+    padding: 0 20px;
+    margin: 30px 0 20px;
+  }
 }

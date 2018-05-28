@@ -168,7 +168,7 @@
 		<li>For an Amazon Elastic Cloud Registry, enter:
 			<ul>
 				<li><strong>Region: </strong>AWS region identifier where your registry it located</li>
-				<li><strong>Registry ID: </strong> (Optional) If you want to scan a registry in another account, enter the account ID here. If you do not specify an account, Smart Scan will use the default registry.</li>
+				<li><strong>Registry ID: </strong> (Optional) If you want to scan a registry in another account, enter the account ID here. If you do not specify an account, Smart Check will use the default registry.</li>
 				<li><strong>Use cross-account role: </strong>Select this option if you want to scan a registry in another account. </li>
 				<li><strong>Authentication method: </strong> Select either <strong>Instance Role</strong> or <strong>Access Key ID &amp; Secret</strong>. Specifying access keys is discouraged because the keys need to be updated periodically (for security reasons), which creates management overhead. </li>
 			</ul>		
@@ -192,7 +192,7 @@
                 <li>On the Create View page, in the <strong>Name</strong> field, enter a descriptive name for the view. This name will appear in the Views section of the Dashboard page and on the Views page.</li>
                 <li>In the <strong>Description</strong> field, enter an optional description of the view. This is useful if you need to capture more information than the Name field allows.</li>
                 <li>When <strong>Start scan when view is created </strong>, a scan starts as soon as you click <strong>Create View</strong>. </li>
-                <li>By default, when <strong>Scan on an on-going basis</strong> is selected, Smart Scan automatically performs a scan every day at midnight UTC.</li>
+                <li>By default, when <strong>Scan on an on-going basis</strong> is selected, Smart Check automatically performs a scan every day at midnight UTC.</li>
                 <li>In the <strong>Available Registries</strong> list, select one of the registries that you&rsquo;ve added to Smart Check and click Add. You can add more than one registry to the view.</li>
                 <li>Filters appear, allowing you to include or exclude images based on any segment of their fully qualified name in the form <code>&lt;repository&gt;/&lt;image&gt;:&lt;tag&gt;</code>. For example, the include filter <code>*latest*</code> would match <code>smartcheck/scan:latest</code> and <code>smartcheck/auth:latest</code>. The default include filter of <code>*</code> will select all images in the registry.</li>
                 <li>Click <strong>Create View</strong>.</li>

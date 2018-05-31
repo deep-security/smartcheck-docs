@@ -54,7 +54,7 @@
 					<h3><a name="dev-ops"></a>How does Smart Check fit into a DevOps pipeline?</h3>
 						<p>Deep Security Smart Check provides a valuable step in your continuous integration (CI) or continuous delivery (CD) pipeline.</p>
 						<p>For example, Jenkins® projects can automatically build, test, and then push Docker images to a Docker registry. Once pushed, the image may be instantly available to run in an orchestration environment. If malware or vulnerabilities exist in the image, then they become a risk when the image is run. Since images are intended to be immutable, the right time to scan the image is when it's first pushed to the registry.</p>
-						<p>That&rsquo;s where Deep Security Smart Check fits in – it can scan Docker images in any registry that implements the Docker Registry API. All Deep Security Smart Check operations are available through a documented collection of APIs to simplify integration into your CI/CD pipeline. Deep Security Smart Check APIs can be invoked automatically by your CI/CD system to start scans when an image is pushed to a Docker registry. Scan results are also available through the API.</p>
+						<p>That&rsquo;s where Deep Security Smart Check fits in – it can scan Docker images in any registry that implements the Docker Registry V2 API. All Deep Security Smart Check operations are available through a documented collection of APIs to simplify integration into your CI/CD pipeline. Deep Security Smart Check APIs can be invoked automatically by your CI/CD system to start scans when an image is pushed to a Docker registry. Scan results are also available through the API.</p>
 						<p>The Smart Check API includes a Webhook facility that allows CI/CD components to register to receive notifications of scan events, including &lsquo;scan-completed&rsquo;, allowing you to automate workflows. For example, a Docker image signing service could register to receive scan results and then use those results to decide whether a particular image should be digitally signed and promoted to a &ldquo;blessed&rdquo; repository that is available to your orchestration environment. You could also set a Webhook to call a receiver service that forwards scan results to a Slack channel or ServiceNow account.</p>
 						<p>Deep Security Smart Check also includes an administrator console that provides:</p>
 				<ul>
@@ -76,9 +76,9 @@
             <h3><a name="system-requirements"></a>System requirements</h3>
             <p>This initial release of Deep Security Smart Check requires:</p>
             <ul>
-                <li>Kubernetes 1.8.7</li>
-                <li>Helm/Tiller 2.8.1</li>
-                <li>Docker 17.06</li>
+                <li>Kubernetes 1.8.7 or greater</li>
+                <li>Helm/Tiller 2.8.1 or greater</li>
+                <li>Docker 17.06 or greater</li>
                 <li>Google Chrome to access the Smart Check administrator console. Other modern browsers may work with Smart Check but are not officially supported.</li>
             </ul>
         </section>
@@ -87,7 +87,7 @@
             <p>In this initial release, Deep Security Smart Check is supported on the Kubernetes platform and uses the Helm package manager for Kubernetes. You must have a running Kubernetes cluster in order to deploy Smart Check. For instructions on how to deploy Smart Check with Helm, see the Deep Security Smart Check readme: <a href="https://github.com/deep-security/smartcheck-helm" target="_blank" title="https://github.com/deep-security/smartcheck-helm" alt="https://github.com/deep-security/smartcheck-helm">https://github.com/deep-security/smartcheck-helm</a>. By default, the Helm deployment will retrieve the Smart Check Docker images from DockerHub: <a href="https://hub.docker.com/r/deepsecurity/" target="_blank" title="https://hub.docker.com/r/deepsecurity/" alt="https://hub.docker.com/r/deepsecurity/">https://hub.docker.com/r/deepsecurity/</a>.</p>
             <p>At the end of the install, you&rsquo;ll see commands that enable you to get the URL of the Smart Check administrator console and to get the initial administrator user name and password. The commands are also provided in the sections below.</p>
             <h3><a name="get-url"></a>Get the URL of the Smart Check administrator console</h3>
-            <p>To get the URL of the Smart Check admin console, configure kubectl with your cluster credentials and run these commands:</p>
+            <p>To get the URL of the Smart Check administrator console, configure kubectl with your cluster credentials and run these commands:</p>
             <p><code>$ export SERVICE_IP=$(kubectl get svc proxy –o jsonpath='{.status.loadBalancer.ingress[0].ip}')</code></p>
             <p><code>$ echo https://$SERVICE_IP:443</code></p>
             <h3><a name="get-default-user"></a>Get the initial administrator user name and password</h3>
@@ -143,7 +143,7 @@
             <h3><a name="registry"></a>Add or edit a registry</h3>
             <p>Before Smart Check can scan your images, it needs to know which registries contain the images that you want to scan. You can add one or more registries to Deep Security Smart Check.</p>
             <h4><a name="before-registry"></a>Before adding a registry</h4>
-            <p>When you add a registry, you will need to provide authentication credentials that Deep Security Smart Check will use to access your repository. Depending on the type of registry, you can provide a username and password or a JSON key file.</p>
+            <p>When you add a registry, you will need to provide authentication credentials that Deep Security Smart Check will use to access your repository. Depending on the type of registry, you can provide AWS credentials,  a username and password, or a JSON key file.</p>
             <p>If you are using Google Cloud Registry, create a service account and use its JSON key file. The service account must have at least the <strong>Storage Object Viewer</strong> role and both the <strong>Google Cloud Resource Manager API</strong> and <strong>Google Container Registry API</strong> must be enabled. Google provides <a href="https://cloud.google.com/container-registry/docs/advanced-authentication" target="_blank" title="Advanced Authentication Methods" alt="Advanced Authentication Methods">an overview</a> and <a href="https://support.google.com/cloud/answer/6158849#serviceaccounts" target="_blank" title="Service accounts" alt="Service accounts">detailed instructions</a> for creating service accounts.</p>
             <h4><a name="add-registry"></a>Add a registry</h4>
             <ol>
@@ -184,7 +184,7 @@
                 <li>Click <strong>Submit</strong>.</li>
             </ol>
             <h3><a name="create-view"></a>Create a view</h3>
-            <p>Deep Security Smart Check uses &ldquo;views&rdquo; to determine which images to scan in your registries. For example, you can configure a view that scans only the images in your registries that are tagged with the &ldquo;latest&rdquo; tag. When you run a scan from the Smart Check admin console, you run the scan against a view, not a registry. The default view configuration includes all images in the registry.</p>
+            <p>Deep Security Smart Check uses &ldquo;views&rdquo; to determine which images to scan in your registries. For example, you can configure a view that scans only the images in your registries that are tagged with the &ldquo;latest&rdquo; tag. When you run a scan from the Smart Check administrator console, you run the scan against a view, not a registry. The default view configuration includes all images in the registry.</p>
             <ol>
                 <li>Click<strong> ≡ </strong>in the upper-left corner of the Smart Check administrator console.</li>
                 <li>Click <strong>Views</strong>.</li>
@@ -205,7 +205,7 @@
             <ul>
                 <li>Smart Check automatically starts a scan at midnight UTC for all views that have been created with the<strong> Scan on an ongoing basis</strong> option selected.</li>
                 <li>You can manually start a scan by clicking the <strong>Scan Now</strong> button.</li>
-                <li>You can start a scan through the Smart Check API. You can access the API documentation from the menu in the Smart Check admin console.</li>
+                <li>You can start a scan through the Smart Check API. You can access the API documentation from the menu in the Smart Check administrator console.</li>
             </ul>
             <h4><a name="sc-manual-scan"></a>Manually start a scan</h4>
             <ol>
@@ -213,13 +213,12 @@
                 <li>Click <strong>Scan Now</strong>.</li>
                 <li>A confirmation message appears. Click <strong>OK</strong>.</li>
             </ol>
-            <p>To confirm that scans are running, you can check the scan history page, available from the menu in the Smart Check admin console. Running scans have a spinning icon next to them.</p>
-            <p>To confirm that scans are running, you can check the scan history page, available from the menu in the Smart Check admin console. Running scans have a spinning icon next to them.</p>
+            <p>To confirm that scans are running, you can check the Scans page, available from the menu in the Smart Check administrator console. Running scans have a spinning icon next to them.</p>
             <h3><a name="get-results"></a>See scan results</h3>
             <p>There are several ways to get scan results:</p>
             <ul>
                 <li>You can add a Webhook through the Smart Check API with a destination URL that will be called automatically when results are ready. See the API docs for details. Your Webhook receiver could, for example, process the scan result and forward a notification to Slack or ServiceNow if appropriate.</li>
-                <li>You can request the results directly through the Smart Check API. For details, refer to the API documentation, which is available from the menu in the Smart Check admin console.</li>
+                <li>You can request the results directly through the Smart Check API. For details, refer to the API documentation, which is available from the menu in the Smart Check administrator console.</li>
                 <li>You can check the scan results in the Smart Check administrator console:
                     <p>In the Views section of the Dashboard page or on the Views page, click the View. You&rsquo;ll see a summary that includes information about the latest scan, like the number of vulnerabilities and malware found.</p>
                     <p>To see specific information about an individual image, click the image to display its scan history. Click a scan to display information about it.</p>

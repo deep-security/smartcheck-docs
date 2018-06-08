@@ -6,7 +6,7 @@
     <title>Deep Security Smart Check | API Reference</title>
     <link rel="stylesheet" href="stylesheets/foundation.min.css" />
     <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="javascripts/jquery-2.1.4.min.js"></script>
     <!-- <script src="javascripts/foundation.js"></script> -->
     <script src="javascripts/spectacle.min.js"></script>
   </head>
@@ -222,6 +222,7 @@
           <a href="#definition-MalwareScanResult"> MalwareScanResult </a>
           <a href="#definition-VulnerabilityScanResult"> VulnerabilityScanResult </a>
           <a href="#definition-Vulnerability"> Vulnerability </a>
+          <a href="#definition-ViewsDashboard"> ViewsDashboard </a>
           <a href="#definition-Image"> Image </a>
           <a href="#definition-ViewRequest"> ViewRequest </a>
           <a href="#definition-View"> View </a>
@@ -36953,6 +36954,533 @@
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;namespaceName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;severity&quot;</span>: <span class="hljs-string">&quot;High&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="definition-ViewsDashboard" class="definition panel" data-traverse-target="definition-ViewsDashboard">
+            <h2 class="panel-title">
+              <a name="/definitions/ViewsDashboard"></a>ViewsDashboard: object
+              <!-- <span class="json-property-type"><span class="json-property-type">object</span>
+              <span class="json-property-range" title="Value limits"></span>
+              
+              
+              </span> -->
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="json-schema-properties">
+                  <dl>
+                    <dt data-property-name="content" class="has-description">
+                      <span class="json-property-name">content:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Metrics capturing information about the content of all views.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="registries" class="has-description">
+                            <span class="json-property-name">registries:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The number of registries referenced by all views.</p>
+                          </dd>
+                          <dt data-property-name="repositories" class="has-description">
+                            <span class="json-property-name">repositories:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The number of repositories with content in all views.</p>
+                          </dd>
+                          <dt data-property-name="images" class="has-description">
+                            <span class="json-property-name">images:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The number of images in all views.</p>
+                          </dd>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="scans" class="has-description">
+                      <span class="json-property-name">scans:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Metrics capturing information about the scan status of images in all views.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="pending" class="has-description">
+                            <span class="json-property-name">pending:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The number of images in all views that have not yet been scanned.</p>
+                          </dd>
+                          <dt data-property-name="ok" class="has-description">
+                            <span class="json-property-name">ok:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The number of images in all views that have been scanned and have had no findings.</p>
+                          </dd>
+                          <dt data-property-name="warnings" class="has-description">
+                            <span class="json-property-name">warnings:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The number of images in all views that have been scanned and have had findings.</p>
+                          </dd>
+                          <dt data-property-name="errors" class="has-description">
+                            <span class="json-property-name">errors:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The number of images in all views that have been scanned and have encountered errors during the scan.</p>
+                          </dd>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="findings">
+                      <span class="json-property-name">findings:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="scanners" class="has-description">
+                            <span class="json-property-name">scanners:</span>
+                            <span class="json-property-type">object</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>Metadata about the scanners that produced the results.</p>
+                          </dd>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-properties">
+                              <dl>
+                                <dt data-property-name="malware" class="has-description">
+                                  <span class="json-property-name">malware:</span>
+                                  <span class="json-property-type">object</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dd>
+                                  <p>Metadata for the malware scanner.</p>
+                                </dd>
+                                <dt class="json-inner-schema">
+                                  <section class="json-schema-properties">
+                                    <dl>
+                                      <dt data-property-name="status" class="has-description">
+                                        <span class="json-property-name">status:</span>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-enum" title="Possible values">
+                                          <span class="json-property-enum-item">ok</span>,
+                                          <span class="json-property-enum-item">unavailable</span>
+                                        </span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>Availability of the malware scanner.</p>
+                                      </dd>
+                                      <dt data-property-name="updated" class="has-description">
+                                        <span class="json-property-name">updated:</span>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-format">(date-time)</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The time that the malware pattern database was last updated.</p>
+                                      </dd>
+                                      <dt data-property-name="versions">
+                                        <span class="json-property-name">versions:</span>
+                                        <span class="json-property-type">object</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dt class="json-inner-schema">
+                                        <section class="json-schema-properties">
+                                          <dl>
+                                            <dt data-property-name="icrc" class="has-description">
+                                              <span class="json-property-name">icrc:</span>
+                                              <span class="json-property-type">string</span>
+                                              <span class="json-property-range" title="Value limits"></span>
+                                            </dt>
+                                            <dd>
+                                              <p>The ICRC pattern version.</p>
+                                            </dd>
+                                            <dt data-property-name="trendX" class="has-description">
+                                              <span class="json-property-name">trendX:</span>
+                                              <span class="json-property-type">string</span>
+                                              <span class="json-property-range" title="Value limits"></span>
+                                            </dt>
+                                            <dd>
+                                              <p>The TrendX pattern version.</p>
+                                            </dd>
+                                            <dt data-property-name="blacklist" class="has-description">
+                                              <span class="json-property-name">blacklist:</span>
+                                              <span class="json-property-type">string</span>
+                                              <span class="json-property-range" title="Value limits"></span>
+                                            </dt>
+                                            <dd>
+                                              <p>The malware blacklist pattern version.</p>
+                                            </dd>
+                                          </dl>
+                                        </section>
+                                      </dt>
+                                    </dl>
+                                  </section>
+                                </dt>
+                                <dt data-property-name="vulnerabilities" class="has-description">
+                                  <span class="json-property-name">vulnerabilities:</span>
+                                  <span class="json-property-type">object</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dd>
+                                  <p>Metadata for the vulnerability scanner.</p>
+                                </dd>
+                                <dt class="json-inner-schema">
+                                  <section class="json-schema-properties">
+                                    <dl>
+                                      <dt data-property-name="status" class="has-description">
+                                        <span class="json-property-name">status:</span>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-enum" title="Possible values">
+                                          <span class="json-property-enum-item">ok</span>,
+                                          <span class="json-property-enum-item">unavailable</span>
+                                        </span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>Availability of the vulnerability scanner.</p>
+                                      </dd>
+                                      <dt data-property-name="updated" class="has-description">
+                                        <span class="json-property-name">updated:</span>
+                                        <span class="json-property-type">string</span>
+                                        <span class="json-property-format">(date-time)</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The time that the vulnerabilities database was last updated.</p>
+                                      </dd>
+                                    </dl>
+                                  </section>
+                                </dt>
+                              </dl>
+                            </section>
+                          </dt>
+                          <dt data-property-name="malware" class="has-description">
+                            <span class="json-property-name">malware:</span>
+                            <span class="json-property-type">integer</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The number of malware items that were found. high:</p>
+                          </dd>
+                          <dt data-property-name="vulnerabilities" class="has-description">
+                            <span class="json-property-name">vulnerabilities:</span>
+                            <span class="json-property-type">object</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The number of vulnerabilities found by severity.</p>
+                          </dd>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-properties">
+                              <dl>
+                                <dt data-property-name="total" class="has-description">
+                                  <span class="json-property-name">total:</span>
+                                  <span class="json-property-type">object</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dd>
+                                  <p>The total number of vulnerabilities that were found by severity.</p>
+                                </dd>
+                                <dt class="json-inner-schema">
+                                  <section class="json-schema-properties">
+                                    <dl>
+                                      <dt data-property-name="defcon1" class="has-description">
+                                        <span class="json-property-name">defcon1:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of &quot;Defcon1&quot; vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="critical" class="has-description">
+                                        <span class="json-property-name">critical:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of critical vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="high" class="has-description">
+                                        <span class="json-property-name">high:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of high-severity vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="medium" class="has-description">
+                                        <span class="json-property-name">medium:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of medium-severity vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="low" class="has-description">
+                                        <span class="json-property-name">low:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of low-severity vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="negligible" class="has-description">
+                                        <span class="json-property-name">negligible:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of negligible vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="unknown" class="has-description">
+                                        <span class="json-property-name">unknown:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of vulnerabilities with unknown severity that were found.</p>
+                                      </dd>
+                                    </dl>
+                                  </section>
+                                </dt>
+                                <dt data-property-name="unresolved" class="has-description">
+                                  <span class="json-property-name">unresolved:</span>
+                                  <span class="json-property-type">object</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dd>
+                                  <p>The number of unresolved vulnerabilities that were found by severity. Unresolved vulnerabilities are vulnerabilities that were found in a layer and were not fixed by an update in a subsequent layer.</p>
+                                </dd>
+                                <dt class="json-inner-schema">
+                                  <section class="json-schema-properties">
+                                    <dl>
+                                      <dt data-property-name="defcon1" class="has-description">
+                                        <span class="json-property-name">defcon1:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of &quot;Defcon1&quot; vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="critical" class="has-description">
+                                        <span class="json-property-name">critical:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of critical vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="high" class="has-description">
+                                        <span class="json-property-name">high:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of high-severity vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="medium" class="has-description">
+                                        <span class="json-property-name">medium:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of medium-severity vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="low" class="has-description">
+                                        <span class="json-property-name">low:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of low-severity vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="negligible" class="has-description">
+                                        <span class="json-property-name">negligible:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of negligible vulnerabilities that were found.</p>
+                                      </dd>
+                                      <dt data-property-name="unknown" class="has-description">
+                                        <span class="json-property-name">unknown:</span>
+                                        <span class="json-property-type">integer</span>
+                                        <span class="json-property-range" title="Value limits"></span>
+                                      </dt>
+                                      <dd>
+                                        <p>The number of vulnerabilities with unknown severity that were found.</p>
+                                      </dd>
+                                    </dl>
+                                  </section>
+                                </dt>
+                              </dl>
+                            </section>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="history" class="has-description">
+                      <span class="json-property-name">history:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>Aggregate metrics over a period of time.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="1d" class="has-description">
+                            <span class="json-property-name">1d:</span>
+                            <span class="json-property-type">object</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>Metrics over the past 24 hours.</p>
+                          </dd>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-properties">
+                              <dl>
+                                <dt data-property-name="scans" class="has-description">
+                                  <span class="json-property-name">scans:</span>
+                                  <span class="json-property-type">integer</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dd>
+                                  <p>The number of scans performed on images in all views in the time period. Will be <code>-1</code> if there was an error calculating the value.</p>
+                                </dd>
+                              </dl>
+                            </section>
+                          </dt>
+                          <dt data-property-name="1w" class="has-description">
+                            <span class="json-property-name">1w:</span>
+                            <span class="json-property-type">object</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>Metrics over the past 7 days.</p>
+                          </dd>
+                          <dt class="json-inner-schema">
+                            <section class="json-schema-properties">
+                              <dl>
+                                <dt data-property-name="scans" class="has-description">
+                                  <span class="json-property-name">scans:</span>
+                                  <span class="json-property-type">integer</span>
+                                  <span class="json-property-range" title="Value limits"></span>
+                                </dt>
+                                <dd>
+                                  <p>The number of scans performed on images in all views in the time period. Will be <code>-1</code> if there was an error calculating the value.</p>
+                                </dd>
+                              </dl>
+                            </section>
+                          </dt>
+                        </dl>
+                      </section>
+                    </dt>
+                    <dt data-property-name="truncated" class="has-description">
+                      <span class="json-property-name">truncated:</span>
+                      <span class="json-property-type">boolean</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>If <code>true</code>, the metrics data was truncated and more scans have occurred (and possibly more vulnerabilities and malware have been found) than have been reported.</p>
+                    </dd>
+                  </dl>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <section>
+                  <h5>Example</h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;content&quot;</span>: {
+    <span class="hljs-attr">&quot;registries&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;repositories&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;images&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+  },
+  <span class="hljs-attr">&quot;scans&quot;</span>: {
+    <span class="hljs-attr">&quot;pending&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;ok&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;warnings&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;errors&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+  },
+  <span class="hljs-attr">&quot;findings&quot;</span>: {
+    <span class="hljs-attr">&quot;scanners&quot;</span>: {
+      <span class="hljs-attr">&quot;malware&quot;</span>: {
+        <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;2018-05-01T00:00:00Z&quot;</span>,
+        <span class="hljs-attr">&quot;versions&quot;</span>: {
+          <span class="hljs-attr">&quot;icrc&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;trendX&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;blacklist&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+        }
+      },
+      <span class="hljs-attr">&quot;vulnerabilities&quot;</span>: {
+        <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;2018-05-01T00:00:00Z&quot;</span>
+      }
+    },
+    <span class="hljs-attr">&quot;malware&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;vulnerabilities&quot;</span>: {
+      <span class="hljs-attr">&quot;total&quot;</span>: {
+        <span class="hljs-attr">&quot;defcon1&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;critical&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;high&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;medium&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;low&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;negligible&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;unknown&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+      },
+      <span class="hljs-attr">&quot;unresolved&quot;</span>: {
+        <span class="hljs-attr">&quot;defcon1&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;critical&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;high&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;medium&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;low&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;negligible&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;unknown&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+      }
+    }
+  },
+  <span class="hljs-attr">&quot;history&quot;</span>: {
+    <span class="hljs-attr">&quot;1d&quot;</span>: {
+      <span class="hljs-attr">&quot;scans&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+    },
+    <span class="hljs-attr">&quot;1w&quot;</span>: {
+      <span class="hljs-attr">&quot;scans&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+    }
+  },
+  <span class="hljs-attr">&quot;truncated&quot;</span>: <span class="hljs-string">&quot;boolean&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->

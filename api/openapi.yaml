@@ -1281,6 +1281,85 @@ definitions:
       - versionFormat
       - vulnerabilities
   Vulnerability: *ref_12
+  ViewsDashboard: &ref_45
+    type: object
+    properties:
+      content:
+        description: |
+          Metrics capturing information about the content of all views.
+        type: object
+        properties:
+          registries:
+            type: integer
+            description: |
+              The number of registries referenced by all views.
+          repositories:
+            type: integer
+            description: |
+              The number of repositories with content in all views.
+          images:
+            type: integer
+            description: |
+              The number of images in all views.
+      scans:
+        type: object
+        description: >
+          Metrics capturing information about the scan status of images in all
+          views.
+        properties:
+          pending:
+            type: integer
+            description: |
+              The number of images in all views that have not yet been scanned.
+          ok:
+            type: integer
+            description: >
+              The number of images in all views that have been scanned and have
+              had no findings.
+          warnings:
+            type: integer
+            description: >
+              The number of images in all views that have been scanned and have
+              had findings.
+          errors:
+            type: integer
+            description: >
+              The number of images in all views that have been scanned and have
+              encountered errors during the scan.
+      findings: *ref_9
+      history:
+        type: object
+        description: |
+          Aggregate metrics over a period of time.
+        properties:
+          1d:
+            type: object
+            description: |
+              Metrics over the past 24 hours.
+            properties:
+              scans:
+                type: integer
+                description: >
+                  The number of scans performed on images in all views in the
+                  time period. Will be `-1` if there was an error calculating
+                  the value.
+          1w:
+            type: object
+            description: |
+              Metrics over the past 7 days.
+            properties:
+              scans:
+                type: integer
+                description: >
+                  The number of scans performed on images in all views in the
+                  time period. Will be `-1` if there was an error calculating
+                  the value.
+      truncated:
+        type: boolean
+        description: >
+          If `true`, the metrics data was truncated and more scans have occurred
+          (and possibly more vulnerabilities and malware have been found) than
+          have been reported.
   Image: &ref_44
     type: object
     properties:
@@ -4310,3 +4389,42 @@ paths:
         '429': *ref_22
         '500': *ref_23
         '503': *ref_24
+  /views/dashboard:
+    x-security:
+      x-required-privileges:
+        - 'dashboards:describe'
+    description: |
+      Get view dashboard metrics.
+    tags:
+      - Views
+    produces:
+      - application/json
+    responses:
+      '200':
+        description: |
+          The response body contains the dashboard metrics.
+        headers:
+          X-Request-Id:
+            type: string
+            description: |
+              The request ID assigned to this request.
+          X-Api-Version:
+            type: string
+            description: |
+              The API version used in this request.
+          X-Api-Notice:
+            type: string
+            description: >
+              If present, this header will include important API information. We
+              will use this header as one way to notify you that a new API
+              version is available or that the API you are using is going to be
+              removed.
+        schema: *ref_45
+      '400': *ref_19
+      '401': *ref_20
+      '403': *ref_21
+      '404': *ref_35
+      '409': *ref_40
+      '429': *ref_22
+      '500': *ref_23
+      '503': *ref_24

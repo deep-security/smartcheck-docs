@@ -110,8 +110,7 @@
                     "example": "6552eebd-5172-411e-ac71-8c323e6ca0fe",
                     "description": "The user's role ID.\n"
                 }
-            },
-            "required": null
+            }
         },
         "User": {
             "type": "object",
@@ -2492,6 +2491,117 @@
                 "namespaceName",
                 "severity"
             ]
+        },
+        "RegistryScanRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "(optional) A descriptive name for the scan.\n",
+                    "example": "(optional) a descriptive string",
+                    "maxLength": 128
+                },
+                "source": {
+                    "type": "object",
+                    "properties": {
+                        "repository": {
+                            "type": "string",
+                            "description": "The repository name.\n",
+                            "example": "organization/project",
+                            "maxLength": 255
+                        },
+                        "tag": {
+                            "type": "string",
+                            "description": "The tag of the image to scan.\n",
+                            "example": "latest",
+                            "maxLength": 255
+                        }
+                    }
+                },
+                "webhooks": {
+                    "description": "(optional) A list of web hooks to call when events happen for the scan.\n",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "description": "(optional) A descriptive name for the web hook.\n",
+                                "example": "(optional) a descriptive string",
+                                "maxLength": 64
+                            },
+                            "hookURL": {
+                                "type": "string",
+                                "example": "https://target.example.com/",
+                                "maxLength": 255
+                            },
+                            "headers": {
+                                "description": "(optional) You can include your own headers in the web hook request. Use these to provide additional context or authentication information to your web hook receiver.\n",
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Authorization",
+                                            "maxLength": 128
+                                        },
+                                        "value": {
+                                            "type": "string",
+                                            "example": "Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6",
+                                            "maxLength": 255
+                                        }
+                                    },
+                                    "required": [
+                                        "name",
+                                        "value"
+                                    ]
+                                },
+                                "maxLength": 10
+                            },
+                            "secret": {
+                                "description": "(optional) If you provide a `secret` value, then events sent over HTTP will include an `X-Scan-Event-Signature` header that is the SHA-256 HMAC of the event body using your secret as the key.\n\n*This value is write-only: the API will not return the secret or show that it has been set.*\n",
+                                "type": "string",
+                                "format": "password",
+                                "maxLength": 64
+                            },
+                            "insecureSkipVerify": {
+                                "type": "boolean",
+                                "example": false,
+                                "description": "(optional, default: `false`) If `true`, the web hook will not verify TLS connections to the web hook URL. Use this only in controlled environments where you know that connections between the Deep Security Smart Check scanner and the hook URL are secured by other means.\n"
+                            },
+                            "rootCAs": {
+                                "type": "string",
+                                "example": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==",
+                                "description": "(optional, default: `null`) If present, the web hook will use the provided root CAs as the trusted root CAs for HTTPS web hook requests. The value should be a base-64 encoded list of PEM-encoded certificates. If not present, the web hook will use a set of built-in trusted root CAs.\nIf `insecureSkipVerify` is set to `true`, then the root CAs are not checked.\n",
+                                "maxLength": 32768
+                            },
+                            "active": {
+                                "type": "boolean",
+                                "example": true,
+                                "description": "(optional, default: `false`). If `true`, the web hook will be invoked whenever a matching event occurs.\n"
+                            },
+                            "events": {
+                                "type": "array",
+                                "description": "(optional, default: `[\"*\"]`) If present, this is a list of event types that will be checked before calling the web hook. If the event type matches one of the elements of the list, the web hook will be called. If the list is empty, *all* events will match.\n",
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "scan-requested",
+                                        "scan-started",
+                                        "scan-completed",
+                                        "*"
+                                    ]
+                                },
+                                "maxLength": 10
+                            }
+                        },
+                        "required": [
+                            "hookURL"
+                        ]
+                    }
+                }
+            }
         },
         "ViewsDashboard": {
             "type": "object",
@@ -6386,8 +6496,7 @@
                                     "example": "6552eebd-5172-411e-ac71-8c323e6ca0fe",
                                     "description": "The user's role ID.\n"
                                 }
-                            },
-                            "required": null
+                            }
                         }
                     },
                     {
@@ -7215,8 +7324,7 @@
                                     "example": "6552eebd-5172-411e-ac71-8c323e6ca0fe",
                                     "description": "The user's role ID.\n"
                                 }
-                            },
-                            "required": null
+                            }
                         }
                     },
                     {
@@ -11019,7 +11127,6 @@
                     "application/json"
                 ],
                 "produces": [
-                    "application/json",
                     "application/json"
                 ],
                 "parameters": [
@@ -17171,7 +17278,6 @@
         },
         "/license": {
             "get": {
-                "description": null,
                 "produces": [
                     "application/json"
                 ],
@@ -19554,6 +19660,1427 @@
                                 "type": "string",
                                 "description": "If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.\n"
                             }
+                        }
+                    },
+                    "400": {
+                        "description": "Something about your request didn't quite make sense. The error message should help you figure out what went wrong.\n",
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The request ID assigned to this request.\n"
+                            },
+                            "X-Api-Version": {
+                                "type": "string",
+                                "description": "The API version used in this request.\n"
+                            },
+                            "X-Api-Notice": {
+                                "type": "string",
+                                "description": "If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.\n"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong. To fix it, try ...",
+                                    "description": "The error message will explain what went wrong and will attempt to give some hints as to how to fix it.\n"
+                                },
+                                "fields": {
+                                    "description": "If present, the `fields` object will indicate which input fields had errors; the attribute name will be the name of the input field and the value will be an error message.\n",
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string",
+                                        "description": "An error message describing the error in the field identified by the property name."
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    },
+                    "401": {
+                        "description": "Did you forget to include a session token in your request? You need to include\n```\nAuthorization: Bearer {token}\n```\nin all requests. You can get a token from the `POST /sessions` API.\n",
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The request ID assigned to this request.\n"
+                            },
+                            "X-Api-Version": {
+                                "type": "string",
+                                "description": "The API version used in this request.\n"
+                            },
+                            "X-Api-Notice": {
+                                "type": "string",
+                                "description": "If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.\n"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong. To fix it, try ...",
+                                    "description": "The error message will explain what went wrong and will attempt to give some hints as to how to fix it.\n"
+                                },
+                                "fields": {
+                                    "description": "If present, the `fields` object will indicate which input fields had errors; the attribute name will be the name of the input field and the value will be an error message.\n",
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string",
+                                        "description": "An error message describing the error in the field identified by the property name."
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    },
+                    "403": {
+                        "description": "You tried to do something that you're not allowed to do, you naughty scamp. Check your privileges to see what you're actually allowed to do. This could also mean that your token has expired.\n",
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The request ID assigned to this request.\n"
+                            },
+                            "X-Api-Version": {
+                                "type": "string",
+                                "description": "The API version used in this request.\n"
+                            },
+                            "X-Api-Notice": {
+                                "type": "string",
+                                "description": "If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.\n"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong. To fix it, try ...",
+                                    "description": "The error message will explain what went wrong and will attempt to give some hints as to how to fix it.\n"
+                                },
+                                "fields": {
+                                    "description": "If present, the `fields` object will indicate which input fields had errors; the attribute name will be the name of the input field and the value will be an error message.\n",
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string",
+                                        "description": "An error message describing the error in the field identified by the property name."
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "The resource you were looking for doesn't exist.\n",
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The request ID assigned to this request.\n"
+                            },
+                            "X-Api-Version": {
+                                "type": "string",
+                                "description": "The API version used in this request.\n"
+                            },
+                            "X-Api-Notice": {
+                                "type": "string",
+                                "description": "If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.\n"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong. To fix it, try ...",
+                                    "description": "The error message will explain what went wrong and will attempt to give some hints as to how to fix it.\n"
+                                },
+                                "fields": {
+                                    "description": "If present, the `fields` object will indicate which input fields had errors; the attribute name will be the name of the input field and the value will be an error message.\n",
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string",
+                                        "description": "An error message describing the error in the field identified by the property name."
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    },
+                    "409": {
+                        "description": "The preconditions in the request you made could not be met. Check the `message` string in the response for help troubleshooting the problem.\n",
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The request ID assigned to this request.\n"
+                            },
+                            "X-Api-Version": {
+                                "type": "string",
+                                "description": "The API version used in this request.\n"
+                            },
+                            "X-Api-Notice": {
+                                "type": "string",
+                                "description": "If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.\n"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong. To fix it, try ...",
+                                    "description": "The error message will explain what went wrong and will attempt to give some hints as to how to fix it.\n"
+                                },
+                                "fields": {
+                                    "description": "If present, the `fields` object will indicate which input fields had errors; the attribute name will be the name of the input field and the value will be an error message.\n",
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string",
+                                        "description": "An error message describing the error in the field identified by the property name."
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    },
+                    "429": {
+                        "description": "You have made too many requests too quickly. Check the `Retry-After` header for an indication of when you might be able to try again.\n",
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The request ID assigned to this request.\n"
+                            },
+                            "X-Api-Version": {
+                                "type": "string",
+                                "description": "The API version used in this request.\n"
+                            },
+                            "X-Api-Notice": {
+                                "type": "string",
+                                "description": "If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.\n"
+                            },
+                            "Retry-After": {
+                                "description": "The amount of time (in seconds) you should wait before trying this request again.\n",
+                                "type": "integer"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong. To fix it, try ...",
+                                    "description": "The error message will explain what went wrong and will attempt to give some hints as to how to fix it.\n"
+                                },
+                                "fields": {
+                                    "description": "If present, the `fields` object will indicate which input fields had errors; the attribute name will be the name of the input field and the value will be an error message.\n",
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string",
+                                        "description": "An error message describing the error in the field identified by the property name."
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "Something has gone terribly wrong. Sorry! The error message may help you figure out what went wrong, but it's unlikely that you'll be able to do anything about it unless you're the server administrator. It's possible that trying again will help, but it's more likely that you're out of luck for the moment.\n",
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The request ID assigned to this request.\n"
+                            },
+                            "X-Api-Version": {
+                                "type": "string",
+                                "description": "The API version used in this request.\n"
+                            },
+                            "X-Api-Notice": {
+                                "type": "string",
+                                "description": "If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.\n"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong. To fix it, try ...",
+                                    "description": "The error message will explain what went wrong and will attempt to give some hints as to how to fix it.\n"
+                                },
+                                "fields": {
+                                    "description": "If present, the `fields` object will indicate which input fields had errors; the attribute name will be the name of the input field and the value will be an error message.\n",
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string",
+                                        "description": "An error message describing the error in the field identified by the property name."
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    },
+                    "503": {
+                        "description": "The service is temporarily unavailable, likely due to maintenance. It should be available soon, check the `Retry-After` header for an indication of when you might be able to try again.\n",
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The request ID assigned to this request.\n"
+                            },
+                            "X-Api-Version": {
+                                "type": "string",
+                                "description": "The API version used in this request.\n"
+                            },
+                            "X-Api-Notice": {
+                                "type": "string",
+                                "description": "If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.\n"
+                            },
+                            "Retry-After": {
+                                "description": "The amount of time (in seconds) you should wait before trying this request again.\n",
+                                "type": "integer"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong. To fix it, try ...",
+                                    "description": "The error message will explain what went wrong and will attempt to give some hints as to how to fix it.\n"
+                                },
+                                "fields": {
+                                    "description": "If present, the `fields` object will indicate which input fields had errors; the attribute name will be the name of the input field and the value will be an error message.\n",
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string",
+                                        "description": "An error message describing the error in the field identified by the property name."
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/registries/{id}/scans": {
+            "post": {
+                "x-security": {
+                    "x-required-privileges": [
+                        "scans:create"
+                    ]
+                },
+                "description": "Create a scan using stored registry details.\n",
+                "tags": [
+                    "Registries"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "request",
+                        "in": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "(optional) A descriptive name for the scan.\n",
+                                    "example": "(optional) a descriptive string",
+                                    "maxLength": 128
+                                },
+                                "source": {
+                                    "type": "object",
+                                    "properties": {
+                                        "repository": {
+                                            "type": "string",
+                                            "description": "The repository name.\n",
+                                            "example": "organization/project",
+                                            "maxLength": 255
+                                        },
+                                        "tag": {
+                                            "type": "string",
+                                            "description": "The tag of the image to scan.\n",
+                                            "example": "latest",
+                                            "maxLength": 255
+                                        }
+                                    }
+                                },
+                                "webhooks": {
+                                    "description": "(optional) A list of web hooks to call when events happen for the scan.\n",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string",
+                                                "description": "(optional) A descriptive name for the web hook.\n",
+                                                "example": "(optional) a descriptive string",
+                                                "maxLength": 64
+                                            },
+                                            "hookURL": {
+                                                "type": "string",
+                                                "example": "https://target.example.com/",
+                                                "maxLength": 255
+                                            },
+                                            "headers": {
+                                                "description": "(optional) You can include your own headers in the web hook request. Use these to provide additional context or authentication information to your web hook receiver.\n",
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Authorization",
+                                                            "maxLength": 128
+                                                        },
+                                                        "value": {
+                                                            "type": "string",
+                                                            "example": "Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6",
+                                                            "maxLength": 255
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "name",
+                                                        "value"
+                                                    ]
+                                                },
+                                                "maxLength": 10
+                                            },
+                                            "secret": {
+                                                "description": "(optional) If you provide a `secret` value, then events sent over HTTP will include an `X-Scan-Event-Signature` header that is the SHA-256 HMAC of the event body using your secret as the key.\n\n*This value is write-only: the API will not return the secret or show that it has been set.*\n",
+                                                "type": "string",
+                                                "format": "password",
+                                                "maxLength": 64
+                                            },
+                                            "insecureSkipVerify": {
+                                                "type": "boolean",
+                                                "example": false,
+                                                "description": "(optional, default: `false`) If `true`, the web hook will not verify TLS connections to the web hook URL. Use this only in controlled environments where you know that connections between the Deep Security Smart Check scanner and the hook URL are secured by other means.\n"
+                                            },
+                                            "rootCAs": {
+                                                "type": "string",
+                                                "example": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==",
+                                                "description": "(optional, default: `null`) If present, the web hook will use the provided root CAs as the trusted root CAs for HTTPS web hook requests. The value should be a base-64 encoded list of PEM-encoded certificates. If not present, the web hook will use a set of built-in trusted root CAs.\nIf `insecureSkipVerify` is set to `true`, then the root CAs are not checked.\n",
+                                                "maxLength": 32768
+                                            },
+                                            "active": {
+                                                "type": "boolean",
+                                                "example": true,
+                                                "description": "(optional, default: `false`). If `true`, the web hook will be invoked whenever a matching event occurs.\n"
+                                            },
+                                            "events": {
+                                                "type": "array",
+                                                "description": "(optional, default: `[\"*\"]`) If present, this is a list of event types that will be checked before calling the web hook. If the event type matches one of the elements of the list, the web hook will be called. If the list is empty, *all* events will match.\n",
+                                                "items": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "scan-requested",
+                                                        "scan-started",
+                                                        "scan-completed",
+                                                        "*"
+                                                    ]
+                                                },
+                                                "maxLength": 10
+                                            }
+                                        },
+                                        "required": [
+                                            "hookURL"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "name": "dryrun",
+                        "in": "query",
+                        "type": "boolean",
+                        "default": false,
+                        "description": "Use the `dryrun=true` query parameter to indicate that the request should only be tested for validity and should not actually create a record. The response code will indicate whether the request was OK (`200 OK`) or whether there was a problem in the request.\n"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The response body contains the scan details. This response will only be returned if the `dryrun=true` query parameter was sent.\n",
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The request ID assigned to this request.\n"
+                            },
+                            "X-Api-Version": {
+                                "type": "string",
+                                "description": "The API version used in this request.\n"
+                            },
+                            "X-Api-Notice": {
+                                "type": "string",
+                                "description": "If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.\n"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "description": "The unique ID assigned to this scan.\n"
+                                },
+                                "href": {
+                                    "type": "string",
+                                    "example": "https://scanner.example.com/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff",
+                                    "description": "The URL to the scan resource.\n"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "If you provided a name for the scan, it will be returned here.\n",
+                                    "maxLength": 128
+                                },
+                                "source": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "docker"
+                                            ]
+                                        },
+                                        "registry": {
+                                            "type": "string",
+                                            "description": "(for scan type `docker` only) The registry hostname or IP address.\n",
+                                            "example": "registry.example.com",
+                                            "maxLength": 255
+                                        },
+                                        "repository": {
+                                            "type": "string",
+                                            "description": "(for scan type `docker` only) The repository name.\n",
+                                            "example": "organization/project",
+                                            "maxLength": 255
+                                        },
+                                        "tag": {
+                                            "type": "string",
+                                            "description": "(for scan type `docker` only) The tag of the image to scan.\n",
+                                            "example": "latest",
+                                            "maxLength": 255
+                                        },
+                                        "insecureSkipVerify": {
+                                            "type": "boolean",
+                                            "example": false,
+                                            "description": "(optional, default: `false`) If `true`, the scan will not verify TLS connections to the source URL. Use this only in controlled environments where you know that connections between the Deep Security Smart Check scanner and the source are secured by other means.\n"
+                                        },
+                                        "rootCAs": {
+                                            "type": "string",
+                                            "example": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==",
+                                            "description": "(optional, default: `null`) If present, the web hook will use the provided root CAs as the trusted root CAs for HTTPS web hook requests. The value should be a base-64 encoded list of PEM-encoded certificates. If not present, the web hook will use a set of built-in trusted root CAs.\nIf `insecureSkipVerify` is set to `true`, then the root CAs are not checked.\n",
+                                            "maxLength": 32768
+                                        }
+                                    },
+                                    "required": [
+                                        "type"
+                                    ]
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "pending",
+                                        "in-progress",
+                                        "completed-with-findings",
+                                        "completed-no-findings",
+                                        "failed"
+                                    ]
+                                },
+                                "details": {
+                                    "type": "object",
+                                    "properties": {
+                                        "detail": {
+                                            "type": "string",
+                                            "example": "More details about the scan status",
+                                            "description": "(optional) More details about the scan status.\n"
+                                        },
+                                        "requested": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2018-05-01T00:00:00Z",
+                                            "description": "The time that the scan was requested.\n"
+                                        },
+                                        "started": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2018-05-01T00:00:00Z",
+                                            "description": "The time that the scan started. This value will not be present if the scan has not yet started.\n"
+                                        },
+                                        "updated": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2018-05-01T00:00:00Z",
+                                            "description": "The time that the scan was last updated. This value will not be present if the scan has not yet started.\n"
+                                        },
+                                        "completed": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2018-05-01T00:00:00Z",
+                                            "description": "The time that the scan completed. This value will not be present if the scan has not yet completed.\n"
+                                        },
+                                        "digest": {
+                                            "type": "string",
+                                            "example": "sha256:43ea500473edb96e079fe23aba62d60e09c11d4c4714ca284d50b80e064c05e3",
+                                            "description": "The image digest for the scanned image. This value will only be present for Docker scans.\n"
+                                        },
+                                        "os": {
+                                            "type": "string",
+                                            "example": "linux",
+                                            "description": "The target operating system for the scanned image. This value will only be present for Docker scans.\n"
+                                        },
+                                        "architecture": {
+                                            "type": "string",
+                                            "example": "amd64",
+                                            "description": "The target architecture for the scanned image. This value will only be present for Docker scans.\n"
+                                        },
+                                        "labels": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            },
+                                            "description": "The labels associated with the scanned image. This value will only be present for Docker scans.",
+                                            "example": {
+                                                "key": "value"
+                                            }
+                                        },
+                                        "results": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467",
+                                                        "description": "A layer identifier. For scans of type `docker`, this will be the layer's `digest` value. This attribute will not be present for scans of type `http`.\n"
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2018-05-01T00:00:00Z",
+                                                        "description": "For scans of Docker images, this attribute will show the time at which the layer was created.\n"
+                                                    },
+                                                    "createdBy": {
+                                                        "type": "string",
+                                                        "example": "/bin/sh -c #(nop) ADD file:5d127078b2f213dbbf08ca35dafd027011606887a655f641024b14d93ee0de2f in /run-httpd.sh",
+                                                        "description": "For scans of Docker images, this attribute will show the Docker daemon command that ran to create this layer. This is not an exact match to the `Dockerfile` line, but will help to provide better context of the results.\n"
+                                                    },
+                                                    "malware": {
+                                                        "type": "string",
+                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#listScanLayerMalware\">listScanLayerMalware</a>.\n"
+                                                    },
+                                                    "vulnerabilities": {
+                                                        "type": "string",
+                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#listScanLayerVulnerabilities\">listScanLayerVulnerabilities</a>.\n"
+                                                    },
+                                                    "findings": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "scanners": {
+                                                                "type": "object",
+                                                                "description": "Metadata about the scanners that produced the results.\n",
+                                                                "properties": {
+                                                                    "malware": {
+                                                                        "description": "Metadata for the malware scanner.\n",
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "status": {
+                                                                                "description": "Availability of the malware scanner.\n",
+                                                                                "type": "string",
+                                                                                "enum": [
+                                                                                    "ok",
+                                                                                    "unavailable"
+                                                                                ]
+                                                                            },
+                                                                            "updated": {
+                                                                                "description": "The time that the malware pattern database was last updated.\n",
+                                                                                "type": "string",
+                                                                                "format": "date-time",
+                                                                                "example": "2018-05-01T00:00:00Z"
+                                                                            },
+                                                                            "versions": {
+                                                                                "type": "object",
+                                                                                "properties": {
+                                                                                    "icrc": {
+                                                                                        "type": "string",
+                                                                                        "description": "The ICRC pattern version.\n"
+                                                                                    },
+                                                                                    "trendX": {
+                                                                                        "type": "string",
+                                                                                        "description": "The TrendX pattern version.\n"
+                                                                                    },
+                                                                                    "blacklist": {
+                                                                                        "type": "string",
+                                                                                        "description": "The malware blacklist pattern version.\n"
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "vulnerabilities": {
+                                                                        "description": "Metadata for the vulnerability scanner.\n",
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "status": {
+                                                                                "description": "Availability of the vulnerability scanner.\n",
+                                                                                "type": "string",
+                                                                                "enum": [
+                                                                                    "ok",
+                                                                                    "unavailable"
+                                                                                ]
+                                                                            },
+                                                                            "updated": {
+                                                                                "description": "The time that the vulnerabilities database was last updated.\n",
+                                                                                "type": "string",
+                                                                                "format": "date-time",
+                                                                                "example": "2018-05-01T00:00:00Z"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            "malware": {
+                                                                "type": "integer",
+                                                                "description": "The number of malware items that were found.\nhigh:\n"
+                                                            },
+                                                            "vulnerabilities": {
+                                                                "type": "object",
+                                                                "description": "The number of vulnerabilities found by severity.\n",
+                                                                "properties": {
+                                                                    "total": {
+                                                                        "type": "object",
+                                                                        "description": "The total number of vulnerabilities that were found by severity.\n",
+                                                                        "properties": {
+                                                                            "defcon1": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of \"Defcon1\" vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "critical": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of critical vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "high": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of high-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "medium": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of medium-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "low": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of low-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "negligible": {
+                                                                                "description": "The number of negligible vulnerabilities that were found.\n",
+                                                                                "type": "integer"
+                                                                            },
+                                                                            "unknown": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of vulnerabilities with unknown severity that were found.\n"
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "unresolved": {
+                                                                        "type": "object",
+                                                                        "description": "The number of unresolved vulnerabilities that were found by severity. Unresolved vulnerabilities are vulnerabilities that were found in a layer and were not fixed by an update in a subsequent layer.\n",
+                                                                        "properties": {
+                                                                            "defcon1": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of \"Defcon1\" vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "critical": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of critical vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "high": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of high-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "medium": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of medium-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "low": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of low-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "negligible": {
+                                                                                "description": "The number of negligible vulnerabilities that were found.\n",
+                                                                                "type": "integer"
+                                                                            },
+                                                                            "unknown": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of vulnerabilities with unknown severity that were found.\n"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "requested",
+                                        "results"
+                                    ]
+                                },
+                                "findings": {
+                                    "type": "object",
+                                    "properties": {
+                                        "scanners": {
+                                            "type": "object",
+                                            "description": "Metadata about the scanners that produced the results.\n",
+                                            "properties": {
+                                                "malware": {
+                                                    "description": "Metadata for the malware scanner.\n",
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "status": {
+                                                            "description": "Availability of the malware scanner.\n",
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "ok",
+                                                                "unavailable"
+                                                            ]
+                                                        },
+                                                        "updated": {
+                                                            "description": "The time that the malware pattern database was last updated.\n",
+                                                            "type": "string",
+                                                            "format": "date-time",
+                                                            "example": "2018-05-01T00:00:00Z"
+                                                        },
+                                                        "versions": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "icrc": {
+                                                                    "type": "string",
+                                                                    "description": "The ICRC pattern version.\n"
+                                                                },
+                                                                "trendX": {
+                                                                    "type": "string",
+                                                                    "description": "The TrendX pattern version.\n"
+                                                                },
+                                                                "blacklist": {
+                                                                    "type": "string",
+                                                                    "description": "The malware blacklist pattern version.\n"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "vulnerabilities": {
+                                                    "description": "Metadata for the vulnerability scanner.\n",
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "status": {
+                                                            "description": "Availability of the vulnerability scanner.\n",
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "ok",
+                                                                "unavailable"
+                                                            ]
+                                                        },
+                                                        "updated": {
+                                                            "description": "The time that the vulnerabilities database was last updated.\n",
+                                                            "type": "string",
+                                                            "format": "date-time",
+                                                            "example": "2018-05-01T00:00:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "malware": {
+                                            "type": "integer",
+                                            "description": "The number of malware items that were found.\nhigh:\n"
+                                        },
+                                        "vulnerabilities": {
+                                            "type": "object",
+                                            "description": "The number of vulnerabilities found by severity.\n",
+                                            "properties": {
+                                                "total": {
+                                                    "type": "object",
+                                                    "description": "The total number of vulnerabilities that were found by severity.\n",
+                                                    "properties": {
+                                                        "defcon1": {
+                                                            "type": "integer",
+                                                            "description": "The number of \"Defcon1\" vulnerabilities that were found.\n"
+                                                        },
+                                                        "critical": {
+                                                            "type": "integer",
+                                                            "description": "The number of critical vulnerabilities that were found.\n"
+                                                        },
+                                                        "high": {
+                                                            "type": "integer",
+                                                            "description": "The number of high-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "medium": {
+                                                            "type": "integer",
+                                                            "description": "The number of medium-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "low": {
+                                                            "type": "integer",
+                                                            "description": "The number of low-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "negligible": {
+                                                            "description": "The number of negligible vulnerabilities that were found.\n",
+                                                            "type": "integer"
+                                                        },
+                                                        "unknown": {
+                                                            "type": "integer",
+                                                            "description": "The number of vulnerabilities with unknown severity that were found.\n"
+                                                        }
+                                                    }
+                                                },
+                                                "unresolved": {
+                                                    "type": "object",
+                                                    "description": "The number of unresolved vulnerabilities that were found by severity. Unresolved vulnerabilities are vulnerabilities that were found in a layer and were not fixed by an update in a subsequent layer.\n",
+                                                    "properties": {
+                                                        "defcon1": {
+                                                            "type": "integer",
+                                                            "description": "The number of \"Defcon1\" vulnerabilities that were found.\n"
+                                                        },
+                                                        "critical": {
+                                                            "type": "integer",
+                                                            "description": "The number of critical vulnerabilities that were found.\n"
+                                                        },
+                                                        "high": {
+                                                            "type": "integer",
+                                                            "description": "The number of high-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "medium": {
+                                                            "type": "integer",
+                                                            "description": "The number of medium-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "low": {
+                                                            "type": "integer",
+                                                            "description": "The number of low-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "negligible": {
+                                                            "description": "The number of negligible vulnerabilities that were found.\n",
+                                                            "type": "integer"
+                                                        },
+                                                        "unknown": {
+                                                            "type": "integer",
+                                                            "description": "The number of vulnerabilities with unknown severity that were found.\n"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "required": [
+                                "id",
+                                "href",
+                                "name",
+                                "status"
+                            ]
+                        }
+                    },
+                    "201": {
+                        "description": "The response body contains the scan details.\n",
+                        "headers": {
+                            "X-Request-Id": {
+                                "type": "string",
+                                "description": "The request ID assigned to this request.\n"
+                            },
+                            "X-Api-Version": {
+                                "type": "string",
+                                "description": "The API version used in this request.\n"
+                            },
+                            "X-Api-Notice": {
+                                "type": "string",
+                                "description": "If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.\n"
+                            }
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "description": "The unique ID assigned to this scan.\n"
+                                },
+                                "href": {
+                                    "type": "string",
+                                    "example": "https://scanner.example.com/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff",
+                                    "description": "The URL to the scan resource.\n"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "If you provided a name for the scan, it will be returned here.\n",
+                                    "maxLength": 128
+                                },
+                                "source": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "docker"
+                                            ]
+                                        },
+                                        "registry": {
+                                            "type": "string",
+                                            "description": "(for scan type `docker` only) The registry hostname or IP address.\n",
+                                            "example": "registry.example.com",
+                                            "maxLength": 255
+                                        },
+                                        "repository": {
+                                            "type": "string",
+                                            "description": "(for scan type `docker` only) The repository name.\n",
+                                            "example": "organization/project",
+                                            "maxLength": 255
+                                        },
+                                        "tag": {
+                                            "type": "string",
+                                            "description": "(for scan type `docker` only) The tag of the image to scan.\n",
+                                            "example": "latest",
+                                            "maxLength": 255
+                                        },
+                                        "insecureSkipVerify": {
+                                            "type": "boolean",
+                                            "example": false,
+                                            "description": "(optional, default: `false`) If `true`, the scan will not verify TLS connections to the source URL. Use this only in controlled environments where you know that connections between the Deep Security Smart Check scanner and the source are secured by other means.\n"
+                                        },
+                                        "rootCAs": {
+                                            "type": "string",
+                                            "example": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==",
+                                            "description": "(optional, default: `null`) If present, the web hook will use the provided root CAs as the trusted root CAs for HTTPS web hook requests. The value should be a base-64 encoded list of PEM-encoded certificates. If not present, the web hook will use a set of built-in trusted root CAs.\nIf `insecureSkipVerify` is set to `true`, then the root CAs are not checked.\n",
+                                            "maxLength": 32768
+                                        }
+                                    },
+                                    "required": [
+                                        "type"
+                                    ]
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "pending",
+                                        "in-progress",
+                                        "completed-with-findings",
+                                        "completed-no-findings",
+                                        "failed"
+                                    ]
+                                },
+                                "details": {
+                                    "type": "object",
+                                    "properties": {
+                                        "detail": {
+                                            "type": "string",
+                                            "example": "More details about the scan status",
+                                            "description": "(optional) More details about the scan status.\n"
+                                        },
+                                        "requested": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2018-05-01T00:00:00Z",
+                                            "description": "The time that the scan was requested.\n"
+                                        },
+                                        "started": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2018-05-01T00:00:00Z",
+                                            "description": "The time that the scan started. This value will not be present if the scan has not yet started.\n"
+                                        },
+                                        "updated": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2018-05-01T00:00:00Z",
+                                            "description": "The time that the scan was last updated. This value will not be present if the scan has not yet started.\n"
+                                        },
+                                        "completed": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2018-05-01T00:00:00Z",
+                                            "description": "The time that the scan completed. This value will not be present if the scan has not yet completed.\n"
+                                        },
+                                        "digest": {
+                                            "type": "string",
+                                            "example": "sha256:43ea500473edb96e079fe23aba62d60e09c11d4c4714ca284d50b80e064c05e3",
+                                            "description": "The image digest for the scanned image. This value will only be present for Docker scans.\n"
+                                        },
+                                        "os": {
+                                            "type": "string",
+                                            "example": "linux",
+                                            "description": "The target operating system for the scanned image. This value will only be present for Docker scans.\n"
+                                        },
+                                        "architecture": {
+                                            "type": "string",
+                                            "example": "amd64",
+                                            "description": "The target architecture for the scanned image. This value will only be present for Docker scans.\n"
+                                        },
+                                        "labels": {
+                                            "type": "object",
+                                            "additionalProperties": {
+                                                "type": "string"
+                                            },
+                                            "description": "The labels associated with the scanned image. This value will only be present for Docker scans.",
+                                            "example": {
+                                                "key": "value"
+                                            }
+                                        },
+                                        "results": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467",
+                                                        "description": "A layer identifier. For scans of type `docker`, this will be the layer's `digest` value. This attribute will not be present for scans of type `http`.\n"
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2018-05-01T00:00:00Z",
+                                                        "description": "For scans of Docker images, this attribute will show the time at which the layer was created.\n"
+                                                    },
+                                                    "createdBy": {
+                                                        "type": "string",
+                                                        "example": "/bin/sh -c #(nop) ADD file:5d127078b2f213dbbf08ca35dafd027011606887a655f641024b14d93ee0de2f in /run-httpd.sh",
+                                                        "description": "For scans of Docker images, this attribute will show the Docker daemon command that ran to create this layer. This is not an exact match to the `Dockerfile` line, but will help to provide better context of the results.\n"
+                                                    },
+                                                    "malware": {
+                                                        "type": "string",
+                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#listScanLayerMalware\">listScanLayerMalware</a>.\n"
+                                                    },
+                                                    "vulnerabilities": {
+                                                        "type": "string",
+                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#listScanLayerVulnerabilities\">listScanLayerVulnerabilities</a>.\n"
+                                                    },
+                                                    "findings": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "scanners": {
+                                                                "type": "object",
+                                                                "description": "Metadata about the scanners that produced the results.\n",
+                                                                "properties": {
+                                                                    "malware": {
+                                                                        "description": "Metadata for the malware scanner.\n",
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "status": {
+                                                                                "description": "Availability of the malware scanner.\n",
+                                                                                "type": "string",
+                                                                                "enum": [
+                                                                                    "ok",
+                                                                                    "unavailable"
+                                                                                ]
+                                                                            },
+                                                                            "updated": {
+                                                                                "description": "The time that the malware pattern database was last updated.\n",
+                                                                                "type": "string",
+                                                                                "format": "date-time",
+                                                                                "example": "2018-05-01T00:00:00Z"
+                                                                            },
+                                                                            "versions": {
+                                                                                "type": "object",
+                                                                                "properties": {
+                                                                                    "icrc": {
+                                                                                        "type": "string",
+                                                                                        "description": "The ICRC pattern version.\n"
+                                                                                    },
+                                                                                    "trendX": {
+                                                                                        "type": "string",
+                                                                                        "description": "The TrendX pattern version.\n"
+                                                                                    },
+                                                                                    "blacklist": {
+                                                                                        "type": "string",
+                                                                                        "description": "The malware blacklist pattern version.\n"
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "vulnerabilities": {
+                                                                        "description": "Metadata for the vulnerability scanner.\n",
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                            "status": {
+                                                                                "description": "Availability of the vulnerability scanner.\n",
+                                                                                "type": "string",
+                                                                                "enum": [
+                                                                                    "ok",
+                                                                                    "unavailable"
+                                                                                ]
+                                                                            },
+                                                                            "updated": {
+                                                                                "description": "The time that the vulnerabilities database was last updated.\n",
+                                                                                "type": "string",
+                                                                                "format": "date-time",
+                                                                                "example": "2018-05-01T00:00:00Z"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            "malware": {
+                                                                "type": "integer",
+                                                                "description": "The number of malware items that were found.\nhigh:\n"
+                                                            },
+                                                            "vulnerabilities": {
+                                                                "type": "object",
+                                                                "description": "The number of vulnerabilities found by severity.\n",
+                                                                "properties": {
+                                                                    "total": {
+                                                                        "type": "object",
+                                                                        "description": "The total number of vulnerabilities that were found by severity.\n",
+                                                                        "properties": {
+                                                                            "defcon1": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of \"Defcon1\" vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "critical": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of critical vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "high": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of high-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "medium": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of medium-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "low": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of low-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "negligible": {
+                                                                                "description": "The number of negligible vulnerabilities that were found.\n",
+                                                                                "type": "integer"
+                                                                            },
+                                                                            "unknown": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of vulnerabilities with unknown severity that were found.\n"
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "unresolved": {
+                                                                        "type": "object",
+                                                                        "description": "The number of unresolved vulnerabilities that were found by severity. Unresolved vulnerabilities are vulnerabilities that were found in a layer and were not fixed by an update in a subsequent layer.\n",
+                                                                        "properties": {
+                                                                            "defcon1": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of \"Defcon1\" vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "critical": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of critical vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "high": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of high-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "medium": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of medium-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "low": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of low-severity vulnerabilities that were found.\n"
+                                                                            },
+                                                                            "negligible": {
+                                                                                "description": "The number of negligible vulnerabilities that were found.\n",
+                                                                                "type": "integer"
+                                                                            },
+                                                                            "unknown": {
+                                                                                "type": "integer",
+                                                                                "description": "The number of vulnerabilities with unknown severity that were found.\n"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "requested",
+                                        "results"
+                                    ]
+                                },
+                                "findings": {
+                                    "type": "object",
+                                    "properties": {
+                                        "scanners": {
+                                            "type": "object",
+                                            "description": "Metadata about the scanners that produced the results.\n",
+                                            "properties": {
+                                                "malware": {
+                                                    "description": "Metadata for the malware scanner.\n",
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "status": {
+                                                            "description": "Availability of the malware scanner.\n",
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "ok",
+                                                                "unavailable"
+                                                            ]
+                                                        },
+                                                        "updated": {
+                                                            "description": "The time that the malware pattern database was last updated.\n",
+                                                            "type": "string",
+                                                            "format": "date-time",
+                                                            "example": "2018-05-01T00:00:00Z"
+                                                        },
+                                                        "versions": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "icrc": {
+                                                                    "type": "string",
+                                                                    "description": "The ICRC pattern version.\n"
+                                                                },
+                                                                "trendX": {
+                                                                    "type": "string",
+                                                                    "description": "The TrendX pattern version.\n"
+                                                                },
+                                                                "blacklist": {
+                                                                    "type": "string",
+                                                                    "description": "The malware blacklist pattern version.\n"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "vulnerabilities": {
+                                                    "description": "Metadata for the vulnerability scanner.\n",
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "status": {
+                                                            "description": "Availability of the vulnerability scanner.\n",
+                                                            "type": "string",
+                                                            "enum": [
+                                                                "ok",
+                                                                "unavailable"
+                                                            ]
+                                                        },
+                                                        "updated": {
+                                                            "description": "The time that the vulnerabilities database was last updated.\n",
+                                                            "type": "string",
+                                                            "format": "date-time",
+                                                            "example": "2018-05-01T00:00:00Z"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "malware": {
+                                            "type": "integer",
+                                            "description": "The number of malware items that were found.\nhigh:\n"
+                                        },
+                                        "vulnerabilities": {
+                                            "type": "object",
+                                            "description": "The number of vulnerabilities found by severity.\n",
+                                            "properties": {
+                                                "total": {
+                                                    "type": "object",
+                                                    "description": "The total number of vulnerabilities that were found by severity.\n",
+                                                    "properties": {
+                                                        "defcon1": {
+                                                            "type": "integer",
+                                                            "description": "The number of \"Defcon1\" vulnerabilities that were found.\n"
+                                                        },
+                                                        "critical": {
+                                                            "type": "integer",
+                                                            "description": "The number of critical vulnerabilities that were found.\n"
+                                                        },
+                                                        "high": {
+                                                            "type": "integer",
+                                                            "description": "The number of high-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "medium": {
+                                                            "type": "integer",
+                                                            "description": "The number of medium-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "low": {
+                                                            "type": "integer",
+                                                            "description": "The number of low-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "negligible": {
+                                                            "description": "The number of negligible vulnerabilities that were found.\n",
+                                                            "type": "integer"
+                                                        },
+                                                        "unknown": {
+                                                            "type": "integer",
+                                                            "description": "The number of vulnerabilities with unknown severity that were found.\n"
+                                                        }
+                                                    }
+                                                },
+                                                "unresolved": {
+                                                    "type": "object",
+                                                    "description": "The number of unresolved vulnerabilities that were found by severity. Unresolved vulnerabilities are vulnerabilities that were found in a layer and were not fixed by an update in a subsequent layer.\n",
+                                                    "properties": {
+                                                        "defcon1": {
+                                                            "type": "integer",
+                                                            "description": "The number of \"Defcon1\" vulnerabilities that were found.\n"
+                                                        },
+                                                        "critical": {
+                                                            "type": "integer",
+                                                            "description": "The number of critical vulnerabilities that were found.\n"
+                                                        },
+                                                        "high": {
+                                                            "type": "integer",
+                                                            "description": "The number of high-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "medium": {
+                                                            "type": "integer",
+                                                            "description": "The number of medium-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "low": {
+                                                            "type": "integer",
+                                                            "description": "The number of low-severity vulnerabilities that were found.\n"
+                                                        },
+                                                        "negligible": {
+                                                            "description": "The number of negligible vulnerabilities that were found.\n",
+                                                            "type": "integer"
+                                                        },
+                                                        "unknown": {
+                                                            "type": "integer",
+                                                            "description": "The number of vulnerabilities with unknown severity that were found.\n"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "required": [
+                                "id",
+                                "href",
+                                "name",
+                                "status"
+                            ]
                         }
                     },
                     "400": {

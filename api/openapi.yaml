@@ -92,7 +92,6 @@ definitions:
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
         description: |
           The user's role ID.
-    required: null
   User: &ref_2
     type: object
     properties:
@@ -1281,7 +1280,37 @@ definitions:
       - versionFormat
       - vulnerabilities
   Vulnerability: *ref_12
-  ViewsDashboard: &ref_45
+  RegistryScanRequest: &ref_42
+    type: object
+    properties:
+      name:
+        type: string
+        description: |
+          (optional) A descriptive name for the scan.
+        example: (optional) a descriptive string
+        maxLength: 128
+      source:
+        type: object
+        properties:
+          repository:
+            type: string
+            description: |
+              The repository name.
+            example: organization/project
+            maxLength: 255
+          tag:
+            type: string
+            description: |
+              The tag of the image to scan.
+            example: latest
+            maxLength: 255
+      webhooks:
+        description: >
+          (optional) A list of web hooks to call when events happen for the
+          scan.
+        type: array
+        items: *ref_5
+  ViewsDashboard: &ref_46
     type: object
     properties:
       content:
@@ -1360,7 +1389,7 @@ definitions:
           If `true`, the metrics data was truncated and more scans have occurred
           (and possibly more vulnerabilities and malware have been found) than
           have been reported.
-  Image: &ref_44
+  Image: &ref_45
     type: object
     properties:
       registry:
@@ -1412,7 +1441,7 @@ definitions:
       - digest
       - status
       - updated
-  ViewRequest: &ref_43
+  ViewRequest: &ref_44
     type: object
     properties:
       name:
@@ -1473,7 +1502,7 @@ definitions:
     required:
       - name
       - filters
-  View: &ref_42
+  View: &ref_43
     type: object
     properties:
       id:
@@ -3125,7 +3154,6 @@ paths:
         - application/json
       produces:
         - application/json
-        - application/json
       parameters:
         - name: request
           in: body
@@ -3660,7 +3688,6 @@ paths:
           - 'webhooks:modify'
   /license:
     get:
-      description: null
       produces:
         - application/json
       tags:
@@ -4014,6 +4041,74 @@ paths:
         '429': *ref_22
         '500': *ref_23
         '503': *ref_24
+  '/registries/{id}/scans':
+    post:
+      x-security:
+        x-required-privileges:
+          - 'scans:create'
+      description: |
+        Create a scan using stored registry details.
+      tags:
+        - Registries
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: request
+          in: body
+          schema: *ref_42
+        - *ref_26
+      responses:
+        '200':
+          description: >
+            The response body contains the scan details. This response will only
+            be returned if the `dryrun=true` query parameter was sent.
+          headers:
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_33
+        '201':
+          description: |
+            The response body contains the scan details.
+          headers:
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_33
+        '400': *ref_19
+        '401': *ref_20
+        '403': *ref_21
+        '404': *ref_35
+        '409': *ref_40
+        '429': *ref_22
+        '500': *ref_23
+        '503': *ref_24
   /views:
     get:
       x-security:
@@ -4064,7 +4159,7 @@ paths:
                 type: array
                 description: |
                   The list of views.
-                items: *ref_42
+                items: *ref_43
               next:
                 type: string
                 format: byte
@@ -4097,7 +4192,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_43
+          schema: *ref_44
         - name: scan
           in: query
           type: boolean
@@ -4126,7 +4221,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_42
+          schema: *ref_43
         '201':
           description: |
             The response body contains the view details.
@@ -4146,7 +4241,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_42
+          schema: *ref_43
         '400': *ref_19
         '401': *ref_20
         '403': *ref_21
@@ -4194,7 +4289,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_42
+          schema: *ref_43
         '400': *ref_19
         '401': *ref_20
         '403': *ref_21
@@ -4218,7 +4313,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_43
+          schema: *ref_44
         - name: scan
           in: query
           type: boolean
@@ -4246,7 +4341,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_42
+          schema: *ref_43
         '400': *ref_19
         '401': *ref_20
         '403': *ref_21
@@ -4371,7 +4466,7 @@ paths:
                 type: array
                 description: |
                   The list of images.
-                items: *ref_44
+                items: *ref_45
               next:
                 type: string
                 format: byte
@@ -4419,7 +4514,7 @@ paths:
               will use this header as one way to notify you that a new API
               version is available or that the API you are using is going to be
               removed.
-        schema: *ref_45
+        schema: *ref_46
       '400': *ref_19
       '401': *ref_20
       '403': *ref_21

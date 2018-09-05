@@ -1157,7 +1157,7 @@ definitions:
       namespaceName:
         type: string
         description: |
-          ??? TODO ???
+          The namespace that the package `name` is unique within.
       version:
         type: string
         description: |
@@ -1193,7 +1193,7 @@ definitions:
             namespaceName:
               type: string
               description: |
-                ??? TODO ???
+                The namespace that the package `name` is unique within.
             severity:
               type: string
               example: High
@@ -1934,6 +1934,19 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+      Link:
+        type: string
+        description: >
+          If this API endpoint has been deprecated, a `Link` header with the
+          `sunset` relation type may be present with a link to human-readable
+          article describing the API change.
     schema: *ref_13
   '401': &ref_20
     description: >
@@ -1962,6 +1975,19 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+      Link:
+        type: string
+        description: >
+          If this API endpoint has been deprecated, a `Link` header with the
+          `sunset` relation type may be present with a link to human-readable
+          article describing the API change.
     schema: *ref_13
   '403': &ref_21
     description: >
@@ -1983,6 +2009,19 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+      Link:
+        type: string
+        description: >
+          If this API endpoint has been deprecated, a `Link` header with the
+          `sunset` relation type may be present with a link to human-readable
+          article describing the API change.
     schema: *ref_13
   '404': &ref_35
     description: |
@@ -2002,6 +2041,19 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+      Link:
+        type: string
+        description: >
+          If this API endpoint has been deprecated, a `Link` header with the
+          `sunset` relation type may be present with a link to human-readable
+          article describing the API change.
     schema: *ref_13
   '409': &ref_40
     description: >
@@ -2022,6 +2074,19 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+      Link:
+        type: string
+        description: >
+          If this API endpoint has been deprecated, a `Link` header with the
+          `sunset` relation type may be present with a link to human-readable
+          article describing the API change.
     schema: *ref_13
   '429': &ref_22
     description: >
@@ -2047,6 +2112,19 @@ responses:
           The amount of time (in seconds) you should wait before trying this
           request again.
         type: integer
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+      Link:
+        type: string
+        description: >
+          If this API endpoint has been deprecated, a `Link` header with the
+          `sunset` relation type may be present with a link to human-readable
+          article describing the API change.
     schema: *ref_13
   '500': &ref_23
     description: >
@@ -2070,6 +2148,19 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+      Link:
+        type: string
+        description: >
+          If this API endpoint has been deprecated, a `Link` header with the
+          `sunset` relation type may be present with a link to human-readable
+          article describing the API change.
     schema: *ref_13
   '503': &ref_24
     description: >
@@ -2096,6 +2187,19 @@ responses:
           The amount of time (in seconds) you should wait before trying this
           request again.
         type: integer
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+      Link:
+        type: string
+        description: >
+          If this API endpoint has been deprecated, a `Link` header with the
+          `sunset` relation type may be present with a link to human-readable
+          article describing the API change.
     schema: *ref_13
 parameters:
   expand: &ref_14
@@ -3067,8 +3171,9 @@ paths:
         '503': *ref_24
   /scans:
     get:
-      description: |
-        Retrieve a list of scans.
+      description: >
+        Retrieve a list of scans. Scans are returned in descending order of
+        creation time, so the latest scan is returned first.
       tags:
         - Scans
       produces:
@@ -4111,6 +4216,7 @@ paths:
         '503': *ref_24
   /views:
     get:
+      deprecated: true
       x-security:
         x-required-privileges:
           - 'views:list'
@@ -4129,9 +4235,20 @@ paths:
           description: |
             The response body contains the view records.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                This API endpoint has been deprecated and may be removed at any
+                point after the reported date. The timestamp is an HTTP date
+                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
             Link:
               type: string
               description: >
+                A `Link` header with the `sunset` relation type may be present
+                with a link to human-readable article describing the API change.
+
+
                 If more data exists, a `Link` header with the `next` relation
                 type will be present as a pointer to the next page of data.
                 Example: ```Link:
@@ -4178,6 +4295,7 @@ paths:
         '500': *ref_23
         '503': *ref_24
     post:
+      deprecated: true
       x-security:
         x-required-privileges:
           - 'views:create'
@@ -4206,6 +4324,18 @@ paths:
             The response body contains the view details. This response will only
             be returned if the `dryrun=true` query parameter was sent.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                This API endpoint has been deprecated and may be removed at any
+                point after the reported date. The timestamp is an HTTP date
+                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+            Link:
+              type: string
+              description: >
+                A `Link` header with the `sunset` relation type may be present
+                with a link to human-readable article describing the API change.
             X-Request-Id:
               type: string
               description: |
@@ -4226,6 +4356,18 @@ paths:
           description: |
             The response body contains the view details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                This API endpoint has been deprecated and may be removed at any
+                point after the reported date. The timestamp is an HTTP date
+                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+            Link:
+              type: string
+              description: >
+                A `Link` header with the `sunset` relation type may be present
+                with a link to human-readable article describing the API change.
             X-Request-Id:
               type: string
               description: |
@@ -4260,6 +4402,7 @@ paths:
         type: string
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
     get:
+      deprecated: true
       x-security:
         x-required-privileges:
           - 'views:describe'
@@ -4274,6 +4417,18 @@ paths:
           description: |
             The response body contains the view details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                This API endpoint has been deprecated and may be removed at any
+                point after the reported date. The timestamp is an HTTP date
+                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+            Link:
+              type: string
+              description: >
+                A `Link` header with the `sunset` relation type may be present
+                with a link to human-readable article describing the API change.
             X-Request-Id:
               type: string
               description: |
@@ -4299,6 +4454,7 @@ paths:
         '500': *ref_23
         '503': *ref_24
     post:
+      deprecated: true
       x-security:
         x-required-privileges:
           - 'views:modify'
@@ -4326,6 +4482,18 @@ paths:
           description: |
             The response body contains the view details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                This API endpoint has been deprecated and may be removed at any
+                point after the reported date. The timestamp is an HTTP date
+                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+            Link:
+              type: string
+              description: >
+                A `Link` header with the `sunset` relation type may be present
+                with a link to human-readable article describing the API change.
             X-Request-Id:
               type: string
               description: |
@@ -4351,6 +4519,7 @@ paths:
         '500': *ref_23
         '503': *ref_24
     delete:
+      deprecated: true
       x-security:
         x-required-privileges:
           - 'views:delete'
@@ -4366,6 +4535,18 @@ paths:
             The view would be deleted if the `dryrun=true` parameter was not
             present.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                This API endpoint has been deprecated and may be removed at any
+                point after the reported date. The timestamp is an HTTP date
+                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+            Link:
+              type: string
+              description: >
+                A `Link` header with the `sunset` relation type may be present
+                with a link to human-readable article describing the API change.
             X-Request-Id:
               type: string
               description: |
@@ -4385,6 +4566,18 @@ paths:
           description: |
             The view has been deleted.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                This API endpoint has been deprecated and may be removed at any
+                point after the reported date. The timestamp is an HTTP date
+                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+            Link:
+              type: string
+              description: >
+                A `Link` header with the `sunset` relation type may be present
+                with a link to human-readable article describing the API change.
             X-Request-Id:
               type: string
               description: |
@@ -4418,6 +4611,7 @@ paths:
         type: string
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
     get:
+      deprecated: true
       x-security:
         x-required-privileges:
           - 'views:describe'
@@ -4436,9 +4630,20 @@ paths:
           description: |
             The response body contains the image records.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                This API endpoint has been deprecated and may be removed at any
+                point after the reported date. The timestamp is an HTTP date
+                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
             Link:
               type: string
               description: >
+                A `Link` header with the `sunset` relation type may be present
+                with a link to human-readable article describing the API change.
+
+
                 If more data exists, a `Link` header with the `next` relation
                 type will be present as a pointer to the next page of data.
                 Example: ```Link:
@@ -4499,6 +4704,18 @@ paths:
         description: |
           The response body contains the dashboard metrics.
         headers:
+          Sunset:
+            type: string
+            format: datetime
+            description: >
+              This API endpoint has been deprecated and may be removed at any
+              point after the reported date. The timestamp is an HTTP date
+              string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
+          Link:
+            type: string
+            description: >
+              A `Link` header with the `sunset` relation type may be present
+              with a link to human-readable article describing the API change.
           X-Request-Id:
             type: string
             description: |

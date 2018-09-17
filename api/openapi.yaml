@@ -34,7 +34,6 @@ tags:
     description: |
       License information
   - name: Registries
-  - name: Views
 definitions:
   ChangeUserPasswordRequest: &ref_30
     type: object
@@ -1310,51 +1309,52 @@ definitions:
           scan.
         type: array
         items: *ref_5
-  ViewsDashboard: &ref_46
+  RegistriesDashboard: &ref_43
     type: object
     properties:
       content:
         description: |
-          Metrics capturing information about the content of all views.
+          Metrics capturing information about the content of all registries.
         type: object
         properties:
           registries:
             type: integer
             description: |
-              The number of registries referenced by all views.
+              The number of registries.
           repositories:
             type: integer
             description: |
-              The number of repositories with content in all views.
+              The number of repositories with content in all registries.
           images:
             type: integer
             description: |
-              The number of images in all views.
+              The number of images in all registries.
       scans:
         type: object
         description: >
           Metrics capturing information about the scan status of images in all
-          views.
+          registries.
         properties:
           pending:
             type: integer
-            description: |
-              The number of images in all views that have not yet been scanned.
+            description: >
+              The number of images in all registries that have not yet been
+              scanned.
           ok:
             type: integer
             description: >
-              The number of images in all views that have been scanned and have
-              had no findings.
+              The number of images in all registries that have been scanned and
+              have had no findings.
           warnings:
             type: integer
             description: >
-              The number of images in all views that have been scanned and have
-              had findings.
+              The number of images in all registries that have been scanned and
+              have had findings.
           errors:
             type: integer
             description: >
-              The number of images in all views that have been scanned and have
-              encountered errors during the scan.
+              The number of images in all registries that have been scanned and
+              have encountered errors during the scan.
       findings: *ref_9
       history:
         type: object
@@ -1369,9 +1369,9 @@ definitions:
               scans:
                 type: integer
                 description: >
-                  The number of scans performed on images in all views in the
-                  time period. Will be `-1` if there was an error calculating
-                  the value.
+                  The number of scans performed on images in all registries in
+                  the time period. Will be `-1` if there was an error
+                  calculating the value.
           1w:
             type: object
             description: |
@@ -1380,16 +1380,10 @@ definitions:
               scans:
                 type: integer
                 description: >
-                  The number of scans performed on images in all views in the
-                  time period. Will be `-1` if there was an error calculating
-                  the value.
-      truncated:
-        type: boolean
-        description: >
-          If `true`, the metrics data was truncated and more scans have occurred
-          (and possibly more vulnerabilities and malware have been found) than
-          have been reported.
-  Image: &ref_45
+                  The number of scans performed on images in all registries in
+                  the time period. Will be `-1` if there was an error
+                  calculating the value.
+  Image:
     type: object
     properties:
       registry:
@@ -1440,244 +1434,6 @@ definitions:
       - tag
       - digest
       - status
-      - updated
-  ViewRequest: &ref_44
-    type: object
-    properties:
-      name:
-        type: string
-        description: |
-          The name to display for the view.
-        example: My View
-        maxLength: 255
-      description:
-        type: string
-        maxLength: 2048
-        description: |
-          A longer-form note to attach to the view.
-        example: |
-          This view is an example, and this description is similarly exemplary.
-      filters:
-        type: object
-        description: >
-          The filters that define the repositories and tags that will be shown
-          in the view. Each key in the object should be a registry ID; the value
-          is a filter indicating what to include / exclude. The maximum size of
-          the filters for a view is 32768 bytes.
-        additionalProperties:
-          type: object
-          properties:
-            include:
-              type: array
-              description: >
-                A pattern to use when determining which images to include in the
-                view.
-              items:
-                type: string
-                example: '*:latest'
-              default:
-                - '*'
-            exclude:
-              type: array
-              description: >
-                A pattern to use when determining which images to exclude from
-                the view.
-              items:
-                type: string
-                example: experimental/*
-              default: []
-          required:
-            - include
-            - exclude
-        example:
-          6552eebd-5172-411e-ac71-8c323e6ca0fe:
-            include:
-              - '*:latest'
-            exclude:
-              - experimental/*
-      schedule:
-        type: boolean
-        description: |
-          If `true`, this view will be scheduled for daily re-scan.
-    required:
-      - name
-      - filters
-  View: &ref_43
-    type: object
-    properties:
-      id:
-        type: string
-        example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
-        description: |
-          The view ID.
-      href:
-        type: string
-        example: /api/views/6552eebd-5172-411e-ac71-8c323e6ca0fe
-        description: |
-          The URL at which the view can be found.
-      name:
-        type: string
-        description: |
-          The name to display for the view.
-        example: My View
-        maxLength: 255
-      description:
-        type: string
-        maxLength: 2048
-        description: |
-          A longer-form note to attach to the view.
-        example: |
-          This view is an example, and this description is similarly exemplary.
-      status:
-        type: string
-        description: |
-          The status of the view.
-        enum:
-          - pending
-          - ok
-          - failed
-      detail:
-        type: string
-        description: |
-          More detail about the view status.
-        enum:
-          - ''
-          - connection-failed
-      filters:
-        type: object
-        description: >
-          The filters that define the repositories and tags that will be shown
-          in the view. Each key in the object should be a registry ID; the value
-          is a filter indicating what to include / exclude. The maximum size of
-          the filters for a view is 32768 bytes.
-        additionalProperties:
-          type: object
-          properties:
-            include:
-              type: array
-              description: >
-                A pattern to use when determining which images to include in the
-                view.
-              items:
-                type: string
-                example: '*:latest'
-              default:
-                - '*'
-            exclude:
-              type: array
-              description: >
-                A pattern to use when determining which images to exclude from
-                the view.
-              items:
-                type: string
-                example: experimental/*
-              default: []
-          required:
-            - include
-            - exclude
-        example:
-          6552eebd-5172-411e-ac71-8c323e6ca0fe:
-            include:
-              - '*:latest'
-            exclude:
-              - experimental/*
-      schedule:
-        type: boolean
-        description: |
-          If `true`, this view will be scheduled for daily re-scan.
-      metrics:
-        type: object
-        description: |
-          View metrics.
-        properties:
-          content:
-            description: |
-              Metrics capturing information about the content of the view.
-            type: object
-            properties:
-              registries:
-                type: integer
-                description: |
-                  The number of registries referenced by the view.
-              repositories:
-                type: integer
-                description: |
-                  The number of repositories with content in the view.
-              images:
-                type: integer
-                description: |
-                  The number of images in the view.
-          scans:
-            type: object
-            description: >
-              Metrics capturing information about the scan status of images in
-              the view.
-            properties:
-              pending:
-                type: integer
-                description: >
-                  The number of images in the view that have not yet been
-                  scanned.
-              ok:
-                type: integer
-                description: >
-                  The number of images in the view that have been scanned and
-                  have had no findings.
-              warnings:
-                type: integer
-                description: >
-                  The number of images in the view that have been scanned and
-                  have had findings.
-              errors:
-                type: integer
-                description: >
-                  The number of images in the view that have been scanned and
-                  have encountered errors during the scan.
-          findings: *ref_9
-          history:
-            type: object
-            description: |
-              Aggregate metrics over a period of time.
-            properties:
-              1d:
-                type: object
-                description: |
-                  Metrics over the past 24 hours.
-                properties:
-                  scans:
-                    type: integer
-                    description: >
-                      The number of scans performed on images in the view in the
-                      time period. Will be `-1` if there was an error
-                      calculating the value.
-              1w:
-                type: object
-                description: |
-                  Metrics over the past 7 days.
-                properties:
-                  scans:
-                    type: integer
-                    description: >
-                      The number of scans performed on images in the view in the
-                      time period. Will be `-1` if there was an error
-                      calculating the value.
-      created:
-        type: string
-        format: datetime
-        example: '2017-04-01T00:00:00Z'
-        description: |
-          The time that the view was created.
-      updated:
-        type: string
-        format: datetime
-        example: '2017-04-01T00:00:00Z'
-        description: |
-          The time that the view was last modified.
-    required:
-      - name
-      - filters
-      - metrics
-      - created
       - updated
   RegistryRequest: &ref_41
     type: object
@@ -1820,6 +1576,44 @@ definitions:
           If `insecureSkipVerify` is set to `true`, then the root CAs are not
           checked.
         maxLength: 32768
+      filter:
+        type: object
+        description: >
+          The filters that define the repositories and tags that will be
+          synchronized from the registry. The maximum size of the filters for a
+          registry is 32768 bytes.
+        properties:
+          include:
+            type: array
+            description: >
+              A pattern to use when determining which images to synchronize
+              (include) from the registry.
+            items:
+              type: string
+              example: '*:latest'
+            default:
+              - '*'
+          exclude:
+            type: array
+            description: >
+              A pattern to use when determining which images to synchronize
+              (exclude) from the registry.
+            items:
+              type: string
+              example: experimental/*
+            default: []
+        required:
+          - include
+          - exclude
+        example:
+          include:
+            - '*:latest'
+          exclude:
+            - experimental/*
+      schedule:
+        type: boolean
+        description: |
+          If `true`, this registry will be scheduled for daily re-scan.
   Registry: &ref_39
     type: object
     description: |
@@ -1875,6 +1669,116 @@ definitions:
           If `insecureSkipVerify` is set to `true`, then the root CAs are not
           checked.
         maxLength: 32768
+      filter:
+        type: object
+        description: >
+          The filters that define the repositories and tags that will be
+          synchronized from the registry. The maximum size of the filters for a
+          registry is 32768 bytes.
+        properties:
+          include:
+            type: array
+            description: >
+              A pattern to use when determining which images to synchronize
+              (include) from the registry.
+            items:
+              type: string
+              example: '*:latest'
+            default:
+              - '*'
+          exclude:
+            type: array
+            description: >
+              A pattern to use when determining which images to synchronize
+              (exclude) from the registry.
+            items:
+              type: string
+              example: experimental/*
+            default: []
+        required:
+          - include
+          - exclude
+        example:
+          include:
+            - '*:latest'
+          exclude:
+            - experimental/*
+      metrics:
+        type: object
+        description: |
+          Registry metrics.
+        properties:
+          content:
+            description: |
+              Metrics capturing information about the content of the registry.
+            type: object
+            properties:
+              repositories:
+                type: integer
+                description: |
+                  The number of repositories with content in the registry.
+              images:
+                type: integer
+                description: |
+                  The number of images in the registry.
+          scans:
+            type: object
+            description: >
+              Metrics capturing information about the scan status of images in
+              the registry.
+            properties:
+              pending:
+                type: integer
+                description: >
+                  The number of images in the registry that have not yet been
+                  scanned.
+              ok:
+                type: integer
+                description: >
+                  The number of images in the registry that have been scanned
+                  and have had no findings.
+              warnings:
+                type: integer
+                description: >
+                  The number of images in the registry that have been scanned
+                  and have had findings.
+              errors:
+                type: integer
+                description: >
+                  The number of images in the registry that have been scanned
+                  and have encountered errors during the scan.
+          findings: *ref_9
+          history:
+            type: object
+            description: |
+              Aggregate metrics over a period of time.
+            properties:
+              1d:
+                type: object
+                description: |
+                  Metrics over the past 24 hours.
+                properties:
+                  scans:
+                    type: integer
+                    description: >
+                      The number of scans performed on images in the registry in
+                      the time period. Will be `-1` if there was an error
+                      calculating the value.
+              1w:
+                type: object
+                description: |
+                  Metrics over the past 7 days.
+                properties:
+                  scans:
+                    type: integer
+                    description: >
+                      The number of scans performed on images in the registry in
+                      the time period. Will be `-1` if there was an error
+                      calculating the value.
+      schedule:
+        type: boolean
+        description: |
+          If `true`, this registry will be scheduled for daily re-scan.
       status:
         type: string
         enum:
@@ -4214,160 +4118,22 @@ paths:
         '429': *ref_22
         '500': *ref_23
         '503': *ref_24
-  /views:
+  /registries/dashboard:
     get:
-      deprecated: true
       x-security:
         x-required-privileges:
-          - 'views:list'
+          - 'dashboards:describe'
       description: |
-        List views.
+        Get registry dashboard metrics.
       tags:
-        - Views
-      parameters:
-        - *ref_15
-        - *ref_16
-        - *ref_17
+        - Registries
       produces:
         - application/json
       responses:
         '200':
           description: |
-            The response body contains the view records.
+            The response body contains the dashboard metrics.
           headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                This API endpoint has been deprecated and may be removed at any
-                point after the reported date. The timestamp is an HTTP date
-                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
-            Link:
-              type: string
-              description: >
-                A `Link` header with the `sunset` relation type may be present
-                with a link to human-readable article describing the API change.
-
-
-                If more data exists, a `Link` header with the `next` relation
-                type will be present as a pointer to the next page of data.
-                Example: ```Link:
-                </api/views?cursor=dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo>;
-                rel="next"```
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-          schema:
-            type: object
-            properties:
-              views:
-                type: array
-                description: |
-                  The list of views.
-                items: *ref_43
-              next:
-                type: string
-                format: byte
-                example: >-
-                  dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
-                description: >
-                  An encoded value that you can use to retrieve the next set of
-                  results for a query. If `next` is not present, then there are
-                  no more results available.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
-    post:
-      deprecated: true
-      x-security:
-        x-required-privileges:
-          - 'views:create'
-      description: |
-        Create a new view.
-      tags:
-        - Views
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: request
-          in: body
-          schema: *ref_44
-        - name: scan
-          in: query
-          type: boolean
-          default: false
-          description: |
-            If true, will trigger a scan on the images in the view.
-        - *ref_26
-      responses:
-        '200':
-          description: >
-            The response body contains the view details. This response will only
-            be returned if the `dryrun=true` query parameter was sent.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                This API endpoint has been deprecated and may be removed at any
-                point after the reported date. The timestamp is an HTTP date
-                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
-            Link:
-              type: string
-              description: >
-                A `Link` header with the `sunset` relation type may be present
-                with a link to human-readable article describing the API change.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-          schema: *ref_43
-        '201':
-          description: |
-            The response body contains the view details.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                This API endpoint has been deprecated and may be removed at any
-                point after the reported date. The timestamp is an HTTP date
-                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
-            Link:
-              type: string
-              description: >
-                A `Link` header with the `sunset` relation type may be present
-                with a link to human-readable article describing the API change.
             X-Request-Id:
               type: string
               description: |
@@ -4392,351 +4158,3 @@ paths:
         '429': *ref_22
         '500': *ref_23
         '503': *ref_24
-  '/views/{id}':
-    parameters:
-      - name: id
-        description: |
-          The system-assigned view ID.
-        in: path
-        required: true
-        type: string
-        example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
-    get:
-      deprecated: true
-      x-security:
-        x-required-privileges:
-          - 'views:describe'
-      description: |
-        Get the details of a view.
-      tags:
-        - Views
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: |
-            The response body contains the view details.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                This API endpoint has been deprecated and may be removed at any
-                point after the reported date. The timestamp is an HTTP date
-                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
-            Link:
-              type: string
-              description: >
-                A `Link` header with the `sunset` relation type may be present
-                with a link to human-readable article describing the API change.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-          schema: *ref_43
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
-    post:
-      deprecated: true
-      x-security:
-        x-required-privileges:
-          - 'views:modify'
-      description: |
-        Modify the details of a view.
-      tags:
-        - Views
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: request
-          in: body
-          schema: *ref_44
-        - name: scan
-          in: query
-          type: boolean
-          default: false
-          description: |
-            If true, will trigger a scan on the images in the view.
-        - *ref_27
-      responses:
-        '200':
-          description: |
-            The response body contains the view details.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                This API endpoint has been deprecated and may be removed at any
-                point after the reported date. The timestamp is an HTTP date
-                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
-            Link:
-              type: string
-              description: >
-                A `Link` header with the `sunset` relation type may be present
-                with a link to human-readable article describing the API change.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-          schema: *ref_43
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
-    delete:
-      deprecated: true
-      x-security:
-        x-required-privileges:
-          - 'views:delete'
-      description: |
-        Delete a view.
-      tags:
-        - Views
-      parameters:
-        - *ref_28
-      responses:
-        '200':
-          description: >
-            The view would be deleted if the `dryrun=true` parameter was not
-            present.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                This API endpoint has been deprecated and may be removed at any
-                point after the reported date. The timestamp is an HTTP date
-                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
-            Link:
-              type: string
-              description: >
-                A `Link` header with the `sunset` relation type may be present
-                with a link to human-readable article describing the API change.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-        '204':
-          description: |
-            The view has been deleted.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                This API endpoint has been deprecated and may be removed at any
-                point after the reported date. The timestamp is an HTTP date
-                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
-            Link:
-              type: string
-              description: >
-                A `Link` header with the `sunset` relation type may be present
-                with a link to human-readable article describing the API change.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
-  '/views/{id}/images':
-    parameters:
-      - name: id
-        description: |
-          The system-assigned view ID.
-        in: path
-        required: true
-        type: string
-        example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
-    get:
-      deprecated: true
-      x-security:
-        x-required-privileges:
-          - 'views:describe'
-      description: |
-        List images in the view.
-      tags:
-        - Views
-      parameters:
-        - *ref_15
-        - *ref_16
-        - *ref_17
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: |
-            The response body contains the image records.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                This API endpoint has been deprecated and may be removed at any
-                point after the reported date. The timestamp is an HTTP date
-                string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
-            Link:
-              type: string
-              description: >
-                A `Link` header with the `sunset` relation type may be present
-                with a link to human-readable article describing the API change.
-
-
-                If more data exists, a `Link` header with the `next` relation
-                type will be present as a pointer to the next page of data.
-                Example: ```Link:
-                </api/views/{id}/images?cursor=dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo>;
-                rel="next"```
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-          schema:
-            type: object
-            properties:
-              images:
-                type: array
-                description: |
-                  The list of images.
-                items: *ref_45
-              next:
-                type: string
-                format: byte
-                example: >-
-                  dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
-                description: >
-                  An encoded value that you can use to retrieve the next set of
-                  results for a query. If `next` is not present, then there are
-                  no more results available.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
-  /views/dashboard:
-    x-security:
-      x-required-privileges:
-        - 'dashboards:describe'
-    description: |
-      Get view dashboard metrics.
-    tags:
-      - Views
-    produces:
-      - application/json
-    responses:
-      '200':
-        description: |
-          The response body contains the dashboard metrics.
-        headers:
-          Sunset:
-            type: string
-            format: datetime
-            description: >
-              This API endpoint has been deprecated and may be removed at any
-              point after the reported date. The timestamp is an HTTP date
-              string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
-          Link:
-            type: string
-            description: >
-              A `Link` header with the `sunset` relation type may be present
-              with a link to human-readable article describing the API change.
-          X-Request-Id:
-            type: string
-            description: |
-              The request ID assigned to this request.
-          X-Api-Version:
-            type: string
-            description: |
-              The API version used in this request.
-          X-Api-Notice:
-            type: string
-            description: >
-              If present, this header will include important API information. We
-              will use this header as one way to notify you that a new API
-              version is available or that the API you are using is going to be
-              removed.
-        schema: *ref_46
-      '400': *ref_19
-      '401': *ref_20
-      '403': *ref_21
-      '404': *ref_35
-      '409': *ref_40
-      '429': *ref_22
-      '500': *ref_23
-      '503': *ref_24

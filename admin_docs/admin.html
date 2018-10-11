@@ -34,7 +34,6 @@
                     <li><a href="#log-in" title="Log in to the Smart Check administrator console" target="_self">Log in to the Smart Check administrator console</a></li>
                     <li><a href="#configure-users" title="Configure Smart Check users" target="_self">Configure Smart Check users</a></li>
                     <li><a href="#registry" title="Add or edit a registry" target="_self">Add or edit a registry</a></li>
-                    <li><a href="#create-view" title="Create a view" target="_self">Create a view</a></li>
                     <li><a href="#start-scan" title="Start a scan" target="_self">Start a scan</a></li>
                     <li><a href="#get-results" title="See scan results" target="_self">See scan results</a></li>
                   </ul>
@@ -62,18 +61,18 @@
 						<p>Deep Security Smart Check also includes an administrator console that provides:</p>
 				<ul>
 					<li>a dashboard (system-wide summary of scan information, including metrics)</li>
-					<li>view summary (including scan results and metrics for the view)</li>
 					<li>user management</li>
-					<li>registry and view configuration</li>
+					<li>registry configuration</li>
 					<li>access to scan results</li>
 					<li>scan history</li>
 				</ul>
 			<h3><a name="supported-registries"></a>Supported registries</h3>
-            <p>Deep Security Smart Check supports the scanning of Docker images in any registry that supports the Docker Registry V2 API. This initial release supports:</p>
+            <p>Deep Security Smart Check supports the scanning of Docker images in any registry that supports the Docker Registry V2 API. This  release supports:</p>
             <ul>
                 <li>Docker Trusted Registry (DTR)</li>
                 <li>Google Container Registry (GCR)</li>
                 <li>Amazon Elastic Container Registry (ECR)</li>
+                <li>VMware Harbor Registry</li>
             </ul>
             <p>To integrate Deep Security Smart Check into your pipeline, you will likely need to write integration logic to trigger scanning based on the event model of your registry. For example, Google Container Registry uses a pub/sub model to publish events about registry activity and Docker Trusted Registry uses a Webhook model.</p>
             <h3><a name="system-requirements"></a>System requirements</h3>
@@ -107,7 +106,6 @@
                     <li><a href="#log-in" title="Log in to the Smart Check administrator console" target="_self">Log in to the Smart Check administrator console</a></li>
                     <li><a href="#configure-users" title="Configure Smart Check users" target="_self">Configure Smart Check users</a></li>
                     <li><a href="#registry" title="Add or edit a registry" target="_self">Add or edit a registry</a>. You can add one or more registries that you want to scan.</li>
-                    <li><a href="#create-view" title="Create a view" target="_self">Create a view</a></li>
                     <li><a href="#start-scan" title="Start a scan" target="_self">Start a scan</a></li>
             </ol>
             <h3><a name="log-in"></a>Log in to the Smart Check administrator console</h3>
@@ -131,7 +129,7 @@
                 <li>Select a role to assign to the user. Smart Check has three types of roles:
                     <ul>
                         <li><strong>Administrator: </strong>Full control</li>
-                        <li><strong>User: </strong>Can do everything except add, edit, or delete users and roles. Users can perform other operations like adding registries and views, requesting scans, and adding Webhooks.</li>
+                        <li><strong>User: </strong>Can do everything except add, edit, or delete users and roles. Users can perform other operations like adding registries, requesting scans, and adding Webhooks.</li>
                         <li><strong>Auditor: </strong>Read-only access</li>
                     </ul>
                 </li>
@@ -185,36 +183,24 @@
 				<li><strong>Registry User: </strong>Username that Smart Check will use to access your repository</li>
 				<li><strong>Password: </strong>Password that Smart Check will use to access your repository</li>
 			</ul>
-		</li>
-                <li>Click <strong>Submit</strong>.</li>
-            </ol>
-            <h3><a name="create-view"></a>Create a view</h3>
-            <p>Deep Security Smart Check uses &ldquo;views&rdquo; to determine which images to scan in your registries. For example, you can configure a view that scans only the images in your registries that are tagged with the &ldquo;latest&rdquo; tag. When you run a scan from the Smart Check administrator console, you run the scan against a view, not a registry. The default view configuration includes all images in the registry.</p>
-            <ol>
-                <li>Click<strong> ≡ </strong>in the upper-left corner of the Smart Check administrator console.</li>
-                <li>Click <strong>Views</strong>.</li>
-                <li>Click the<strong> + </strong>icon to add a view, or select a view and click <strong>Edit</strong>.</li>
-                <li>On the Create View page, in the <strong>Name</strong> field, enter a descriptive name for the view. This name will appear in the Views section of the Dashboard page and on the Views page.</li>
-                <li>In the <strong>Description</strong> field, enter an optional description of the view. This is useful if you need to capture more information than the Name field allows.</li>
-                <li>When <strong>Start scan when view is created </strong>, a scan starts as soon as you click <strong>Create View</strong>. </li>
-                <li>By default, when <strong>Scan on an on-going basis</strong> is selected, Smart Check automatically performs a scan every day at midnight UTC.</li>
-                <li>In the <strong>Available Registries</strong> list, select one of the registries that you&rsquo;ve added to Smart Check and click Add. You can add more than one registry to the view.</li>
-                <li>Filters appear, allowing you to include or exclude images based on any segment of their fully qualified name in the form <code>&lt;repository&gt;/&lt;image&gt;:&lt;tag&gt;</code>. For example, the include filter <code>*latest*</code> would match <code>smartcheck/scan:latest</code> and <code>smartcheck/auth:latest</code>. The default include filter of <code>*</code> will select all images in the registry.</li>
-                <li>Click <strong>Create View</strong>.</li>
-            </ol>
-            <p>To edit a view, go to the Views page, click the view, and then click <strong>Edit View</strong>.</p>
-            <p>To refresh the list of images in a view, go to the Views page, click the view, and then click <strong>Sync</strong>.</p>
+           <li>If <strong>Start scan when registry is created</strong> is selected, a scan  starts as soon as you click <strong>Create Registry</strong>. </li>
+           <li>If  <strong>Perform scan periodically</strong> is selected, Smart Check automatically performs a scan every day at midnight UTC.</li>
+           <li>Click <strong>+ Add Filter</strong> to  include or exclude images based on any segment of their fully qualified name in the form <code>&lt;repository&gt;/&lt;image&gt;:&lt;tag&gt;</code>. For example, the include filter <code>*latest*</code> would match <code>smartcheck/scan:latest</code> and <code>smartcheck/auth:latest</code>. The default include filter of <code>*</code> will select all images in the registry.</li>
+           <li>Click <strong>Create Registry</strong>.</li>
+          </ol>
+            <p>To edit a registry, go to the Registries page, click the registry, and then click <strong>Edit Registry</strong>.</p>
+            <p>To refresh the list of images in a registry, go to the Registries page, click the registry, and then click <strong>Sync</strong>.</p>
             <h3><a name="start-scan"></a>Start a scan</h3>
-            <p>When Smart Check receives a request to scan a view, it pulls the image(s) specified in the view being scanned, unpacks each layer, and performs malware and vulnerability scans on the content.</p>
-            <p>There are several ways that a view scan can be triggered:</p>
+            <p>When Smart Check receives a scan request, it pulls the image(s) specified in the registry being scanned, unpacks each layer, and performs malware and vulnerability scans on the content.</p>
+            <p>There are several ways that a  scan can be triggered:</p>
             <ul>
-                <li>Smart Check automatically starts a scan at midnight UTC for all views that have been created with the<strong> Scan on an ongoing basis</strong> option selected.</li>
+                <li>Smart Check automatically starts a scan at midnight UTC for all registries that have been created with the<strong> Perform scan periodically</strong> option selected.</li>
                 <li>You can manually start a scan by clicking the <strong>Scan Now</strong> button.</li>
                 <li>You can start a scan through the Smart Check API. You can access the API documentation from the menu in the Smart Check administrator console.</li>
             </ul>
             <h4><a name="sc-manual-scan"></a>Manually start a scan</h4>
             <ol>
-                <li>In the Views section of the Dashboard page or on the Views page, click the name of the view that you want to scan.</li>
+                <li>In the Registries section of the Dashboard page or on the Registries page, click the name of the registry that you want to scan.</li>
                 <li>Click <strong>Scan Now</strong>.</li>
                 <li>A confirmation message appears. Click <strong>OK</strong>.</li>
             </ol>
@@ -225,7 +211,7 @@
                 <li>You can add a Webhook through the Smart Check API with a destination URL that will be called automatically when results are ready. See the API docs for details. Your Webhook receiver could, for example, process the scan result and forward a notification to Slack or ServiceNow if appropriate.</li>
                 <li>You can request the results directly through the Smart Check API. For details, refer to the API documentation, which is available from the menu in the Smart Check administrator console.</li>
                 <li>You can check the scan results in the Smart Check administrator console:
-                    <p>In the Views section of the Dashboard page or on the Views page, click the View. You&rsquo;ll see a summary that includes information about the latest scan, like the number of vulnerabilities and malware found.</p>
+                    <p>In the Registries section of the Dashboard page or on the Registries page, click the registry. You&rsquo;ll see a summary that includes information about the latest scan, like the number of vulnerabilities and malware found.</p>
                     <p>To see specific information about an individual image, click the image to display its scan history. Click a scan to display information about it.</p>
                 </li>
             </ul>

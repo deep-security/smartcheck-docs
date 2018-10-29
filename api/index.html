@@ -175,6 +175,12 @@
                 <a href="#operation--registries--id--scans-post"> POST /registries/{id}/scans </a>
               </li>
               <li>
+                <a href="#operation--registries--id--images-get"> GET /registries/{id}/images </a>
+              </li>
+              <li>
+                <a href="#operation--registries--id--images--imageID--get"> GET /registries/{id}/images/{imageID} </a>
+              </li>
+              <li>
                 <a href="#operation--registries-dashboard-get"> GET /registries/dashboard </a>
               </li>
             </ul>
@@ -18228,7 +18234,7 @@
           <span class="hljs-attr">&quot;link&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;namespaceName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-          <span class="hljs-attr">&quot;severity&quot;</span>: <span class="hljs-string">&quot;High&quot;</span>
+          <span class="hljs-attr">&quot;severity&quot;</span>: <span class="hljs-string">&quot;high&quot;</span>
         }
       ],
       <span class="hljs-attr">&quot;findings&quot;</span>: {
@@ -33372,6 +33378,1967 @@
               </div>
             </div>
           </div>
+          <div id="operation--registries--id--images-get" class="operation panel" data-traverse-target="operation--registries--id--images-get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Registries">Registries</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-name">
+                <span class="operation-name">GET</span>
+                <span class="operation-path">/registries/{id}/images</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Get the list of images synchronized from the registry.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>The system-assigned registry ID.</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>The response body contains the list of images synchronized from the registry.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Something about your request didn&#39;t quite make sense. The error message should help you figure out what went wrong.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Did you forget to include a session token in your request? You need to include</p> <pre><code class="hljs"><span class="hljs-symbol">Authorization:</span> <span class="hljs-class">Bearer </span>{token}
+</code></pre>
+                      <p>in all requests. You can get a token from the <code>POST /sessions</code> API.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">403 Forbidden</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>You tried to do something that you&#39;re not allowed to do, you naughty scamp. Check your privileges to see what you&#39;re actually allowed to do. This could also mean that your token has expired.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>The resource you were looking for doesn&#39;t exist.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">409 Conflict</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>The preconditions in the request you made could not be met. Check the <code>message</code> string in the response for help troubleshooting the problem.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">429 Too Many Requests</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>You have made too many requests too quickly. Check the <code>Retry-After</code> header for an indication of when you might be able to try again.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Something has gone terribly wrong. Sorry! The error message may help you figure out what went wrong, but it&#39;s unlikely that you&#39;ll be able to do anything about it unless you&#39;re the server administrator. It&#39;s possible that trying again will help, but it&#39;s more likely that you&#39;re out of luck for the moment.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">503 Service Unavailable</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>The service is temporarily unavailable, likely due to maintenance. It should be available soon, check the <code>Retry-After</code> header for an indication of when you might be able to try again.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
+  {
+    <span class="hljs-attr">&quot;registry&quot;</span>: <span class="hljs-string">&quot;https://registry.example.com&quot;</span>,
+    <span class="hljs-attr">&quot;repository&quot;</span>: <span class="hljs-string">&quot;deepsecurity-smartcheck/example&quot;</span>,
+    <span class="hljs-attr">&quot;tag&quot;</span>: <span class="hljs-string">&quot;latest&quot;</span>,
+    <span class="hljs-attr">&quot;digest&quot;</span>: <span class="hljs-string">&quot;sha256:8476ee13937bfbf3ea2bce060448002a19c19c063b66583dae31cde64b2f2406&quot;</span>,
+    <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;findings&quot;</span>: {
+      <span class="hljs-attr">&quot;scanners&quot;</span>: {
+        <span class="hljs-attr">&quot;malware&quot;</span>: {
+          <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;2018-05-01T00:00:00Z&quot;</span>,
+          <span class="hljs-attr">&quot;versions&quot;</span>: {
+            <span class="hljs-attr">&quot;icrc&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+            <span class="hljs-attr">&quot;trendX&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+            <span class="hljs-attr">&quot;blacklist&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+          }
+        },
+        <span class="hljs-attr">&quot;vulnerabilities&quot;</span>: {
+          <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;2018-05-01T00:00:00Z&quot;</span>
+        }
+      },
+      <span class="hljs-attr">&quot;malware&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+      <span class="hljs-attr">&quot;vulnerabilities&quot;</span>: {
+        <span class="hljs-attr">&quot;total&quot;</span>: {
+          <span class="hljs-attr">&quot;defcon1&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;critical&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;high&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;medium&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;low&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;negligible&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;unknown&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+        },
+        <span class="hljs-attr">&quot;unresolved&quot;</span>: {
+          <span class="hljs-attr">&quot;defcon1&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;critical&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;high&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;medium&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;low&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;negligible&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+          <span class="hljs-attr">&quot;unknown&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+        }
+      }
+    },
+    <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;2017-04-01T00:00:00Z&quot;</span>
+  }
+]
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(200 OK)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(403 Forbidden)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(403 Forbidden)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(409 Conflict)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(409 Conflict)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(429 Too Many Requests)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(429 Too Many Requests)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Retry-After">
+                          <td> Retry-After
+                            <td>
+                              <p>The amount of time (in seconds) you should wait before trying this request again.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">integer</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(503 Service Unavailable)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(503 Service Unavailable)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Retry-After">
+                          <td> Retry-After
+                            <td>
+                              <p>The amount of time (in seconds) you should wait before trying this request again.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">integer</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+              </div>
+            </div>
+          </div>
+          <div id="operation--registries--id--images--imageID--get" class="operation panel" data-traverse-target="operation--registries--id--images--imageID--get">
+            <!-- <section class="operation-tags row"> -->
+            <!-- <div class="doc-copy"> -->
+            <div class="operation-tags">
+              <a class="label" href="#tag-Registries">Registries</a>
+              <!---->
+            </div>
+            <!-- </div> -->
+            <!-- </section> -->
+            <h2 class="operation-title">
+              <span class="operation-name">
+                <span class="operation-name">GET</span>
+                <span class="operation-path">/registries/{id}/images/{imageID}</span>
+              </span>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-description">
+                  <p>Get image details.</p>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-request-params">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">id:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>The system-assigned registry ID.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">imageID:
+                        <span class="prop-type">
+                          <span class="json-property-type">string</span>
+                          <span class="json-property-range" title="Value limits"></span>
+                        </span>
+                      </div>
+                      <span class="json-property-required"></span>
+                      <div class="prop-subtitle"> in path </div>
+                    </div>
+                    <div class="prop-value">
+                      <p>The system-assigned image ID.</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples"></div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-responses">
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">200 OK</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>The response body contains the image details.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">400 Bad Request</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Something about your request didn&#39;t quite make sense. The error message should help you figure out what went wrong.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">401 Unauthorized</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Did you forget to include a session token in your request? You need to include</p> <pre><code class="hljs"><span class="hljs-symbol">Authorization:</span> <span class="hljs-class">Bearer </span>{token}
+</code></pre>
+                      <p>in all requests. You can get a token from the <code>POST /sessions</code> API.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">403 Forbidden</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>You tried to do something that you&#39;re not allowed to do, you naughty scamp. Check your privileges to see what you&#39;re actually allowed to do. This could also mean that your token has expired.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">404 Not Found</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>The resource you were looking for doesn&#39;t exist.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">409 Conflict</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>The preconditions in the request you made could not be met. Check the <code>message</code> string in the response for help troubleshooting the problem.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">429 Too Many Requests</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>You have made too many requests too quickly. Check the <code>Retry-After</code> header for an indication of when you might be able to try again.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">500 Internal Server Error</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>Something has gone terribly wrong. Sorry! The error message may help you figure out what went wrong, but it&#39;s unlikely that you&#39;ll be able to do anything about it unless you&#39;re the server administrator. It&#39;s possible that trying again will help, but it&#39;s more likely that you&#39;re out of luck for the moment.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-group">
+                    <div class="prop-name">
+                      <div class="prop-title">503 Service Unavailable</div>
+                      <div class="prop-ref"> </div>
+                      <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
+                    </div>
+                    <div class="prop-value">
+                      <p>The service is temporarily unavailable, likely due to maintenance. It should be available soon, check the <code>Retry-After</code> header for an indication of when you might be able to try again.</p>
+                    </div>
+                  </div>
+                  <div class="prop-row prop-inner">
+                    <div class="prop-name">type</div>
+                    <div class="prop-value">
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="doc-examples">
+                <h5>Response Content-Types:
+                  <span>application/json</span>
+                </h5>
+                <section>
+                  <h5>Response Example
+                    <span>(200 OK)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;registry&quot;</span>: <span class="hljs-string">&quot;https://registry.example.com&quot;</span>,
+  <span class="hljs-attr">&quot;repository&quot;</span>: <span class="hljs-string">&quot;deepsecurity-smartcheck/example&quot;</span>,
+  <span class="hljs-attr">&quot;tag&quot;</span>: <span class="hljs-string">&quot;latest&quot;</span>,
+  <span class="hljs-attr">&quot;digest&quot;</span>: <span class="hljs-string">&quot;sha256:8476ee13937bfbf3ea2bce060448002a19c19c063b66583dae31cde64b2f2406&quot;</span>,
+  <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;findings&quot;</span>: {
+    <span class="hljs-attr">&quot;scanners&quot;</span>: {
+      <span class="hljs-attr">&quot;malware&quot;</span>: {
+        <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;2018-05-01T00:00:00Z&quot;</span>,
+        <span class="hljs-attr">&quot;versions&quot;</span>: {
+          <span class="hljs-attr">&quot;icrc&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;trendX&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;blacklist&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+        }
+      },
+      <span class="hljs-attr">&quot;vulnerabilities&quot;</span>: {
+        <span class="hljs-attr">&quot;status&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;2018-05-01T00:00:00Z&quot;</span>
+      }
+    },
+    <span class="hljs-attr">&quot;malware&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+    <span class="hljs-attr">&quot;vulnerabilities&quot;</span>: {
+      <span class="hljs-attr">&quot;total&quot;</span>: {
+        <span class="hljs-attr">&quot;defcon1&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;critical&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;high&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;medium&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;low&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;negligible&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;unknown&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+      },
+      <span class="hljs-attr">&quot;unresolved&quot;</span>: {
+        <span class="hljs-attr">&quot;defcon1&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;critical&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;high&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;medium&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;low&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;negligible&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>,
+        <span class="hljs-attr">&quot;unknown&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+      }
+    }
+  },
+  <span class="hljs-attr">&quot;updated&quot;</span>: <span class="hljs-string">&quot;2017-04-01T00:00:00Z&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(200 OK)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(400 Bad Request)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(401 Unauthorized)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(403 Forbidden)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(403 Forbidden)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(404 Not Found)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(409 Conflict)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(409 Conflict)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(429 Too Many Requests)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(429 Too Many Requests)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Retry-After">
+                          <td> Retry-After
+                            <td>
+                              <p>The amount of time (in seconds) you should wait before trying this request again.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">integer</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(500 Internal Server Error)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+                <section>
+                  <h5>Response Example
+                    <span>(503 Service Unavailable)</span>
+                  </h5>
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;message&quot;</span>: <span class="hljs-string">&quot;Something went wrong. To fix it, try ...&quot;</span>,
+  <span class="hljs-attr">&quot;fields&quot;</span>: <span class="hljs-string">&quot;object&quot;</span>
+}
+</code></pre>
+                  <!-- </div> -->
+                </section>
+                <section>
+                  <h5>Response Headers
+                    <span>(503 Service Unavailable)</span>
+                  </h5>
+                  <section class="swagger-response-headers">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th class="swagger-response-header-name"></th>
+                          <th class="swagger-response-header-description"></th>
+                          <th class="swagger-response-header-data-type"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="swagger-response-header-X-Request-Id">
+                          <td> X-Request-Id
+                            <td>
+                              <p>The request ID assigned to this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Version">
+                          <td> X-Api-Version
+                            <td>
+                              <p>The API version used in this request.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-X-Api-Notice">
+                          <td> X-Api-Notice
+                            <td>
+                              <p>If present, this header will include important API information. We will use this header as one way to notify you that a new API version is available or that the API you are using is going to be removed.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Retry-After">
+                          <td> Retry-After
+                            <td>
+                              <p>The amount of time (in seconds) you should wait before trying this request again.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">integer</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Sunset">
+                          <td> Sunset
+                            <td>
+                              <p>If present, this API endpoint has been deprecated and may be removed at any point after the reported date. The timestamp is an HTTP date string in the format <code>Fri, 11 Nov 2018 11:11:11 GMT</code>.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-format">(datetime)</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                        <tr class="swagger-response-header-Link">
+                          <td> Link
+                            <td>
+                              <p>If this API endpoint has been deprecated, a <code>Link</code> header with the <code>sunset</code> relation type may be present with a link to human-readable article describing the API change.</p>
+                            </td>
+                            <td>
+                              <span class="json-property-type">string</span>
+                              <span class="json-property-range" title="Value limits"></span>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </section>
+                </section>
+              </div>
+            </div>
+          </div>
           <div id="operation--registries-dashboard-get" class="operation panel" data-traverse-target="operation--registries-dashboard-get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
@@ -39183,13 +41150,13 @@
                                 <span class="json-property-name">severity:</span>
                                 <span class="json-property-type">string</span>
                                 <span class="json-property-enum" title="Possible values">
-                                  <span class="json-property-enum-item">Defcon1</span>,
-                                  <span class="json-property-enum-item">Critical</span>,
-                                  <span class="json-property-enum-item">High</span>,
-                                  <span class="json-property-enum-item">Medium</span>,
-                                  <span class="json-property-enum-item">Low</span>,
-                                  <span class="json-property-enum-item">Negligible</span>,
-                                  <span class="json-property-enum-item">Unknown</span>
+                                  <span class="json-property-enum-item">defcon1</span>,
+                                  <span class="json-property-enum-item">critical</span>,
+                                  <span class="json-property-enum-item">high</span>,
+                                  <span class="json-property-enum-item">medium</span>,
+                                  <span class="json-property-enum-item">low</span>,
+                                  <span class="json-property-enum-item">negligible</span>,
+                                  <span class="json-property-enum-item">unknown</span>
                                 </span>
                                 <span class="json-property-range" title="Value limits"></span>
                                 <span class="json-property-required"></span>
@@ -39197,12 +41164,12 @@
                               <dd>
                                 <p>The severity assigned to the vulnerability:</p>
                                 <ul>
-                                  <li>Defcon1: is a <code>Critical</code> problem which has been manually highlighted by the team. It requires immediate attention.</li>
-                                  <li>Critical: a world-burning problem, exploitable for nearly all people in a default installation of Linux. Includes remote root privilege escalations, or massive data loss.</li>
-                                  <li>High: a real problem, exploitable for many people in a default installation. Includes serious remote denial of services, local root privilege escalations, or data loss.</li>
-                                  <li>Medium: a real security problem, and is exploitable for many people. Includes network daemon denial of service attacks, cross-site scripting, and gaining user privileges. Updates should be made soon for this priority of issue.</li>
-                                  <li>Low: a security problem, but is hard to exploit due to environment, requires a user-assisted attack, a small install base, or does very little damage. These tend to be included in security updates only when higher-priority issues require an upgrade, or if many low-priority issues have built up.</li>
-                                  <li>Negligible: is technically a security problem, but is only theoretical in nature, requires a very special situation, has almost no install base, or does no real damage. These tend not to get backported from upstreams, and will likely not be included in security updates unless there is an easy fix and some other issue causes an update.</li>
+                                  <li><code>defcon1</code>: is a <code>critical</code> problem which has been manually highlighted by the team. It requires immediate attention.</li>
+                                  <li><code>critical</code>: a world-burning problem, exploitable for nearly all people in a default installation of Linux. Includes remote root privilege escalations, or massive data loss.</li>
+                                  <li><code>high</code>: a real problem, exploitable for many people in a default installation. Includes serious remote denial of services, local root privilege escalations, or data loss.</li>
+                                  <li><code>medium</code>: a real security problem, and is exploitable for many people. Includes network daemon denial of service attacks, cross-site scripting, and gaining user privileges. Updates should be made soon for this priority of issue.</li>
+                                  <li><code>low</code>: a security problem, but is hard to exploit due to environment, requires a user-assisted attack, a small install base, or does very little damage. These tend to be included in security updates only when higher-priority issues require an upgrade, or if many low-priority issues have built up.</li>
+                                  <li><code>negligible</code>: is technically a security problem, but is only theoretical in nature, requires a very special situation, has almost no install base, or does no real damage. These tend not to get backported from upstreams, and will likely not be included in security updates unless there is an easy fix and some other issue causes an update.</li>
                                 </ul>
                               </dd>
                             </dl>
@@ -39295,7 +41262,7 @@
       <span class="hljs-attr">&quot;link&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
       <span class="hljs-attr">&quot;namespaceName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-      <span class="hljs-attr">&quot;severity&quot;</span>: <span class="hljs-string">&quot;High&quot;</span>
+      <span class="hljs-attr">&quot;severity&quot;</span>: <span class="hljs-string">&quot;high&quot;</span>
     }
   ],
   <span class="hljs-attr">&quot;findings&quot;</span>: {
@@ -39375,13 +41342,13 @@
                       <span class="json-property-name">severity:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-enum" title="Possible values">
-                        <span class="json-property-enum-item">Defcon1</span>,
-                        <span class="json-property-enum-item">Critical</span>,
-                        <span class="json-property-enum-item">High</span>,
-                        <span class="json-property-enum-item">Medium</span>,
-                        <span class="json-property-enum-item">Low</span>,
-                        <span class="json-property-enum-item">Negligible</span>,
-                        <span class="json-property-enum-item">Unknown</span>
+                        <span class="json-property-enum-item">defcon1</span>,
+                        <span class="json-property-enum-item">critical</span>,
+                        <span class="json-property-enum-item">high</span>,
+                        <span class="json-property-enum-item">medium</span>,
+                        <span class="json-property-enum-item">low</span>,
+                        <span class="json-property-enum-item">negligible</span>,
+                        <span class="json-property-enum-item">unknown</span>
                       </span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
@@ -39389,12 +41356,12 @@
                     <dd>
                       <p>The severity assigned to the vulnerability:</p>
                       <ul>
-                        <li>Defcon1: is a <code>Critical</code> problem which has been manually highlighted by the team. It requires immediate attention.</li>
-                        <li>Critical: a world-burning problem, exploitable for nearly all people in a default installation of Linux. Includes remote root privilege escalations, or massive data loss.</li>
-                        <li>High: a real problem, exploitable for many people in a default installation. Includes serious remote denial of services, local root privilege escalations, or data loss.</li>
-                        <li>Medium: a real security problem, and is exploitable for many people. Includes network daemon denial of service attacks, cross-site scripting, and gaining user privileges. Updates should be made soon for this priority of issue.</li>
-                        <li>Low: a security problem, but is hard to exploit due to environment, requires a user-assisted attack, a small install base, or does very little damage. These tend to be included in security updates only when higher-priority issues require an upgrade, or if many low-priority issues have built up.</li>
-                        <li>Negligible: is technically a security problem, but is only theoretical in nature, requires a very special situation, has almost no install base, or does no real damage. These tend not to get backported from upstreams, and will likely not be included in security updates unless there is an easy fix and some other issue causes an update.</li>
+                        <li><code>defcon1</code>: is a <code>critical</code> problem which has been manually highlighted by the team. It requires immediate attention.</li>
+                        <li><code>critical</code>: a world-burning problem, exploitable for nearly all people in a default installation of Linux. Includes remote root privilege escalations, or massive data loss.</li>
+                        <li><code>high</code>: a real problem, exploitable for many people in a default installation. Includes serious remote denial of services, local root privilege escalations, or data loss.</li>
+                        <li><code>medium</code>: a real security problem, and is exploitable for many people. Includes network daemon denial of service attacks, cross-site scripting, and gaining user privileges. Updates should be made soon for this priority of issue.</li>
+                        <li><code>low</code>: a security problem, but is hard to exploit due to environment, requires a user-assisted attack, a small install base, or does very little damage. These tend to be included in security updates only when higher-priority issues require an upgrade, or if many low-priority issues have built up.</li>
+                        <li><code>negligible</code>: is technically a security problem, but is only theoretical in nature, requires a very special situation, has almost no install base, or does no real damage. These tend not to get backported from upstreams, and will likely not be included in security updates unless there is an easy fix and some other issue causes an update.</li>
                       </ul>
                     </dd>
                   </dl>
@@ -39409,7 +41376,7 @@
   <span class="hljs-attr">&quot;link&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;namespaceName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
-  <span class="hljs-attr">&quot;severity&quot;</span>: <span class="hljs-string">&quot;High&quot;</span>
+  <span class="hljs-attr">&quot;severity&quot;</span>: <span class="hljs-string">&quot;high&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->

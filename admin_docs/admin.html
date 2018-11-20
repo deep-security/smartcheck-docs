@@ -43,8 +43,15 @@
         </section>
         <section>
             <h2><a name="about-smart-check"></a>About Deep Security Smart Check</h2>
-				<p>Deep Security™ Smart Check performs pre-runtime scans of Docker™ images to detect OS vulnerabilities and malware, enabling you to fix issues before they reach the orchestration environment (for example, Kubernetes®).</p>
-				<p><u>Deep Security Smart Check receives up-to-date threat data from private Trend Micro endpoints. Smart Check obtains malware information from the Trend Micro Smart Protection Network ™ and, for Windows images, detects threats using Trend Micro XGen™ machine learning algorithms.</u> Deep Security Smart Check will find vulnerabilities in these Linux® distributions:</p>
+				<p>Deep Security™ Smart Check performs pre-runtime scans of Docker™ images, enabling you to fix issues before they reach the orchestration environment (for example, Kubernetes®). Deep Security Smart Check provides the ability to:</p>
+				<ul>
+				  <li>detect OS-level and application-level vulnerabilities</li>
+				  <li>detect malware</li>
+				  <li>detect secrets and keys embedded in your applications</li>
+				  <li>perform custom scan queries to find suspicious or unwanted files<br>
+			      </li>
+		  </ul>
+				<p>Deep Security Smart Check receives up-to-date threat data from private Trend Micro endpoints. Smart Check obtains malware information from the Trend Micro Smart Protection Network™ and, for Windows images, detects threats using Trend Micro XGen™ machine learning algorithms. Deep Security Smart Check will find vulnerabilities in these Linux® distributions:</p>
 				<ul>
 					<li>Red Hat® Enterprise Linux</li>
 					<li>CentOS™</li>
@@ -76,7 +83,7 @@
             </ul>
             <p>To integrate Deep Security Smart Check into your pipeline, you will likely need to write integration logic to trigger scanning based on the event model of your registry. For example, Google Container Registry uses a pub/sub model to publish events about registry activity and Docker Trusted Registry uses a Webhook model.</p>
             <h3><a name="system-requirements"></a>System requirements</h3>
-            <p>This initial release of Deep Security Smart Check requires:</p>
+            <p>This release of Deep Security Smart Check requires:</p>
             <ul>
                 <li>Kubernetes 1.8.7 or greater</li>
                 <li>Helm/Tiller 2.8.1 or greater</li>
@@ -119,7 +126,7 @@
             <p>Deep Security Smart Check has a default administrator account, but you can add other user accounts.</p>
             <h4><a name="add-user"></a>Add or edit a user</h4>
             <ol>
-                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-users.png" width="27" height="24" alt=""/><strong> Users.</strong> </li>
+                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-users.png" width="27" height="24" alt=""/> <strong>Users</strong>.</li>
                 <li>On the Users page, click the<strong> + </strong>icon to add a user or click an existing user to edit.</li>
                 <li>On the Add/Edit User page, enter the <strong>User ID</strong> that the user will use to log in to Deep Security Smart Check. The User ID has a maximum of 64 characters.</li>
                 <li>Enter the user&rsquo;s full name.</li>
@@ -136,7 +143,7 @@
             </ol>
             <h4><a name="delete-user"></a>Delete a user</h4>
             <ol>
-                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-users.png" width="27" height="24" alt=""/><strong> Users.</strong></li>
+                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-users.png" width="27" height="24" alt=""/> <strong>Users</strong>.</li>
                 <li>On the Users page, click the user you want to remove.</li>
                 <li>On the Edit User page, click <strong>Delete User</strong>.</li>
             </ol>
@@ -148,7 +155,7 @@
             <p>If you are using Google Cloud Registry, create a service account and use its JSON key file. The service account must have at least the <strong>Storage Object Viewer</strong> role and both the <strong>Google Cloud Resource Manager API</strong> and <strong>Google Container Registry API</strong> must be enabled. Google provides <a href="https://cloud.google.com/container-registry/docs/advanced-authentication" target="_blank" title="Advanced Authentication Methods" alt="Advanced Authentication Methods">an overview</a> and <a href="https://support.google.com/cloud/answer/6158849#serviceaccounts" target="_blank" title="Service accounts" alt="Service accounts">detailed instructions</a> for creating service accounts.</p>
             <h4><a name="add-registry"></a>Add a registry</h4>
             <ol>
-                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-registries.png" width="29" height="28" alt=""/><strong> Registries.</strong></li>
+                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-registries.png" width="29" height="28" alt=""/> <strong>Registries</strong>.</li>
                 <li>Click the<strong> + </strong>icon to add a registry.</li>
                 <li>On the Create Registry page, in the <strong>Name</strong> field, enter a descriptive name for the registry. This name does not necessarily need to match the namespace of your Docker registry. If you plan to add multiple registries, you&rsquo;ll use this name to tell them apart in the Smart Check administrator console. The name should be short but meaningful. The Name has a maximum of 256 characters.</li>
                 <li>In the <strong>Description</strong> field, enter an optional description of the registry. This is useful if you need to capture a bit more information than the Name field allows.</li>
@@ -201,7 +208,7 @@
                 <li>Click <strong>Scan Now</strong>.</li>
                 <li>A confirmation message appears. Click <strong>OK</strong>.</li>
             </ol>
-            <p>To confirm that scans are running, an the left side of the Smart Check administrator console, click <img src="images/icon-scans.png" width="26" height="27" alt=""/><strong> Scans.</strong>  Running scans have a spinning icon next to them.</p>
+            <p>To confirm that scans are running, On the left side of the Smart Check administrator console, click <img src="images/icon-scans.png" width="26" height="27" alt=""/> <strong>Scans</strong>. Running scans have a spinning icon next to them.</p>
             <h3><a name="get-results"></a>See scan results</h3>
             <p>There are several ways to get scan results:</p>
             <ul>
@@ -218,7 +225,7 @@
             <p>Everything you can do in Smart Check is also available as an API operation.</p>
             <p>You can find the API documentation in the Smart Check administrator console:</p>
             <ol>
-                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-api.png" width="29" height="28" alt=""/> <strong>API Documentation</strong>.</li>
+                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-api.png" width="29" height="28" alt=""/><strong> API Documentation</strong>.</li>
             </ol>
         </section>
     </article>

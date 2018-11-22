@@ -33,9 +33,12 @@ tags:
   - name: License
     description: |
       License information
+  - name: Content scan
+    description: |
+      Manage content scan rules
   - name: Registries
 definitions:
-  ChangeUserPasswordRequest: &ref_30
+  ChangeUserPasswordRequest: &ref_33
     type: object
     properties:
       oldPassword:
@@ -52,7 +55,7 @@ definitions:
         description: |
           The user's new password.
         maxLength: 1024
-  UserRequest: &ref_29
+  UserRequest: &ref_32
     type: object
     properties:
       userID:
@@ -101,7 +104,7 @@ definitions:
           The user's unique system identifier.
       href:
         type: string
-        example: 'https://auth.example.com/users/6552eebd-5172-411e-ac71-8c323e6ca0fe'
+        example: /users/6552eebd-5172-411e-ac71-8c323e6ca0fe
         description: |
           The URL at which the user can be found.
       userID:
@@ -152,7 +155,7 @@ definitions:
       - role
       - created
       - updated
-  RoleRequest: &ref_25
+  RoleRequest: &ref_28
     type: object
     properties:
       name:
@@ -211,7 +214,7 @@ definitions:
     required:
       - name
       - policies
-  Role: &ref_18
+  Role: &ref_21
     type: object
     properties:
       id:
@@ -221,7 +224,7 @@ definitions:
           The role's unique system identifier.
       href:
         type: string
-        example: 'https://auth.example.com/roles/6552eebd-5172-411e-ac71-8c323e6ca0fe'
+        example: /roles/6552eebd-5172-411e-ac71-8c323e6ca0fe
         description: |
           The URL at which the role can be found.
       name:
@@ -262,7 +265,7 @@ definitions:
       - updated
   Policy: *ref_0
   Statement: *ref_1
-  SessionRequest: &ref_32
+  SessionRequest: &ref_35
     type: object
     properties:
       user:
@@ -288,7 +291,7 @@ definitions:
           - password
     required:
       - user
-  Session: &ref_31
+  Session: &ref_34
     type: object
     properties:
       id:
@@ -298,7 +301,7 @@ definitions:
           The session's unique system identifier.
       href:
         type: string
-        example: 'https://auth.example.com/sessions/6552eebd-5172-411e-ac71-8c323e6ca0fe'
+        example: /sessions/6552eebd-5172-411e-ac71-8c323e6ca0fe
         description: |
           The URL at which the session can be found.
       user: *ref_2
@@ -328,7 +331,7 @@ definitions:
         example: '2018-05-01T00:00:00Z'
         description: |
           The time that the session will expire.
-  Error: &ref_13
+  Error: &ref_15
     type: object
     properties:
       message:
@@ -350,7 +353,7 @@ definitions:
             property name.
     required:
       - message
-  WebhookRequest: &ref_5
+  WebhookRequest: &ref_7
     type: object
     properties:
       name:
@@ -443,7 +446,7 @@ definitions:
     required:
       - hookURL
   WebhookHeaderRequest: *ref_3
-  Webhook: &ref_38
+  Webhook: &ref_42
     type: object
     properties:
       id:
@@ -456,8 +459,7 @@ definitions:
         example: (optional) any unique string
       href:
         type: string
-        example: >-
-          https://scanner.example.com/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8
+        example: /api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8
       name:
         type: string
         description: |
@@ -484,7 +486,7 @@ definitions:
             href:
               type: string
               example: >-
-                https://scanner.example.com/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb
+                /api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb
             name:
               type: string
               example: Authorization
@@ -552,7 +554,141 @@ definitions:
       - events
       - created
   WebhookHeader: *ref_4
-  ScanRequest: &ref_34
+  ContentScanRulesetRequest: &ref_5
+    type: object
+    required:
+      - name
+      - ruleset
+    properties:
+      name:
+        type: string
+        example: Scanning rule
+        description: |
+          The name of this ruleset.
+        minLength: 1
+        maxLength: 64
+      ruleset:
+        type: string
+        example: cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=
+        description: |
+          Base64-encoded yara rules.
+        maxLength: 8192
+      disabled:
+        type: boolean
+        example: false
+        description: |
+          If set to true, this ruleset will not be used for scan.
+  ContentScanRuleset: &ref_6
+    type: object
+    required:
+      - id
+      - name
+      - href
+    properties:
+      id:
+        type: string
+        example: 6af2e0e1-bb7c-45b7-9a3f-152a80d154eb
+        description: |
+          The unique ID assigned to this content scan ruleset.
+      name:
+        type: string
+        example: Scanning ruleset
+        description: |
+          The name of this ruleset.
+      href:
+        type: string
+        example: >-
+          /api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/rulesets/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb
+        description: |
+          The URL to the ruleset resource.
+      ruleset:
+        type: string
+        example: cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=
+        description: >
+          Base64-encoded yara ruleset.  In some special rulesets, it will not be
+          displayed.
+      disabled:
+        type: boolean
+        example: false
+        description: |
+          If set to true, this ruleset will not be used for scan.
+  ContentScanCollectionRequestWithoutRulesets: &ref_45
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        example: Smart Check collection
+        description: |
+          The name of this collection.
+        minLength: 1
+        maxLength: 64
+      default:
+        type: boolean
+        example: true
+        description: >
+          The global collection used for content scan.  There can only be one
+          default collection at all time.  If this value is true, the value of
+          other collection will be reset to false.
+  ContentScanCollectionRequest: &ref_44
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        example: Smart Check collection
+        description: |
+          The name of this collection.
+        minLength: 1
+        maxLength: 64
+      default:
+        type: boolean
+        example: true
+        description: >
+          The global collection used for content scan.  There can only be one
+          default collection at all time.  If this value is true, the value of
+          other collection will be reset to false.
+      rulesets:
+        type: array
+        items: *ref_5
+        description: |
+          The rulesets belonging to this collection.
+  ContentScanCollection: &ref_43
+    type: object
+    required:
+      - id
+      - href
+      - default
+    properties:
+      id:
+        type: string
+        example: 6af2e0e1-bb7c-45b7-9a3f-152a80d154eb
+        description: |
+          The unique ID assigned to this content scan ruleset.
+      href:
+        type: string
+        example: /api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff
+        description: |
+          The URL to the collection resource.
+      name:
+        type: string
+        example: Deep Security Smart Check Collection
+        description: |
+          The name of this collection.
+      default:
+        type: boolean
+        example: true
+        description: >
+          The default ruleset used for content scan.  There can only be one
+          default collection at all time.
+      rulesets:
+        type: array
+        items: *ref_6
+        description: |
+          The rulesets belonging to this collection.
+  ScanRequest: &ref_37
     type: object
     properties:
       id:
@@ -569,7 +705,7 @@ definitions:
           (optional) A descriptive name for the scan.
         example: (optional) a descriptive string
         maxLength: 128
-      source: &ref_6
+      source: &ref_8
         type: object
         properties:
           type:
@@ -594,7 +730,7 @@ definitions:
               (for scan type `docker` only) The tag of the image to scan.
             example: latest
             maxLength: 255
-          credentials: &ref_7
+          credentials: &ref_9
             type: object
             properties:
               token:
@@ -726,11 +862,11 @@ definitions:
           (optional) A list of web hooks to call when events happen for the
           scan.
         type: array
-        items: *ref_5
+        items: *ref_7
     required:
       - source
-  SourceRequest: *ref_6
-  Source: &ref_8
+  SourceRequest: *ref_8
+  Source: &ref_10
     type: object
     properties:
       type:
@@ -778,8 +914,8 @@ definitions:
         maxLength: 32768
     required:
       - type
-  Credentials: *ref_7
-  Scan: &ref_33
+  Credentials: *ref_9
+  Scan: &ref_36
     type: object
     properties:
       id:
@@ -788,8 +924,7 @@ definitions:
           The unique ID assigned to this scan.
       href:
         type: string
-        example: >-
-          https://scanner.example.com/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff
+        example: /api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff
         description: |
           The URL to the scan resource.
       name:
@@ -797,7 +932,7 @@ definitions:
         description: |
           If you provided a name for the scan, it will be returned here.
         maxLength: 128
-      source: *ref_8
+      source: *ref_10
       status:
         type: string
         enum:
@@ -806,7 +941,7 @@ definitions:
           - completed-with-findings
           - completed-no-findings
           - failed
-      details: &ref_10
+      details: &ref_12
         type: object
         properties:
           detail:
@@ -871,7 +1006,7 @@ definitions:
               key: value
           results:
             type: array
-            items: &ref_11
+            items: &ref_13
               type: object
               properties:
                 id:
@@ -912,7 +1047,13 @@ definitions:
                     If present, a URL pointing to the list of vulnerabilities
                     that were found. See <a
                     href="#listScanLayerVulnerabilities">listScanLayerVulnerabilities</a>.
-                findings: &ref_9
+                contents:
+                  type: string
+                  description: >
+                    If present, a URL pointing to the list of content scan
+                    results that were found. See <a
+                    href="#listScanLayerVulnerabilities">listScanLayerVulnerabilities</a>.
+                findings: &ref_11
                   type: object
                   properties:
                     scanners:
@@ -973,11 +1114,84 @@ definitions:
                               type: string
                               format: date-time
                               example: '2018-05-01T00:00:00Z'
+                        vulnerabilityPatterns:
+                          description: |
+                            Metadata for the vulnerability pattern scanner.
+                          type: object
+                          properties:
+                            status:
+                              description: >
+                                Availability of the vulnerability pattern
+                                scanner.
+                              type: string
+                              enum:
+                                - ok
+                                - unavailable
+                            date:
+                              description: >
+                                The time that the vulnerability patterns were
+                                last published.
+                              type: string
+                              format: date-time
+                              example: '2018-05-01T00:00:00Z'
+                            updated:
+                              description: >
+                                The time that the vulnerability patterns were
+                                last synchronized from the vulnerability feed.
+                              type: string
+                              format: date-time
+                              example: '2018-05-01T00:00:00Z'
                     malware:
                       type: integer
                       description: |
                         The number of malware items that were found.
                         high:
+                    contents:
+                      type: object
+                      description: |
+                        The number of content findings found by severity.
+                      properties:
+                        total:
+                          type: object
+                          description: >
+                            The total number of content findings categorized by
+                            severity.
+                          properties:
+                            defcon1:
+                              type: integer
+                              description: >
+                                The number of "Defcon1" content findings that
+                                were found.
+                            critical:
+                              type: integer
+                              description: >
+                                The number of critical content findings that
+                                were found.
+                            high:
+                              type: integer
+                              description: >
+                                The number of high-severity content findings
+                                that were found.
+                            medium:
+                              type: integer
+                              description: >
+                                The number of medium-severity content findings
+                                that were found.
+                            low:
+                              type: integer
+                              description: >
+                                The number of low-severity content findings that
+                                were found.
+                            negligible:
+                              description: >
+                                The number of negligible content findings that
+                                were found.
+                              type: integer
+                            unknown:
+                              type: integer
+                              description: >
+                                The number of content findings with unknown
+                                severity that were found.
                     vulnerabilities:
                       type: object
                       description: |
@@ -1070,16 +1284,16 @@ definitions:
         required:
           - requested
           - results
-      findings: *ref_9
+      findings: *ref_11
     required:
       - id
       - href
       - name
       - status
-  ResultsMetrics: *ref_9
-  ScanStatusDetails: *ref_10
-  LayerResults: *ref_11
-  MalwareScanResult: &ref_36
+  ResultsMetrics: *ref_11
+  ScanStatusDetails: *ref_12
+  LayerResults: *ref_13
+  MalwareScanResult: &ref_39
     type: object
     properties:
       filename:
@@ -1146,7 +1360,7 @@ definitions:
               required:
                 - name
                 - url
-  VulnerabilityScanResult: &ref_37
+  VulnerabilityScanResult: &ref_40
     type: object
     properties:
       name:
@@ -1169,7 +1383,7 @@ definitions:
         type: array
         description: |
           A list of the known vulnerabilities in this package.
-        items: &ref_12
+        items: &ref_14
           type: object
           properties:
             description:
@@ -1238,7 +1452,6 @@ definitions:
           required:
             - description
             - name
-            - namespaceName
             - severity
       findings:
         type: object
@@ -1274,12 +1487,62 @@ definitions:
               found.
     required:
       - name
-      - namespaceName
-      - version
-      - versionFormat
       - vulnerabilities
-  Vulnerability: *ref_12
-  RegistryScanRequest: &ref_42
+  ContentScanResult: &ref_41
+    required:
+      - filename
+      - rule
+      - ruleset
+    type: object
+    properties:
+      filename:
+        type: string
+        description: |
+          The file where the issue was detected by content scanner.
+        example: path/to/file
+      rule:
+        type: string
+        description: |
+          The content scan name that matches the file content.
+        example: ssh_key_search_rsa
+      ruleset:
+        type: string
+        example: >-
+          /api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/rulesets/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb
+        description: |
+          The URL to the ruleset resource.
+      description:
+        type: string
+        example: This is a rule.
+        description: |
+          The description of the content scan rule.
+      severity:
+        type: string
+        example: critical
+        enum:
+          - defcon1
+          - critical
+          - high
+          - medium
+          - low
+          - negligible
+          - unknown
+      metadata:
+        type: object
+        description: |
+          The metadata of the content scan rule.
+        example:
+          author: foo
+          license: 'http://XXX.XXX.XXX'
+      tags:
+        type: array
+        items:
+          type: string
+          example: config
+        description: |
+          The tags of the content scan rule.
+  Vulnerability: *ref_14
+  RegistryScanRequest: &ref_49
     type: object
     properties:
       name:
@@ -1308,8 +1571,8 @@ definitions:
           (optional) A list of web hooks to call when events happen for the
           scan.
         type: array
-        items: *ref_5
-  RegistriesDashboard: &ref_44
+        items: *ref_7
+  RegistriesDashboard: &ref_51
     type: object
     properties:
       content:
@@ -1355,7 +1618,7 @@ definitions:
             description: >
               The number of images in all registries that have been scanned and
               have encountered errors during the scan.
-      findings: *ref_9
+      findings: *ref_11
       history:
         type: object
         description: |
@@ -1383,7 +1646,7 @@ definitions:
                   The number of scans performed on images in all registries in
                   the time period. Will be `-1` if there was an error
                   calculating the value.
-  Image: &ref_43
+  Image: &ref_50
     type: object
     properties:
       registry:
@@ -1421,7 +1684,7 @@ definitions:
           - completed-no-findings
           - completed-with-findings
           - failed
-      findings: *ref_9
+      findings: *ref_11
       updated:
         type: string
         format: datetime
@@ -1435,7 +1698,7 @@ definitions:
       - digest
       - status
       - updated
-  RegistryRequest: &ref_41
+  RegistryRequest: &ref_48
     type: object
     properties:
       name:
@@ -1614,7 +1877,7 @@ definitions:
         type: boolean
         description: |
           If `true`, this registry will be scheduled for daily re-scan.
-  Registry: &ref_39
+  Registry: &ref_46
     type: object
     description: |
       The registry object. Credentials will not be included in this object.
@@ -1747,7 +2010,7 @@ definitions:
                 description: >
                   The number of images in the registry that have been scanned
                   and have encountered errors during the scan.
-          findings: *ref_9
+          findings: *ref_11
           history:
             type: object
             description: |
@@ -1819,7 +2082,7 @@ definitions:
       - created
       - updated
 responses:
-  '400': &ref_19
+  '400': &ref_22
     description: >
       Something about your request didn't quite make sense. The error message
       should help you figure out what went wrong.
@@ -1851,8 +2114,8 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_13
-  '401': &ref_20
+    schema: *ref_15
+  '401': &ref_23
     description: >
       Did you forget to include a session token in your request? You need to
       include
@@ -1892,8 +2155,8 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_13
-  '403': &ref_21
+    schema: *ref_15
+  '403': &ref_24
     description: >
       You tried to do something that you're not allowed to do, you naughty
       scamp. Check your privileges to see what you're actually allowed to do.
@@ -1926,8 +2189,8 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_13
-  '404': &ref_35
+    schema: *ref_15
+  '404': &ref_38
     description: |
       The resource you were looking for doesn't exist.
     headers:
@@ -1958,8 +2221,8 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_13
-  '409': &ref_40
+    schema: *ref_15
+  '409': &ref_47
     description: >
       The preconditions in the request you made could not be met. Check the
       `message` string in the response for help troubleshooting the problem.
@@ -1991,8 +2254,8 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_13
-  '429': &ref_22
+    schema: *ref_15
+  '429': &ref_25
     description: >
       You have made too many requests too quickly. Check the `Retry-After`
       header for an indication of when you might be able to try again.
@@ -2029,8 +2292,8 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_13
-  '500': &ref_23
+    schema: *ref_15
+  '500': &ref_26
     description: >
       Something has gone terribly wrong. Sorry! The error message may help you
       figure out what went wrong, but it's unlikely that you'll be able to do
@@ -2065,8 +2328,8 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_13
-  '503': &ref_24
+    schema: *ref_15
+  '503': &ref_27
     description: >
       The service is temporarily unavailable, likely due to maintenance. It
       should be available soon, check the `Retry-After` header for an indication
@@ -2104,9 +2367,20 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_13
+    schema: *ref_15
 parameters:
-  expand: &ref_14
+  apiversion: &ref_20
+    name: X-Api-Version
+    description: |
+      The version of the API to use.
+    in: header
+    schema:
+      type: string
+      enum:
+        - '2018-05-01'
+    required: false
+    default: '2018-05-01'
+  expand: &ref_16
     name: expand
     in: query
     type: string
@@ -2116,7 +2390,7 @@ parameters:
     default: all
     description: |
       A comma-separated list of attributes to expand in the results.
-  cursor: &ref_15
+  cursor: &ref_17
     name: cursor
     in: query
     type: string
@@ -2125,7 +2399,7 @@ parameters:
     description: >
       An encoded value used to retrieve the next set of results for a query that
       returns more than `limit` results.
-  limit: &ref_16
+  limit: &ref_18
     name: limit
     in: query
     type: integer
@@ -2133,14 +2407,14 @@ parameters:
     default: 25
     description: |
       The maximum number of records to return.
-  query: &ref_17
+  query: &ref_19
     name: query
     in: query
     type: string
     default: ''
     description: |
       Space-separated strings to search for.
-  dryrunCreate: &ref_26
+  dryrunCreate: &ref_29
     name: dryrun
     in: query
     type: boolean
@@ -2150,7 +2424,7 @@ parameters:
       only be tested for validity and should not actually create a record. The
       response code will indicate whether the request was OK (`200 OK`) or
       whether there was a problem in the request.
-  dryrunUpdate: &ref_27
+  dryrunUpdate: &ref_30
     name: dryrun
     in: query
     type: boolean
@@ -2160,7 +2434,7 @@ parameters:
       only be tested for validity and should not actually modify the record. The
       response code will indicate whether the request was OK (`200 OK`) or
       whether there was a problem in the request.
-  dryrunDelete: &ref_28
+  dryrunDelete: &ref_31
     name: dryrun
     in: query
     type: boolean
@@ -2177,10 +2451,11 @@ paths:
         x-required-privileges:
           - 'roles:list'
       parameters:
-        - *ref_14
-        - *ref_15
         - *ref_16
         - *ref_17
+        - *ref_18
+        - *ref_19
+        - *ref_20
       description: |
         Retrieve a list of roles.
       tags:
@@ -2222,7 +2497,7 @@ paths:
                 description: |
                   The list of roles.
                 type: array
-                items: *ref_18
+                items: *ref_21
               next:
                 type: string
                 format: byte
@@ -2232,12 +2507,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     post:
       x-security:
         x-required-privileges:
@@ -2253,8 +2528,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_25
-        - *ref_26
+          schema: *ref_28
+        - *ref_29
+        - *ref_20
       responses:
         '200':
           description: >
@@ -2276,7 +2552,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_18
+          schema: *ref_21
         '201':
           description: |
             The response body contains the role details.
@@ -2300,13 +2576,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_18
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_21
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   '/roles/{id}':
     parameters:
       - name: id
@@ -2324,7 +2600,8 @@ paths:
       tags:
         - Roles
       parameters:
-        - *ref_14
+        - *ref_16
+        - *ref_20
       produces:
         - application/json
       responses:
@@ -2347,13 +2624,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_18
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_21
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     post:
       x-security:
         x-required-privileges:
@@ -2369,8 +2646,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_25
-        - *ref_27
+          schema: *ref_28
+        - *ref_30
+        - *ref_20
       responses:
         '200':
           description: |
@@ -2391,13 +2669,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_18
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_21
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     delete:
       x-security:
         x-required-privileges:
@@ -2407,7 +2685,8 @@ paths:
       tags:
         - Roles
       parameters:
-        - *ref_28
+        - *ref_31
+        - *ref_20
       responses:
         '200':
           description: >
@@ -2448,22 +2727,23 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   /users:
     get:
       x-security:
         x-required-privileges:
           - 'users:list'
       parameters:
-        - *ref_14
-        - *ref_15
         - *ref_16
         - *ref_17
+        - *ref_18
+        - *ref_19
+        - *ref_20
       description: |
         Retrieve a list of users.
       tags:
@@ -2515,12 +2795,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     post:
       x-security:
         x-required-privileges:
@@ -2536,8 +2816,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_29
-        - *ref_26
+          schema: *ref_32
+        - *ref_29
+        - *ref_20
       responses:
         '200':
           description: >
@@ -2584,12 +2865,12 @@ paths:
                 version is available or that the API you are using is going to
                 be removed.
           schema: *ref_2
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   '/users/{id}':
     parameters:
       - name: id
@@ -2607,7 +2888,8 @@ paths:
       tags:
         - Users
       parameters:
-        - *ref_14
+        - *ref_16
+        - *ref_20
       produces:
         - application/json
       responses:
@@ -2631,12 +2913,12 @@ paths:
                 version is available or that the API you are using is going to
                 be removed.
           schema: *ref_2
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     post:
       x-security:
         x-required-privileges:
@@ -2652,8 +2934,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_29
-        - *ref_27
+          schema: *ref_32
+        - *ref_30
+        - *ref_20
       responses:
         '200':
           description: |
@@ -2679,12 +2962,12 @@ paths:
                 version is available or that the API you are using is going to
                 be removed.
           schema: *ref_2
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     delete:
       x-security:
         x-required-privileges:
@@ -2694,7 +2977,8 @@ paths:
       tags:
         - Users
       parameters:
-        - *ref_28
+        - *ref_31
+        - *ref_20
       responses:
         '200':
           description: >
@@ -2735,12 +3019,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   '/users/{id}/password':
     parameters:
       - name: id
@@ -2764,8 +3048,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_30
-        - *ref_27
+          schema: *ref_33
+        - *ref_30
+        - *ref_20
       responses:
         '200':
           description: |
@@ -2787,22 +3072,23 @@ paths:
                 version is available or that the API you are using is going to
                 be removed.
           schema: *ref_2
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   /sessions:
     get:
       x-security:
         x-required-privileges:
           - 'sessions:list'
       parameters:
-        - *ref_14
-        - *ref_15
         - *ref_16
         - *ref_17
+        - *ref_18
+        - *ref_19
+        - *ref_20
       description: |
         Retrieve a list of sessions.
       tags:
@@ -2844,7 +3130,7 @@ paths:
                 description: |
                   The list of sessions.
                 type: array
-                items: *ref_31
+                items: *ref_34
               next:
                 type: string
                 format: byte
@@ -2854,12 +3140,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     post:
       x-security:
         x-required-privileges:
@@ -2876,8 +3162,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_32
-        - *ref_26
+          schema: *ref_35
+        - *ref_29
+        - *ref_20
       responses:
         '200':
           description: >
@@ -2899,7 +3186,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_31
+          schema: *ref_34
         '201':
           description: |
             The response body contains the session details.
@@ -2923,13 +3210,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_31
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_34
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   '/sessions/{id}':
     parameters:
       - name: id
@@ -2947,7 +3234,8 @@ paths:
       tags:
         - Sessions
       parameters:
-        - *ref_14
+        - *ref_16
+        - *ref_20
       produces:
         - application/json
       responses:
@@ -2970,13 +3258,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_31
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_34
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     post:
       x-security:
         x-required-privileges:
@@ -2987,7 +3275,8 @@ paths:
       tags:
         - Sessions
       parameters:
-        - *ref_27
+        - *ref_30
+        - *ref_20
       produces:
         - application/json
       responses:
@@ -3010,13 +3299,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_31
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_34
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     delete:
       x-security:
         x-required-privileges:
@@ -3026,7 +3315,8 @@ paths:
       tags:
         - Sessions
       parameters:
-        - *ref_28
+        - *ref_31
+        - *ref_20
       responses:
         '200':
           description: >
@@ -3067,12 +3357,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   /scans:
     get:
       description: >
@@ -3083,9 +3373,9 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_14
-        - *ref_15
         - *ref_16
+        - *ref_17
+        - *ref_18
         - name: registry
           in: query
           type: string
@@ -3127,6 +3417,14 @@ paths:
             provided values. Valid values in the list are `pending`,
             `in-progress`, `completed-with-findings`, `completed-no-findings`,
             `failed`. Invalid values are ignored.
+        - *ref_20
+        - name: digest
+          in: query
+          type: string
+          description: >
+            When present, the `digest` query parameer will filter the list of
+            scans to those scans where the image digest exactly matches the
+            provided value.
       responses:
         '200':
           description: |
@@ -3136,7 +3434,7 @@ paths:
             properties:
               scans:
                 type: array
-                items: *ref_33
+                items: *ref_36
               next:
                 type: string
                 format: byte
@@ -3146,11 +3444,11 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'scans:list'
@@ -3166,7 +3464,8 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_34
+          schema: *ref_37
+        - *ref_20
       responses:
         '201':
           description: >
@@ -3178,13 +3477,13 @@ paths:
                 The scan URL.
               type: string
               example: '/api/scans/{id}'
-          schema: *ref_33
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_36
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'scans:create'
@@ -3194,6 +3493,8 @@ paths:
         Retrieve scan metrics.
       tags:
         - Scans
+      parameters:
+        - *ref_20
       produces:
         - application/json
       responses:
@@ -3221,12 +3522,12 @@ paths:
                     type: integer
                     description: |
                       The number of scans performed in the time period.
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'scans:list'
@@ -3256,18 +3557,19 @@ paths:
           enum:
             - all
             - none
+        - *ref_20
       responses:
         '200':
           description: |
             The response body contains the scan object.
-          schema: *ref_33
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_36
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'scans:describe'
@@ -3293,9 +3595,10 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_14
-        - *ref_15
         - *ref_16
+        - *ref_17
+        - *ref_18
+        - *ref_20
       responses:
         '200':
           description: |
@@ -3305,7 +3608,7 @@ paths:
             properties:
               malware:
                 type: array
-                items: *ref_36
+                items: *ref_39
               next:
                 type: string
                 format: byte
@@ -3315,13 +3618,13 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'scans:describe'
@@ -3347,9 +3650,10 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_14
-        - *ref_15
         - *ref_16
+        - *ref_17
+        - *ref_18
+        - *ref_20
       responses:
         '200':
           description: |
@@ -3359,7 +3663,7 @@ paths:
             properties:
               vulnerabilities:
                 type: array
-                items: *ref_37
+                items: *ref_40
               next:
                 type: string
                 format: byte
@@ -3369,22 +3673,78 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+      x-security:
+        x-required-privileges:
+          - 'scans:describe'
+  '/scans/{id}/layers/{layerID}/contents':
+    parameters:
+      - name: id
+        description: |
+          The scan ID.
+        in: path
+        required: true
+        type: string
+      - name: layerID
+        description: |
+          The layer ID.
+        in: path
+        required: true
+        type: string
+    get:
+      description: |
+        List content scan findings.
+      tags:
+        - Scans
+      produces:
+        - application/json
+      parameters:
+        - *ref_16
+        - *ref_17
+        - *ref_18
+        - *ref_20
+      responses:
+        '200':
+          description: |
+            The response body contains the list of content scan findings.
+          schema:
+            type: object
+            properties:
+              contents:
+                type: array
+                items: *ref_41
+              next:
+                type: string
+                format: byte
+                example: >-
+                  dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
+                description: >
+                  An encoded value that you can use to retrieve the next set of
+                  results for a query. If `next` is not present, then there are
+                  no more results available.
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'scans:describe'
   /webhooks:
     get:
       parameters:
-        - *ref_14
-        - *ref_15
         - *ref_16
+        - *ref_17
+        - *ref_18
+        - *ref_20
       description: |
         Retrieve a list of web hooks.
       tags:
@@ -3400,7 +3760,7 @@ paths:
             properties:
               webhooks:
                 type: array
-                items: *ref_38
+                items: *ref_42
               next:
                 type: string
                 format: byte
@@ -3410,11 +3770,11 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:list'
@@ -3430,7 +3790,8 @@ paths:
       parameters:
         - in: body
           name: request
-          schema: *ref_5
+          schema: *ref_7
+        - *ref_20
       responses:
         '201':
           description: |
@@ -3441,12 +3802,12 @@ paths:
                 The webhook URL.
               type: string
               example: '/api/webhooks/{id}'
-          schema: *ref_38
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_42
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:create'
@@ -3465,16 +3826,18 @@ paths:
         - application/json
       tags:
         - Web hooks
+      parameters:
+        - *ref_20
       responses:
         '200':
           description: |
             The response body contains the web hook object.
-          schema: *ref_38
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_42
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:describe'
@@ -3487,18 +3850,20 @@ paths:
         - application/json
       tags:
         - Web hooks
+      parameters:
+        - *ref_20
       responses:
         '200':
           description: >
             The web hook has been modified. Future calls to the web hook will
             contain the modified values. The response body contains the modified
             web hook object.
-          schema: *ref_38
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_42
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:modify'
@@ -3507,15 +3872,17 @@ paths:
         Delete a web hook.
       tags:
         - Web hooks
+      parameters:
+        - *ref_20
       responses:
         '204':
           description: |
             The web hook has been deleted.
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:delete'
@@ -3532,6 +3899,8 @@ paths:
         Send a `ping` event to the web hook to test connectivity.
       tags:
         - Web hooks
+      parameters:
+        - *ref_20
       responses:
         '204':
           description: |
@@ -3539,12 +3908,12 @@ paths:
         '400':
           description: |
             Invocation of the web hook was not successful.
-          schema: *ref_13
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_15
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:describe'
@@ -3564,6 +3933,8 @@ paths:
         - application/json
       tags:
         - Web hooks
+      parameters:
+        - *ref_20
       responses:
         '200':
           description: |
@@ -3583,11 +3954,11 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:describe'
@@ -3600,6 +3971,8 @@ paths:
         - application/json
       tags:
         - Web hooks
+      parameters:
+        - *ref_20
       responses:
         '201':
           description: |
@@ -3611,11 +3984,11 @@ paths:
               type: string
               example: '/api/webhooks/{id}/headers/{headerID}'
           schema: *ref_4
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:modify'
@@ -3640,16 +4013,18 @@ paths:
         - application/json
       tags:
         - Web hooks
+      parameters:
+        - *ref_20
       responses:
         '200':
           description: |
             The response body contains the web hook header object.
-          schema: *ref_38
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_42
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:describe'
@@ -3662,6 +4037,8 @@ paths:
         - application/json
       tags:
         - Web hooks
+      parameters:
+        - *ref_20
       responses:
         '200':
           description: >
@@ -3669,11 +4046,11 @@ paths:
             will contain the updated values. The response body contains the
             updated web hook header object.
           schema: *ref_4
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:modify'
@@ -3682,16 +4059,18 @@ paths:
         Delete the web hook header.
       tags:
         - Web hooks
+      parameters:
+        - *ref_20
       responses:
         '204':
           description: >
             The web hook header has been deleted and will no longer be included
             in future calls to the web hook.
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:modify'
@@ -3701,6 +4080,8 @@ paths:
         - application/json
       tags:
         - License
+      parameters:
+        - *ref_20
       responses:
         '200':
           description: |
@@ -3730,10 +4111,10 @@ paths:
                 example: 0
             required:
               - type
-        '401': *ref_20
-        '403': *ref_21
-        '429': *ref_22
-        '500': *ref_23
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
         '503':
           description: >
             The service is temporarily unavailable, likely due to maintenance.
@@ -3745,10 +4126,351 @@ paths:
                 The amount of time (in seconds) you should wait before trying
                 this request again.
               type: integer
-          schema: *ref_13
+          schema: *ref_15
       x-security:
         x-required-privileges:
           - 'licenses:describe'
+  /collections:
+    get:
+      description: |
+        Get the list of content scan collections.
+      produces:
+        - application/json
+      parameters:
+        - *ref_16
+        - *ref_17
+        - *ref_19
+        - *ref_18
+        - *ref_20
+      tags:
+        - Content scan
+      responses:
+        '200':
+          description: |
+            The response body contains the list of collection objects.
+          schema:
+            type: object
+            properties:
+              collections:
+                type: array
+                items: *ref_43
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+      x-security:
+        x-required-privileges:
+          - 'contentscan:list'
+    post:
+      description: >
+        Add a content scan collection to manage rules. Default rules will be
+        automatically inserted into the ruleset created.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Content scan
+      parameters:
+        - in: body
+          name: request
+          schema: *ref_44
+        - *ref_29
+        - *ref_20
+      responses:
+        '200':
+          description: >
+            The response body contains the collection details. This response
+            will only be returned if the `dryrun=true` query parameter was sent.
+        '201':
+          description: |
+            The content scan ruleset has been created.
+          schema: *ref_43
+          headers:
+            Location:
+              description: |
+                The content scan ruleset URL.
+              type: string
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+      x-security:
+        x-required-privileges:
+          - 'contentscan:create'
+  '/collections/{id}':
+    parameters:
+      - name: id
+        description: |
+          The collection ID.
+        in: path
+        required: true
+        type: string
+    get:
+      description: |
+        Retrieve content scan collection details.
+      produces:
+        - application/json
+      tags:
+        - Content scan
+      parameters:
+        - *ref_20
+      responses:
+        '200':
+          description: |
+            The response body contains the collection object.
+          schema:
+            type: object
+            properties:
+              rulesets:
+                type: array
+                items: *ref_43
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+      x-security:
+        x-required-privileges:
+          - 'contentscan:describe'
+    post:
+      description: >
+        Update a content scan collection.  Rulesets cannot be modifed with this
+        API.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Content scan
+      parameters:
+        - name: request
+          in: body
+          schema: *ref_45
+        - *ref_30
+        - *ref_20
+      responses:
+        '200':
+          description: >
+            The collection has been updated. The response body contains the
+            updated content scan collection object.
+          schema: *ref_43
+          headers:
+            Location:
+              description: |
+                The collection URL.
+              type: string
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+      x-security:
+        x-required-privileges:
+          - 'contentscan:modify'
+    delete:
+      description: |
+        Delete a collection and associated rulesets.
+      tags:
+        - Content scan
+      parameters:
+        - *ref_31
+        - *ref_20
+      responses:
+        '200':
+          description: >
+            The collection would be deleted if the `dryrun=true` parameter was
+            not present.
+        '204':
+          description: |
+            The collection has been deleted.
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+      x-security:
+        x-required-privileges:
+          - 'contentscan:delete'
+  '/collections/{id}/rulesets':
+    parameters:
+      - name: id
+        description: |
+          The ruleset ID.
+        in: path
+        required: true
+        type: string
+    get:
+      description: |
+        Get the list of content scan rulesets in the indicated collection.
+      produces:
+        - application/json
+      parameters:
+        - *ref_17
+        - *ref_19
+        - *ref_18
+        - *ref_20
+      tags:
+        - Content scan
+      responses:
+        '200':
+          description: |
+            The response body contains the list of ruleset objects.
+          schema:
+            type: array
+            items: *ref_6
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+      x-security:
+        x-required-privileges:
+          - 'contentscan:list'
+    post:
+      description: |
+        Add a content scan ruleset to the indicated collection.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Content scan
+      parameters:
+        - name: request
+          in: body
+          schema: *ref_5
+        - *ref_29
+        - *ref_20
+      responses:
+        '200':
+          description: >
+            The response body contains the ruleset details. This response will
+            only be returned if the `dryrun=true` query parameter was sent.
+        '201':
+          description: |
+            The content scan ruleset has been created.
+          schema: *ref_6
+          headers:
+            Location:
+              description: |
+                The content scan ruleset URL.
+              type: string
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+      x-security:
+        x-required-privileges:
+          - 'contentscan:create'
+  '/collections/{id}/rulesets/{rulesetid}':
+    parameters:
+      - name: id
+        description: |
+          The collection ID.
+        in: path
+        required: true
+        type: string
+      - name: rulesetid
+        description: |
+          The ruleset ID.
+        in: path
+        required: true
+        type: string
+    get:
+      description: |
+        Retrieve content scan rule details.
+      produces:
+        - application/json
+      parameters:
+        - *ref_20
+      tags:
+        - Content scan
+      responses:
+        '200':
+          description: |
+            The response body contains the content scan rule object.
+          schema: *ref_6
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+      x-security:
+        x-required-privileges:
+          - 'contentscan:describe'
+    post:
+      description: >
+        Update a content scan ruleset.  Built-in rulesets are not allowed to be
+        modified except disabling/enabling.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Content scan
+      parameters:
+        - name: request
+          in: body
+          schema: *ref_5
+        - *ref_30
+        - *ref_20
+      responses:
+        '200':
+          description: >
+            The content scan ruleset has been updated. The response body
+            contains the updated ruleset object.
+          schema: *ref_6
+          headers:
+            Location:
+              description: |
+                The content scan ruleset URL.
+              type: string
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+      x-security:
+        x-required-privileges:
+          - 'contentscan:modify'
+    delete:
+      description: |
+        Delete a content scan ruleset.
+      tags:
+        - Content scan
+      parameters:
+        - *ref_31
+        - *ref_20
+      responses:
+        '200':
+          description: >
+            The ruleset would be deleted if the `dryrun=true` parameter was not
+            present.
+        '204':
+          description: |
+            The content scan ruleset has been deleted.
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+      x-security:
+        x-required-privileges:
+          - 'contentscan:delete'
   /registries:
     get:
       x-security:
@@ -3759,9 +4481,10 @@ paths:
       tags:
         - Registries
       parameters:
-        - *ref_15
-        - *ref_16
         - *ref_17
+        - *ref_18
+        - *ref_19
+        - *ref_20
       produces:
         - application/json
       responses:
@@ -3799,7 +4522,7 @@ paths:
                 type: array
                 description: |
                   The list of registries.
-                items: *ref_39
+                items: *ref_46
               next:
                 type: string
                 format: byte
@@ -3809,14 +4532,14 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '409': *ref_47
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     post:
       x-security:
         x-required-privileges:
@@ -3832,8 +4555,8 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_41
-        - *ref_26
+          schema: *ref_48
+        - *ref_29
         - name: ping
           in: query
           type: boolean
@@ -3841,6 +4564,7 @@ paths:
           description: >
             Use `false` to disable automatic checking of the registry host and
             credentials during the update.
+        - *ref_20
       responses:
         '200':
           description: >
@@ -3862,7 +4586,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_39
+          schema: *ref_46
         '201':
           description: |
             The response body contains the registry details.
@@ -3882,15 +4606,15 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_39
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_46
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '409': *ref_47
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   '/registries/{id}':
     parameters:
       - name: id
@@ -3908,6 +4632,8 @@ paths:
         Get the details of a registry connection.
       tags:
         - Registries
+      parameters:
+        - *ref_20
       produces:
         - application/json
       responses:
@@ -3930,15 +4656,15 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_39
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_46
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '409': *ref_47
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     post:
       x-security:
         x-required-privileges:
@@ -3954,8 +4680,8 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_41
-        - *ref_27
+          schema: *ref_48
+        - *ref_30
         - name: ping
           in: query
           type: boolean
@@ -3963,6 +4689,7 @@ paths:
           description: >
             Use `false` to disable automatic checking of the registry host and
             credentials during the update.
+        - *ref_20
       responses:
         '200':
           description: |
@@ -3983,15 +4710,15 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_39
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_46
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '409': *ref_47
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
     delete:
       x-security:
         x-required-privileges:
@@ -4001,7 +4728,8 @@ paths:
       tags:
         - Registries
       parameters:
-        - *ref_28
+        - *ref_31
+        - *ref_20
       responses:
         '200':
           description: >
@@ -4042,14 +4770,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '409': *ref_47
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   '/registries/{id}/scans':
     post:
       x-security:
@@ -4066,8 +4794,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_42
-        - *ref_26
+          schema: *ref_49
+        - *ref_29
+        - *ref_20
       responses:
         '200':
           description: >
@@ -4089,7 +4818,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_33
+          schema: *ref_36
         '201':
           description: |
             The response body contains the scan details.
@@ -4109,15 +4838,15 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_33
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_36
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '409': *ref_47
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   '/registries/{id}/images':
     parameters:
       - name: id
@@ -4135,6 +4864,8 @@ paths:
         Get the list of images synchronized from the registry.
       tags:
         - Registries
+      parameters:
+        - *ref_20
       produces:
         - application/json
       responses:
@@ -4160,15 +4891,15 @@ paths:
                 be removed.
           schema:
             type: array
-            items: *ref_43
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+            items: *ref_50
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '409': *ref_47
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   '/registries/{id}/images/{imageID}':
     parameters:
       - name: id
@@ -4193,6 +4924,8 @@ paths:
         Get image details.
       tags:
         - Registries
+      parameters:
+        - *ref_20
       produces:
         - application/json
       responses:
@@ -4215,15 +4948,15 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_43
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_50
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '409': *ref_47
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
   /registries/dashboard:
     get:
       x-security:
@@ -4233,6 +4966,8 @@ paths:
         Get registry dashboard metrics.
       tags:
         - Registries
+      parameters:
+        - *ref_20
       produces:
         - application/json
       responses:
@@ -4255,12 +4990,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_44
-        '400': *ref_19
-        '401': *ref_20
-        '403': *ref_21
-        '404': *ref_35
-        '409': *ref_40
-        '429': *ref_22
-        '500': *ref_23
-        '503': *ref_24
+          schema: *ref_51
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '404': *ref_38
+        '409': *ref_47
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27

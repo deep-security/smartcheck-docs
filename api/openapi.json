@@ -2,8 +2,11 @@
     "swagger": "2.0",
     "info": {
         "version": "2018-05-01",
-        "title": "Deep Security Smart Check",
-        "description": "Deep Security Smart Check is a container image scanner from Trend Micro.\n"
+        "title": "Deep Security Smart Check API",
+        "description": "Deep Security Smart Check is a container image scanner from Trend Micro.\n",
+        "contact": {
+            "url": "https://trendmicro.com/smartcheck"
+        }
     },
     "basePath": "/api",
     "schemes": [
@@ -555,7 +558,8 @@
                 "hookURL": {
                     "type": "string",
                     "example": "https://target.example.com/",
-                    "maxLength": 255
+                    "maxLength": 255,
+                    "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                 },
                 "headers": {
                     "description": "(optional) You can include your own headers in the web hook request. Use these to provide additional context or authentication information to your web hook receiver.\n",
@@ -564,11 +568,13 @@
                         "type": "object",
                         "properties": {
                             "name": {
+                                "description": "The header name.",
                                 "type": "string",
                                 "example": "Authorization",
                                 "maxLength": 128
                             },
                             "value": {
+                                "description": "The header value.",
                                 "type": "string",
                                 "example": "Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6",
                                 "maxLength": 255
@@ -585,7 +591,8 @@
                     "description": "(optional) If you provide a `secret` value, then events sent over HTTP will include an `X-Scan-Event-Signature` header that is the SHA-256 HMAC of the event body using your secret as the key.\n\n*This value is write-only: the API will not return the secret or show that it has been set.*\n",
                     "type": "string",
                     "format": "password",
-                    "maxLength": 64
+                    "maxLength": 64,
+                    "example": "tHiSiSaBaDsEcReT"
                 },
                 "insecureSkipVerify": {
                     "type": "boolean",
@@ -626,11 +633,13 @@
             "type": "object",
             "properties": {
                 "name": {
+                    "description": "The header name.",
                     "type": "string",
                     "example": "Authorization",
                     "maxLength": 128
                 },
                 "value": {
+                    "description": "The header value.",
                     "type": "string",
                     "example": "Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6",
                     "maxLength": 255
@@ -651,7 +660,8 @@
                 },
                 "href": {
                     "type": "string",
-                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8"
+                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                    "description": "The URL at which the web hook can be found.\n"
                 },
                 "name": {
                     "type": "string",
@@ -681,7 +691,8 @@
                             },
                             "href": {
                                 "type": "string",
-                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb"
+                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                "description": "The URL at which the web hook header can be found.\n"
                             },
                             "name": {
                                 "type": "string",
@@ -762,7 +773,8 @@
                 },
                 "href": {
                     "type": "string",
-                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb"
+                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                    "description": "The URL at which the web hook header can be found.\n"
                 },
                 "name": {
                     "type": "string",
@@ -829,7 +841,7 @@
                 "ruleset": {
                     "type": "string",
                     "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
-                    "description": "Base64-encoded yara ruleset.  In some special rulesets, it will not be displayed.\n"
+                    "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
                 },
                 "disabled": {
                     "type": "boolean",
@@ -847,14 +859,14 @@
                 "name": {
                     "type": "string",
                     "example": "Smart Check collection",
-                    "description": "The name of this collection.\n",
+                    "description": "The name of this ruleset collection.\n",
                     "minLength": 1,
                     "maxLength": 64
                 },
                 "default": {
                     "type": "boolean",
                     "example": true,
-                    "description": "The global collection used for content scan.  There can only be one default collection at all time.  If this value is true, the value of other collection will be reset to false.\n"
+                    "description": "The global ruleset collection used for content scan. There can only be one default ruleset collection at all time. If this value is true, the value of other collection will be reset to false.\n"
                 }
             }
         },
@@ -867,14 +879,14 @@
                 "name": {
                     "type": "string",
                     "example": "Smart Check collection",
-                    "description": "The name of this collection.\n",
+                    "description": "The name of this ruleset collection.\n",
                     "minLength": 1,
                     "maxLength": 64
                 },
                 "default": {
                     "type": "boolean",
                     "example": true,
-                    "description": "The global collection used for content scan.  There can only be one default collection at all time.  If this value is true, the value of other collection will be reset to false.\n"
+                    "description": "The global ruleset collection used for content scan. There can only be one default ruleset collection at all time. If this value is true, the value of other collection will be reset to false.\n"
                 },
                 "rulesets": {
                     "type": "array",
@@ -935,7 +947,7 @@
                 "default": {
                     "type": "boolean",
                     "example": true,
-                    "description": "The default ruleset used for content scan.  There can only be one default collection at all time.\n"
+                    "description": "True if this is the default collection used for content scans. There can only be one default collection at all time.\n"
                 },
                 "rulesets": {
                     "type": "array",
@@ -965,7 +977,7 @@
                             "ruleset": {
                                 "type": "string",
                                 "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
-                                "description": "Base64-encoded yara ruleset.  In some special rulesets, it will not be displayed.\n"
+                                "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
                             },
                             "disabled": {
                                 "type": "boolean",
@@ -993,6 +1005,7 @@
                     "maxLength": 128
                 },
                 "source": {
+                    "description": "The source of the image to scan.\n",
                     "type": "object",
                     "properties": {
                         "type": {
@@ -1043,6 +1056,7 @@
                                 },
                                 "aws": {
                                     "type": "object",
+                                    "description": "The AWS-specific information for authenticating to the registry.\n",
                                     "properties": {
                                         "region": {
                                             "type": "string",
@@ -1125,7 +1139,8 @@
                             "hookURL": {
                                 "type": "string",
                                 "example": "https://target.example.com/",
-                                "maxLength": 255
+                                "maxLength": 255,
+                                "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                             },
                             "headers": {
                                 "description": "(optional) You can include your own headers in the web hook request. Use these to provide additional context or authentication information to your web hook receiver.\n",
@@ -1134,11 +1149,13 @@
                                     "type": "object",
                                     "properties": {
                                         "name": {
+                                            "description": "The header name.",
                                             "type": "string",
                                             "example": "Authorization",
                                             "maxLength": 128
                                         },
                                         "value": {
+                                            "description": "The header value.",
                                             "type": "string",
                                             "example": "Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6",
                                             "maxLength": 255
@@ -1155,7 +1172,8 @@
                                 "description": "(optional) If you provide a `secret` value, then events sent over HTTP will include an `X-Scan-Event-Signature` header that is the SHA-256 HMAC of the event body using your secret as the key.\n\n*This value is write-only: the API will not return the secret or show that it has been set.*\n",
                                 "type": "string",
                                 "format": "password",
-                                "maxLength": 64
+                                "maxLength": 64,
+                                "example": "tHiSiSaBaDsEcReT"
                             },
                             "insecureSkipVerify": {
                                 "type": "boolean",
@@ -1199,6 +1217,7 @@
             ]
         },
         "SourceRequest": {
+            "description": "The source of the image to scan.\n",
             "type": "object",
             "properties": {
                 "type": {
@@ -1249,6 +1268,7 @@
                         },
                         "aws": {
                             "type": "object",
+                            "description": "The AWS-specific information for authenticating to the registry.\n",
                             "properties": {
                                 "region": {
                                     "type": "string",
@@ -1383,6 +1403,7 @@
                 },
                 "aws": {
                     "type": "object",
+                    "description": "The AWS-specific information for authenticating to the registry.\n",
                     "properties": {
                         "region": {
                             "type": "string",
@@ -3101,6 +3122,7 @@
                     "maxLength": 128
                 },
                 "source": {
+                    "description": "The source of the image to scan.\n",
                     "type": "object",
                     "properties": {
                         "repository": {
@@ -3132,7 +3154,8 @@
                             "hookURL": {
                                 "type": "string",
                                 "example": "https://target.example.com/",
-                                "maxLength": 255
+                                "maxLength": 255,
+                                "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                             },
                             "headers": {
                                 "description": "(optional) You can include your own headers in the web hook request. Use these to provide additional context or authentication information to your web hook receiver.\n",
@@ -3141,11 +3164,13 @@
                                     "type": "object",
                                     "properties": {
                                         "name": {
+                                            "description": "The header name.",
                                             "type": "string",
                                             "example": "Authorization",
                                             "maxLength": 128
                                         },
                                         "value": {
+                                            "description": "The header value.",
                                             "type": "string",
                                             "example": "Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6",
                                             "maxLength": 255
@@ -3162,7 +3187,8 @@
                                 "description": "(optional) If you provide a `secret` value, then events sent over HTTP will include an `X-Scan-Event-Signature` header that is the SHA-256 HMAC of the event body using your secret as the key.\n\n*This value is write-only: the API will not return the secret or show that it has been set.*\n",
                                 "type": "string",
                                 "format": "password",
-                                "maxLength": 64
+                                "maxLength": 64,
+                                "example": "tHiSiSaBaDsEcReT"
                             },
                             "insecureSkipVerify": {
                                 "type": "boolean",
@@ -3791,6 +3817,7 @@
                         },
                         "aws": {
                             "type": "object",
+                            "description": "The AWS-specific information for authenticating to the registry.\n",
                             "properties": {
                                 "region": {
                                     "type": "string",
@@ -4757,6 +4784,8 @@
     "paths": {
         "/roles": {
             "get": {
+                "operationId": "listRoles",
+                "summary": "List roles",
                 "x-security": {
                     "x-required-privileges": [
                         "roles:list"
@@ -5237,6 +5266,8 @@
                 }
             },
             "post": {
+                "operationId": "createRole",
+                "summary": "Create a role",
                 "x-security": {
                     "x-required-privileges": [
                         "roles:create"
@@ -5863,6 +5894,8 @@
                 }
             ],
             "get": {
+                "operationId": "describeRole",
+                "summary": "Describe a role",
                 "x-security": {
                     "x-required-privileges": [
                         "roles:describe"
@@ -6301,6 +6334,8 @@
                 }
             },
             "post": {
+                "operationId": "modifyRole",
+                "summary": "Modify a role",
                 "x-security": {
                     "x-required-privileges": [
                         "roles:modify"
@@ -6806,6 +6841,8 @@
                 }
             },
             "delete": {
+                "operationId": "deleteRole",
+                "summary": "Delete a role",
                 "x-security": {
                     "x-required-privileges": [
                         "roles:delete"
@@ -7167,6 +7204,8 @@
         },
         "/users": {
             "get": {
+                "operationId": "listUsers",
+                "summary": "List users",
                 "x-security": {
                     "x-required-privileges": [
                         "users:list"
@@ -7621,6 +7660,8 @@
                 }
             },
             "post": {
+                "operationId": "createUser",
+                "summary": "Create a user",
                 "x-security": {
                     "x-required-privileges": [
                         "users:create"
@@ -8171,6 +8212,8 @@
                 }
             ],
             "get": {
+                "operationId": "describeUser",
+                "summary": "Describe a user",
                 "x-security": {
                     "x-required-privileges": [
                         "users:describe"
@@ -8583,6 +8626,8 @@
                 }
             },
             "post": {
+                "operationId": "modifyUser",
+                "summary": "Modify a user",
                 "x-security": {
                     "x-required-privileges": [
                         "users:modify"
@@ -9042,6 +9087,8 @@
                 }
             },
             "delete": {
+                "operationId": "deleteUser",
+                "summary": "Delete a user",
                 "x-security": {
                     "x-required-privileges": [
                         "users:delete"
@@ -9412,6 +9459,8 @@
                 }
             ],
             "post": {
+                "operationId": "changePassword",
+                "summary": "Change password",
                 "x-security": {
                     "x-required-privileges": [
                         "users:changePassword"
@@ -9848,6 +9897,8 @@
         },
         "/sessions": {
             "get": {
+                "operationId": "listSessions",
+                "summary": "List sessions",
                 "x-security": {
                     "x-required-privileges": [
                         "sessions:list"
@@ -10340,6 +10391,8 @@
                 }
             },
             "post": {
+                "operationId": "createSession",
+                "summary": "Create a session",
                 "x-security": {
                     "x-required-privileges": [
                         "sessions:create"
@@ -10958,6 +11011,8 @@
                 }
             ],
             "get": {
+                "operationId": "describeSession",
+                "summary": "Describe a session",
                 "x-security": {
                     "x-required-privileges": [
                         "sessions:describe"
@@ -11408,6 +11463,8 @@
                 }
             },
             "post": {
+                "operationId": "refreshSession",
+                "summary": "Refresh a session",
                 "x-security": {
                     "x-required-privileges": [
                         "sessions:refresh"
@@ -11854,6 +11911,8 @@
                 }
             },
             "delete": {
+                "operationId": "deleteSession",
+                "summary": "Delete a session",
                 "x-security": {
                     "x-required-privileges": [
                         "sessions:delete"
@@ -12215,6 +12274,8 @@
         },
         "/scans": {
             "get": {
+                "operationId": "listScans",
+                "summary": "List scans",
                 "description": "Retrieve a list of scans. Scans are returned in descending order of creation time, so the latest scan is returned first.\n",
                 "tags": [
                     "Scans"
@@ -13171,6 +13232,8 @@
                 }
             },
             "post": {
+                "operationId": "createScan",
+                "summary": "Create a scan",
                 "description": "Create a new scan.\n",
                 "tags": [
                     "Scans"
@@ -13200,6 +13263,7 @@
                                     "maxLength": 128
                                 },
                                 "source": {
+                                    "description": "The source of the image to scan.\n",
                                     "type": "object",
                                     "properties": {
                                         "type": {
@@ -13250,6 +13314,7 @@
                                                 },
                                                 "aws": {
                                                     "type": "object",
+                                                    "description": "The AWS-specific information for authenticating to the registry.\n",
                                                     "properties": {
                                                         "region": {
                                                             "type": "string",
@@ -13332,7 +13397,8 @@
                                             "hookURL": {
                                                 "type": "string",
                                                 "example": "https://target.example.com/",
-                                                "maxLength": 255
+                                                "maxLength": 255,
+                                                "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                                             },
                                             "headers": {
                                                 "description": "(optional) You can include your own headers in the web hook request. Use these to provide additional context or authentication information to your web hook receiver.\n",
@@ -13341,11 +13407,13 @@
                                                     "type": "object",
                                                     "properties": {
                                                         "name": {
+                                                            "description": "The header name.",
                                                             "type": "string",
                                                             "example": "Authorization",
                                                             "maxLength": 128
                                                         },
                                                         "value": {
+                                                            "description": "The header value.",
                                                             "type": "string",
                                                             "example": "Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6",
                                                             "maxLength": 255
@@ -13362,7 +13430,8 @@
                                                 "description": "(optional) If you provide a `secret` value, then events sent over HTTP will include an `X-Scan-Event-Signature` header that is the SHA-256 HMAC of the event body using your secret as the key.\n\n*This value is write-only: the API will not return the secret or show that it has been set.*\n",
                                                 "type": "string",
                                                 "format": "password",
-                                                "maxLength": 64
+                                                "maxLength": 64,
+                                                "example": "tHiSiSaBaDsEcReT"
                                             },
                                             "insecureSkipVerify": {
                                                 "type": "boolean",
@@ -14332,6 +14401,8 @@
         },
         "/scans/metrics": {
             "get": {
+                "operationId": "describeScanMetrics",
+                "summary": "Describe scan metrics",
                 "description": "Retrieve scan metrics.\n",
                 "tags": [
                     "Scans"
@@ -14692,6 +14763,8 @@
                 }
             ],
             "get": {
+                "operationId": "describeScan",
+                "summary": "Describe a scan",
                 "description": "Retrieve scan details.\n",
                 "tags": [
                     "Scans"
@@ -15693,6 +15766,8 @@
                 }
             ],
             "get": {
+                "operationId": "listScanMalwareFindings",
+                "summary": "List scan malware findings",
                 "description": "List scan malware findings.\n",
                 "tags": [
                     "Scans"
@@ -16202,6 +16277,8 @@
                 }
             ],
             "get": {
+                "operationId": "listScanVulnerabilityFindings",
+                "summary": "List scan vulnerability findings",
                 "description": "List scan vulnerability findings.\n",
                 "tags": [
                     "Scans"
@@ -16738,6 +16815,8 @@
                 }
             ],
             "get": {
+                "operationId": "listScanContentFindings",
+                "summary": "List scan content findings",
                 "description": "List content scan findings.\n",
                 "tags": [
                     "Scans"
@@ -17211,6 +17290,8 @@
         },
         "/webhooks": {
             "get": {
+                "operationId": "listWebhooks",
+                "summary": "List web hooks",
                 "parameters": [
                     {
                         "name": "expand",
@@ -17278,7 +17359,8 @@
                                             },
                                             "href": {
                                                 "type": "string",
-                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8"
+                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                                                "description": "The URL at which the web hook can be found.\n"
                                             },
                                             "name": {
                                                 "type": "string",
@@ -17308,7 +17390,8 @@
                                                         },
                                                         "href": {
                                                             "type": "string",
-                                                            "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb"
+                                                            "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                                            "description": "The URL at which the web hook header can be found.\n"
                                                         },
                                                         "name": {
                                                             "type": "string",
@@ -17635,6 +17718,8 @@
                 }
             },
             "post": {
+                "operationId": "createWebhook",
+                "summary": "Create a web hook",
                 "description": "Create a new web hook.\n",
                 "tags": [
                     "Web hooks"
@@ -17661,7 +17746,8 @@
                                 "hookURL": {
                                     "type": "string",
                                     "example": "https://target.example.com/",
-                                    "maxLength": 255
+                                    "maxLength": 255,
+                                    "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                                 },
                                 "headers": {
                                     "description": "(optional) You can include your own headers in the web hook request. Use these to provide additional context or authentication information to your web hook receiver.\n",
@@ -17670,11 +17756,13 @@
                                         "type": "object",
                                         "properties": {
                                             "name": {
+                                                "description": "The header name.",
                                                 "type": "string",
                                                 "example": "Authorization",
                                                 "maxLength": 128
                                             },
                                             "value": {
+                                                "description": "The header value.",
                                                 "type": "string",
                                                 "example": "Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6",
                                                 "maxLength": 255
@@ -17691,7 +17779,8 @@
                                     "description": "(optional) If you provide a `secret` value, then events sent over HTTP will include an `X-Scan-Event-Signature` header that is the SHA-256 HMAC of the event body using your secret as the key.\n\n*This value is write-only: the API will not return the secret or show that it has been set.*\n",
                                     "type": "string",
                                     "format": "password",
-                                    "maxLength": 64
+                                    "maxLength": 64,
+                                    "example": "tHiSiSaBaDsEcReT"
                                 },
                                 "insecureSkipVerify": {
                                     "type": "boolean",
@@ -17763,7 +17852,8 @@
                                 },
                                 "href": {
                                     "type": "string",
-                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8"
+                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                                    "description": "The URL at which the web hook can be found.\n"
                                 },
                                 "name": {
                                     "type": "string",
@@ -17793,7 +17883,8 @@
                                             },
                                             "href": {
                                                 "type": "string",
-                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb"
+                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                                "description": "The URL at which the web hook header can be found.\n"
                                             },
                                             "name": {
                                                 "type": "string",
@@ -18122,6 +18213,8 @@
                 }
             ],
             "get": {
+                "operationId": "describeWebhook",
+                "summary": "Describe a web hook",
                 "description": "Retrieve web hook details.\n",
                 "produces": [
                     "application/json"
@@ -18157,7 +18250,8 @@
                                 },
                                 "href": {
                                     "type": "string",
-                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8"
+                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                                    "description": "The URL at which the web hook can be found.\n"
                                 },
                                 "name": {
                                     "type": "string",
@@ -18187,7 +18281,8 @@
                                             },
                                             "href": {
                                                 "type": "string",
-                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb"
+                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                                "description": "The URL at which the web hook header can be found.\n"
                                             },
                                             "name": {
                                                 "type": "string",
@@ -18505,6 +18600,8 @@
                 }
             },
             "post": {
+                "operationId": "modifyWebhook",
+                "summary": "Modify a web hook",
                 "description": "Modify a web hook.\n",
                 "consumes": [
                     "application/json"
@@ -18543,7 +18640,8 @@
                                 },
                                 "href": {
                                     "type": "string",
-                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8"
+                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                                    "description": "The URL at which the web hook can be found.\n"
                                 },
                                 "name": {
                                     "type": "string",
@@ -18573,7 +18671,8 @@
                                             },
                                             "href": {
                                                 "type": "string",
-                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb"
+                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                                "description": "The URL at which the web hook header can be found.\n"
                                             },
                                             "name": {
                                                 "type": "string",
@@ -18891,6 +18990,8 @@
                 }
             },
             "delete": {
+                "operationId": "deleteWebhook",
+                "summary": "Delete a web hook",
                 "description": "Delete a web hook.\n",
                 "tags": [
                     "Web hooks"
@@ -19176,6 +19277,8 @@
                 }
             ],
             "post": {
+                "operationId": "pingWebhook",
+                "summary": "Ping a web hook",
                 "description": "Send a `ping` event to the web hook to test connectivity.\n",
                 "tags": [
                     "Web hooks"
@@ -19485,6 +19588,8 @@
                 }
             ],
             "get": {
+                "operationId": "listWebhookHeaders",
+                "summary": "List web hook headers",
                 "description": "Get the list of user-defined headers to include in calls to the web hook.\n",
                 "produces": [
                     "application/json"
@@ -19530,7 +19635,8 @@
                                             },
                                             "href": {
                                                 "type": "string",
-                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb"
+                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                                "description": "The URL at which the web hook header can be found.\n"
                                             },
                                             "name": {
                                                 "type": "string",
@@ -19805,6 +19911,8 @@
                 }
             },
             "post": {
+                "operationId": "createWebhookHeader",
+                "summary": "Create a web hook header",
                 "description": "Add a user-defined header to include in calls to the web hook.\n",
                 "consumes": [
                     "application/json"
@@ -19855,7 +19963,8 @@
                                 },
                                 "href": {
                                     "type": "string",
-                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb"
+                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                    "description": "The URL at which the web hook header can be found.\n"
                                 },
                                 "name": {
                                     "type": "string",
@@ -20139,6 +20248,8 @@
                 }
             ],
             "get": {
+                "operationId": "describeWebhookHeader",
+                "summary": "Describe a web hook header",
                 "description": "Retrieve web hook header details.\n",
                 "produces": [
                     "application/json"
@@ -20174,7 +20285,8 @@
                                 },
                                 "href": {
                                     "type": "string",
-                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8"
+                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                                    "description": "The URL at which the web hook can be found.\n"
                                 },
                                 "name": {
                                     "type": "string",
@@ -20204,7 +20316,8 @@
                                             },
                                             "href": {
                                                 "type": "string",
-                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb"
+                                                "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                                "description": "The URL at which the web hook header can be found.\n"
                                             },
                                             "name": {
                                                 "type": "string",
@@ -20522,6 +20635,8 @@
                 }
             },
             "post": {
+                "operationId": "modifyWebhookHeader",
+                "summary": "Modify a web hook header",
                 "description": "Update the web hook header.\n",
                 "consumes": [
                     "application/json"
@@ -20565,7 +20680,8 @@
                                 },
                                 "href": {
                                     "type": "string",
-                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb"
+                                    "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                    "description": "The URL at which the web hook header can be found.\n"
                                 },
                                 "name": {
                                     "type": "string",
@@ -20831,6 +20947,8 @@
                 }
             },
             "delete": {
+                "operationId": "deleteWebhookHeader",
+                "summary": "Delete a web hook header",
                 "description": "Delete the web hook header.\n",
                 "tags": [
                     "Web hooks"
@@ -21107,6 +21225,8 @@
         },
         "/license": {
             "get": {
+                "operationId": "describeLicense",
+                "summary": "Describe license",
                 "produces": [
                     "application/json"
                 ],
@@ -21392,7 +21512,9 @@
         },
         "/collections": {
             "get": {
-                "description": "Get the list of content scan collections.\n",
+                "operationId": "listCollections",
+                "summary": "List content scan ruleset collections",
+                "description": "Get the list of content scan rulset collections.\n",
                 "produces": [
                     "application/json"
                 ],
@@ -21450,7 +21572,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The response body contains the list of collection objects.\n",
+                        "description": "The response body contains the list of ruleset collection objects.\n",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -21482,7 +21604,7 @@
                                             "default": {
                                                 "type": "boolean",
                                                 "example": true,
-                                                "description": "The default ruleset used for content scan.  There can only be one default collection at all time.\n"
+                                                "description": "True if this is the default collection used for content scans. There can only be one default collection at all time.\n"
                                             },
                                             "rulesets": {
                                                 "type": "array",
@@ -21512,7 +21634,7 @@
                                                         "ruleset": {
                                                             "type": "string",
                                                             "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
-                                                            "description": "Base64-encoded yara ruleset.  In some special rulesets, it will not be displayed.\n"
+                                                            "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
                                                         },
                                                         "disabled": {
                                                             "type": "boolean",
@@ -21525,6 +21647,12 @@
                                             }
                                         }
                                     }
+                                },
+                                "next": {
+                                    "type": "string",
+                                    "format": "byte",
+                                    "example": "dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=",
+                                    "description": "An encoded value that you can use to retrieve the next set of results for a query. If `next` is not present, then there are no more results available.\n"
                                 }
                             }
                         }
@@ -21822,12 +21950,14 @@
                 },
                 "x-security": {
                     "x-required-privileges": [
-                        "contentscan:list"
+                        "collections:list"
                     ]
                 }
             },
             "post": {
-                "description": "Add a content scan collection to manage rules. Default rules will be automatically inserted into the ruleset created.\n",
+                "operationId": "createCollection",
+                "summary": "Create a content scan ruleset collection",
+                "description": "Add a content scan ruleset collection to manage rules. Default rules will be automatically inserted into the ruleset created.\n",
                 "consumes": [
                     "application/json"
                 ],
@@ -21850,14 +21980,14 @@
                                 "name": {
                                     "type": "string",
                                     "example": "Smart Check collection",
-                                    "description": "The name of this collection.\n",
+                                    "description": "The name of this ruleset collection.\n",
                                     "minLength": 1,
                                     "maxLength": 64
                                 },
                                 "default": {
                                     "type": "boolean",
                                     "example": true,
-                                    "description": "The global collection used for content scan.  There can only be one default collection at all time.  If this value is true, the value of other collection will be reset to false.\n"
+                                    "description": "The global ruleset collection used for content scan. There can only be one default ruleset collection at all time. If this value is true, the value of other collection will be reset to false.\n"
                                 },
                                 "rulesets": {
                                     "type": "array",
@@ -21916,7 +22046,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The response body contains the collection details. This response will only be returned if the `dryrun=true` query parameter was sent.\n"
+                        "description": "The response body contains the ruleset collection details. This response will only be returned if the `dryrun=true` query parameter was sent.\n"
                     },
                     "201": {
                         "description": "The content scan ruleset has been created.\n",
@@ -21946,7 +22076,7 @@
                                 "default": {
                                     "type": "boolean",
                                     "example": true,
-                                    "description": "The default ruleset used for content scan.  There can only be one default collection at all time.\n"
+                                    "description": "True if this is the default collection used for content scans. There can only be one default collection at all time.\n"
                                 },
                                 "rulesets": {
                                     "type": "array",
@@ -21976,7 +22106,7 @@
                                             "ruleset": {
                                                 "type": "string",
                                                 "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
-                                                "description": "Base64-encoded yara ruleset.  In some special rulesets, it will not be displayed.\n"
+                                                "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
                                             },
                                             "disabled": {
                                                 "type": "boolean",
@@ -22289,7 +22419,7 @@
                 },
                 "x-security": {
                     "x-required-privileges": [
-                        "contentscan:create"
+                        "collections:create"
                     ]
                 }
             }
@@ -22305,7 +22435,9 @@
                 }
             ],
             "get": {
-                "description": "Retrieve content scan collection details.\n",
+                "operationId": "describeCollection",
+                "summary": "Describe a content scan ruleset collection",
+                "description": "Retrieve content scan ruleset collection details.\n",
                 "produces": [
                     "application/json"
                 ],
@@ -22361,7 +22493,7 @@
                                             "default": {
                                                 "type": "boolean",
                                                 "example": true,
-                                                "description": "The default ruleset used for content scan.  There can only be one default collection at all time.\n"
+                                                "description": "True if this is the default collection used for content scans. There can only be one default collection at all time.\n"
                                             },
                                             "rulesets": {
                                                 "type": "array",
@@ -22391,7 +22523,7 @@
                                                         "ruleset": {
                                                             "type": "string",
                                                             "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
-                                                            "description": "Base64-encoded yara ruleset.  In some special rulesets, it will not be displayed.\n"
+                                                            "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
                                                         },
                                                         "disabled": {
                                                             "type": "boolean",
@@ -22701,12 +22833,14 @@
                 },
                 "x-security": {
                     "x-required-privileges": [
-                        "contentscan:describe"
+                        "collections:describe"
                     ]
                 }
             },
             "post": {
-                "description": "Update a content scan collection.  Rulesets cannot be modifed with this API.\n",
+                "operationId": "modifyCollection",
+                "summary": "Modify a content scan ruleset collection",
+                "description": "Modify a content scan ruleset collection. Rulesets cannot be modifed with this API.\n",
                 "consumes": [
                     "application/json"
                 ],
@@ -22729,14 +22863,14 @@
                                 "name": {
                                     "type": "string",
                                     "example": "Smart Check collection",
-                                    "description": "The name of this collection.\n",
+                                    "description": "The name of this ruleset collection.\n",
                                     "minLength": 1,
                                     "maxLength": 64
                                 },
                                 "default": {
                                     "type": "boolean",
                                     "example": true,
-                                    "description": "The global collection used for content scan.  There can only be one default collection at all time.  If this value is true, the value of other collection will be reset to false.\n"
+                                    "description": "The global ruleset collection used for content scan. There can only be one default ruleset collection at all time. If this value is true, the value of other collection will be reset to false.\n"
                                 }
                             }
                         }
@@ -22764,7 +22898,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The collection has been updated. The response body contains the updated content scan collection object.\n",
+                        "description": "The collection has been updated. The response body contains the updated content scan ruleset collection object.\n",
                         "schema": {
                             "type": "object",
                             "required": [
@@ -22791,7 +22925,7 @@
                                 "default": {
                                     "type": "boolean",
                                     "example": true,
-                                    "description": "The default ruleset used for content scan.  There can only be one default collection at all time.\n"
+                                    "description": "True if this is the default collection used for content scans. There can only be one default collection at all time.\n"
                                 },
                                 "rulesets": {
                                     "type": "array",
@@ -22821,7 +22955,7 @@
                                             "ruleset": {
                                                 "type": "string",
                                                 "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
-                                                "description": "Base64-encoded yara ruleset.  In some special rulesets, it will not be displayed.\n"
+                                                "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
                                             },
                                             "disabled": {
                                                 "type": "boolean",
@@ -23134,12 +23268,14 @@
                 },
                 "x-security": {
                     "x-required-privileges": [
-                        "contentscan:modify"
+                        "collections:modify"
                     ]
                 }
             },
             "delete": {
-                "description": "Delete a collection and associated rulesets.\n",
+                "operationId": "deleteCollection",
+                "summary": "Delete a content scan ruleset collection",
+                "description": "Delete a ruleset collection and associated rulesets.\n",
                 "tags": [
                     "Content scan"
                 ],
@@ -23167,10 +23303,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The collection would be deleted if the `dryrun=true` parameter was not present.\n"
+                        "description": "The ruleset collection would be deleted if the `dryrun=true` parameter was not present.\n"
                     },
                     "204": {
-                        "description": "The collection has been deleted.\n"
+                        "description": "The ruleset collection has been deleted.\n"
                     },
                     "400": {
                         "description": "Something about your request didn't quite make sense. The error message should help you figure out what went wrong.\n",
@@ -23465,7 +23601,7 @@
                 },
                 "x-security": {
                     "x-required-privileges": [
-                        "contentscan:delete"
+                        "collections:delete"
                     ]
                 }
             }
@@ -23481,7 +23617,9 @@
                 }
             ],
             "get": {
-                "description": "Get the list of content scan rulesets in the indicated collection.\n",
+                "operationId": "listRulesets",
+                "summary": "List content scan rulesets",
+                "description": "Get the list of content scan rulesets in the indicated ruleset collection.\n",
                 "produces": [
                     "application/json"
                 ],
@@ -23530,40 +23668,51 @@
                     "200": {
                         "description": "The response body contains the list of ruleset objects.\n",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "required": [
-                                    "id",
-                                    "name",
-                                    "href"
-                                ],
-                                "properties": {
-                                    "id": {
-                                        "type": "string",
-                                        "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                        "description": "The unique ID assigned to this content scan ruleset.\n"
-                                    },
-                                    "name": {
-                                        "type": "string",
-                                        "example": "Scanning ruleset",
-                                        "description": "The name of this ruleset.\n"
-                                    },
-                                    "href": {
-                                        "type": "string",
-                                        "example": "/api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/rulesets/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                        "description": "The URL to the ruleset resource.\n"
-                                    },
-                                    "ruleset": {
-                                        "type": "string",
-                                        "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
-                                        "description": "Base64-encoded yara ruleset.  In some special rulesets, it will not be displayed.\n"
-                                    },
-                                    "disabled": {
-                                        "type": "boolean",
-                                        "example": false,
-                                        "description": "If set to true, this ruleset will not be used for scan.\n"
+                            "type": "object",
+                            "properties": {
+                                "rulesets": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "required": [
+                                            "id",
+                                            "name",
+                                            "href"
+                                        ],
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                                "description": "The unique ID assigned to this content scan ruleset.\n"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Scanning ruleset",
+                                                "description": "The name of this ruleset.\n"
+                                            },
+                                            "href": {
+                                                "type": "string",
+                                                "example": "/api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/rulesets/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                                "description": "The URL to the ruleset resource.\n"
+                                            },
+                                            "ruleset": {
+                                                "type": "string",
+                                                "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
+                                                "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
+                                            },
+                                            "disabled": {
+                                                "type": "boolean",
+                                                "example": false,
+                                                "description": "If set to true, this ruleset will not be used for scan.\n"
+                                            }
+                                        }
                                     }
+                                },
+                                "next": {
+                                    "type": "string",
+                                    "format": "byte",
+                                    "example": "dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=",
+                                    "description": "An encoded value that you can use to retrieve the next set of results for a query. If `next` is not present, then there are no more results available.\n"
                                 }
                             }
                         }
@@ -23861,12 +24010,14 @@
                 },
                 "x-security": {
                     "x-required-privileges": [
-                        "contentscan:list"
+                        "collections:list"
                     ]
                 }
             },
             "post": {
-                "description": "Add a content scan ruleset to the indicated collection.\n",
+                "operationId": "createRuleset",
+                "summary": "Create a content scan ruleset",
+                "description": "Add a content scan ruleset to the indicated ruleset collection.\n",
                 "consumes": [
                     "application/json"
                 ],
@@ -23961,7 +24112,7 @@
                                 "ruleset": {
                                     "type": "string",
                                     "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
-                                    "description": "Base64-encoded yara ruleset.  In some special rulesets, it will not be displayed.\n"
+                                    "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
                                 },
                                 "disabled": {
                                     "type": "boolean",
@@ -24270,22 +24421,22 @@
                 },
                 "x-security": {
                     "x-required-privileges": [
-                        "contentscan:create"
+                        "rulesets:create"
                     ]
                 }
             }
         },
-        "/collections/{id}/rulesets/{rulesetid}": {
+        "/collections/{id}/rulesets/{rulesetID}": {
             "parameters": [
                 {
                     "name": "id",
-                    "description": "The collection ID.\n",
+                    "description": "The ruleset collection ID.\n",
                     "in": "path",
                     "required": true,
                     "type": "string"
                 },
                 {
-                    "name": "rulesetid",
+                    "name": "rulesetID",
                     "description": "The ruleset ID.\n",
                     "in": "path",
                     "required": true,
@@ -24293,6 +24444,8 @@
                 }
             ],
             "get": {
+                "operationId": "describeRuleset",
+                "summary": "Describe a content scan ruleset",
                 "description": "Retrieve content scan rule details.\n",
                 "produces": [
                     "application/json"
@@ -24344,7 +24497,7 @@
                                 "ruleset": {
                                     "type": "string",
                                     "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
-                                    "description": "Base64-encoded yara ruleset.  In some special rulesets, it will not be displayed.\n"
+                                    "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
                                 },
                                 "disabled": {
                                     "type": "boolean",
@@ -24647,12 +24800,14 @@
                 },
                 "x-security": {
                     "x-required-privileges": [
-                        "contentscan:describe"
+                        "rulesets:describe"
                     ]
                 }
             },
             "post": {
-                "description": "Update a content scan ruleset.  Built-in rulesets are not allowed to be modified except disabling/enabling.\n",
+                "operationId": "modifyRuleset",
+                "summary": "Modify a content scan ruleset",
+                "description": "Update a content scan ruleset. Built-in rulesets are not allowed to be modified except disabling/enabling.\n",
                 "consumes": [
                     "application/json"
                 ],
@@ -24744,7 +24899,7 @@
                                 "ruleset": {
                                     "type": "string",
                                     "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
-                                    "description": "Base64-encoded yara ruleset.  In some special rulesets, it will not be displayed.\n"
+                                    "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
                                 },
                                 "disabled": {
                                     "type": "boolean",
@@ -25053,11 +25208,13 @@
                 },
                 "x-security": {
                     "x-required-privileges": [
-                        "contentscan:modify"
+                        "rulesets:modify"
                     ]
                 }
             },
             "delete": {
+                "operationId": "deleteRuleset",
+                "summary": "Delete a content scan ruleset",
                 "description": "Delete a content scan ruleset.\n",
                 "tags": [
                     "Content scan"
@@ -25384,13 +25541,15 @@
                 },
                 "x-security": {
                     "x-required-privileges": [
-                        "contentscan:delete"
+                        "rulesets:delete"
                     ]
                 }
             }
         },
         "/registries": {
             "get": {
+                "operationId": "listRegistries",
+                "summary": "List registries",
                 "x-security": {
                     "x-required-privileges": [
                         "registries:list"
@@ -26265,6 +26424,8 @@
                 }
             },
             "post": {
+                "operationId": "createRegistry",
+                "summary": "Create a registry",
                 "x-security": {
                     "x-required-privileges": [
                         "registries:create"
@@ -26324,6 +26485,7 @@
                                         },
                                         "aws": {
                                             "type": "object",
+                                            "description": "The AWS-specific information for authenticating to the registry.\n",
                                             "properties": {
                                                 "region": {
                                                     "type": "string",
@@ -27693,6 +27855,8 @@
                 }
             ],
             "get": {
+                "operationId": "describeRegistry",
+                "summary": "Describe a registry",
                 "x-security": {
                     "x-required-privileges": [
                         "registries:describe"
@@ -28525,6 +28689,8 @@
                 }
             },
             "post": {
+                "operationId": "modifyRegistry",
+                "summary": "Modify a registry",
                 "x-security": {
                     "x-required-privileges": [
                         "registries:modify"
@@ -28584,6 +28750,7 @@
                                         },
                                         "aws": {
                                             "type": "object",
+                                            "description": "The AWS-specific information for authenticating to the registry.\n",
                                             "properties": {
                                                 "region": {
                                                     "type": "string",
@@ -29524,6 +29691,8 @@
                 }
             },
             "delete": {
+                "operationId": "deleteRegistry",
+                "summary": "Delete a registry",
                 "x-security": {
                     "x-required-privileges": [
                         "registries:delete"
@@ -29979,6 +30148,8 @@
         },
         "/registries/{id}/scans": {
             "post": {
+                "operationId": "createScan",
+                "summary": "Create a scan",
                 "x-security": {
                     "x-required-privileges": [
                         "scans:create"
@@ -30008,6 +30179,7 @@
                                     "maxLength": 128
                                 },
                                 "source": {
+                                    "description": "The source of the image to scan.\n",
                                     "type": "object",
                                     "properties": {
                                         "repository": {
@@ -30039,7 +30211,8 @@
                                             "hookURL": {
                                                 "type": "string",
                                                 "example": "https://target.example.com/",
-                                                "maxLength": 255
+                                                "maxLength": 255,
+                                                "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                                             },
                                             "headers": {
                                                 "description": "(optional) You can include your own headers in the web hook request. Use these to provide additional context or authentication information to your web hook receiver.\n",
@@ -30048,11 +30221,13 @@
                                                     "type": "object",
                                                     "properties": {
                                                         "name": {
+                                                            "description": "The header name.",
                                                             "type": "string",
                                                             "example": "Authorization",
                                                             "maxLength": 128
                                                         },
                                                         "value": {
+                                                            "description": "The header value.",
                                                             "type": "string",
                                                             "example": "Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6",
                                                             "maxLength": 255
@@ -30069,7 +30244,8 @@
                                                 "description": "(optional) If you provide a `secret` value, then events sent over HTTP will include an `X-Scan-Event-Signature` header that is the SHA-256 HMAC of the event body using your secret as the key.\n\n*This value is write-only: the API will not return the secret or show that it has been set.*\n",
                                                 "type": "string",
                                                 "format": "password",
-                                                "maxLength": 64
+                                                "maxLength": 64,
+                                                "example": "tHiSiSaBaDsEcReT"
                                             },
                                             "insecureSkipVerify": {
                                                 "type": "boolean",
@@ -31767,6 +31943,8 @@
                 }
             ],
             "get": {
+                "operationId": "listRegistryImages",
+                "summary": "List registry images",
                 "x-security": {
                     "x-required-privileges": [
                         "registries:describe"
@@ -32488,6 +32666,8 @@
                 }
             ],
             "get": {
+                "operationId": "describeRegistryImage",
+                "summary": "Describe a registry image",
                 "x-security": {
                     "x-required-privileges": [
                         "registries:describe"
@@ -33188,6 +33368,8 @@
         },
         "/registries/dashboard": {
             "get": {
+                "operationId": "describeDashboard",
+                "summary": "Describe registries dashboard",
                 "x-security": {
                     "x-required-privileges": [
                         "dashboards:describe"

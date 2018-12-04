@@ -1,9 +1,11 @@
 swagger: '2.0'
 info:
   version: '2018-05-01'
-  title: Deep Security Smart Check
+  title: Deep Security Smart Check API
   description: |
     Deep Security Smart Check is a container image scanner from Trend Micro.
+  contact:
+    url: 'https://trendmicro.com/smartcheck'
 basePath: /api
 schemes:
   - https
@@ -366,6 +368,9 @@ definitions:
         type: string
         example: 'https://target.example.com/'
         maxLength: 255
+        description: >
+          The URL that Deep Security Smart Check should `POST` the event payload
+          to.
       headers:
         description: >
           (optional) You can include your own headers in the web hook request.
@@ -376,10 +381,12 @@ definitions:
           type: object
           properties:
             name:
+              description: The header name.
               type: string
               example: Authorization
               maxLength: 128
             value:
+              description: The header value.
               type: string
               example: >-
                 Bearer
@@ -401,6 +408,7 @@ definitions:
         type: string
         format: password
         maxLength: 64
+        example: tHiSiSaBaDsEcReT
       insecureSkipVerify:
         type: boolean
         example: false
@@ -460,6 +468,8 @@ definitions:
       href:
         type: string
         example: /api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8
+        description: |
+          The URL at which the web hook can be found.
       name:
         type: string
         description: |
@@ -487,6 +497,8 @@ definitions:
               type: string
               example: >-
                 /api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb
+              description: |
+                The URL at which the web hook header can be found.
             name:
               type: string
               example: Authorization
@@ -605,7 +617,7 @@ definitions:
         type: string
         example: cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=
         description: >
-          Base64-encoded yara ruleset.  In some special rulesets, it will not be
+          Base64-encoded yara ruleset. In some special rulesets, it will not be
           displayed.
       disabled:
         type: boolean
@@ -621,16 +633,16 @@ definitions:
         type: string
         example: Smart Check collection
         description: |
-          The name of this collection.
+          The name of this ruleset collection.
         minLength: 1
         maxLength: 64
       default:
         type: boolean
         example: true
         description: >
-          The global collection used for content scan.  There can only be one
-          default collection at all time.  If this value is true, the value of
-          other collection will be reset to false.
+          The global ruleset collection used for content scan. There can only be
+          one default ruleset collection at all time. If this value is true, the
+          value of other collection will be reset to false.
   ContentScanCollectionRequest: &ref_44
     type: object
     required:
@@ -640,16 +652,16 @@ definitions:
         type: string
         example: Smart Check collection
         description: |
-          The name of this collection.
+          The name of this ruleset collection.
         minLength: 1
         maxLength: 64
       default:
         type: boolean
         example: true
         description: >
-          The global collection used for content scan.  There can only be one
-          default collection at all time.  If this value is true, the value of
-          other collection will be reset to false.
+          The global ruleset collection used for content scan. There can only be
+          one default ruleset collection at all time. If this value is true, the
+          value of other collection will be reset to false.
       rulesets:
         type: array
         items: *ref_5
@@ -681,8 +693,8 @@ definitions:
         type: boolean
         example: true
         description: >
-          The default ruleset used for content scan.  There can only be one
-          default collection at all time.
+          True if this is the default collection used for content scans. There
+          can only be one default collection at all time.
       rulesets:
         type: array
         items: *ref_6
@@ -706,6 +718,8 @@ definitions:
         example: (optional) a descriptive string
         maxLength: 128
       source: &ref_8
+        description: |
+          The source of the image to scan.
         type: object
         properties:
           type:
@@ -763,6 +777,9 @@ definitions:
                 maxLength: 10000
               aws:
                 type: object
+                description: >
+                  The AWS-specific information for authenticating to the
+                  registry.
                 properties:
                   region:
                     type: string
@@ -1552,6 +1569,8 @@ definitions:
         example: (optional) a descriptive string
         maxLength: 128
       source:
+        description: |
+          The source of the image to scan.
         type: object
         properties:
           repository:
@@ -1749,6 +1768,8 @@ definitions:
             example: '************'
           aws:
             type: object
+            description: |
+              The AWS-specific information for authenticating to the registry.
             properties:
               region:
                 type: string
@@ -2447,6 +2468,8 @@ parameters:
 paths:
   /roles:
     get:
+      operationId: listRoles
+      summary: List roles
       x-security:
         x-required-privileges:
           - 'roles:list'
@@ -2514,6 +2537,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     post:
+      operationId: createRole
+      summary: Create a role
       x-security:
         x-required-privileges:
           - 'roles:create'
@@ -2592,6 +2617,8 @@ paths:
         description: |
           The system-assigned role ID.
     get:
+      operationId: describeRole
+      summary: Describe a role
       x-security:
         x-required-privileges:
           - 'roles:describe'
@@ -2632,6 +2659,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     post:
+      operationId: modifyRole
+      summary: Modify a role
       x-security:
         x-required-privileges:
           - 'roles:modify'
@@ -2677,6 +2706,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     delete:
+      operationId: deleteRole
+      summary: Delete a role
       x-security:
         x-required-privileges:
           - 'roles:delete'
@@ -2735,6 +2766,8 @@ paths:
         '503': *ref_27
   /users:
     get:
+      operationId: listUsers
+      summary: List users
       x-security:
         x-required-privileges:
           - 'users:list'
@@ -2802,6 +2835,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     post:
+      operationId: createUser
+      summary: Create a user
       x-security:
         x-required-privileges:
           - 'users:create'
@@ -2880,6 +2915,8 @@ paths:
         description: |
           The system-assigned user ID.
     get:
+      operationId: describeUser
+      summary: Describe a user
       x-security:
         x-required-privileges:
           - 'users:describe'
@@ -2920,6 +2957,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     post:
+      operationId: modifyUser
+      summary: Modify a user
       x-security:
         x-required-privileges:
           - 'users:modify'
@@ -2969,6 +3008,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     delete:
+      operationId: deleteUser
+      summary: Delete a user
       x-security:
         x-required-privileges:
           - 'users:delete'
@@ -3034,6 +3075,8 @@ paths:
         description: |
           The system-assigned user ID.
     post:
+      operationId: changePassword
+      summary: Change password
       x-security:
         x-required-privileges:
           - 'users:changePassword'
@@ -3080,6 +3123,8 @@ paths:
         '503': *ref_27
   /sessions:
     get:
+      operationId: listSessions
+      summary: List sessions
       x-security:
         x-required-privileges:
           - 'sessions:list'
@@ -3147,6 +3192,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     post:
+      operationId: createSession
+      summary: Create a session
       x-security:
         x-required-privileges:
           - 'sessions:create'
@@ -3226,6 +3273,8 @@ paths:
         description: |
           The system-assigned session ID.
     get:
+      operationId: describeSession
+      summary: Describe a session
       x-security:
         x-required-privileges:
           - 'sessions:describe'
@@ -3266,6 +3315,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     post:
+      operationId: refreshSession
+      summary: Refresh a session
       x-security:
         x-required-privileges:
           - 'sessions:refresh'
@@ -3307,6 +3358,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     delete:
+      operationId: deleteSession
+      summary: Delete a session
       x-security:
         x-required-privileges:
           - 'sessions:delete'
@@ -3365,6 +3418,8 @@ paths:
         '503': *ref_27
   /scans:
     get:
+      operationId: listScans
+      summary: List scans
       description: >
         Retrieve a list of scans. Scans are returned in descending order of
         creation time, so the latest scan is returned first.
@@ -3453,6 +3508,8 @@ paths:
         x-required-privileges:
           - 'scans:list'
     post:
+      operationId: createScan
+      summary: Create a scan
       description: |
         Create a new scan.
       tags:
@@ -3489,6 +3546,8 @@ paths:
           - 'scans:create'
   /scans/metrics:
     get:
+      operationId: describeScanMetrics
+      summary: Describe scan metrics
       description: |
         Retrieve scan metrics.
       tags:
@@ -3540,6 +3599,8 @@ paths:
         required: true
         type: string
     get:
+      operationId: describeScan
+      summary: Describe a scan
       description: |
         Retrieve scan details.
       tags:
@@ -3588,6 +3649,8 @@ paths:
         required: true
         type: string
     get:
+      operationId: listScanMalwareFindings
+      summary: List scan malware findings
       description: |
         List scan malware findings.
       tags:
@@ -3643,6 +3706,8 @@ paths:
         required: true
         type: string
     get:
+      operationId: listScanVulnerabilityFindings
+      summary: List scan vulnerability findings
       description: |
         List scan vulnerability findings.
       tags:
@@ -3698,6 +3763,8 @@ paths:
         required: true
         type: string
     get:
+      operationId: listScanContentFindings
+      summary: List scan content findings
       description: |
         List content scan findings.
       tags:
@@ -3740,6 +3807,8 @@ paths:
           - 'scans:describe'
   /webhooks:
     get:
+      operationId: listWebhooks
+      summary: List web hooks
       parameters:
         - *ref_16
         - *ref_17
@@ -3779,6 +3848,8 @@ paths:
         x-required-privileges:
           - 'webhooks:list'
     post:
+      operationId: createWebhook
+      summary: Create a web hook
       description: |
         Create a new web hook.
       tags:
@@ -3820,6 +3891,8 @@ paths:
         required: true
         type: string
     get:
+      operationId: describeWebhook
+      summary: Describe a web hook
       description: |
         Retrieve web hook details.
       produces:
@@ -3842,6 +3915,8 @@ paths:
         x-required-privileges:
           - 'webhooks:describe'
     post:
+      operationId: modifyWebhook
+      summary: Modify a web hook
       description: |
         Modify a web hook.
       consumes:
@@ -3868,6 +3943,8 @@ paths:
         x-required-privileges:
           - 'webhooks:modify'
     delete:
+      operationId: deleteWebhook
+      summary: Delete a web hook
       description: |
         Delete a web hook.
       tags:
@@ -3895,6 +3972,8 @@ paths:
         required: true
         type: string
     post:
+      operationId: pingWebhook
+      summary: Ping a web hook
       description: |
         Send a `ping` event to the web hook to test connectivity.
       tags:
@@ -3926,6 +4005,8 @@ paths:
         required: true
         type: string
     get:
+      operationId: listWebhookHeaders
+      summary: List web hook headers
       description: >
         Get the list of user-defined headers to include in calls to the web
         hook.
@@ -3963,6 +4044,8 @@ paths:
         x-required-privileges:
           - 'webhooks:describe'
     post:
+      operationId: createWebhookHeader
+      summary: Create a web hook header
       description: |
         Add a user-defined header to include in calls to the web hook.
       consumes:
@@ -4007,6 +4090,8 @@ paths:
         required: true
         type: string
     get:
+      operationId: describeWebhookHeader
+      summary: Describe a web hook header
       description: |
         Retrieve web hook header details.
       produces:
@@ -4029,6 +4114,8 @@ paths:
         x-required-privileges:
           - 'webhooks:describe'
     post:
+      operationId: modifyWebhookHeader
+      summary: Modify a web hook header
       description: |
         Update the web hook header.
       consumes:
@@ -4055,6 +4142,8 @@ paths:
         x-required-privileges:
           - 'webhooks:modify'
     delete:
+      operationId: deleteWebhookHeader
+      summary: Delete a web hook header
       description: |
         Delete the web hook header.
       tags:
@@ -4076,6 +4165,8 @@ paths:
           - 'webhooks:modify'
   /license:
     get:
+      operationId: describeLicense
+      summary: Describe license
       produces:
         - application/json
       tags:
@@ -4132,8 +4223,10 @@ paths:
           - 'licenses:describe'
   /collections:
     get:
+      operationId: listCollections
+      summary: List content scan ruleset collections
       description: |
-        Get the list of content scan collections.
+        Get the list of content scan rulset collections.
       produces:
         - application/json
       parameters:
@@ -4147,13 +4240,22 @@ paths:
       responses:
         '200':
           description: |
-            The response body contains the list of collection objects.
+            The response body contains the list of ruleset collection objects.
           schema:
             type: object
             properties:
               collections:
                 type: array
                 items: *ref_43
+              next:
+                type: string
+                format: byte
+                example: >-
+                  dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
+                description: >
+                  An encoded value that you can use to retrieve the next set of
+                  results for a query. If `next` is not present, then there are
+                  no more results available.
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -4162,11 +4264,13 @@ paths:
         '503': *ref_27
       x-security:
         x-required-privileges:
-          - 'contentscan:list'
+          - 'collections:list'
     post:
+      operationId: createCollection
+      summary: Create a content scan ruleset collection
       description: >
-        Add a content scan collection to manage rules. Default rules will be
-        automatically inserted into the ruleset created.
+        Add a content scan ruleset collection to manage rules. Default rules
+        will be automatically inserted into the ruleset created.
       consumes:
         - application/json
       produces:
@@ -4182,8 +4286,9 @@ paths:
       responses:
         '200':
           description: >
-            The response body contains the collection details. This response
-            will only be returned if the `dryrun=true` query parameter was sent.
+            The response body contains the ruleset collection details. This
+            response will only be returned if the `dryrun=true` query parameter
+            was sent.
         '201':
           description: |
             The content scan ruleset has been created.
@@ -4201,7 +4306,7 @@ paths:
         '503': *ref_27
       x-security:
         x-required-privileges:
-          - 'contentscan:create'
+          - 'collections:create'
   '/collections/{id}':
     parameters:
       - name: id
@@ -4211,8 +4316,10 @@ paths:
         required: true
         type: string
     get:
+      operationId: describeCollection
+      summary: Describe a content scan ruleset collection
       description: |
-        Retrieve content scan collection details.
+        Retrieve content scan ruleset collection details.
       produces:
         - application/json
       tags:
@@ -4237,11 +4344,13 @@ paths:
         '503': *ref_27
       x-security:
         x-required-privileges:
-          - 'contentscan:describe'
+          - 'collections:describe'
     post:
+      operationId: modifyCollection
+      summary: Modify a content scan ruleset collection
       description: >
-        Update a content scan collection.  Rulesets cannot be modifed with this
-        API.
+        Modify a content scan ruleset collection. Rulesets cannot be modifed
+        with this API.
       consumes:
         - application/json
       produces:
@@ -4258,7 +4367,7 @@ paths:
         '200':
           description: >
             The collection has been updated. The response body contains the
-            updated content scan collection object.
+            updated content scan ruleset collection object.
           schema: *ref_43
           headers:
             Location:
@@ -4273,10 +4382,12 @@ paths:
         '503': *ref_27
       x-security:
         x-required-privileges:
-          - 'contentscan:modify'
+          - 'collections:modify'
     delete:
+      operationId: deleteCollection
+      summary: Delete a content scan ruleset collection
       description: |
-        Delete a collection and associated rulesets.
+        Delete a ruleset collection and associated rulesets.
       tags:
         - Content scan
       parameters:
@@ -4285,11 +4396,11 @@ paths:
       responses:
         '200':
           description: >
-            The collection would be deleted if the `dryrun=true` parameter was
-            not present.
+            The ruleset collection would be deleted if the `dryrun=true`
+            parameter was not present.
         '204':
           description: |
-            The collection has been deleted.
+            The ruleset collection has been deleted.
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -4298,7 +4409,7 @@ paths:
         '503': *ref_27
       x-security:
         x-required-privileges:
-          - 'contentscan:delete'
+          - 'collections:delete'
   '/collections/{id}/rulesets':
     parameters:
       - name: id
@@ -4308,8 +4419,11 @@ paths:
         required: true
         type: string
     get:
-      description: |
-        Get the list of content scan rulesets in the indicated collection.
+      operationId: listRulesets
+      summary: List content scan rulesets
+      description: >
+        Get the list of content scan rulesets in the indicated ruleset
+        collection.
       produces:
         - application/json
       parameters:
@@ -4324,8 +4438,20 @@ paths:
           description: |
             The response body contains the list of ruleset objects.
           schema:
-            type: array
-            items: *ref_6
+            type: object
+            properties:
+              rulesets:
+                type: array
+                items: *ref_6
+              next:
+                type: string
+                format: byte
+                example: >-
+                  dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
+                description: >
+                  An encoded value that you can use to retrieve the next set of
+                  results for a query. If `next` is not present, then there are
+                  no more results available.
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -4334,10 +4460,12 @@ paths:
         '503': *ref_27
       x-security:
         x-required-privileges:
-          - 'contentscan:list'
+          - 'collections:list'
     post:
+      operationId: createRuleset
+      summary: Create a content scan ruleset
       description: |
-        Add a content scan ruleset to the indicated collection.
+        Add a content scan ruleset to the indicated ruleset collection.
       consumes:
         - application/json
       produces:
@@ -4372,22 +4500,24 @@ paths:
         '503': *ref_27
       x-security:
         x-required-privileges:
-          - 'contentscan:create'
-  '/collections/{id}/rulesets/{rulesetid}':
+          - 'rulesets:create'
+  '/collections/{id}/rulesets/{rulesetID}':
     parameters:
       - name: id
         description: |
-          The collection ID.
+          The ruleset collection ID.
         in: path
         required: true
         type: string
-      - name: rulesetid
+      - name: rulesetID
         description: |
           The ruleset ID.
         in: path
         required: true
         type: string
     get:
+      operationId: describeRuleset
+      summary: Describe a content scan ruleset
       description: |
         Retrieve content scan rule details.
       produces:
@@ -4409,10 +4539,12 @@ paths:
         '503': *ref_27
       x-security:
         x-required-privileges:
-          - 'contentscan:describe'
+          - 'rulesets:describe'
     post:
+      operationId: modifyRuleset
+      summary: Modify a content scan ruleset
       description: >
-        Update a content scan ruleset.  Built-in rulesets are not allowed to be
+        Update a content scan ruleset. Built-in rulesets are not allowed to be
         modified except disabling/enabling.
       consumes:
         - application/json
@@ -4445,8 +4577,10 @@ paths:
         '503': *ref_27
       x-security:
         x-required-privileges:
-          - 'contentscan:modify'
+          - 'rulesets:modify'
     delete:
+      operationId: deleteRuleset
+      summary: Delete a content scan ruleset
       description: |
         Delete a content scan ruleset.
       tags:
@@ -4470,9 +4604,11 @@ paths:
         '503': *ref_27
       x-security:
         x-required-privileges:
-          - 'contentscan:delete'
+          - 'rulesets:delete'
   /registries:
     get:
+      operationId: listRegistries
+      summary: List registries
       x-security:
         x-required-privileges:
           - 'registries:list'
@@ -4541,6 +4677,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     post:
+      operationId: createRegistry
+      summary: Create a registry
       x-security:
         x-required-privileges:
           - 'registries:create'
@@ -4625,6 +4763,8 @@ paths:
         type: string
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
     get:
+      operationId: describeRegistry
+      summary: Describe a registry
       x-security:
         x-required-privileges:
           - 'registries:describe'
@@ -4666,6 +4806,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     post:
+      operationId: modifyRegistry
+      summary: Modify a registry
       x-security:
         x-required-privileges:
           - 'registries:modify'
@@ -4720,6 +4862,8 @@ paths:
         '500': *ref_26
         '503': *ref_27
     delete:
+      operationId: deleteRegistry
+      summary: Delete a registry
       x-security:
         x-required-privileges:
           - 'registries:delete'
@@ -4780,6 +4924,8 @@ paths:
         '503': *ref_27
   '/registries/{id}/scans':
     post:
+      operationId: createScan
+      summary: Create a scan
       x-security:
         x-required-privileges:
           - 'scans:create'
@@ -4857,6 +5003,8 @@ paths:
         type: string
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
     get:
+      operationId: listRegistryImages
+      summary: List registry images
       x-security:
         x-required-privileges:
           - 'registries:describe'
@@ -4917,6 +5065,8 @@ paths:
         type: string
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
     get:
+      operationId: describeRegistryImage
+      summary: Describe a registry image
       x-security:
         x-required-privileges:
           - 'registries:describe'
@@ -4959,6 +5109,8 @@ paths:
         '503': *ref_27
   /registries/dashboard:
     get:
+      operationId: describeDashboard
+      summary: Describe registries dashboard
       x-security:
         x-required-privileges:
           - 'dashboards:describe'

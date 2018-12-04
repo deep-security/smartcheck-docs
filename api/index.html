@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deep Security Smart Check | API Reference</title>
+    <title>Deep Security Smart Check API | API Reference</title>
     <link rel="stylesheet" href="stylesheets/foundation.min.css" />
     <link rel="stylesheet" href="stylesheets/spectacle.min.css" />
     <script src="javascripts/jquery-2.1.4.min.js"></script>
@@ -25,19 +25,19 @@
             <a href="#tag-Roles">Roles</a>
             <ul>
               <li>
-                <a href="#operation--roles-get"> GET /roles </a>
+                <a href="#operation--roles-get"> List roles </a>
               </li>
               <li>
-                <a href="#operation--roles-post"> POST /roles </a>
+                <a href="#operation--roles-post"> Create a role </a>
               </li>
               <li>
-                <a href="#operation--roles--id--get"> GET /roles/{id} </a>
+                <a href="#operation--roles--id--get"> Describe a role </a>
               </li>
               <li>
-                <a href="#operation--roles--id--post"> POST /roles/{id} </a>
+                <a href="#operation--roles--id--post"> Modify a role </a>
               </li>
               <li>
-                <a href="#operation--roles--id--delete"> DELETE /roles/{id} </a>
+                <a href="#operation--roles--id--delete"> Delete a role </a>
               </li>
             </ul>
           </section>
@@ -45,22 +45,22 @@
             <a href="#tag-Users">Users</a>
             <ul>
               <li>
-                <a href="#operation--users-get"> GET /users </a>
+                <a href="#operation--users-get"> List users </a>
               </li>
               <li>
-                <a href="#operation--users-post"> POST /users </a>
+                <a href="#operation--users-post"> Create a user </a>
               </li>
               <li>
-                <a href="#operation--users--id--get"> GET /users/{id} </a>
+                <a href="#operation--users--id--get"> Describe a user </a>
               </li>
               <li>
-                <a href="#operation--users--id--post"> POST /users/{id} </a>
+                <a href="#operation--users--id--post"> Modify a user </a>
               </li>
               <li>
-                <a href="#operation--users--id--delete"> DELETE /users/{id} </a>
+                <a href="#operation--users--id--delete"> Delete a user </a>
               </li>
               <li>
-                <a href="#operation--users--id--password-post"> POST /users/{id}/password </a>
+                <a href="#operation--users--id--password-post"> Change password </a>
               </li>
             </ul>
           </section>
@@ -68,19 +68,19 @@
             <a href="#tag-Sessions">Sessions</a>
             <ul>
               <li>
-                <a href="#operation--sessions-get"> GET /sessions </a>
+                <a href="#operation--sessions-get"> List sessions </a>
               </li>
               <li>
-                <a href="#operation--sessions-post"> POST /sessions </a>
+                <a href="#operation--sessions-post"> Create a session </a>
               </li>
               <li>
-                <a href="#operation--sessions--id--get"> GET /sessions/{id} </a>
+                <a href="#operation--sessions--id--get"> Describe a session </a>
               </li>
               <li>
-                <a href="#operation--sessions--id--post"> POST /sessions/{id} </a>
+                <a href="#operation--sessions--id--post"> Refresh a session </a>
               </li>
               <li>
-                <a href="#operation--sessions--id--delete"> DELETE /sessions/{id} </a>
+                <a href="#operation--sessions--id--delete"> Delete a session </a>
               </li>
             </ul>
           </section>
@@ -88,25 +88,25 @@
             <a href="#tag-Scans">Scans</a>
             <ul>
               <li>
-                <a href="#operation--scans-get"> GET /scans </a>
+                <a href="#operation--scans-get"> List scans </a>
               </li>
               <li>
-                <a href="#operation--scans-post"> POST /scans </a>
+                <a href="#operation--scans-post"> Create a scan </a>
               </li>
               <li>
-                <a href="#operation--scans-metrics-get"> GET /scans/metrics </a>
+                <a href="#operation--scans-metrics-get"> Describe scan metrics </a>
               </li>
               <li>
-                <a href="#operation--scans--id--get"> GET /scans/{id} </a>
+                <a href="#operation--scans--id--get"> Describe a scan </a>
               </li>
               <li>
-                <a href="#operation--scans--id--layers--layerID--malware-get"> GET /scans/{id}/layers/{layerID}/malware </a>
+                <a href="#operation--scans--id--layers--layerID--malware-get"> List scan malware findings </a>
               </li>
               <li>
-                <a href="#operation--scans--id--layers--layerID--vulnerabilities-get"> GET /scans/{id}/layers/{layerID}/vulnerabilities </a>
+                <a href="#operation--scans--id--layers--layerID--vulnerabilities-get"> List scan vulnerability findings </a>
               </li>
               <li>
-                <a href="#operation--scans--id--layers--layerID--contents-get"> GET /scans/{id}/layers/{layerID}/contents </a>
+                <a href="#operation--scans--id--layers--layerID--contents-get"> List scan content findings </a>
               </li>
             </ul>
           </section>
@@ -114,37 +114,37 @@
             <a href="#tag-Web-hooks">Web hooks</a>
             <ul>
               <li>
-                <a href="#operation--webhooks-get"> GET /webhooks </a>
+                <a href="#operation--webhooks-get"> List web hooks </a>
               </li>
               <li>
-                <a href="#operation--webhooks-post"> POST /webhooks </a>
+                <a href="#operation--webhooks-post"> Create a web hook </a>
               </li>
               <li>
-                <a href="#operation--webhooks--id--get"> GET /webhooks/{id} </a>
+                <a href="#operation--webhooks--id--get"> Describe a web hook </a>
               </li>
               <li>
-                <a href="#operation--webhooks--id--post"> POST /webhooks/{id} </a>
+                <a href="#operation--webhooks--id--post"> Modify a web hook </a>
               </li>
               <li>
-                <a href="#operation--webhooks--id--delete"> DELETE /webhooks/{id} </a>
+                <a href="#operation--webhooks--id--delete"> Delete a web hook </a>
               </li>
               <li>
-                <a href="#operation--webhooks--id--ping-post"> POST /webhooks/{id}/ping </a>
+                <a href="#operation--webhooks--id--ping-post"> Ping a web hook </a>
               </li>
               <li>
-                <a href="#operation--webhooks--id--headers-get"> GET /webhooks/{id}/headers </a>
+                <a href="#operation--webhooks--id--headers-get"> List web hook headers </a>
               </li>
               <li>
-                <a href="#operation--webhooks--id--headers-post"> POST /webhooks/{id}/headers </a>
+                <a href="#operation--webhooks--id--headers-post"> Create a web hook header </a>
               </li>
               <li>
-                <a href="#operation--webhooks--id--headers--headerID--get"> GET /webhooks/{id}/headers/{headerID} </a>
+                <a href="#operation--webhooks--id--headers--headerID--get"> Describe a web hook header </a>
               </li>
               <li>
-                <a href="#operation--webhooks--id--headers--headerID--post"> POST /webhooks/{id}/headers/{headerID} </a>
+                <a href="#operation--webhooks--id--headers--headerID--post"> Modify a web hook header </a>
               </li>
               <li>
-                <a href="#operation--webhooks--id--headers--headerID--delete"> DELETE /webhooks/{id}/headers/{headerID} </a>
+                <a href="#operation--webhooks--id--headers--headerID--delete"> Delete a web hook header </a>
               </li>
             </ul>
           </section>
@@ -152,7 +152,7 @@
             <a href="#tag-License">License</a>
             <ul>
               <li>
-                <a href="#operation--license-get"> GET /license </a>
+                <a href="#operation--license-get"> Describe license </a>
               </li>
             </ul>
           </section>
@@ -160,34 +160,34 @@
             <a href="#tag-Content-scan">Content scan</a>
             <ul>
               <li>
-                <a href="#operation--collections-get"> GET /collections </a>
+                <a href="#operation--collections-get"> List content scan ruleset collections </a>
               </li>
               <li>
-                <a href="#operation--collections-post"> POST /collections </a>
+                <a href="#operation--collections-post"> Create a content scan ruleset collection </a>
               </li>
               <li>
-                <a href="#operation--collections--id--get"> GET /collections/{id} </a>
+                <a href="#operation--collections--id--get"> Describe a content scan ruleset collection </a>
               </li>
               <li>
-                <a href="#operation--collections--id--post"> POST /collections/{id} </a>
+                <a href="#operation--collections--id--post"> Modify a content scan ruleset collection </a>
               </li>
               <li>
-                <a href="#operation--collections--id--delete"> DELETE /collections/{id} </a>
+                <a href="#operation--collections--id--delete"> Delete a content scan ruleset collection </a>
               </li>
               <li>
-                <a href="#operation--collections--id--rulesets-get"> GET /collections/{id}/rulesets </a>
+                <a href="#operation--collections--id--rulesets-get"> List content scan rulesets </a>
               </li>
               <li>
-                <a href="#operation--collections--id--rulesets-post"> POST /collections/{id}/rulesets </a>
+                <a href="#operation--collections--id--rulesets-post"> Create a content scan ruleset </a>
               </li>
               <li>
-                <a href="#operation--collections--id--rulesets--rulesetid--get"> GET /collections/{id}/rulesets/{rulesetid} </a>
+                <a href="#operation--collections--id--rulesets--rulesetID--get"> Describe a content scan ruleset </a>
               </li>
               <li>
-                <a href="#operation--collections--id--rulesets--rulesetid--post"> POST /collections/{id}/rulesets/{rulesetid} </a>
+                <a href="#operation--collections--id--rulesets--rulesetID--post"> Modify a content scan ruleset </a>
               </li>
               <li>
-                <a href="#operation--collections--id--rulesets--rulesetid--delete"> DELETE /collections/{id}/rulesets/{rulesetid} </a>
+                <a href="#operation--collections--id--rulesets--rulesetID--delete"> Delete a content scan ruleset </a>
               </li>
             </ul>
           </section>
@@ -195,31 +195,31 @@
             <a href="#tag-Registries">Registries</a>
             <ul>
               <li>
-                <a href="#operation--registries-get"> GET /registries </a>
+                <a href="#operation--registries-get"> List registries </a>
               </li>
               <li>
-                <a href="#operation--registries-post"> POST /registries </a>
+                <a href="#operation--registries-post"> Create a registry </a>
               </li>
               <li>
-                <a href="#operation--registries--id--get"> GET /registries/{id} </a>
+                <a href="#operation--registries--id--get"> Describe a registry </a>
               </li>
               <li>
-                <a href="#operation--registries--id--post"> POST /registries/{id} </a>
+                <a href="#operation--registries--id--post"> Modify a registry </a>
               </li>
               <li>
-                <a href="#operation--registries--id--delete"> DELETE /registries/{id} </a>
+                <a href="#operation--registries--id--delete"> Delete a registry </a>
               </li>
               <li>
-                <a href="#operation--registries--id--scans-post"> POST /registries/{id}/scans </a>
+                <a href="#operation--registries--id--scans-post"> Create a scan </a>
               </li>
               <li>
-                <a href="#operation--registries--id--images-get"> GET /registries/{id}/images </a>
+                <a href="#operation--registries--id--images-get"> List registry images </a>
               </li>
               <li>
-                <a href="#operation--registries--id--images--imageID--get"> GET /registries/{id}/images/{imageID} </a>
+                <a href="#operation--registries--id--images--imageID--get"> Describe a registry image </a>
               </li>
               <li>
-                <a href="#operation--registries-dashboard-get"> GET /registries/dashboard </a>
+                <a href="#operation--registries-dashboard-get"> Describe registries dashboard </a>
               </li>
             </ul>
           </section>
@@ -268,7 +268,7 @@
         </button>
         <div class="example-box doc-content"></div>
         <article>
-          <h1 class="doc-title">Deep Security Smart Check
+          <h1 class="doc-title">Deep Security Smart Check API
             <span>API Reference</span>
           </h1>
           <div id="introduction" data-traverse-target="introduction">
@@ -334,11 +334,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/roles</span>
-              </span>
+              <span class="operation-summary">List roles</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/roles</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -1168,11 +1173,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/roles</span>
-              </span>
+              <span class="operation-summary">Create a role</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/roles</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -2169,11 +2179,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/roles/{id}</span>
-              </span>
+              <span class="operation-summary">Describe a role</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/roles/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -2955,11 +2970,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/roles/{id}</span>
-              </span>
+              <span class="operation-summary">Modify a role</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/roles/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -3867,11 +3887,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">DELETE</span>
-                <span class="operation-path">/roles/{id}</span>
-              </span>
+              <span class="operation-summary">Delete a role</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/roles/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -4666,11 +4691,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/users</span>
-              </span>
+              <span class="operation-summary">List users</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/users</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -5490,11 +5520,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/users</span>
-              </span>
+              <span class="operation-summary">Create a user</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/users</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -6417,11 +6452,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/users/{id}</span>
-              </span>
+              <span class="operation-summary">Describe a user</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/users/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -7193,11 +7233,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/users/{id}</span>
-              </span>
+              <span class="operation-summary">Modify a user</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/users/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -8051,11 +8096,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">DELETE</span>
-                <span class="operation-path">/users/{id}</span>
-              </span>
+              <span class="operation-summary">Delete a user</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/users/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -8849,11 +8899,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/users/{id}/password</span>
-              </span>
+              <span class="operation-summary">Change password</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/users/{id}/password</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -9666,11 +9721,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/sessions</span>
-              </span>
+              <span class="operation-summary">List sessions</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/sessions</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -10498,11 +10558,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/sessions</span>
-              </span>
+              <span class="operation-summary">Create a session</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/sessions</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -11422,11 +11487,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/sessions/{id}</span>
-              </span>
+              <span class="operation-summary">Describe a session</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/sessions/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -12206,11 +12276,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/sessions/{id}</span>
-              </span>
+              <span class="operation-summary">Refresh a session</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/sessions/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -12986,11 +13061,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">DELETE</span>
-                <span class="operation-path">/sessions/{id}</span>
-              </span>
+              <span class="operation-summary">Delete a session</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/sessions/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -13790,11 +13870,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/scans</span>
-              </span>
+              <span class="operation-summary">List scans</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/scans</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -14640,11 +14725,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/scans</span>
-              </span>
+              <span class="operation-summary">Create a scan</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/scans</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -14674,12 +14764,15 @@
                       <dd>
                         <p>(optional) A descriptive name for the scan.</p>
                       </dd>
-                      <dt data-property-name="source">
+                      <dt data-property-name="source" class="has-description">
                         <span class="json-property-name">source:</span>
                         <span class="json-property-type">object</span>
                         <span class="json-property-range" title="Value limits"></span>
                         <span class="json-property-required"></span>
                       </dt>
+                      <dd>
+                        <p>The source of the image to scan.</p>
+                      </dd>
                       <dt class="json-inner-schema">
                         <section class="json-schema-properties">
                           <dl>
@@ -14755,11 +14848,14 @@
                                   <dd>
                                     <p>(optional) Use this if your source requires requests to be authorized using basic username + password authentication. Requests will include an <code>Authorization: Basic {encoded username + password}</code> header.</p>
                                   </dd>
-                                  <dt data-property-name="aws">
+                                  <dt data-property-name="aws" class="has-description">
                                     <span class="json-property-name">aws:</span>
                                     <span class="json-property-type">object</span>
                                     <span class="json-property-range" title="Value limits"></span>
                                   </dt>
+                                  <dd>
+                                    <p>The AWS-specific information for authenticating to the registry.</p>
+                                  </dd>
                                   <dt class="json-inner-schema">
                                     <section class="json-schema-properties">
                                       <dl>
@@ -14877,13 +14973,16 @@
                                 <dd>
                                   <p>(optional) A descriptive name for the web hook.</p>
                                 </dd>
-                                <dt data-property-name="hookURL">
+                                <dt data-property-name="hookURL" class="has-description">
                                   <span class="json-property-name">hookURL:</span>
                                   <span class="json-property-type">string</span>
                                   <span class="json-property-range" title="Value limits"></span>
                                   <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                                   <span class="json-property-required"></span>
                                 </dt>
+                                <dd>
+                                  <p>The URL that Deep Security Smart Check should <code>POST</code> the event payload to.</p>
+                                </dd>
                                 <dt data-property-name="headers" class="has-description">
                                   <span class="json-property-name">headers:</span>
                                   <span class="json-property-type">object[]</span>
@@ -14900,20 +14999,26 @@
                                     <div class="json-inner-schema">
                                       <section class="json-schema-properties">
                                         <dl>
-                                          <dt data-property-name="name">
+                                          <dt data-property-name="name" class="has-description">
                                             <span class="json-property-name">name:</span>
                                             <span class="json-property-type">string</span>
                                             <span class="json-property-range" title="Value limits"></span>
                                             <span class="json-property-range" title="String length limits"> (up to 128 chars) </span>
                                             <span class="json-property-required"></span>
                                           </dt>
-                                          <dt data-property-name="value">
+                                          <dd>
+                                            <p>The header name.</p>
+                                          </dd>
+                                          <dt data-property-name="value" class="has-description">
                                             <span class="json-property-name">value:</span>
                                             <span class="json-property-type">string</span>
                                             <span class="json-property-range" title="Value limits"></span>
                                             <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                                             <span class="json-property-required"></span>
                                           </dt>
+                                          <dd>
+                                            <p>The header value.</p>
+                                          </dd>
                                         </dl>
                                       </section>
                                     </div>
@@ -15047,7 +15152,7 @@
           <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6&quot;</span>
         }
       ],
-      <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;string (password)&quot;</span>,
+      <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;tHiSiSaBaDsEcReT&quot;</span>,
       <span class="hljs-attr">&quot;insecureSkipVerify&quot;</span>: <span class="hljs-literal">false</span>,
       <span class="hljs-attr">&quot;rootCAs&quot;</span>: <span class="hljs-string">&quot;LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==&quot;</span>,
       <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -15866,11 +15971,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/scans/metrics</span>
-              </span>
+              <span class="operation-summary">Describe scan metrics</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/scans/metrics</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -16558,11 +16668,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/scans/{id}</span>
-              </span>
+              <span class="operation-summary">Describe a scan</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/scans/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -17499,11 +17614,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/scans/{id}/layers/{layerID}/malware</span>
-              </span>
+              <span class="operation-summary">List scan malware findings</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/scans/{id}/layers/{layerID}/malware</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -18386,11 +18506,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/scans/{id}/layers/{layerID}/vulnerabilities</span>
-              </span>
+              <span class="operation-summary">List scan vulnerability findings</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/scans/{id}/layers/{layerID}/vulnerabilities</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -19278,11 +19403,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/scans/{id}/layers/{layerID}/contents</span>
-              </span>
+              <span class="operation-summary">List scan content findings</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/scans/{id}/layers/{layerID}/contents</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -20165,11 +20295,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/webhooks</span>
-              </span>
+              <span class="operation-summary">List web hooks</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/webhooks</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -20830,11 +20965,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/webhooks</span>
-              </span>
+              <span class="operation-summary">Create a web hook</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/webhooks</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -20856,13 +20996,16 @@
                       <dd>
                         <p>(optional) A descriptive name for the web hook.</p>
                       </dd>
-                      <dt data-property-name="hookURL">
+                      <dt data-property-name="hookURL" class="has-description">
                         <span class="json-property-name">hookURL:</span>
                         <span class="json-property-type">string</span>
                         <span class="json-property-range" title="Value limits"></span>
                         <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                         <span class="json-property-required"></span>
                       </dt>
+                      <dd>
+                        <p>The URL that Deep Security Smart Check should <code>POST</code> the event payload to.</p>
+                      </dd>
                       <dt data-property-name="headers" class="has-description">
                         <span class="json-property-name">headers:</span>
                         <span class="json-property-type">object[]</span>
@@ -20879,20 +21022,26 @@
                           <div class="json-inner-schema">
                             <section class="json-schema-properties">
                               <dl>
-                                <dt data-property-name="name">
+                                <dt data-property-name="name" class="has-description">
                                   <span class="json-property-name">name:</span>
                                   <span class="json-property-type">string</span>
                                   <span class="json-property-range" title="Value limits"></span>
                                   <span class="json-property-range" title="String length limits"> (up to 128 chars) </span>
                                   <span class="json-property-required"></span>
                                 </dt>
-                                <dt data-property-name="value">
+                                <dd>
+                                  <p>The header name.</p>
+                                </dd>
+                                <dt data-property-name="value" class="has-description">
                                   <span class="json-property-name">value:</span>
                                   <span class="json-property-type">string</span>
                                   <span class="json-property-range" title="Value limits"></span>
                                   <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                                   <span class="json-property-required"></span>
                                 </dt>
+                                <dd>
+                                  <p>The header value.</p>
+                                </dd>
                               </dl>
                             </section>
                           </div>
@@ -20995,7 +21144,7 @@
       <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6&quot;</span>
     }
   ],
-  <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;string (password)&quot;</span>,
+  <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;tHiSiSaBaDsEcReT&quot;</span>,
   <span class="hljs-attr">&quot;insecureSkipVerify&quot;</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">&quot;rootCAs&quot;</span>: <span class="hljs-string">&quot;LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==&quot;</span>,
   <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -21611,11 +21760,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/webhooks/{id}</span>
-              </span>
+              <span class="operation-summary">Describe a web hook</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/webhooks/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -22235,11 +22389,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/webhooks/{id}</span>
-              </span>
+              <span class="operation-summary">Modify a web hook</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/webhooks/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -22859,11 +23018,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">DELETE</span>
-                <span class="operation-path">/webhooks/{id}</span>
-              </span>
+              <span class="operation-summary">Delete a web hook</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/webhooks/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -23442,11 +23606,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/webhooks/{id}/ping</span>
-              </span>
+              <span class="operation-summary">Ping a web hook</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/webhooks/{id}/ping</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -24053,11 +24222,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/webhooks/{id}/headers</span>
-              </span>
+              <span class="operation-summary">List web hook headers</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/webhooks/{id}/headers</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -24666,11 +24840,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/webhooks/{id}/headers</span>
-              </span>
+              <span class="operation-summary">Create a web hook header</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/webhooks/{id}/headers</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -25302,11 +25481,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/webhooks/{id}/headers/{headerID}</span>
-              </span>
+              <span class="operation-summary">Describe a web hook header</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/webhooks/{id}/headers/{headerID}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -25941,11 +26125,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/webhooks/{id}/headers/{headerID}</span>
-              </span>
+              <span class="operation-summary">Modify a web hook header</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/webhooks/{id}/headers/{headerID}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -26564,11 +26753,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">DELETE</span>
-                <span class="operation-path">/webhooks/{id}/headers/{headerID}</span>
-              </span>
+              <span class="operation-summary">Delete a web hook header</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/webhooks/{id}/headers/{headerID}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -27168,11 +27362,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/license</span>
-              </span>
+              <span class="operation-summary">Describe license</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/license</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-request-params">
@@ -27708,15 +27907,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/collections</span>
-              </span>
+              <span class="operation-summary">List content scan ruleset collections</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/collections</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Get the list of content scan collections.</p>
+                  <p>Get the list of content scan rulset collections.</p>
                 </section>
               </div>
             </div>
@@ -27818,7 +28022,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>The response body contains the list of collection objects.</p>
+                      <p>The response body contains the list of ruleset collection objects.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -27959,7 +28163,8 @@
         }
       ]
     }
-  ]
+  ],
+  <span class="hljs-attr">&quot;next&quot;</span>: <span class="hljs-string">&quot;dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=&quot;</span>
 }
 </code></pre>
                   <!-- </div> -->
@@ -28477,15 +28682,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/collections</span>
-              </span>
+              <span class="operation-summary">Create a content scan ruleset collection</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/collections</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Add a content scan collection to manage rules. Default rules will be automatically inserted into the ruleset created.</p>
+                  <p>Add a content scan ruleset collection to manage rules. Default rules will be automatically inserted into the ruleset created.</p>
                 </section>
               </div>
             </div>
@@ -28502,7 +28712,7 @@
                         <span class="json-property-required"></span>
                       </dt>
                       <dd>
-                        <p>The name of this collection.</p>
+                        <p>The name of this ruleset collection.</p>
                       </dd>
                       <dt data-property-name="default" class="has-description">
                         <span class="json-property-name">default:</span>
@@ -28510,7 +28720,7 @@
                         <span class="json-property-range" title="Value limits"></span>
                       </dt>
                       <dd>
-                        <p>The global collection used for content scan. There can only be one default collection at all time. If this value is true, the value of other collection will be reset to false.</p>
+                        <p>The global ruleset collection used for content scan. There can only be one default ruleset collection at all time. If this value is true, the value of other collection will be reset to false.</p>
                       </dd>
                       <dt data-property-name="rulesets" class="has-description">
                         <span class="json-property-name">rulesets:</span>
@@ -28626,7 +28836,7 @@
                       <div class="prop-title">200 OK</div>
                     </div>
                     <div class="prop-value">
-                      <p>The response body contains the collection details. This response will only be returned if the <code>dryrun=true</code> query parameter was sent.</p>
+                      <p>The response body contains the ruleset collection details. This response will only be returned if the <code>dryrun=true</code> query parameter was sent.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -29319,15 +29529,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/collections/{id}</span>
-              </span>
+              <span class="operation-summary">Describe a content scan ruleset collection</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/collections/{id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Retrieve content scan collection details.</p>
+                  <p>Retrieve content scan ruleset collection details.</p>
                 </section>
               </div>
             </div>
@@ -30037,15 +30252,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/collections/{id}</span>
-              </span>
+              <span class="operation-summary">Modify a content scan ruleset collection</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/collections/{id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Update a content scan collection. Rulesets cannot be modifed with this API.</p>
+                  <p>Modify a content scan ruleset collection. Rulesets cannot be modifed with this API.</p>
                 </section>
               </div>
             </div>
@@ -30062,7 +30282,7 @@
                         <span class="json-property-required"></span>
                       </dt>
                       <dd>
-                        <p>The name of this collection.</p>
+                        <p>The name of this ruleset collection.</p>
                       </dd>
                       <dt data-property-name="default" class="has-description">
                         <span class="json-property-name">default:</span>
@@ -30070,7 +30290,7 @@
                         <span class="json-property-range" title="Value limits"></span>
                       </dt>
                       <dd>
-                        <p>The global collection used for content scan. There can only be one default collection at all time. If this value is true, the value of other collection will be reset to false.</p>
+                        <p>The global ruleset collection used for content scan. There can only be one default ruleset collection at all time. If this value is true, the value of other collection will be reset to false.</p>
                       </dd>
                     </dl>
                   </section>
@@ -30148,7 +30368,7 @@
                       <!-- <span class="swagger-global"></span> <span class="json-schema-reference"><a href=""></a></span> -->
                     </div>
                     <div class="prop-value">
-                      <p>The collection has been updated. The response body contains the updated content scan collection object.</p>
+                      <p>The collection has been updated. The response body contains the updated content scan ruleset collection object.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-inner">
@@ -30831,15 +31051,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">DELETE</span>
-                <span class="operation-path">/collections/{id}</span>
-              </span>
+              <span class="operation-summary">Delete a content scan ruleset collection</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/collections/{id}</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Delete a collection and associated rulesets.</p>
+                  <p>Delete a ruleset collection and associated rulesets.</p>
                 </section>
               </div>
             </div>
@@ -30903,7 +31128,7 @@
                       <div class="prop-title">200 OK</div>
                     </div>
                     <div class="prop-value">
-                      <p>The collection would be deleted if the <code>dryrun=true</code> parameter was not present.</p>
+                      <p>The ruleset collection would be deleted if the <code>dryrun=true</code> parameter was not present.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -30911,7 +31136,7 @@
                       <div class="prop-title">204 No Content</div>
                     </div>
                     <div class="prop-value">
-                      <p>The collection has been deleted.</p>
+                      <p>The ruleset collection has been deleted.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
@@ -31534,15 +31759,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/collections/{id}/rulesets</span>
-              </span>
+              <span class="operation-summary">List content scan rulesets</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/collections/{id}/rulesets</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Get the list of content scan rulesets in the indicated collection.</p>
+                  <p>Get the list of content scan rulesets in the indicated ruleset collection.</p>
                 </section>
               </div>
             </div>
@@ -31646,7 +31876,7 @@
                   <div class="prop-row prop-inner">
                     <div class="prop-name">type</div>
                     <div class="prop-value">
-                      <span class="json-property-type">object[]</span>
+                      <span class="json-property-type">object</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </div>
                   </div>
@@ -31764,15 +31994,18 @@
                   <h5>Response Example
                     <span>(200 OK)</span>
                   </h5>
-                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">[
-  {
-    <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;6af2e0e1-bb7c-45b7-9a3f-152a80d154eb&quot;</span>,
-    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Scanning ruleset&quot;</span>,
-    <span class="hljs-attr">&quot;href&quot;</span>: <span class="hljs-string">&quot;/api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/rulesets/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb&quot;</span>,
-    <span class="hljs-attr">&quot;ruleset&quot;</span>: <span class="hljs-string">&quot;cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=&quot;</span>,
-    <span class="hljs-attr">&quot;disabled&quot;</span>: <span class="hljs-literal">false</span>
-  }
-]
+                  <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
+  <span class="hljs-attr">&quot;rulesets&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;id&quot;</span>: <span class="hljs-string">&quot;6af2e0e1-bb7c-45b7-9a3f-152a80d154eb&quot;</span>,
+      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;Scanning ruleset&quot;</span>,
+      <span class="hljs-attr">&quot;href&quot;</span>: <span class="hljs-string">&quot;/api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/rulesets/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb&quot;</span>,
+      <span class="hljs-attr">&quot;ruleset&quot;</span>: <span class="hljs-string">&quot;cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=&quot;</span>,
+      <span class="hljs-attr">&quot;disabled&quot;</span>: <span class="hljs-literal">false</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;next&quot;</span>: <span class="hljs-string">&quot;dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=&quot;</span>
+}
 </code></pre>
                   <!-- </div> -->
                 </section>
@@ -32289,15 +32522,20 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/collections/{id}/rulesets</span>
-              </span>
+              <span class="operation-summary">Create a content scan ruleset</span>
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/collections/{id}/rulesets</span>
+                </section>
+              </div>
+            </div>
+            <div class="doc-row">
+              <div class="doc-copy">
                 <section class="swagger-operation-description">
-                  <p>Add a content scan ruleset to the indicated collection.</p>
+                  <p>Add a content scan ruleset to the indicated ruleset collection.</p>
                 </section>
               </div>
             </div>
@@ -33084,7 +33322,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--collections--id--rulesets--rulesetid--get" class="operation panel" data-traverse-target="operation--collections--id--rulesets--rulesetid--get">
+          <div id="operation--collections--id--rulesets--rulesetID--get" class="operation panel" data-traverse-target="operation--collections--id--rulesets--rulesetID--get">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -33094,11 +33332,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/collections/{id}/rulesets/{rulesetid}</span>
-              </span>
+              <span class="operation-summary">Describe a content scan ruleset</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/collections/{id}/rulesets/{rulesetID}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -33136,12 +33379,12 @@
                       <div class="prop-subtitle"> in path </div>
                     </div>
                     <div class="prop-value">
-                      <p>The collection ID.</p>
+                      <p>The ruleset collection ID.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">rulesetid:
+                      <div class="prop-title">rulesetID:
                         <span class="prop-type">
                           <span class="json-property-type">string</span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -33805,7 +34048,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--collections--id--rulesets--rulesetid--post" class="operation panel" data-traverse-target="operation--collections--id--rulesets--rulesetid--post">
+          <div id="operation--collections--id--rulesets--rulesetID--post" class="operation panel" data-traverse-target="operation--collections--id--rulesets--rulesetID--post">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -33815,11 +34058,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/collections/{id}/rulesets/{rulesetid}</span>
-              </span>
+              <span class="operation-summary">Modify a content scan ruleset</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/collections/{id}/rulesets/{rulesetID}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -33906,12 +34154,12 @@
                       <div class="prop-subtitle"> in path </div>
                     </div>
                     <div class="prop-value">
-                      <p>The collection ID.</p>
+                      <p>The ruleset collection ID.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">rulesetid:
+                      <div class="prop-title">rulesetID:
                         <span class="prop-type">
                           <span class="json-property-type">string</span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -34617,7 +34865,7 @@
               </div>
             </div>
           </div>
-          <div id="operation--collections--id--rulesets--rulesetid--delete" class="operation panel" data-traverse-target="operation--collections--id--rulesets--rulesetid--delete">
+          <div id="operation--collections--id--rulesets--rulesetID--delete" class="operation panel" data-traverse-target="operation--collections--id--rulesets--rulesetID--delete">
             <!-- <section class="operation-tags row"> -->
             <!-- <div class="doc-copy"> -->
             <div class="operation-tags">
@@ -34627,11 +34875,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">DELETE</span>
-                <span class="operation-path">/collections/{id}/rulesets/{rulesetid}</span>
-              </span>
+              <span class="operation-summary">Delete a content scan ruleset</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/collections/{id}/rulesets/{rulesetID}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -34684,12 +34937,12 @@
                       <div class="prop-subtitle"> in path </div>
                     </div>
                     <div class="prop-value">
-                      <p>The collection ID.</p>
+                      <p>The ruleset collection ID.</p>
                     </div>
                   </div>
                   <div class="prop-row prop-group">
                     <div class="prop-name">
-                      <div class="prop-title">rulesetid:
+                      <div class="prop-title">rulesetID:
                         <span class="prop-type">
                           <span class="json-property-type">string</span>
                           <span class="json-property-range" title="Value limits"></span>
@@ -35346,11 +35599,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/registries</span>
-              </span>
+              <span class="operation-summary">List registries</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/registries</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -36430,11 +36688,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/registries</span>
-              </span>
+              <span class="operation-summary">Create a registry</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/registries</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -36504,11 +36767,14 @@
                             <dd>
                               <p>(optional) Use this if your source requires requests to be authorized using basic username + password authentication. Requests will include an <code>Authorization: Basic {encoded username + password}</code> header.</p>
                             </dd>
-                            <dt data-property-name="aws">
+                            <dt data-property-name="aws" class="has-description">
                               <span class="json-property-name">aws:</span>
                               <span class="json-property-type">object</span>
                               <span class="json-property-range" title="Value limits"></span>
                             </dt>
+                            <dd>
+                              <p>The AWS-specific information for authenticating to the registry.</p>
+                            </dd>
                             <dt class="json-inner-schema">
                               <section class="json-schema-properties">
                                 <dl>
@@ -37902,11 +38168,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/registries/{id}</span>
-              </span>
+              <span class="operation-summary">Describe a registry</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/registries/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -38939,11 +39210,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/registries/{id}</span>
-              </span>
+              <span class="operation-summary">Modify a registry</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/registries/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -39013,11 +39289,14 @@
                             <dd>
                               <p>(optional) Use this if your source requires requests to be authorized using basic username + password authentication. Requests will include an <code>Authorization: Basic {encoded username + password}</code> header.</p>
                             </dd>
-                            <dt data-property-name="aws">
+                            <dt data-property-name="aws" class="has-description">
                               <span class="json-property-name">aws:</span>
                               <span class="json-property-type">object</span>
                               <span class="json-property-range" title="Value limits"></span>
                             </dt>
+                            <dd>
+                              <p>The AWS-specific information for authenticating to the registry.</p>
+                            </dd>
                             <dt class="json-inner-schema">
                               <section class="json-schema-properties">
                                 <dl>
@@ -40258,11 +40537,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">DELETE</span>
-                <span class="operation-path">/registries/{id}</span>
-              </span>
+              <span class="operation-summary">Delete a registry</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">DELETE</span>
+                  <span class="operation-path">/registries/{id}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -41251,11 +41535,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">POST</span>
-                <span class="operation-path">/registries/{id}/scans</span>
-              </span>
+              <span class="operation-summary">Create a scan</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">POST</span>
+                  <span class="operation-path">/registries/{id}/scans</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -41277,11 +41566,14 @@
                       <dd>
                         <p>(optional) A descriptive name for the scan.</p>
                       </dd>
-                      <dt data-property-name="source">
+                      <dt data-property-name="source" class="has-description">
                         <span class="json-property-name">source:</span>
                         <span class="json-property-type">object</span>
                         <span class="json-property-range" title="Value limits"></span>
                       </dt>
+                      <dd>
+                        <p>The source of the image to scan.</p>
+                      </dd>
                       <dt class="json-inner-schema">
                         <section class="json-schema-properties">
                           <dl>
@@ -41330,13 +41622,16 @@
                                 <dd>
                                   <p>(optional) A descriptive name for the web hook.</p>
                                 </dd>
-                                <dt data-property-name="hookURL">
+                                <dt data-property-name="hookURL" class="has-description">
                                   <span class="json-property-name">hookURL:</span>
                                   <span class="json-property-type">string</span>
                                   <span class="json-property-range" title="Value limits"></span>
                                   <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                                   <span class="json-property-required"></span>
                                 </dt>
+                                <dd>
+                                  <p>The URL that Deep Security Smart Check should <code>POST</code> the event payload to.</p>
+                                </dd>
                                 <dt data-property-name="headers" class="has-description">
                                   <span class="json-property-name">headers:</span>
                                   <span class="json-property-type">object[]</span>
@@ -41353,20 +41648,26 @@
                                     <div class="json-inner-schema">
                                       <section class="json-schema-properties">
                                         <dl>
-                                          <dt data-property-name="name">
+                                          <dt data-property-name="name" class="has-description">
                                             <span class="json-property-name">name:</span>
                                             <span class="json-property-type">string</span>
                                             <span class="json-property-range" title="Value limits"></span>
                                             <span class="json-property-range" title="String length limits"> (up to 128 chars) </span>
                                             <span class="json-property-required"></span>
                                           </dt>
-                                          <dt data-property-name="value">
+                                          <dd>
+                                            <p>The header name.</p>
+                                          </dd>
+                                          <dt data-property-name="value" class="has-description">
                                             <span class="json-property-name">value:</span>
                                             <span class="json-property-type">string</span>
                                             <span class="json-property-range" title="Value limits"></span>
                                             <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                                             <span class="json-property-required"></span>
                                           </dt>
+                                          <dd>
+                                            <p>The header value.</p>
+                                          </dd>
                                         </dl>
                                       </section>
                                     </div>
@@ -41496,7 +41797,7 @@
           <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6&quot;</span>
         }
       ],
-      <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;string (password)&quot;</span>,
+      <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;tHiSiSaBaDsEcReT&quot;</span>,
       <span class="hljs-attr">&quot;insecureSkipVerify&quot;</span>: <span class="hljs-literal">false</span>,
       <span class="hljs-attr">&quot;rootCAs&quot;</span>: <span class="hljs-string">&quot;LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==&quot;</span>,
       <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -42727,11 +43028,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/registries/{id}/images</span>
-              </span>
+              <span class="operation-summary">List registry images</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/registries/{id}/images</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -43732,11 +44038,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/registries/{id}/images/{imageID}</span>
-              </span>
+              <span class="operation-summary">Describe a registry image</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/registries/{id}/images/{imageID}</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -44750,11 +45061,16 @@
             <!-- </div> -->
             <!-- </section> -->
             <h2 class="operation-title">
-              <span class="operation-name">
-                <span class="operation-name">GET</span>
-                <span class="operation-path">/registries/dashboard</span>
-              </span>
+              <span class="operation-summary">Describe registries dashboard</span>
             </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <section class="swagger-operation-path">
+                  <span class="operation-method">GET</span>
+                  <span class="operation-path">/registries/dashboard</span>
+                </section>
+              </div>
+            </div>
             <div class="doc-row">
               <div class="doc-copy">
                 <section class="swagger-operation-description">
@@ -46804,13 +47120,16 @@
                     <dd>
                       <p>(optional) A descriptive name for the web hook.</p>
                     </dd>
-                    <dt data-property-name="hookURL">
+                    <dt data-property-name="hookURL" class="has-description">
                       <span class="json-property-name">hookURL:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                       <span class="json-property-required"></span>
                     </dt>
+                    <dd>
+                      <p>The URL that Deep Security Smart Check should <code>POST</code> the event payload to.</p>
+                    </dd>
                     <dt data-property-name="headers" class="has-description">
                       <span class="json-property-name">headers:</span>
                       <span class="json-property-type">object[]</span>
@@ -46827,20 +47146,26 @@
                         <div class="json-inner-schema">
                           <section class="json-schema-properties">
                             <dl>
-                              <dt data-property-name="name">
+                              <dt data-property-name="name" class="has-description">
                                 <span class="json-property-name">name:</span>
                                 <span class="json-property-type">string</span>
                                 <span class="json-property-range" title="Value limits"></span>
                                 <span class="json-property-range" title="String length limits"> (up to 128 chars) </span>
                                 <span class="json-property-required"></span>
                               </dt>
-                              <dt data-property-name="value">
+                              <dd>
+                                <p>The header name.</p>
+                              </dd>
+                              <dt data-property-name="value" class="has-description">
                                 <span class="json-property-name">value:</span>
                                 <span class="json-property-type">string</span>
                                 <span class="json-property-range" title="Value limits"></span>
                                 <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                                 <span class="json-property-required"></span>
                               </dt>
+                              <dd>
+                                <p>The header value.</p>
+                              </dd>
                             </dl>
                           </section>
                         </div>
@@ -46922,7 +47247,7 @@
       <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6&quot;</span>
     }
   ],
-  <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;string (password)&quot;</span>,
+  <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;tHiSiSaBaDsEcReT&quot;</span>,
   <span class="hljs-attr">&quot;insecureSkipVerify&quot;</span>: <span class="hljs-literal">false</span>,
   <span class="hljs-attr">&quot;rootCAs&quot;</span>: <span class="hljs-string">&quot;LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==&quot;</span>,
   <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -46950,20 +47275,26 @@
               <div class="doc-copy">
                 <section class="json-schema-properties">
                   <dl>
-                    <dt data-property-name="name">
+                    <dt data-property-name="name" class="has-description">
                       <span class="json-property-name">name:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-range" title="String length limits"> (up to 128 chars) </span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="value">
+                    <dd>
+                      <p>The header name.</p>
+                    </dd>
+                    <dt data-property-name="value" class="has-description">
                       <span class="json-property-name">value:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                       <span class="json-property-required"></span>
                     </dt>
+                    <dd>
+                      <p>The header value.</p>
+                    </dd>
                   </dl>
                 </section>
               </div>
@@ -47003,12 +47334,15 @@
                     <dd>
                       <p>(optional) If you provide a web hook ID, the scanner will check whether it has already received another request from you with the same ID. If it has, the scanner will return <code>409 Conflict</code>. If you don&#39;t provide a web hook ID, the scanner will create one for you.</p>
                     </dd>
-                    <dt data-property-name="href">
+                    <dt data-property-name="href" class="has-description">
                       <span class="json-property-name">href:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
+                    <dd>
+                      <p>The URL at which the web hook can be found.</p>
+                    </dd>
                     <dt data-property-name="name" class="has-description">
                       <span class="json-property-name">name:</span>
                       <span class="json-property-type">string</span>
@@ -47045,12 +47379,15 @@
                                 <span class="json-property-range" title="Value limits"></span>
                                 <span class="json-property-required"></span>
                               </dt>
-                              <dt data-property-name="href">
+                              <dt data-property-name="href" class="has-description">
                                 <span class="json-property-name">href:</span>
                                 <span class="json-property-type">string</span>
                                 <span class="json-property-range" title="Value limits"></span>
                                 <span class="json-property-required"></span>
                               </dt>
+                              <dd>
+                                <p>The URL at which the web hook header can be found.</p>
+                              </dd>
                               <dt data-property-name="name">
                                 <span class="json-property-name">name:</span>
                                 <span class="json-property-type">string</span>
@@ -47184,12 +47521,15 @@
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
-                    <dt data-property-name="href">
+                    <dt data-property-name="href" class="has-description">
                       <span class="json-property-name">href:</span>
                       <span class="json-property-type">string</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
+                    <dd>
+                      <p>The URL at which the web hook header can be found.</p>
+                    </dd>
                     <dt data-property-name="name">
                       <span class="json-property-name">name:</span>
                       <span class="json-property-type">string</span>
@@ -47379,7 +47719,7 @@
                       <span class="json-property-required"></span>
                     </dt>
                     <dd>
-                      <p>The name of this collection.</p>
+                      <p>The name of this ruleset collection.</p>
                     </dd>
                     <dt data-property-name="default" class="has-description">
                       <span class="json-property-name">default:</span>
@@ -47387,7 +47727,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>The global collection used for content scan. There can only be one default collection at all time. If this value is true, the value of other collection will be reset to false.</p>
+                      <p>The global ruleset collection used for content scan. There can only be one default ruleset collection at all time. If this value is true, the value of other collection will be reset to false.</p>
                     </dd>
                   </dl>
                 </section>
@@ -47427,7 +47767,7 @@
                       <span class="json-property-required"></span>
                     </dt>
                     <dd>
-                      <p>The name of this collection.</p>
+                      <p>The name of this ruleset collection.</p>
                     </dd>
                     <dt data-property-name="default" class="has-description">
                       <span class="json-property-name">default:</span>
@@ -47435,7 +47775,7 @@
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
                     <dd>
-                      <p>The global collection used for content scan. There can only be one default collection at all time. If this value is true, the value of other collection will be reset to false.</p>
+                      <p>The global ruleset collection used for content scan. There can only be one default ruleset collection at all time. If this value is true, the value of other collection will be reset to false.</p>
                     </dd>
                     <dt data-property-name="rulesets" class="has-description">
                       <span class="json-property-name">rulesets:</span>
@@ -47555,7 +47895,7 @@
                       <span class="json-property-required"></span>
                     </dt>
                     <dd>
-                      <p>The default ruleset used for content scan. There can only be one default collection at all time.</p>
+                      <p>True if this is the default collection used for content scans. There can only be one default collection at all time.</p>
                     </dd>
                     <dt data-property-name="rulesets" class="has-description">
                       <span class="json-property-name">rulesets:</span>
@@ -47678,12 +48018,15 @@
                     <dd>
                       <p>(optional) A descriptive name for the scan.</p>
                     </dd>
-                    <dt data-property-name="source">
+                    <dt data-property-name="source" class="has-description">
                       <span class="json-property-name">source:</span>
                       <span class="json-property-type">object</span>
                       <span class="json-property-range" title="Value limits"></span>
                       <span class="json-property-required"></span>
                     </dt>
+                    <dd>
+                      <p>The source of the image to scan.</p>
+                    </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-properties">
                         <dl>
@@ -47759,11 +48102,14 @@
                                 <dd>
                                   <p>(optional) Use this if your source requires requests to be authorized using basic username + password authentication. Requests will include an <code>Authorization: Basic {encoded username + password}</code> header.</p>
                                 </dd>
-                                <dt data-property-name="aws">
+                                <dt data-property-name="aws" class="has-description">
                                   <span class="json-property-name">aws:</span>
                                   <span class="json-property-type">object</span>
                                   <span class="json-property-range" title="Value limits"></span>
                                 </dt>
+                                <dd>
+                                  <p>The AWS-specific information for authenticating to the registry.</p>
+                                </dd>
                                 <dt class="json-inner-schema">
                                   <section class="json-schema-properties">
                                     <dl>
@@ -47881,13 +48227,16 @@
                               <dd>
                                 <p>(optional) A descriptive name for the web hook.</p>
                               </dd>
-                              <dt data-property-name="hookURL">
+                              <dt data-property-name="hookURL" class="has-description">
                                 <span class="json-property-name">hookURL:</span>
                                 <span class="json-property-type">string</span>
                                 <span class="json-property-range" title="Value limits"></span>
                                 <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                                 <span class="json-property-required"></span>
                               </dt>
+                              <dd>
+                                <p>The URL that Deep Security Smart Check should <code>POST</code> the event payload to.</p>
+                              </dd>
                               <dt data-property-name="headers" class="has-description">
                                 <span class="json-property-name">headers:</span>
                                 <span class="json-property-type">object[]</span>
@@ -47904,20 +48253,26 @@
                                   <div class="json-inner-schema">
                                     <section class="json-schema-properties">
                                       <dl>
-                                        <dt data-property-name="name">
+                                        <dt data-property-name="name" class="has-description">
                                           <span class="json-property-name">name:</span>
                                           <span class="json-property-type">string</span>
                                           <span class="json-property-range" title="Value limits"></span>
                                           <span class="json-property-range" title="String length limits"> (up to 128 chars) </span>
                                           <span class="json-property-required"></span>
                                         </dt>
-                                        <dt data-property-name="value">
+                                        <dd>
+                                          <p>The header name.</p>
+                                        </dd>
+                                        <dt data-property-name="value" class="has-description">
                                           <span class="json-property-name">value:</span>
                                           <span class="json-property-type">string</span>
                                           <span class="json-property-range" title="Value limits"></span>
                                           <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                                           <span class="json-property-required"></span>
                                         </dt>
+                                        <dd>
+                                          <p>The header value.</p>
+                                        </dd>
                                       </dl>
                                     </section>
                                   </div>
@@ -48030,7 +48385,7 @@
           <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6&quot;</span>
         }
       ],
-      <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;string (password)&quot;</span>,
+      <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;tHiSiSaBaDsEcReT&quot;</span>,
       <span class="hljs-attr">&quot;insecureSkipVerify&quot;</span>: <span class="hljs-literal">false</span>,
       <span class="hljs-attr">&quot;rootCAs&quot;</span>: <span class="hljs-string">&quot;LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==&quot;</span>,
       <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -48058,6 +48413,9 @@
             </h2>
             <div class="doc-row">
               <div class="doc-copy">
+                <section class="json-schema-description">
+                  <p>The source of the image to scan.</p>
+                </section>
                 <section class="json-schema-properties">
                   <dl>
                     <dt data-property-name="type">
@@ -48132,11 +48490,14 @@
                           <dd>
                             <p>(optional) Use this if your source requires requests to be authorized using basic username + password authentication. Requests will include an <code>Authorization: Basic {encoded username + password}</code> header.</p>
                           </dd>
-                          <dt data-property-name="aws">
+                          <dt data-property-name="aws" class="has-description">
                             <span class="json-property-name">aws:</span>
                             <span class="json-property-type">object</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
+                          <dd>
+                            <p>The AWS-specific information for authenticating to the registry.</p>
+                          </dd>
                           <dt class="json-inner-schema">
                             <section class="json-schema-properties">
                               <dl>
@@ -48390,11 +48751,14 @@
                     <dd>
                       <p>(optional) Use this if your source requires requests to be authorized using basic username + password authentication. Requests will include an <code>Authorization: Basic {encoded username + password}</code> header.</p>
                     </dd>
-                    <dt data-property-name="aws">
+                    <dt data-property-name="aws" class="has-description">
                       <span class="json-property-name">aws:</span>
                       <span class="json-property-type">object</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dd>
+                      <p>The AWS-specific information for authenticating to the registry.</p>
+                    </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-properties">
                         <dl>
@@ -52105,11 +52469,14 @@
                     <dd>
                       <p>(optional) A descriptive name for the scan.</p>
                     </dd>
-                    <dt data-property-name="source">
+                    <dt data-property-name="source" class="has-description">
                       <span class="json-property-name">source:</span>
                       <span class="json-property-type">object</span>
                       <span class="json-property-range" title="Value limits"></span>
                     </dt>
+                    <dd>
+                      <p>The source of the image to scan.</p>
+                    </dd>
                     <dt class="json-inner-schema">
                       <section class="json-schema-properties">
                         <dl>
@@ -52158,13 +52525,16 @@
                               <dd>
                                 <p>(optional) A descriptive name for the web hook.</p>
                               </dd>
-                              <dt data-property-name="hookURL">
+                              <dt data-property-name="hookURL" class="has-description">
                                 <span class="json-property-name">hookURL:</span>
                                 <span class="json-property-type">string</span>
                                 <span class="json-property-range" title="Value limits"></span>
                                 <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                                 <span class="json-property-required"></span>
                               </dt>
+                              <dd>
+                                <p>The URL that Deep Security Smart Check should <code>POST</code> the event payload to.</p>
+                              </dd>
                               <dt data-property-name="headers" class="has-description">
                                 <span class="json-property-name">headers:</span>
                                 <span class="json-property-type">object[]</span>
@@ -52181,20 +52551,26 @@
                                   <div class="json-inner-schema">
                                     <section class="json-schema-properties">
                                       <dl>
-                                        <dt data-property-name="name">
+                                        <dt data-property-name="name" class="has-description">
                                           <span class="json-property-name">name:</span>
                                           <span class="json-property-type">string</span>
                                           <span class="json-property-range" title="Value limits"></span>
                                           <span class="json-property-range" title="String length limits"> (up to 128 chars) </span>
                                           <span class="json-property-required"></span>
                                         </dt>
-                                        <dt data-property-name="value">
+                                        <dd>
+                                          <p>The header name.</p>
+                                        </dd>
+                                        <dt data-property-name="value" class="has-description">
                                           <span class="json-property-name">value:</span>
                                           <span class="json-property-type">string</span>
                                           <span class="json-property-range" title="Value limits"></span>
                                           <span class="json-property-range" title="String length limits"> (up to 255 chars) </span>
                                           <span class="json-property-required"></span>
                                         </dt>
+                                        <dd>
+                                          <p>The header value.</p>
+                                        </dd>
                                       </dl>
                                     </section>
                                   </div>
@@ -52288,7 +52664,7 @@
           <span class="hljs-attr">&quot;value&quot;</span>: <span class="hljs-string">&quot;Bearer 9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6&quot;</span>
         }
       ],
-      <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;string (password)&quot;</span>,
+      <span class="hljs-attr">&quot;secret&quot;</span>: <span class="hljs-string">&quot;tHiSiSaBaDsEcReT&quot;</span>,
       <span class="hljs-attr">&quot;insecureSkipVerify&quot;</span>: <span class="hljs-literal">false</span>,
       <span class="hljs-attr">&quot;rootCAs&quot;</span>: <span class="hljs-string">&quot;LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==&quot;</span>,
       <span class="hljs-attr">&quot;active&quot;</span>: <span class="hljs-literal">true</span>,
@@ -53609,11 +53985,14 @@
                           <dd>
                             <p>(optional) Use this if your source requires requests to be authorized using basic username + password authentication. Requests will include an <code>Authorization: Basic {encoded username + password}</code> header.</p>
                           </dd>
-                          <dt data-property-name="aws">
+                          <dt data-property-name="aws" class="has-description">
                             <span class="json-property-name">aws:</span>
                             <span class="json-property-type">object</span>
                             <span class="json-property-range" title="Value limits"></span>
                           </dt>
+                          <dd>
+                            <p>The AWS-specific information for authenticating to the registry.</p>
+                          </dd>
                           <dt class="json-inner-schema">
                             <section class="json-schema-properties">
                               <dl>

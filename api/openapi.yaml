@@ -2435,6 +2435,7 @@ parameters:
     default: ''
     description: |
       Space-separated strings to search for.
+    maxLength: 64
   dryrunCreate: &ref_29
     name: dryrun
     in: query

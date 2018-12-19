@@ -4757,7 +4757,8 @@
             "in": "query",
             "type": "string",
             "default": "",
-            "description": "Space-separated strings to search for.\n"
+            "description": "Space-separated strings to search for.\n",
+            "maxLength": 64
         },
         "dryrunCreate": {
             "name": "dryrun",
@@ -4824,7 +4825,8 @@
                         "in": "query",
                         "type": "string",
                         "default": "",
-                        "description": "Space-separated strings to search for.\n"
+                        "description": "Space-separated strings to search for.\n",
+                        "maxLength": 64
                     },
                     {
                         "name": "X-Api-Version",
@@ -7244,7 +7246,8 @@
                         "in": "query",
                         "type": "string",
                         "default": "",
-                        "description": "Space-separated strings to search for.\n"
+                        "description": "Space-separated strings to search for.\n",
+                        "maxLength": 64
                     },
                     {
                         "name": "X-Api-Version",
@@ -9937,7 +9940,8 @@
                         "in": "query",
                         "type": "string",
                         "default": "",
-                        "description": "Space-separated strings to search for.\n"
+                        "description": "Space-separated strings to search for.\n",
+                        "maxLength": 64
                     },
                     {
                         "name": "X-Api-Version",
@@ -21543,7 +21547,8 @@
                         "in": "query",
                         "type": "string",
                         "default": "",
-                        "description": "Space-separated strings to search for.\n"
+                        "description": "Space-separated strings to search for.\n",
+                        "maxLength": 64
                     },
                     {
                         "name": "limit",
@@ -23637,7 +23642,8 @@
                         "in": "query",
                         "type": "string",
                         "default": "",
-                        "description": "Space-separated strings to search for.\n"
+                        "description": "Space-separated strings to search for.\n",
+                        "maxLength": 64
                     },
                     {
                         "name": "limit",
@@ -25581,7 +25587,8 @@
                         "in": "query",
                         "type": "string",
                         "default": "",
-                        "description": "Space-separated strings to search for.\n"
+                        "description": "Space-separated strings to search for.\n",
+                        "maxLength": 64
                     },
                     {
                         "name": "X-Api-Version",

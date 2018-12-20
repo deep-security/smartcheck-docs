@@ -1412,6 +1412,33 @@ definitions:
               description: >
                 The version of the package where the vulnerability has been
                 resolved.
+            fixed:
+              type: object
+              description: >
+                If present, this object will describe the fix and what layer the
+                fix is present in.
+              properties:
+                name:
+                  type: string
+                  description: |
+                    The name of the package.
+                namespaceName:
+                  type: string
+                  description: |
+                    The namespace that the package `name` is unique within.
+                version:
+                  type: string
+                  description: |
+                    The package version that was detected.
+                versionFormat:
+                  type: string
+                  description: |
+                    The version format.
+                layer:
+                  type: string
+                  description: >
+                    The layer identifier where the fixed package version was
+                    detected.
             link:
               type: string
               description: |

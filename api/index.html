@@ -18791,6 +18791,13 @@
         {
           <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;fixedBy&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+          <span class="hljs-attr">&quot;fixed&quot;</span>: {
+            <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+            <span class="hljs-attr">&quot;namespaceName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+            <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+            <span class="hljs-attr">&quot;versionFormat&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+            <span class="hljs-attr">&quot;layer&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+          },
           <span class="hljs-attr">&quot;link&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
           <span class="hljs-attr">&quot;namespaceName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -52078,6 +52085,60 @@
                               <dd>
                                 <p>The version of the package where the vulnerability has been resolved.</p>
                               </dd>
+                              <dt data-property-name="fixed" class="has-description">
+                                <span class="json-property-name">fixed:</span>
+                                <span class="json-property-type">object</span>
+                                <span class="json-property-range" title="Value limits"></span>
+                              </dt>
+                              <dd>
+                                <p>If present, this object will describe the fix and what layer the fix is present in.</p>
+                              </dd>
+                              <dt class="json-inner-schema">
+                                <section class="json-schema-properties">
+                                  <dl>
+                                    <dt data-property-name="name" class="has-description">
+                                      <span class="json-property-name">name:</span>
+                                      <span class="json-property-type">string</span>
+                                      <span class="json-property-range" title="Value limits"></span>
+                                    </dt>
+                                    <dd>
+                                      <p>The name of the package.</p>
+                                    </dd>
+                                    <dt data-property-name="namespaceName" class="has-description">
+                                      <span class="json-property-name">namespaceName:</span>
+                                      <span class="json-property-type">string</span>
+                                      <span class="json-property-range" title="Value limits"></span>
+                                    </dt>
+                                    <dd>
+                                      <p>The namespace that the package <code>name</code> is unique within.</p>
+                                    </dd>
+                                    <dt data-property-name="version" class="has-description">
+                                      <span class="json-property-name">version:</span>
+                                      <span class="json-property-type">string</span>
+                                      <span class="json-property-range" title="Value limits"></span>
+                                    </dt>
+                                    <dd>
+                                      <p>The package version that was detected.</p>
+                                    </dd>
+                                    <dt data-property-name="versionFormat" class="has-description">
+                                      <span class="json-property-name">versionFormat:</span>
+                                      <span class="json-property-type">string</span>
+                                      <span class="json-property-range" title="Value limits"></span>
+                                    </dt>
+                                    <dd>
+                                      <p>The version format.</p>
+                                    </dd>
+                                    <dt data-property-name="layer" class="has-description">
+                                      <span class="json-property-name">layer:</span>
+                                      <span class="json-property-type">string</span>
+                                      <span class="json-property-range" title="Value limits"></span>
+                                    </dt>
+                                    <dd>
+                                      <p>The layer identifier where the fixed package version was detected.</p>
+                                    </dd>
+                                  </dl>
+                                </section>
+                              </dt>
                               <dt data-property-name="link" class="has-description">
                                 <span class="json-property-name">link:</span>
                                 <span class="json-property-type">string</span>
@@ -52216,6 +52277,13 @@
     {
       <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
       <span class="hljs-attr">&quot;fixedBy&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;fixed&quot;</span>: {
+        <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;namespaceName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;versionFormat&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+        <span class="hljs-attr">&quot;layer&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+      },
       <span class="hljs-attr">&quot;link&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
       <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
       <span class="hljs-attr">&quot;namespaceName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -52381,6 +52449,60 @@
                     <dd>
                       <p>The version of the package where the vulnerability has been resolved.</p>
                     </dd>
+                    <dt data-property-name="fixed" class="has-description">
+                      <span class="json-property-name">fixed:</span>
+                      <span class="json-property-type">object</span>
+                      <span class="json-property-range" title="Value limits"></span>
+                    </dt>
+                    <dd>
+                      <p>If present, this object will describe the fix and what layer the fix is present in.</p>
+                    </dd>
+                    <dt class="json-inner-schema">
+                      <section class="json-schema-properties">
+                        <dl>
+                          <dt data-property-name="name" class="has-description">
+                            <span class="json-property-name">name:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The name of the package.</p>
+                          </dd>
+                          <dt data-property-name="namespaceName" class="has-description">
+                            <span class="json-property-name">namespaceName:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The namespace that the package <code>name</code> is unique within.</p>
+                          </dd>
+                          <dt data-property-name="version" class="has-description">
+                            <span class="json-property-name">version:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The package version that was detected.</p>
+                          </dd>
+                          <dt data-property-name="versionFormat" class="has-description">
+                            <span class="json-property-name">versionFormat:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The version format.</p>
+                          </dd>
+                          <dt data-property-name="layer" class="has-description">
+                            <span class="json-property-name">layer:</span>
+                            <span class="json-property-type">string</span>
+                            <span class="json-property-range" title="Value limits"></span>
+                          </dt>
+                          <dd>
+                            <p>The layer identifier where the fixed package version was detected.</p>
+                          </dd>
+                        </dl>
+                      </section>
+                    </dt>
                     <dt data-property-name="link" class="has-description">
                       <span class="json-property-name">link:</span>
                       <span class="json-property-type">string</span>
@@ -52441,6 +52563,13 @@
                   <!-- <div class="hljs"> --><pre><code class="hljs lang-json">{
   <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;fixedBy&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;fixed&quot;</span>: {
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;namespaceName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;versionFormat&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;layer&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+  },
   <span class="hljs-attr">&quot;link&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;namespaceName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,

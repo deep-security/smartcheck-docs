@@ -2936,6 +2936,32 @@
                                 "type": "string",
                                 "description": "The version of the package where the vulnerability has been resolved.\n"
                             },
+                            "fixed": {
+                                "type": "object",
+                                "description": "If present, this object will describe the fix and what layer the fix is present in.\n",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "description": "The name of the package.\n"
+                                    },
+                                    "namespaceName": {
+                                        "type": "string",
+                                        "description": "The namespace that the package `name` is unique within.\n"
+                                    },
+                                    "version": {
+                                        "type": "string",
+                                        "description": "The package version that was detected.\n"
+                                    },
+                                    "versionFormat": {
+                                        "type": "string",
+                                        "description": "The version format.\n"
+                                    },
+                                    "layer": {
+                                        "type": "string",
+                                        "description": "The layer identifier where the fixed package version was detected.\n"
+                                    }
+                                }
+                            },
                             "link": {
                                 "type": "string",
                                 "description": "A link to more information about the vulnerability.\n"
@@ -3078,6 +3104,32 @@
                 "fixedBy": {
                     "type": "string",
                     "description": "The version of the package where the vulnerability has been resolved.\n"
+                },
+                "fixed": {
+                    "type": "object",
+                    "description": "If present, this object will describe the fix and what layer the fix is present in.\n",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "description": "The name of the package.\n"
+                        },
+                        "namespaceName": {
+                            "type": "string",
+                            "description": "The namespace that the package `name` is unique within.\n"
+                        },
+                        "version": {
+                            "type": "string",
+                            "description": "The package version that was detected.\n"
+                        },
+                        "versionFormat": {
+                            "type": "string",
+                            "description": "The version format.\n"
+                        },
+                        "layer": {
+                            "type": "string",
+                            "description": "The layer identifier where the fixed package version was detected.\n"
+                        }
+                    }
                 },
                 "link": {
                     "type": "string",
@@ -16372,6 +16424,32 @@
                                                         "fixedBy": {
                                                             "type": "string",
                                                             "description": "The version of the package where the vulnerability has been resolved.\n"
+                                                        },
+                                                        "fixed": {
+                                                            "type": "object",
+                                                            "description": "If present, this object will describe the fix and what layer the fix is present in.\n",
+                                                            "properties": {
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "description": "The name of the package.\n"
+                                                                },
+                                                                "namespaceName": {
+                                                                    "type": "string",
+                                                                    "description": "The namespace that the package `name` is unique within.\n"
+                                                                },
+                                                                "version": {
+                                                                    "type": "string",
+                                                                    "description": "The package version that was detected.\n"
+                                                                },
+                                                                "versionFormat": {
+                                                                    "type": "string",
+                                                                    "description": "The version format.\n"
+                                                                },
+                                                                "layer": {
+                                                                    "type": "string",
+                                                                    "description": "The layer identifier where the fixed package version was detected.\n"
+                                                                }
+                                                            }
                                                         },
                                                         "link": {
                                                             "type": "string",

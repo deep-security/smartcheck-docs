@@ -6,7 +6,6 @@ info:
     Deep Security Smart Check is a container image scanner from Trend Micro.
   contact:
     url: 'https://trendmicro.com/smartcheck'
-basePath: /api
 schemes:
   - https
 securityDefinitions:
@@ -26,6 +25,7 @@ tags:
   - name: Users
   - name: Sessions
     description: Authenticated sessions
+  - name: Identity Providers
   - name: Scans
     description: |
       Ongoing and historical scans
@@ -40,7 +40,7 @@ tags:
       Manage content scan rules
   - name: Registries
 definitions:
-  ChangeUserPasswordRequest: &ref_33
+  ChangeUserPasswordRequest: &ref_35
     type: object
     properties:
       oldPassword:
@@ -57,7 +57,7 @@ definitions:
         description: |
           The user's new password.
         maxLength: 1024
-  UserRequest: &ref_32
+  UserRequest: &ref_34
     type: object
     properties:
       userID:
@@ -106,7 +106,7 @@ definitions:
           The user's unique system identifier.
       href:
         type: string
-        example: /users/6552eebd-5172-411e-ac71-8c323e6ca0fe
+        example: /api/users/6552eebd-5172-411e-ac71-8c323e6ca0fe
         description: |
           The URL at which the user can be found.
       userID:
@@ -157,7 +157,7 @@ definitions:
       - role
       - created
       - updated
-  RoleRequest: &ref_28
+  RoleRequest: &ref_33
     type: object
     properties:
       name:
@@ -216,7 +216,7 @@ definitions:
     required:
       - name
       - policies
-  Role: &ref_21
+  Role: &ref_31
     type: object
     properties:
       id:
@@ -226,7 +226,7 @@ definitions:
           The role's unique system identifier.
       href:
         type: string
-        example: /roles/6552eebd-5172-411e-ac71-8c323e6ca0fe
+        example: /api/roles/6552eebd-5172-411e-ac71-8c323e6ca0fe
         description: |
           The URL at which the role can be found.
       name:
@@ -267,7 +267,7 @@ definitions:
       - updated
   Policy: *ref_0
   Statement: *ref_1
-  SessionRequest: &ref_35
+  SessionRequest: &ref_37
     type: object
     properties:
       user:
@@ -291,9 +291,28 @@ definitions:
         required:
           - userID
           - password
-    required:
-      - user
-  Session: &ref_34
+      saml:
+        type: object
+        description: |
+          The SAML response to create a session for.
+        properties:
+          response:
+            description: |
+              The Base64-encoded SAML response.
+            type: string
+            example: PFJlc3BvbnNlPi4uLgo=
+          selectedRole:
+            description: >
+              If multiple role claims are present in the SAML response, set
+              `selectedRole` to the role value that you want to assume for this
+              session. Required if multiple role claims are present in the SAML
+              response.
+            type: string
+            example: administrator
+            maxLength: 128
+        required:
+          - response
+  Session: &ref_36
     type: object
     properties:
       id:
@@ -303,7 +322,7 @@ definitions:
           The session's unique system identifier.
       href:
         type: string
-        example: /sessions/6552eebd-5172-411e-ac71-8c323e6ca0fe
+        example: /api/sessions/6552eebd-5172-411e-ac71-8c323e6ca0fe
         description: |
           The URL at which the session can be found.
       user: *ref_2
@@ -333,6 +352,176 @@ definitions:
         example: '2018-05-01T00:00:00Z'
         description: |
           The time that the session will expire.
+      roleSessionName:
+        type: string
+        description: >
+          The session name provided for this session. SAML identity providers
+          can set this by including a `RoleSessionName` claim in the SAML
+          response.
+  SAMLIdentityProviderRequest: &ref_28
+    type: object
+    properties:
+      id:
+        type: string
+        example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
+        description: |
+          The SAML identity provider's unique system identifier.
+      href:
+        type: string
+        example: /api/identity-providers/saml/6552eebd-5172-411e-ac71-8c323e6ca0fe
+        description: |
+          The URL at which the SAML identity provider can be found.
+      name:
+        type: string
+        example: MyIdentityProvider
+        description: |
+          A name for the SAML identity provider.
+        maxLength: 255
+      description:
+        type: string
+        example: My identity provider. Contact me@example.com for support.
+        description: >
+          (optional, default: `null`) A description for the SAML identity
+          provider.
+        maxLength: 2048
+      metadataURL:
+        type: string
+        description: >
+          (optional, default: `null`) The URL for the identity provider
+          metadata. If only the hostname is provided, the system will fill in
+          the
+          `https://[hostname]/FederationMetadata/2007-06/FederationMetadata.xml`
+          template. Only one of `metadataURL` and `metadataXML` should be
+          present.
+        example: >-
+          https://idp.example.com/FederationMetadata/2007-06/FederationMetadata.xml
+        maxLength: 2048
+      insecureSkipVerify:
+        type: boolean
+        example: false
+        description: >
+          (optional, default: `false`) If `true`, Deep Security Smart Check will
+          not verify TLS connections to the identity provider URL when
+          retrieving the identity provider metadata. Use this only in controlled
+          environments where you know that connections between Deep Security
+          Smart Check and the identity provider are secured by other means.
+      rootCAs:
+        type: string
+        example: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==
+        description: >
+          (optional, default: `null`) If present, Deep Security Smart Check will
+          use the provided root CAs as the trusted root CAs when retrieving the
+          identity provider metadata. The value should be a base-64 encoded list
+          of PEM-encoded certificates. If not present, Deep Security Smart Check
+          will use a set of built-in trusted root CAs.
+
+          If `insecureSkipVerify` is set to `true`, then the root CAs are not
+          checked.
+        maxLength: 32768
+      metadataXML:
+        type: string
+        example: PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxFbnRpdHlEZXNjcmlwdG9yLi4uCg==
+        description: >
+          (optional, default: `null`) If present, Deep Security Smart Check will
+          use the provided metadata XML for the identity provider. Only one of
+          `metadataURL` and `metadataXML` should be present.
+  SAMLIdentityProvider: &ref_21
+    type: object
+    properties:
+      id:
+        type: string
+        example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
+        description: |
+          The SAML identity provider's unique system identifier.
+      href:
+        type: string
+        example: /api/identity-providers/saml/6552eebd-5172-411e-ac71-8c323e6ca0fe
+        description: |
+          The URL at which the SAML identity provider can be found.
+      name:
+        type: string
+        example: MyIdentityProvider
+        description: |
+          A name for the SAML identity provider.
+        maxLength: 255
+      description:
+        type: string
+        example: My identity provider. Contact me@example.com for support.
+        description: >
+          (optional, default: `null`) A description for the SAML identity
+          provider.
+        maxLength: 2048
+      metadataURL:
+        type: string
+        description: >
+          (optional, default: `null`) The URL for the identity provider
+          metadata. If only the hostname is provided, the system will fill in
+          the
+          `https://[hostname]/FederationMetadata/2007-06/FederationMetadata.xml`
+          template. Only one of `metadataURL` and `metadataXML` should be
+          present.  If the `metadataURL` is present, Deep Security Smart Check
+          will periodically retrieve the identity provider metadata.
+        example: >-
+          https://idp.example.com/FederationMetadata/2007-06/FederationMetadata.xml
+        maxLength: 2048
+      insecureSkipVerify:
+        type: boolean
+        example: false
+        description: >
+          (optional, default: `false`) If `true`, Deep Security Smart Check will
+          not verify TLS connections to the identity provider URL when
+          retrieving the identity provider metadata. Use this only in controlled
+          environments where you know that connections between Deep Security
+          Smart Check and the identity provider are secured by other means.
+      rootCAs:
+        type: string
+        example: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==
+        description: >
+          (optional, default: `null`) If present, Deep Security Smart Check will
+          use the provided root CAs as the trusted root CAs when retrieving the
+          identity provider metadata. The value should be a base-64 encoded list
+          of PEM-encoded certificates. If not present, Deep Security Smart Check
+          will use a set of built-in trusted root CAs.
+
+          If `insecureSkipVerify` is set to `true`, then the root CAs are not
+          checked.
+        maxLength: 32768
+      validUntil:
+        type: string
+        format: datetime
+        example: '2018-05-01T00:00:00Z'
+        description: |
+          The time that the identity provider's certificate will expire.
+      status:
+        type: string
+        description: >
+          Overall status of the identity provider. If the status is `failed`,
+          the `detail` attribute will have more information.
+        example: ok
+        enum:
+          - pending
+          - ok
+          - failed
+      detail:
+        type: string
+        example: ''
+        enum:
+          - connection-failed
+          - invalid-metadata
+      created:
+        type: string
+        format: datetime
+        example: '2018-05-01T00:00:00Z'
+        description: |
+          The time that the identity provider was created.
+      updated:
+        type: string
+        format: datetime
+        example: '2018-05-01T00:00:00Z'
+        description: >
+          The time that the identity provider was last modified. If the
+          `metadataURL` is present, Deep Security Smart Check will periodically
+          retrieve the identity provider metadata.
   Error: &ref_15
     type: object
     properties:
@@ -454,7 +643,7 @@ definitions:
     required:
       - hookURL
   WebhookHeaderRequest: *ref_3
-  Webhook: &ref_42
+  Webhook: &ref_44
     type: object
     properties:
       id:
@@ -624,7 +813,7 @@ definitions:
         example: false
         description: |
           If set to true, this ruleset will not be used for scan.
-  ContentScanCollectionRequestWithoutRulesets: &ref_45
+  ContentScanCollectionRequestWithoutRulesets: &ref_47
     type: object
     required:
       - name
@@ -643,7 +832,7 @@ definitions:
           The global ruleset collection used for content scan. There can only be
           one default ruleset collection at all time. If this value is true, the
           value of other collection will be reset to false.
-  ContentScanCollectionRequest: &ref_44
+  ContentScanCollectionRequest: &ref_46
     type: object
     required:
       - name
@@ -667,7 +856,7 @@ definitions:
         items: *ref_5
         description: |
           The rulesets belonging to this collection.
-  ContentScanCollection: &ref_43
+  ContentScanCollection: &ref_45
     type: object
     required:
       - id
@@ -700,7 +889,7 @@ definitions:
         items: *ref_6
         description: |
           The rulesets belonging to this collection.
-  ScanRequest: &ref_37
+  ScanRequest: &ref_39
     type: object
     properties:
       id:
@@ -743,6 +932,14 @@ definitions:
             description: |
               (for scan type `docker` only) The tag of the image to scan.
             example: latest
+            maxLength: 255
+          digest:
+            type: string
+            description: >
+              (for scan type `docker` only) The digest value of the image to
+              scan.
+            example: >-
+              sha256:02892826401a9d18f0ea01f8a2f35d328ef039db4e1edcc45c630314a0457d5b
             maxLength: 255
           credentials: &ref_9
             type: object
@@ -908,6 +1105,13 @@ definitions:
           (for scan type `docker` only) The tag of the image to scan.
         example: latest
         maxLength: 255
+      digest:
+        type: string
+        description: |
+          (for scan type `docker` only) The digest value of the image to scan.
+        example: >-
+          sha256:02892826401a9d18f0ea01f8a2f35d328ef039db4e1edcc45c630314a0457d5b
+        maxLength: 255
       insecureSkipVerify:
         type: boolean
         example: false
@@ -932,7 +1136,7 @@ definitions:
     required:
       - type
   Credentials: *ref_9
-  Scan: &ref_36
+  Scan: &ref_38
     type: object
     properties:
       id:
@@ -1310,7 +1514,7 @@ definitions:
   ResultsMetrics: *ref_11
   ScanStatusDetails: *ref_12
   LayerResults: *ref_13
-  MalwareScanResult: &ref_39
+  MalwareScanResult: &ref_41
     type: object
     properties:
       filename:
@@ -1377,7 +1581,7 @@ definitions:
               required:
                 - name
                 - url
-  VulnerabilityScanResult: &ref_40
+  VulnerabilityScanResult: &ref_42
     type: object
     properties:
       name:
@@ -1532,7 +1736,7 @@ definitions:
     required:
       - name
       - vulnerabilities
-  ContentScanResult: &ref_41
+  ContentScanResult: &ref_43
     required:
       - filename
       - rule
@@ -1586,7 +1790,7 @@ definitions:
         description: |
           The tags of the content scan rule.
   Vulnerability: *ref_14
-  RegistryScanRequest: &ref_49
+  RegistryScanRequest: &ref_51
     type: object
     properties:
       name:
@@ -1612,13 +1816,20 @@ definitions:
               The tag of the image to scan.
             example: latest
             maxLength: 255
+          digest:
+            type: string
+            description: |
+              The digest value of the image to scan.
+            example: >-
+              sha256:02892826401a9d18f0ea01f8a2f35d328ef039db4e1edcc45c630314a0457d5b
+            maxLength: 255
       webhooks:
         description: >
           (optional) A list of web hooks to call when events happen for the
           scan.
         type: array
         items: *ref_7
-  RegistriesDashboard: &ref_51
+  RegistriesDashboard: &ref_53
     type: object
     properties:
       content:
@@ -1648,6 +1859,11 @@ definitions:
             type: integer
             description: >
               The number of images in all registries that have not yet been
+              scanned.
+          inProgress:
+            type: integer
+            description: >
+              The number of images in all registries that are currently being
               scanned.
           ok:
             type: integer
@@ -1692,7 +1908,7 @@ definitions:
                   The number of scans performed on images in all registries in
                   the time period. Will be `-1` if there was an error
                   calculating the value.
-  Image: &ref_50
+  Image: &ref_52
     type: object
     properties:
       registry:
@@ -1744,7 +1960,7 @@ definitions:
       - digest
       - status
       - updated
-  RegistryRequest: &ref_48
+  RegistryRequest: &ref_50
     type: object
     properties:
       name:
@@ -1925,7 +2141,7 @@ definitions:
         type: boolean
         description: |
           If `true`, this registry will be scheduled for daily re-scan.
-  Registry: &ref_46
+  Registry: &ref_48
     type: object
     description: |
       The registry object. Credentials will not be included in this object.
@@ -2042,6 +2258,11 @@ definitions:
                 type: integer
                 description: >
                   The number of images in the registry that have not yet been
+                  scanned.
+              inProgress:
+                type: integer
+                description: >
+                  The number of images in the registry that are currently being
                   scanned.
               ok:
                 type: integer
@@ -2238,7 +2459,7 @@ responses:
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
     schema: *ref_15
-  '404': &ref_38
+  '404': &ref_40
     description: |
       The resource you were looking for doesn't exist.
     headers:
@@ -2270,7 +2491,7 @@ responses:
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
     schema: *ref_15
-  '409': &ref_47
+  '409': &ref_49
     description: >
       The preconditions in the request you made could not be met. Check the
       `message` string in the response for help troubleshooting the problem.
@@ -2483,7 +2704,7 @@ parameters:
       only be tested for validity and should not actually modify the record. The
       response code will indicate whether the request was OK (`200 OK`) or
       whether there was a problem in the request.
-  dryrunDelete: &ref_31
+  dryrunDelete: &ref_32
     name: dryrun
     in: query
     type: boolean
@@ -2494,7 +2715,362 @@ parameters:
       response code will indicate whether the request was OK (`200 OK`) or
       whether there was a problem in the request.
 paths:
-  /roles:
+  /api/identity-providers/saml:
+    get:
+      operationId: listSAMLIdentityProviders
+      summary: List SAML Identity Providers
+      x-security:
+        x-required-privileges:
+          - 'identity-providers:list'
+      parameters:
+        - *ref_16
+        - *ref_17
+        - *ref_18
+        - *ref_19
+        - *ref_20
+      description: |
+        Retrieve a list of SAML identity providers.
+      tags:
+        - Identity Providers
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: |
+            The response body contains the SAML identity providers.
+          headers:
+            Link:
+              type: string
+              description: >
+                If more data exists, a `Link` header with the `next` relation
+                type will be present as a pointer to the next page of data.
+                Example: ```Link:
+                </api/roles?cursor=dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo>;
+                rel="next"```
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API version you are using is
+                going to be removed.
+          schema:
+            type: object
+            properties:
+              identity-providers:
+                description: |
+                  The list of SAML identity providers.
+                type: array
+                items: *ref_21
+              next:
+                type: string
+                format: byte
+                example: >-
+                  dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
+                description: >
+                  An encoded value that you can use to retrieve the next set of
+                  results for a query. If `next` is not present, then there are
+                  no more results available.
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+    post:
+      operationId: createSAMLIdentityProvider
+      summary: Create a SAML identity provider
+      x-security:
+        x-required-privileges:
+          - 'identity-providers:create'
+      description: |
+        Create a SAML identity provider.
+      tags:
+        - Identity Providers
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: request
+          in: body
+          schema: *ref_28
+        - *ref_29
+        - *ref_20
+      responses:
+        '200':
+          description: >
+            The response body contains the identity provider details. This
+            response will only be returned if the `dryrun=true` query parameter
+            was sent.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_21
+        '201':
+          description: |
+            The response body contains the identity provider details.
+          headers:
+            Location:
+              type: string
+              description: |
+                The URL at which the identity provider can be found.
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_21
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+  '/api/identity-providers/saml/{id}':
+    parameters:
+      - name: id
+        example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
+        in: path
+        type: string
+        description: |
+          The system-assigned identity provider ID.
+    get:
+      operationId: describeSAMLIdentityProvider
+      summary: Describe a SAML identity provider
+      x-security:
+        x-required-privileges:
+          - 'identity-providers:describe'
+      description: |
+        Retrieve details for a SAML identity provider.
+      tags:
+        - Identity Providers
+      parameters:
+        - *ref_16
+        - *ref_20
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: |
+            The response body contains the identity provider details.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_21
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+    post:
+      operationId: modifySAMLIdentityProvider
+      summary: Modify a SAML identity provider
+      x-security:
+        x-required-privileges:
+          - 'identity-providers:modify'
+      description: |
+        Modify a SAML identity provider.
+      tags:
+        - Identity Providers
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: request
+          in: body
+          schema: *ref_28
+        - *ref_30
+        - *ref_20
+      responses:
+        '200':
+          description: |
+            The response body contains the modified identity provider details.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_31
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+    delete:
+      operationId: deleteSAMLIdentityProvider
+      summary: Delete a SAML identity provider
+      x-security:
+        x-required-privileges:
+          - 'identity-providers:delete'
+      description: |
+        Delete a SAML identity provider.
+      tags:
+        - Identity Providers
+      parameters:
+        - *ref_32
+        - *ref_20
+      responses:
+        '200':
+          description: >
+            The identity provider would be deleted if the `dryrun=true`
+            parameter was not present.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '204':
+          description: |
+            The identity provider has been deleted.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '400': *ref_22
+        '401': *ref_23
+        '403': *ref_24
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+  /api/roles:
     get:
       operationId: listRoles
       summary: List roles
@@ -2526,6 +3102,14 @@ paths:
                 Example: ```Link:
                 </api/roles?cursor=dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo>;
                 rel="next"```
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -2548,7 +3132,7 @@ paths:
                 description: |
                   The list of roles.
                 type: array
-                items: *ref_21
+                items: *ref_31
               next:
                 type: string
                 format: byte
@@ -2581,7 +3165,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_28
+          schema: *ref_33
         - *ref_29
         - *ref_20
       responses:
@@ -2590,6 +3174,14 @@ paths:
             The response body contains the role details. This response will only
             be returned if the `dryrun=true` query parameter was sent.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -2605,7 +3197,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_21
+          schema: *ref_31
         '201':
           description: |
             The response body contains the role details.
@@ -2614,6 +3206,14 @@ paths:
               type: string
               description: |
                 The URL at which the role can be found.
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -2629,14 +3229,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_21
+          schema: *ref_31
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  '/roles/{id}':
+  '/api/roles/{id}':
     parameters:
       - name: id
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
@@ -2664,6 +3264,14 @@ paths:
           description: |
             The response body contains the role details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -2679,7 +3287,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_21
+          schema: *ref_31
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -2703,7 +3311,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_28
+          schema: *ref_33
         - *ref_30
         - *ref_20
       responses:
@@ -2711,6 +3319,14 @@ paths:
           description: |
             The response body contains the modified role details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -2726,7 +3342,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_21
+          schema: *ref_31
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -2744,7 +3360,7 @@ paths:
       tags:
         - Roles
       parameters:
-        - *ref_31
+        - *ref_32
         - *ref_20
       responses:
         '200':
@@ -2752,6 +3368,14 @@ paths:
             The role would be deleted if the `dryrun=true` parameter was not
             present.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -2771,6 +3395,14 @@ paths:
           description: |
             The role has been deleted.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -2792,7 +3424,7 @@ paths:
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  /users:
+  /api/users:
     get:
       operationId: listUsers
       summary: List users
@@ -2824,6 +3456,14 @@ paths:
                 Example: ```Link:
                 </api/users?cursor=dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo>;
                 rel="next"```
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -2879,7 +3519,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_32
+          schema: *ref_34
         - *ref_29
         - *ref_20
       responses:
@@ -2888,6 +3528,14 @@ paths:
             The response body contains the user details. This response will only
             be returned if the `dryrun=true` query parameter was sent.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -2912,6 +3560,14 @@ paths:
               type: string
               description: |
                 The URL at which the user can be found.
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -2934,7 +3590,7 @@ paths:
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  '/users/{id}':
+  '/api/users/{id}':
     parameters:
       - name: id
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
@@ -2962,6 +3618,14 @@ paths:
           description: |
             The response body contains the user details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3001,7 +3665,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_32
+          schema: *ref_34
         - *ref_30
         - *ref_20
       responses:
@@ -3013,6 +3677,14 @@ paths:
               type: string
               description: |
                 The URL at which the user can be found.
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3046,7 +3718,7 @@ paths:
       tags:
         - Users
       parameters:
-        - *ref_31
+        - *ref_32
         - *ref_20
       responses:
         '200':
@@ -3054,6 +3726,14 @@ paths:
             The user would be deleted if the `dryrun=true` parameter was not
             present.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3073,6 +3753,14 @@ paths:
           description: |
             The user has been deleted.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3094,7 +3782,7 @@ paths:
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  '/users/{id}/password':
+  '/api/users/{id}/password':
     parameters:
       - name: id
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
@@ -3119,7 +3807,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_33
+          schema: *ref_35
         - *ref_30
         - *ref_20
       responses:
@@ -3127,6 +3815,14 @@ paths:
           description: |
             The response body contains the user details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3149,7 +3845,7 @@ paths:
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  /sessions:
+  /api/sessions:
     get:
       operationId: listSessions
       summary: List sessions
@@ -3181,6 +3877,14 @@ paths:
                 Example: ```Link:
                 </api/sessions?cursor=dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo>;
                 rel="next"```
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3203,7 +3907,7 @@ paths:
                 description: |
                   The list of sessions.
                 type: array
-                items: *ref_34
+                items: *ref_36
               next:
                 type: string
                 format: byte
@@ -3225,8 +3929,9 @@ paths:
       x-security:
         x-required-privileges:
           - 'sessions:create'
-      description: |
-        Create a session.
+      description: >
+        Create a session. This can be used to create either a simple user
+        session with a userid and password or to assume a role using SAML.
       tags:
         - Sessions
       security: []
@@ -3237,7 +3942,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_35
+          schema: *ref_37
         - *ref_29
         - *ref_20
       responses:
@@ -3246,6 +3951,14 @@ paths:
             The response body contains the session details. This response will
             only be returned if the `dryrun=true` query parameter was sent.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3261,7 +3974,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_34
+          schema: *ref_36
         '201':
           description: |
             The response body contains the session details.
@@ -3270,6 +3983,14 @@ paths:
               type: string
               description: |
                 The URL at which the session can be found.
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3285,14 +4006,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_34
+          schema: *ref_36
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  '/sessions/{id}':
+  '/api/sessions/{id}':
     parameters:
       - name: id
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
@@ -3320,6 +4041,14 @@ paths:
           description: |
             The response body contains the session details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3335,7 +4064,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_34
+          schema: *ref_36
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -3363,6 +4092,14 @@ paths:
           description: |
             The response body contains the refreshed session details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3378,7 +4115,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_34
+          schema: *ref_36
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -3396,7 +4133,7 @@ paths:
       tags:
         - Sessions
       parameters:
-        - *ref_31
+        - *ref_32
         - *ref_20
       responses:
         '200':
@@ -3404,6 +4141,14 @@ paths:
             The session would be deleted if the `dryrun=true` parameter was not
             present.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3423,6 +4168,14 @@ paths:
           description: |
             The session has been deleted.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -3444,7 +4197,7 @@ paths:
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  /scans:
+  /api/scans:
     get:
       operationId: listScans
       summary: List scans
@@ -3483,6 +4236,13 @@ paths:
             scans to those scans where the `source.tag` contains the provided
             value. If the `exact` query parameter is also provided (and `true`),
             the filter will do an exact match on the value.
+        - name: digest
+          in: query
+          type: string
+          description: >
+            When present, the `digest` query parameter will filter the list of
+            scans to those scans where the image digest exactly matches the
+            provided value.
         - name: exact
           in: query
           type: boolean
@@ -3501,13 +4261,6 @@ paths:
             `in-progress`, `completed-with-findings`, `completed-no-findings`,
             `failed`. Invalid values are ignored.
         - *ref_20
-        - name: digest
-          in: query
-          type: string
-          description: >
-            When present, the `digest` query parameer will filter the list of
-            scans to those scans where the image digest exactly matches the
-            provided value.
       responses:
         '200':
           description: |
@@ -3517,7 +4270,7 @@ paths:
             properties:
               scans:
                 type: array
-                items: *ref_36
+                items: *ref_38
               next:
                 type: string
                 format: byte
@@ -3549,7 +4302,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_37
+          schema: *ref_39
         - *ref_20
       responses:
         '201':
@@ -3562,7 +4315,7 @@ paths:
                 The scan URL.
               type: string
               example: '/api/scans/{id}'
-          schema: *ref_36
+          schema: *ref_38
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -3572,7 +4325,7 @@ paths:
       x-security:
         x-required-privileges:
           - 'scans:create'
-  /scans/metrics:
+  /api/scans/metrics:
     get:
       operationId: describeScanMetrics
       summary: Describe scan metrics
@@ -3611,14 +4364,14 @@ paths:
                       The number of scans performed in the time period.
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
+        '404': *ref_40
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
       x-security:
         x-required-privileges:
           - 'scans:list'
-  '/scans/{id}':
+  '/api/scans/{id}':
     parameters:
       - name: id
         description: |
@@ -3651,18 +4404,18 @@ paths:
         '200':
           description: |
             The response body contains the scan object.
-          schema: *ref_36
+          schema: *ref_38
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
+        '404': *ref_40
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
       x-security:
         x-required-privileges:
           - 'scans:describe'
-  '/scans/{id}/layers/{layerID}/malware':
+  '/api/scans/{id}/layers/{layerID}/malware':
     parameters:
       - name: id
         description: |
@@ -3699,7 +4452,7 @@ paths:
             properties:
               malware:
                 type: array
-                items: *ref_39
+                items: *ref_41
               next:
                 type: string
                 format: byte
@@ -3712,14 +4465,14 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
+        '404': *ref_40
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
       x-security:
         x-required-privileges:
           - 'scans:describe'
-  '/scans/{id}/layers/{layerID}/vulnerabilities':
+  '/api/scans/{id}/layers/{layerID}/vulnerabilities':
     parameters:
       - name: id
         description: |
@@ -3756,7 +4509,7 @@ paths:
             properties:
               vulnerabilities:
                 type: array
-                items: *ref_40
+                items: *ref_42
               next:
                 type: string
                 format: byte
@@ -3769,14 +4522,14 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
+        '404': *ref_40
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
       x-security:
         x-required-privileges:
           - 'scans:describe'
-  '/scans/{id}/layers/{layerID}/contents':
+  '/api/scans/{id}/layers/{layerID}/contents':
     parameters:
       - name: id
         description: |
@@ -3813,7 +4566,7 @@ paths:
             properties:
               contents:
                 type: array
-                items: *ref_41
+                items: *ref_43
               next:
                 type: string
                 format: byte
@@ -3826,14 +4579,14 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
+        '404': *ref_40
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
       x-security:
         x-required-privileges:
           - 'scans:describe'
-  /webhooks:
+  /api/webhooks:
     get:
       operationId: listWebhooks
       summary: List web hooks
@@ -3857,7 +4610,7 @@ paths:
             properties:
               webhooks:
                 type: array
-                items: *ref_42
+                items: *ref_44
               next:
                 type: string
                 format: byte
@@ -3901,7 +4654,7 @@ paths:
                 The webhook URL.
               type: string
               example: '/api/webhooks/{id}'
-          schema: *ref_42
+          schema: *ref_44
         '401': *ref_23
         '403': *ref_24
         '429': *ref_25
@@ -3910,7 +4663,7 @@ paths:
       x-security:
         x-required-privileges:
           - 'webhooks:create'
-  '/webhooks/{id}':
+  '/api/webhooks/{id}':
     parameters:
       - name: id
         description: |
@@ -3933,7 +4686,7 @@ paths:
         '200':
           description: |
             The response body contains the web hook object.
-          schema: *ref_42
+          schema: *ref_44
         '401': *ref_23
         '403': *ref_24
         '429': *ref_25
@@ -3961,7 +4714,7 @@ paths:
             The web hook has been modified. Future calls to the web hook will
             contain the modified values. The response body contains the modified
             web hook object.
-          schema: *ref_42
+          schema: *ref_44
         '401': *ref_23
         '403': *ref_24
         '429': *ref_25
@@ -3991,7 +4744,7 @@ paths:
       x-security:
         x-required-privileges:
           - 'webhooks:delete'
-  '/webhooks/{id}/ping':
+  '/api/webhooks/{id}/ping':
     parameters:
       - name: id
         description: |
@@ -4024,7 +4777,7 @@ paths:
       x-security:
         x-required-privileges:
           - 'webhooks:describe'
-  '/webhooks/{id}/headers':
+  '/api/webhooks/{id}/headers':
     parameters:
       - name: id
         description: |
@@ -4033,6 +4786,7 @@ paths:
         required: true
         type: string
     get:
+      deprecated: true
       operationId: listWebhookHeaders
       summary: List web hook headers
       description: >
@@ -4072,6 +4826,7 @@ paths:
         x-required-privileges:
           - 'webhooks:describe'
     post:
+      deprecated: true
       operationId: createWebhookHeader
       summary: Create a web hook header
       description: |
@@ -4103,7 +4858,7 @@ paths:
       x-security:
         x-required-privileges:
           - 'webhooks:modify'
-  '/webhooks/{id}/headers/{headerID}':
+  '/api/webhooks/{id}/headers/{headerID}':
     parameters:
       - name: id
         description: |
@@ -4118,6 +4873,7 @@ paths:
         required: true
         type: string
     get:
+      deprecated: true
       operationId: describeWebhookHeader
       summary: Describe a web hook header
       description: |
@@ -4132,7 +4888,7 @@ paths:
         '200':
           description: |
             The response body contains the web hook header object.
-          schema: *ref_42
+          schema: *ref_44
         '401': *ref_23
         '403': *ref_24
         '429': *ref_25
@@ -4142,6 +4898,7 @@ paths:
         x-required-privileges:
           - 'webhooks:describe'
     post:
+      deprecated: true
       operationId: modifyWebhookHeader
       summary: Modify a web hook header
       description: |
@@ -4170,6 +4927,7 @@ paths:
         x-required-privileges:
           - 'webhooks:modify'
     delete:
+      deprecated: true
       operationId: deleteWebhookHeader
       summary: Delete a web hook header
       description: |
@@ -4191,7 +4949,7 @@ paths:
       x-security:
         x-required-privileges:
           - 'webhooks:modify'
-  /license:
+  /api/license:
     get:
       operationId: describeLicense
       summary: Describe license
@@ -4249,7 +5007,7 @@ paths:
       x-security:
         x-required-privileges:
           - 'licenses:describe'
-  /collections:
+  /api/collections:
     get:
       operationId: listCollections
       summary: List content scan ruleset collections
@@ -4274,7 +5032,7 @@ paths:
             properties:
               collections:
                 type: array
-                items: *ref_43
+                items: *ref_45
               next:
                 type: string
                 format: byte
@@ -4308,7 +5066,7 @@ paths:
       parameters:
         - in: body
           name: request
-          schema: *ref_44
+          schema: *ref_46
         - *ref_29
         - *ref_20
       responses:
@@ -4320,7 +5078,7 @@ paths:
         '201':
           description: |
             The content scan ruleset has been created.
-          schema: *ref_43
+          schema: *ref_45
           headers:
             Location:
               description: |
@@ -4335,7 +5093,7 @@ paths:
       x-security:
         x-required-privileges:
           - 'collections:create'
-  '/collections/{id}':
+  '/api/collections/{id}':
     parameters:
       - name: id
         description: |
@@ -4363,7 +5121,7 @@ paths:
             properties:
               rulesets:
                 type: array
-                items: *ref_43
+                items: *ref_45
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -4388,7 +5146,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_45
+          schema: *ref_47
         - *ref_30
         - *ref_20
       responses:
@@ -4396,7 +5154,7 @@ paths:
           description: >
             The collection has been updated. The response body contains the
             updated content scan ruleset collection object.
-          schema: *ref_43
+          schema: *ref_45
           headers:
             Location:
               description: |
@@ -4419,7 +5177,7 @@ paths:
       tags:
         - Content scan
       parameters:
-        - *ref_31
+        - *ref_32
         - *ref_20
       responses:
         '200':
@@ -4438,7 +5196,7 @@ paths:
       x-security:
         x-required-privileges:
           - 'collections:delete'
-  '/collections/{id}/rulesets':
+  '/api/collections/{id}/rulesets':
     parameters:
       - name: id
         description: |
@@ -4529,7 +5287,7 @@ paths:
       x-security:
         x-required-privileges:
           - 'rulesets:create'
-  '/collections/{id}/rulesets/{rulesetID}':
+  '/api/collections/{id}/rulesets/{rulesetID}':
     parameters:
       - name: id
         description: |
@@ -4614,7 +5372,7 @@ paths:
       tags:
         - Content scan
       parameters:
-        - *ref_31
+        - *ref_32
         - *ref_20
       responses:
         '200':
@@ -4633,7 +5391,7 @@ paths:
       x-security:
         x-required-privileges:
           - 'rulesets:delete'
-  /registries:
+  /api/registries:
     get:
       operationId: listRegistries
       summary: List registries
@@ -4686,7 +5444,7 @@ paths:
                 type: array
                 description: |
                   The list of registries.
-                items: *ref_46
+                items: *ref_48
               next:
                 type: string
                 format: byte
@@ -4699,8 +5457,8 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
-        '409': *ref_47
+        '404': *ref_40
+        '409': *ref_49
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4721,7 +5479,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_48
+          schema: *ref_50
         - *ref_29
         - name: ping
           in: query
@@ -4752,7 +5510,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_46
+          schema: *ref_48
         '201':
           description: |
             The response body contains the registry details.
@@ -4772,16 +5530,16 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_46
+          schema: *ref_48
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
-        '409': *ref_47
+        '404': *ref_40
+        '409': *ref_49
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  '/registries/{id}':
+  '/api/registries/{id}':
     parameters:
       - name: id
         description: |
@@ -4824,12 +5582,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_46
+          schema: *ref_48
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
-        '409': *ref_47
+        '404': *ref_40
+        '409': *ref_49
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4850,7 +5608,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_48
+          schema: *ref_50
         - *ref_30
         - name: ping
           in: query
@@ -4880,12 +5638,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_46
+          schema: *ref_48
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
-        '409': *ref_47
+        '404': *ref_40
+        '409': *ref_49
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4900,7 +5658,7 @@ paths:
       tags:
         - Registries
       parameters:
-        - *ref_31
+        - *ref_32
         - *ref_20
       responses:
         '200':
@@ -4945,12 +5703,12 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
-        '409': *ref_47
+        '404': *ref_40
+        '409': *ref_49
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  '/registries/{id}/scans':
+  '/api/registries/{id}/scans':
     post:
       operationId: createScan
       summary: Create a scan
@@ -4968,7 +5726,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_49
+          schema: *ref_51
         - *ref_29
         - *ref_20
       responses:
@@ -4992,7 +5750,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_36
+          schema: *ref_38
         '201':
           description: |
             The response body contains the scan details.
@@ -5012,16 +5770,16 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_36
+          schema: *ref_38
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
-        '409': *ref_47
+        '404': *ref_40
+        '409': *ref_49
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  '/registries/{id}/images':
+  '/api/registries/{id}/images':
     parameters:
       - name: id
         description: |
@@ -5067,16 +5825,16 @@ paths:
                 be removed.
           schema:
             type: array
-            items: *ref_50
+            items: *ref_52
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
-        '409': *ref_47
+        '404': *ref_40
+        '409': *ref_49
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  '/registries/{id}/images/{imageID}':
+  '/api/registries/{id}/images/{imageID}':
     parameters:
       - name: id
         description: |
@@ -5126,16 +5884,16 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_50
+          schema: *ref_52
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
-        '409': *ref_47
+        '404': *ref_40
+        '409': *ref_49
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
-  /registries/dashboard:
+  /api/registries/dashboard:
     get:
       operationId: describeDashboard
       summary: Describe registries dashboard
@@ -5170,12 +5928,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_51
+          schema: *ref_53
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_38
-        '409': *ref_47
+        '404': *ref_40
+        '409': *ref_49
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27

@@ -2773,7 +2773,7 @@ paths:
           schema:
             type: object
             properties:
-              identity-providers:
+              providers:
                 description: |
                   The list of SAML identity providers.
                 type: array

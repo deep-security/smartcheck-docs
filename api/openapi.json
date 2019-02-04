@@ -5120,7 +5120,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "identity-providers": {
+                                "providers": {
                                     "description": "The list of SAML identity providers.\n",
                                     "type": "array",
                                     "items": {

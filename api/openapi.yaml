@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   version: '2018-05-01'
-  title: Deep Security Smart Check API
+  title: Deep Security Smart Check
   description: |
     Deep Security Smart Check is a container image scanner from Trend Micro.
   contact:
@@ -32,15 +32,15 @@ tags:
   - name: Web hooks
     description: |
       Outgoing web hooks from the scanner
-  - name: License
-    description: |
-      License information
   - name: Content scan
     description: |
       Manage content scan rules
   - name: Registries
+  - name: License
+    description: |
+      License information
 definitions:
-  ChangeUserPasswordRequest: &ref_35
+  ChangeUserPasswordRequest: &ref_36
     type: object
     properties:
       oldPassword:
@@ -57,12 +57,12 @@ definitions:
         description: |
           The user's new password.
         maxLength: 1024
-  UserRequest: &ref_34
+  UserRequest: &ref_35
     type: object
     properties:
       userID:
         type: string
-        example: argus
+        example: alice
         description: |
           A unique name for the user.
         maxLength: 64
@@ -83,7 +83,7 @@ definitions:
         type: string
         description: |
           A display name for the user.
-        example: Argus Panoptes
+        example: Alice Panoptes
         maxLength: 128
       description:
         type: string
@@ -111,7 +111,7 @@ definitions:
           The URL at which the user can be found.
       userID:
         type: string
-        example: argus
+        example: alice
         description: |
           A unique name for the user.
         maxLength: 64
@@ -119,7 +119,7 @@ definitions:
         type: string
         description: |
           A display name for the user.
-        example: Argus Panoptes
+        example: Alice Panoptes
         maxLength: 128
       description:
         type: string
@@ -157,7 +157,7 @@ definitions:
       - role
       - created
       - updated
-  RoleRequest: &ref_33
+  RoleRequest: &ref_34
     type: object
     properties:
       name:
@@ -216,7 +216,7 @@ definitions:
     required:
       - name
       - policies
-  Role: &ref_31
+  Role: &ref_32
     type: object
     properties:
       id:
@@ -267,7 +267,7 @@ definitions:
       - updated
   Policy: *ref_0
   Statement: *ref_1
-  SessionRequest: &ref_37
+  SessionRequest: &ref_38
     type: object
     properties:
       user:
@@ -277,7 +277,7 @@ definitions:
         properties:
           userID:
             type: string
-            example: argus
+            example: alice
             description: |
               The user's ID.
             maxLength: 64
@@ -312,7 +312,7 @@ definitions:
             maxLength: 128
         required:
           - response
-  Session: &ref_36
+  Session: &ref_37
     type: object
     properties:
       id:
@@ -358,6 +358,7 @@ definitions:
           The session name provided for this session. SAML identity providers
           can set this by including a `RoleSessionName` claim in the SAML
           response.
+        example: alice
   SAMLIdentityProviderRequest: &ref_28
     type: object
     properties:
@@ -504,6 +505,8 @@ definitions:
           - failed
       detail:
         type: string
+        description: |
+          Reports additional detail when the status is `failed`.
         example: ''
         enum:
           - connection-failed
@@ -646,14 +649,6 @@ definitions:
   Webhook: &ref_44
     type: object
     properties:
-      id:
-        description: >
-          (optional) If you provide a web hook ID, the scanner will check
-          whether it has already received another request from you with the same
-          ID. If it has, the scanner will return `409 Conflict`. If you don't
-          provide a web hook ID, the scanner will create one for you.
-        type: string
-        example: (optional) any unique string
       href:
         type: string
         example: /api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8
@@ -889,17 +884,9 @@ definitions:
         items: *ref_6
         description: |
           The rulesets belonging to this collection.
-  ScanRequest: &ref_39
+  ScanRequest: &ref_40
     type: object
     properties:
-      id:
-        description: >
-          (optional) If you provide a request ID, the scanner will check whether
-          it has already received another request from you with the same ID. If
-          it has, the scanner will return `409 Conflict`. If you don't provide a
-          request ID, the scanner will create one for you.
-        type: string
-        example: (optional) any unique string
       name:
         type: string
         description: |
@@ -1136,7 +1123,7 @@ definitions:
     required:
       - type
   Credentials: *ref_9
-  Scan: &ref_38
+  Scan: &ref_39
     type: object
     properties:
       id:
@@ -1790,7 +1777,7 @@ definitions:
         description: |
           The tags of the content scan rule.
   Vulnerability: *ref_14
-  RegistryScanRequest: &ref_51
+  RegistryScanRequest: &ref_50
     type: object
     properties:
       name:
@@ -1829,7 +1816,7 @@ definitions:
           scan.
         type: array
         items: *ref_7
-  RegistriesDashboard: &ref_53
+  RegistriesDashboard: &ref_52
     type: object
     properties:
       content:
@@ -1908,7 +1895,7 @@ definitions:
                   The number of scans performed on images in all registries in
                   the time period. Will be `-1` if there was an error
                   calculating the value.
-  Image: &ref_52
+  Image: &ref_51
     type: object
     properties:
       registry:
@@ -1960,7 +1947,7 @@ definitions:
       - digest
       - status
       - updated
-  RegistryRequest: &ref_50
+  RegistryRequest: &ref_49
     type: object
     properties:
       name:
@@ -2350,12 +2337,62 @@ definitions:
       - status
       - created
       - updated
+  License: &ref_53
+    type: object
+    properties:
+      type:
+        description: |
+          The license type.
+        type: string
+        enum:
+          - full
+          - trial
+          - none
+      expires:
+        description: |
+          Timestamp when the license will expire.
+        type: string
+        format: date-time
+        example: '2019-05-01T00:00:00Z'
+      gracePeriod:
+        description: >
+          Grace period after expiry (in days) when the product will still
+          update.
+        type: integer
+        example: 0
+      entitlements:
+        description: |
+          The entitlements granted by the license (if any).
+        type: object
+        properties:
+          registries:
+            type: integer
+            example: 1
+            description: >
+              The number of registries that are currently permitted by the
+              license. A value of `-1` indicates that unlimited licenses can be
+              created.
+          updates:
+            type: boolean
+            example: true
+            description: >
+              If the system is unlicensed, it will not receive malware pattern
+              updates and the value for `updates` will be `false`.
+    required:
+      - type
 responses:
   '400': &ref_22
     description: >
       Something about your request didn't quite make sense. The error message
       should help you figure out what went wrong.
     headers:
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       X-Request-Id:
         type: string
         description: |
@@ -2370,13 +2407,6 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
-      Sunset:
-        type: string
-        format: datetime
-        description: >
-          If present, this API endpoint has been deprecated and may be removed
-          at any point after the reported date. The timestamp is an HTTP date
-          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       Link:
         type: string
         description: >
@@ -2391,12 +2421,19 @@ responses:
 
       ```
 
-      Authorization: Bearer {token}
+      Authorization: Bearer [token]
 
       ```
 
-      in all requests. You can get a token from the `POST /sessions` API.
+      in all requests. You can get a token from the `POST /api/sessions` API.
     headers:
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       X-Request-Id:
         type: string
         description: |
@@ -2411,13 +2448,6 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
-      Sunset:
-        type: string
-        format: datetime
-        description: >
-          If present, this API endpoint has been deprecated and may be removed
-          at any point after the reported date. The timestamp is an HTTP date
-          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       Link:
         type: string
         description: >
@@ -2431,6 +2461,13 @@ responses:
       scamp. Check your privileges to see what you're actually allowed to do.
       This could also mean that your token has expired.
     headers:
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       X-Request-Id:
         type: string
         description: |
@@ -2445,24 +2482,23 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
-      Sunset:
-        type: string
-        format: datetime
-        description: >
-          If present, this API endpoint has been deprecated and may be removed
-          at any point after the reported date. The timestamp is an HTTP date
-          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       Link:
         type: string
         description: >
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_15
-  '404': &ref_40
+  '404': &ref_30
     description: |
       The resource you were looking for doesn't exist.
     headers:
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       X-Request-Id:
         type: string
         description: |
@@ -2477,13 +2513,6 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
-      Sunset:
-        type: string
-        format: datetime
-        description: >
-          If present, this API endpoint has been deprecated and may be removed
-          at any point after the reported date. The timestamp is an HTTP date
-          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       Link:
         type: string
         description: >
@@ -2491,11 +2520,18 @@ responses:
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
     schema: *ref_15
-  '409': &ref_49
+  '409':
     description: >
       The preconditions in the request you made could not be met. Check the
       `message` string in the response for help troubleshooting the problem.
     headers:
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       X-Request-Id:
         type: string
         description: |
@@ -2510,13 +2546,6 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
-      Sunset:
-        type: string
-        format: datetime
-        description: >
-          If present, this API endpoint has been deprecated and may be removed
-          at any point after the reported date. The timestamp is an HTTP date
-          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       Link:
         type: string
         description: >
@@ -2529,6 +2558,13 @@ responses:
       You have made too many requests too quickly. Check the `Retry-After`
       header for an indication of when you might be able to try again.
     headers:
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       X-Request-Id:
         type: string
         description: |
@@ -2548,20 +2584,12 @@ responses:
           The amount of time (in seconds) you should wait before trying this
           request again.
         type: integer
-      Sunset:
-        type: string
-        format: datetime
-        description: >
-          If present, this API endpoint has been deprecated and may be removed
-          at any point after the reported date. The timestamp is an HTTP date
-          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       Link:
         type: string
         description: >
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_15
   '500': &ref_26
     description: >
       Something has gone terribly wrong. Sorry! The error message may help you
@@ -2570,6 +2598,13 @@ responses:
       that trying again will help, but it's more likely that you're out of luck
       for the moment.
     headers:
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       X-Request-Id:
         type: string
         description: |
@@ -2584,13 +2619,6 @@ responses:
           If present, this header will include important API information. We
           will use this header as one way to notify you that a new API version
           is available or that the API you are using is going to be removed.
-      Sunset:
-        type: string
-        format: datetime
-        description: >
-          If present, this API endpoint has been deprecated and may be removed
-          at any point after the reported date. The timestamp is an HTTP date
-          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       Link:
         type: string
         description: >
@@ -2604,6 +2632,13 @@ responses:
       should be available soon, check the `Retry-After` header for an indication
       of when you might be able to try again.
     headers:
+      Sunset:
+        type: string
+        format: datetime
+        description: >
+          If present, this API endpoint has been deprecated and may be removed
+          at any point after the reported date. The timestamp is an HTTP date
+          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       X-Request-Id:
         type: string
         description: |
@@ -2623,13 +2658,6 @@ responses:
           The amount of time (in seconds) you should wait before trying this
           request again.
         type: integer
-      Sunset:
-        type: string
-        format: datetime
-        description: >
-          If present, this API endpoint has been deprecated and may be removed
-          at any point after the reported date. The timestamp is an HTTP date
-          string in the format `Fri, 11 Nov 2018 11:11:11 GMT`.
       Link:
         type: string
         description: >
@@ -2694,7 +2722,7 @@ parameters:
       only be tested for validity and should not actually create a record. The
       response code will indicate whether the request was OK (`200 OK`) or
       whether there was a problem in the request.
-  dryrunUpdate: &ref_30
+  dryrunUpdate: &ref_31
     name: dryrun
     in: query
     type: boolean
@@ -2704,7 +2732,7 @@ parameters:
       only be tested for validity and should not actually modify the record. The
       response code will indicate whether the request was OK (`200 OK`) or
       whether there was a problem in the request.
-  dryrunDelete: &ref_32
+  dryrunDelete: &ref_33
     name: dryrun
     in: query
     type: boolean
@@ -2937,6 +2965,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -2958,7 +2987,7 @@ paths:
         - name: request
           in: body
           schema: *ref_28
-        - *ref_30
+        - *ref_31
         - *ref_20
       responses:
         '200':
@@ -2988,10 +3017,11 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_31
+          schema: *ref_32
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -3006,7 +3036,7 @@ paths:
       tags:
         - Identity Providers
       parameters:
-        - *ref_32
+        - *ref_33
         - *ref_20
       responses:
         '200':
@@ -3132,7 +3162,7 @@ paths:
                 description: |
                   The list of roles.
                 type: array
-                items: *ref_31
+                items: *ref_32
               next:
                 type: string
                 format: byte
@@ -3165,7 +3195,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_33
+          schema: *ref_34
         - *ref_29
         - *ref_20
       responses:
@@ -3197,7 +3227,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_31
+          schema: *ref_32
         '201':
           description: |
             The response body contains the role details.
@@ -3229,7 +3259,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_31
+          schema: *ref_32
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -3287,10 +3317,11 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_31
+          schema: *ref_32
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -3311,8 +3342,8 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_33
-        - *ref_30
+          schema: *ref_34
+        - *ref_31
         - *ref_20
       responses:
         '200':
@@ -3342,10 +3373,11 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_31
+          schema: *ref_32
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -3360,7 +3392,7 @@ paths:
       tags:
         - Roles
       parameters:
-        - *ref_32
+        - *ref_33
         - *ref_20
       responses:
         '200':
@@ -3519,7 +3551,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_34
+          schema: *ref_35
         - *ref_29
         - *ref_20
       responses:
@@ -3645,6 +3677,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -3665,8 +3698,8 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_34
-        - *ref_30
+          schema: *ref_35
+        - *ref_31
         - *ref_20
       responses:
         '200':
@@ -3704,6 +3737,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -3718,7 +3752,7 @@ paths:
       tags:
         - Users
       parameters:
-        - *ref_32
+        - *ref_33
         - *ref_20
       responses:
         '200':
@@ -3807,8 +3841,8 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_35
-        - *ref_30
+          schema: *ref_36
+        - *ref_31
         - *ref_20
       responses:
         '200':
@@ -3907,7 +3941,7 @@ paths:
                 description: |
                   The list of sessions.
                 type: array
-                items: *ref_36
+                items: *ref_37
               next:
                 type: string
                 format: byte
@@ -3942,7 +3976,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_37
+          schema: *ref_38
         - *ref_29
         - *ref_20
       responses:
@@ -3974,7 +4008,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_36
+          schema: *ref_37
         '201':
           description: |
             The response body contains the session details.
@@ -4006,7 +4040,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_36
+          schema: *ref_37
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -4064,10 +4098,11 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_36
+          schema: *ref_37
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4083,7 +4118,7 @@ paths:
       tags:
         - Sessions
       parameters:
-        - *ref_30
+        - *ref_31
         - *ref_20
       produces:
         - application/json
@@ -4115,10 +4150,11 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_36
+          schema: *ref_37
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4133,7 +4169,7 @@ paths:
       tags:
         - Sessions
       parameters:
-        - *ref_32
+        - *ref_33
         - *ref_20
       responses:
         '200':
@@ -4265,12 +4301,36 @@ paths:
         '200':
           description: |
             The response body contains the scan objects.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema:
             type: object
             properties:
               scans:
                 type: array
-                items: *ref_38
+                items: *ref_39
               next:
                 type: string
                 format: byte
@@ -4280,6 +4340,7 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
         '429': *ref_25
@@ -4302,9 +4363,38 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_39
+          schema: *ref_40
         - *ref_20
       responses:
+        '200':
+          description: >
+            The response body contains the scan details. This response will only
+            be returned if the `dryrun=true` query parameter was sent.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_39
         '201':
           description: >
             The scan request has been accepted, the scan has been created, and
@@ -4315,7 +4405,30 @@ paths:
                 The scan URL.
               type: string
               example: '/api/scans/{id}'
-          schema: *ref_38
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_39
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -4341,6 +4454,30 @@ paths:
         '200':
           description: |
             The response body contains the scan metrics.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema:
             type: object
             properties:
@@ -4362,9 +4499,9 @@ paths:
                     type: integer
                     description: |
                       The number of scans performed in the time period.
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4404,11 +4541,35 @@ paths:
         '200':
           description: |
             The response body contains the scan object.
-          schema: *ref_38
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_39
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4447,6 +4608,30 @@ paths:
         '200':
           description: |
             The response body contains the list of malware findings.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema:
             type: object
             properties:
@@ -4465,7 +4650,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4504,6 +4689,30 @@ paths:
         '200':
           description: |
             The response body contains the list of vulnerability findings.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema:
             type: object
             properties:
@@ -4522,7 +4731,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4561,6 +4770,30 @@ paths:
         '200':
           description: |
             The response body contains the list of content scan findings.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema:
             type: object
             properties:
@@ -4579,7 +4812,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4605,6 +4838,30 @@ paths:
         '200':
           description: |
             The response body contains the web hook objects.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema:
             type: object
             properties:
@@ -4620,6 +4877,7 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
         '429': *ref_25
@@ -4645,6 +4903,35 @@ paths:
           schema: *ref_7
         - *ref_20
       responses:
+        '200':
+          description: >
+            The response body contains the web hook details. This response will
+            only be returned if the `dryrun=true` query parameter was sent.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_44
         '201':
           description: |
             The web hook has been created.
@@ -4654,7 +4941,31 @@ paths:
                 The webhook URL.
               type: string
               example: '/api/webhooks/{id}'
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema: *ref_44
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
         '429': *ref_25
@@ -4686,9 +4997,35 @@ paths:
         '200':
           description: |
             The response body contains the web hook object.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema: *ref_44
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4715,8 +5052,34 @@ paths:
             contain the modified values. The response body contains the modified
             web hook object.
           schema: *ref_44
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4733,9 +5096,62 @@ paths:
       parameters:
         - *ref_20
       responses:
+        '200':
+          description: >
+            The web hook would be deleted if the `dryrun=true` parameter was not
+            present.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '204':
           description: |
             The web hook has been deleted.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
         '429': *ref_25
@@ -4765,12 +5181,61 @@ paths:
         '204':
           description: |
             Invocation of the web hook was successful.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '400':
           description: |
             Invocation of the web hook was not successful.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema: *ref_15
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4802,6 +5267,30 @@ paths:
         '200':
           description: |
             The response body contains the list of web hook header objects.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema:
             type: object
             properties:
@@ -4817,8 +5306,10 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4840,6 +5331,36 @@ paths:
       parameters:
         - *ref_20
       responses:
+        '200':
+          description: >
+            The response body contains the web hook header details. This
+            response will only be returned if the `dryrun=true` query parameter
+            was sent.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_4
         '201':
           description: |
             The web hook header has been created.
@@ -4849,9 +5370,34 @@ paths:
                 The web hook header URL.
               type: string
               example: '/api/webhooks/{id}/headers/{headerID}'
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema: *ref_4
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4888,9 +5434,35 @@ paths:
         '200':
           description: |
             The response body contains the web hook header object.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema: *ref_44
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4917,9 +5489,35 @@ paths:
             The web hook header has been updated. Future calls to the web hook
             will contain the updated values. The response body contains the
             updated web hook header object.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema: *ref_4
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -4937,76 +5535,72 @@ paths:
       parameters:
         - *ref_20
       responses:
+        '200':
+          description: >
+            The web hook header would be deleted if the `dryrun=true` parameter
+            was not present.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '204':
           description: >
             The web hook header has been deleted and will no longer be included
             in future calls to the web hook.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
       x-security:
         x-required-privileges:
           - 'webhooks:modify'
-  /api/license:
-    get:
-      operationId: describeLicense
-      summary: Describe license
-      produces:
-        - application/json
-      tags:
-        - License
-      parameters:
-        - *ref_20
-      responses:
-        '200':
-          description: |
-            The response body contains license information.
-          schema:
-            type: object
-            properties:
-              type:
-                description: |
-                  The license type.
-                type: string
-                enum:
-                  - full
-                  - trial
-                  - none
-              expires:
-                description: |
-                  Timestamp when the license will expire.
-                type: string
-                format: date-time
-                example: '2019-05-01T00:00:00Z'
-              gracePeriod:
-                description: >
-                  Grace period after expiry (in days) when the product will
-                  still update.
-                type: integer
-                example: 0
-            required:
-              - type
-        '401': *ref_23
-        '403': *ref_24
-        '429': *ref_25
-        '500': *ref_26
-        '503':
-          description: >
-            The service is temporarily unavailable, likely due to maintenance.
-            It should be available soon, check the `Retry-After` header for an
-            indication of when you might be able to try again.
-          headers:
-            Retry-After:
-              description: >
-                The amount of time (in seconds) you should wait before trying
-                this request again.
-              type: integer
-          schema: *ref_15
-      x-security:
-        x-required-privileges:
-          - 'licenses:describe'
   /api/collections:
     get:
       operationId: listCollections
@@ -5027,6 +5621,30 @@ paths:
         '200':
           description: |
             The response body contains the list of ruleset collection objects.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema:
             type: object
             properties:
@@ -5075,6 +5693,30 @@ paths:
             The response body contains the ruleset collection details. This
             response will only be returned if the `dryrun=true` query parameter
             was sent.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '201':
           description: |
             The content scan ruleset has been created.
@@ -5084,6 +5726,29 @@ paths:
               description: |
                 The content scan ruleset URL.
               type: string
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -5116,6 +5781,30 @@ paths:
         '200':
           description: |
             The response body contains the collection object.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema:
             type: object
             properties:
@@ -5125,6 +5814,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5147,7 +5837,7 @@ paths:
         - name: request
           in: body
           schema: *ref_47
-        - *ref_30
+        - *ref_31
         - *ref_20
       responses:
         '200':
@@ -5160,9 +5850,33 @@ paths:
               description: |
                 The collection URL.
               type: string
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5177,16 +5891,64 @@ paths:
       tags:
         - Content scan
       parameters:
-        - *ref_32
+        - *ref_33
         - *ref_20
       responses:
         '200':
           description: >
             The ruleset collection would be deleted if the `dryrun=true`
             parameter was not present.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '204':
           description: |
             The ruleset collection has been deleted.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
@@ -5223,6 +5985,30 @@ paths:
         '200':
           description: |
             The response body contains the list of ruleset objects.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema:
             type: object
             properties:
@@ -5241,6 +6027,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5269,6 +6056,30 @@ paths:
           description: >
             The response body contains the ruleset details. This response will
             only be returned if the `dryrun=true` query parameter was sent.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '201':
           description: |
             The content scan ruleset has been created.
@@ -5278,9 +6089,33 @@ paths:
               description: |
                 The content scan ruleset URL.
               type: string
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5316,10 +6151,35 @@ paths:
         '200':
           description: |
             The response body contains the content scan rule object.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
           schema: *ref_6
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5342,7 +6202,7 @@ paths:
         - name: request
           in: body
           schema: *ref_5
-        - *ref_30
+        - *ref_31
         - *ref_20
       responses:
         '200':
@@ -5355,9 +6215,33 @@ paths:
               description: |
                 The content scan ruleset URL.
               type: string
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5372,19 +6256,68 @@ paths:
       tags:
         - Content scan
       parameters:
-        - *ref_32
+        - *ref_33
         - *ref_20
       responses:
         '200':
           description: >
             The ruleset would be deleted if the `dryrun=true` parameter was not
             present.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '204':
           description: |
             The content scan ruleset has been deleted.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5422,6 +6355,14 @@ paths:
                 Example: ```Link:
                 </api/registries?cursor=dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo>;
                 rel="next"```
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5457,8 +6398,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
-        '409': *ref_49
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5479,7 +6419,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_50
+          schema: *ref_49
         - *ref_29
         - name: ping
           in: query
@@ -5495,6 +6435,14 @@ paths:
             The response body contains the registry details. This response will
             only be returned if the `dryrun=true` query parameter was sent.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5515,6 +6463,18 @@ paths:
           description: |
             The response body contains the registry details.
           headers:
+            Location:
+              type: string
+              description: |
+                The URL at which the registry can be found.
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5534,8 +6494,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
-        '409': *ref_49
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5567,6 +6526,14 @@ paths:
           description: |
             The response body contains the registry details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5586,8 +6553,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
-        '409': *ref_49
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5608,8 +6574,8 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_50
-        - *ref_30
+          schema: *ref_49
+        - *ref_31
         - name: ping
           in: query
           type: boolean
@@ -5623,6 +6589,14 @@ paths:
           description: |
             The response body contains the registry details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5642,8 +6616,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
-        '409': *ref_49
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5658,7 +6631,7 @@ paths:
       tags:
         - Registries
       parameters:
-        - *ref_32
+        - *ref_33
         - *ref_20
       responses:
         '200':
@@ -5666,6 +6639,14 @@ paths:
             The registry connection would be deleted if the `dryrun=true`
             parameter was not present.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5685,6 +6666,14 @@ paths:
           description: |
             The registry connection has been deleted.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5703,8 +6692,7 @@ paths:
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
-        '409': *ref_49
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5726,7 +6714,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_51
+          schema: *ref_50
         - *ref_29
         - *ref_20
       responses:
@@ -5735,6 +6723,14 @@ paths:
             The response body contains the scan details. This response will only
             be returned if the `dryrun=true` query parameter was sent.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5750,11 +6746,23 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_38
+          schema: *ref_39
         '201':
           description: |
             The response body contains the scan details.
           headers:
+            Location:
+              type: string
+              description: |
+                The URL at which the scan can be found.
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5770,12 +6778,11 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_38
+          schema: *ref_39
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
-        '409': *ref_49
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5808,6 +6815,14 @@ paths:
             The response body contains the list of images synchronized from the
             registry.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5824,13 +6839,26 @@ paths:
                 version is available or that the API you are using is going to
                 be removed.
           schema:
-            type: array
-            items: *ref_52
+            type: object
+            properties:
+              images:
+                type: array
+                description: |
+                  The list of images.
+                items: *ref_51
+              next:
+                type: string
+                format: byte
+                example: >-
+                  dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
+                description: >
+                  An encoded value that you can use to retrieve the next set of
+                  results for a query. If `next` is not present, then there are
+                  no more results available.
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
-        '409': *ref_49
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5869,6 +6897,14 @@ paths:
           description: |
             The response body contains the image details.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5884,12 +6920,11 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_52
+          schema: *ref_51
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
-        '409': *ref_49
+        '404': *ref_30
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27
@@ -5913,6 +6948,14 @@ paths:
           description: |
             The response body contains the dashboard metrics.
           headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
             X-Request-Id:
               type: string
               description: |
@@ -5928,12 +6971,101 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_53
+          schema: *ref_52
         '400': *ref_22
         '401': *ref_23
         '403': *ref_24
-        '404': *ref_40
-        '409': *ref_49
+        '429': *ref_25
+        '500': *ref_26
+        '503': *ref_27
+  /api/license:
+    get:
+      operationId: describeLicense
+      summary: Describe license
+      x-security:
+        x-required-privileges:
+          - 'licenses:describe'
+      produces:
+        - application/json
+      tags:
+        - License
+      parameters:
+        - name: entitlements
+          in: query
+          type: string
+          enum:
+            - registries
+            - updates
+          description: >
+            Include the `entitlements` query parameter and its companion `count`
+            (if applicable) to check whether the current license entitles use of
+            the requested number of the specified resource.
+        - *ref_20
+      responses:
+        '200':
+          description: >
+            The response body contains license information. If the
+            `entitlements` query parameter and its companion `count` (if
+            applicable) were included, the `200 OK` response indicates that the
+            current license entitles use of the requested number of the
+            specified resource.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API version you are using is
+                going to be removed.
+          schema: *ref_53
+        '400': *ref_22
+        '401': *ref_23
+        '402':
+          description: >
+            The current license entitlements are not sufficient for the
+            requested resource (and count, if appropriate).
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API version you are using is
+                going to be removed.
+          schema: *ref_53
+        '403': *ref_24
         '429': *ref_25
         '500': *ref_26
         '503': *ref_27

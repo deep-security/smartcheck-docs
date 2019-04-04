@@ -43,7 +43,7 @@ tags:
     description: |
       License information
 definitions:
-  ChangeUserPasswordRequest: &ref_38
+  ChangeUserPasswordRequest: &ref_39
     type: object
     properties:
       oldPassword:
@@ -60,7 +60,7 @@ definitions:
         description: |
           The user's new password.
         maxLength: 1024
-  UserRequest: &ref_37
+  UserRequest: &ref_38
     type: object
     properties:
       userID:
@@ -160,7 +160,7 @@ definitions:
       - role
       - created
       - updated
-  RoleRequest: &ref_36
+  RoleRequest: &ref_37
     type: object
     properties:
       name:
@@ -219,7 +219,7 @@ definitions:
     required:
       - name
       - policies
-  Role: &ref_34
+  Role: &ref_35
     type: object
     properties:
       id:
@@ -270,7 +270,7 @@ definitions:
       - updated
   Policy: *ref_0
   Statement: *ref_1
-  SessionRequest: &ref_40
+  SessionRequest: &ref_41
     type: object
     properties:
       user:
@@ -315,7 +315,7 @@ definitions:
             maxLength: 128
         required:
           - response
-  Session: &ref_39
+  Session: &ref_40
     type: object
     properties:
       id:
@@ -362,7 +362,7 @@ definitions:
           can set this by including a `RoleSessionName` claim in the SAML
           response.
         example: alice
-  SAMLIdentityProviderRequest: &ref_30
+  SAMLIdentityProviderRequest: &ref_31
     type: object
     properties:
       id:
@@ -429,7 +429,7 @@ definitions:
           (optional, default: `null`) If present, Deep Security Smart Check will
           use the provided metadata XML for the identity provider. Only one of
           `metadataURL` and `metadataXML` should be present.
-  SAMLIdentityProvider: &ref_23
+  SAMLIdentityProvider: &ref_24
     type: object
     properties:
       id:
@@ -528,7 +528,7 @@ definitions:
           The time that the identity provider was last modified. If the
           `metadataURL` is present, Deep Security Smart Check will periodically
           retrieve the identity provider metadata.
-  Error: &ref_17
+  Error: &ref_18
     type: object
     properties:
       message:
@@ -550,7 +550,7 @@ definitions:
             property name.
     required:
       - message
-  WebhookRequest: &ref_7
+  WebhookRequest: &ref_5
     type: object
     properties:
       name:
@@ -566,31 +566,6 @@ definitions:
         description: >
           The URL that Deep Security Smart Check should `POST` the event payload
           to.
-      headers:
-        description: >
-          (optional) You can include your own headers in the web hook request.
-          Use these to provide additional context or authentication information
-          to your web hook receiver.
-        type: array
-        items: &ref_3
-          type: object
-          properties:
-            name:
-              description: The header name.
-              type: string
-              example: Authorization
-              maxLength: 128
-            value:
-              description: The header value.
-              type: string
-              example: >-
-                Bearer
-                9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6
-              maxLength: 255
-          required:
-            - name
-            - value
-        maxLength: 10
       secret:
         description: >
           (optional) If you provide a `secret` value, then events sent over HTTP
@@ -646,10 +621,34 @@ definitions:
             - scan-completed
             - '*'
         maxLength: 10
+      headers:
+        description: >
+          (optional) You can include your own headers in the web hook request.
+          Use these to provide additional context or authentication information
+          to your web hook receiver.
+        type: array
+        items: &ref_17
+          type: object
+          properties:
+            name:
+              description: The header name.
+              type: string
+              example: Authorization
+              maxLength: 128
+            value:
+              description: The header value.
+              type: string
+              example: >-
+                Bearer
+                9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6
+              maxLength: 255
+          required:
+            - name
+            - value
+        maxLength: 10
     required:
       - hookURL
-  WebhookHeaderRequest: *ref_3
-  Webhook: &ref_46
+  Webhook: &ref_49
     type: object
     properties:
       href:
@@ -667,35 +666,6 @@ definitions:
         type: string
         example: 'https://target.example.com/'
         maxLength: 255
-      headers:
-        type: array
-        items: &ref_4
-          type: object
-          required:
-            - id
-            - href
-            - name
-            - value
-          properties:
-            id:
-              type: string
-              example: 6af2e0e1-bb7c-45b7-9a3f-152a80d154eb
-            href:
-              type: string
-              example: >-
-                /api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8/headers/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb
-              description: |
-                The URL at which the web hook header can be found.
-            name:
-              type: string
-              example: Authorization
-              maxLength: 128
-            value:
-              type: string
-              example: >-
-                Bearer
-                9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6
-              maxLength: 255
       insecureSkipVerify:
         type: boolean
         example: false
@@ -748,12 +718,10 @@ definitions:
       - name
       - href
       - hookURL
-      - headers
       - active
       - events
       - created
-  WebhookHeader: *ref_4
-  ContentScanRulesetRequest: &ref_5
+  ContentScanRulesetRequest: &ref_3
     type: object
     required:
       - name
@@ -777,7 +745,7 @@ definitions:
         example: false
         description: |
           If set to true, this ruleset will not be used for scan.
-  ContentScanRuleset: &ref_6
+  ContentScanRuleset: &ref_4
     type: object
     required:
       - id
@@ -811,7 +779,7 @@ definitions:
         example: false
         description: |
           If set to true, this ruleset will not be used for scan.
-  ContentScanCollectionRequestWithoutRulesets: &ref_49
+  ContentScanCollectionRequestWithoutRulesets: &ref_52
     type: object
     required:
       - name
@@ -830,7 +798,7 @@ definitions:
           The global ruleset collection used for content scan. There can only be
           one default ruleset collection at all time. If this value is true, the
           value of other collection will be reset to false.
-  ContentScanCollectionRequest: &ref_48
+  ContentScanCollectionRequest: &ref_51
     type: object
     required:
       - name
@@ -851,10 +819,10 @@ definitions:
           value of other collection will be reset to false.
       rulesets:
         type: array
-        items: *ref_5
+        items: *ref_3
         description: |
           The rulesets belonging to this collection.
-  ContentScanCollection: &ref_47
+  ContentScanCollection: &ref_50
     type: object
     required:
       - id
@@ -884,10 +852,10 @@ definitions:
           can only be one default collection at all time.
       rulesets:
         type: array
-        items: *ref_6
+        items: *ref_4
         description: |
           The rulesets belonging to this collection.
-  ScanRequest: &ref_42
+  ScanRequest: &ref_43
     type: object
     properties:
       name:
@@ -896,7 +864,7 @@ definitions:
           (optional) A descriptive name for the scan.
         example: (optional) a descriptive string
         maxLength: 128
-      source: &ref_8
+      source: &ref_6
         description: |
           The source of the image to scan.
         type: object
@@ -931,7 +899,7 @@ definitions:
             example: >-
               sha256:02892826401a9d18f0ea01f8a2f35d328ef039db4e1edcc45c630314a0457d5b
             maxLength: 255
-          credentials: &ref_9
+          credentials: &ref_7
             type: object
             properties:
               token:
@@ -1066,11 +1034,11 @@ definitions:
           (optional) A list of web hooks to call when events happen for the
           scan.
         type: array
-        items: *ref_7
+        items: *ref_5
     required:
       - source
-  SourceRequest: *ref_8
-  Source: &ref_10
+  SourceRequest: *ref_6
+  Source: &ref_8
     type: object
     properties:
       type:
@@ -1125,8 +1093,8 @@ definitions:
         maxLength: 32768
     required:
       - type
-  Credentials: *ref_9
-  Scan: &ref_41
+  Credentials: *ref_7
+  Scan: &ref_42
     type: object
     properties:
       id:
@@ -1143,7 +1111,7 @@ definitions:
         description: |
           If you provided a name for the scan, it will be returned here.
         maxLength: 128
-      source: *ref_10
+      source: *ref_8
       status:
         type: string
         enum:
@@ -1152,7 +1120,7 @@ definitions:
           - completed-with-findings
           - completed-no-findings
           - failed
-      details: &ref_12
+      details: &ref_10
         type: object
         properties:
           detail:
@@ -1217,7 +1185,7 @@ definitions:
               key: value
           results:
             type: array
-            items: &ref_13
+            items: &ref_11
               type: object
               properties:
                 id:
@@ -1267,7 +1235,7 @@ definitions:
                     results that were found. See <a
                     href="#operation/listLayerContentFindings">List layer
                     content findings</a>.
-                findings: &ref_11
+                findings: &ref_9
                   type: object
                   properties:
                     scanners:
@@ -1538,19 +1506,105 @@ definitions:
                               description: >
                                 The number of vulnerabilities with unknown
                                 severity that were found.
+                    checklists:
+                      type: object
+                      description: |
+                        The number of security checklist findings.
+                      properties:
+                        total:
+                          type: object
+                          description: |
+                            The total number of security checklist findings.
+                          properties:
+                            defcon1:
+                              type: integer
+                              description: >
+                                The number of "Defcon1" security checklist
+                                findings.
+                            critical:
+                              type: integer
+                              description: >
+                                The number of critical security checklist
+                                findings.
+                            high:
+                              type: integer
+                              description: >
+                                The number of high-severity security checklist
+                                findings.
+                            medium:
+                              type: integer
+                              description: >
+                                The number of medium-severity security checklist
+                                findings.
+                            low:
+                              type: integer
+                              description: >
+                                The number of low-severity security checklist
+                                findings.
+                            negligible:
+                              description: >
+                                The number of negligible security checklist
+                                findings.
+                              type: integer
+                            unknown:
+                              type: integer
+                              description: >
+                                The number of security checklist findings with
+                                unknown severity.
+                        unresolved:
+                          type: object
+                          description: >
+                            The number of unresolved security checklist
+                            findings.
+                          properties:
+                            defcon1:
+                              type: integer
+                              description: >
+                                The number of "Defcon1" security checklist
+                                findings.
+                            critical:
+                              type: integer
+                              description: >
+                                The number of critical security checklist
+                                findings.
+                            high:
+                              type: integer
+                              description: >
+                                The number of high-severity security checklist
+                                findings.
+                            medium:
+                              type: integer
+                              description: >
+                                The number of medium-severity security checklist
+                                findings.
+                            low:
+                              type: integer
+                              description: >
+                                The number of low-severity security checklist
+                                findings.
+                            negligible:
+                              description: >
+                                The number of negligible security checklist
+                                findings.
+                              type: integer
+                            unknown:
+                              type: integer
+                              description: >
+                                The number of security checklist findings with
+                                unknown severity.
         required:
           - requested
           - results
-      findings: *ref_11
+      findings: *ref_9
     required:
       - id
       - href
       - name
       - status
-  ResultsMetrics: *ref_11
-  ScanStatusDetails: *ref_12
-  LayerResults: *ref_13
-  MalwareScanResult: &ref_43
+  ResultsMetrics: *ref_9
+  ScanStatusDetails: *ref_10
+  LayerResults: *ref_11
+  MalwareScanResult: &ref_44
     type: object
     properties:
       filename:
@@ -1617,7 +1671,7 @@ definitions:
               required:
                 - name
                 - url
-  VulnerabilityScanResult: &ref_44
+  VulnerabilityScanResult: &ref_45
     type: object
     properties:
       name:
@@ -1640,7 +1694,7 @@ definitions:
         type: array
         description: |
           A list of the known vulnerabilities in this package.
-        items: &ref_14
+        items: &ref_12
           type: object
           properties:
             description:
@@ -1679,7 +1733,7 @@ definitions:
                   description: >
                     The layer identifier where the fixed package version was
                     detected.
-            override: &ref_15
+            override: &ref_13
               type: object
               properties:
                 id:
@@ -1859,7 +1913,7 @@ definitions:
     required:
       - name
       - vulnerabilities
-  ContentScanResult: &ref_45
+  ContentScanResult: &ref_46
     required:
       - filename
       - rule
@@ -1912,7 +1966,7 @@ definitions:
           example: config
         description: |
           The tags of the content scan rule.
-      override: &ref_16
+      override: &ref_14
         type: object
         properties:
           id:
@@ -1987,9 +2041,9 @@ definitions:
               Allowing demo.pem private key for 30 days. Contact
               alice@example.com for details.
             maxLength: 2048
-  Vulnerability: *ref_14
-  VulnerabilityFindingOverride: *ref_15
-  VulnerabilityFindingOverrideRequest: &ref_50
+  Vulnerability: *ref_12
+  VulnerabilityFindingOverride: *ref_13
+  VulnerabilityFindingOverrideRequest: &ref_53
     type: object
     properties:
       name:
@@ -2050,8 +2104,8 @@ definitions:
           Allowing CVE-2019-00000 for 30 days. Contact alice@example.com for
           details.
         maxLength: 2048
-  ContentFindingOverride: *ref_16
-  ContentFindingOverrideRequest: &ref_51
+  ContentFindingOverride: *ref_14
+  ContentFindingOverrideRequest: &ref_54
     type: object
     properties:
       filename:
@@ -2104,7 +2158,182 @@ definitions:
           Allowing demo.pem private key for 30 days. Contact alice@example.com
           for details.
         maxLength: 2048
-  RegistryScanRequest: &ref_54
+  Checklist: &ref_47
+    type: object
+    required:
+      - id
+      - title
+      - version
+      - profiles
+    properties:
+      id:
+        type: string
+        example: CHECKLIST-IDENTIFIER
+        description: |
+          The unique ID assigned to this configuration checklist.
+      href:
+        type: string
+        example: >-
+          /api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/checklists/CHECKLIST-IDENTIFIER
+        description: |
+          The URL to the checklist resource.
+      title:
+        type: string
+        example: Guide to the Secure Configuration of Red Hat Enterprise Linux 7
+        description: |
+          The title of this checklist.
+      version:
+        type: string
+        example: 0.1.42
+        description: |
+          Checklist version.
+      profiles:
+        type: array
+        items: &ref_15
+          type: object
+          required:
+            - id
+            - title
+            - scores
+          properties:
+            id:
+              type: string
+              example: PROFILE-IDENTIFIER
+              description: |
+                The ID assigned to this profile in the configuration checklist.
+            title:
+              type: string
+              example: PCI-DSS v3 Control Baseline for Red Hat Enterprise Linux 7
+              description: |
+                The title of this profile.
+            rules:
+              type: string
+              example: >-
+                /api/scans/5694dd71-cbbe-4a15-8c9a-0f4ed516078f/checklists/CHECKLIST-IDENTIFIER/profiles/PROFILE-IDENTIFIER/rules
+              description: |
+                The URL at which the rules can be found.
+            scores:
+              type: array
+              items: &ref_16
+                type: object
+                required:
+                  - system
+                properties:
+                  system:
+                    type: string
+                    example: flat
+                    description: |
+                      The scoring model name.
+                  maximum:
+                    type: float
+                    example: 100
+                    description: |
+                      Maximum value for this score.
+                  value:
+                    type: float
+                    example: 90
+                    description: |
+                      The score value.
+              description: |
+                The scores belonging to this profile.
+            metrics:
+              type: object
+              description: |
+                The number of rules run by results in the profile.
+              properties:
+                total:
+                  type: object
+                  description: |
+                    The total number of rules run by results in the profile.
+                  properties:
+                    high:
+                      type: integer
+                      description: |
+                        The number of high-severity failure that were found.
+                    medium:
+                      type: integer
+                      description: |
+                        The number of medium-severity failure that were found.
+                    low:
+                      type: integer
+                      description: |
+                        The number of low-severity failure that were found.
+                    negligible:
+                      description: |
+                        The number of negligible failure that were found.
+                      type: integer
+                    unknown:
+                      type: integer
+                      description: >
+                        The number of failure with unknown severity that were
+                        found.
+                unresolved:
+                  type: object
+                  description: |
+                    The number of unresolved rules in security checklists.
+                  properties:
+                    high:
+                      type: integer
+                      description: |
+                        The number of high-severity failure that were found.
+                    medium:
+                      type: integer
+                      description: |
+                        The number of medium-severity failure that were found.
+                    low:
+                      type: integer
+                      description: |
+                        The number of low-severity failure that were found.
+                    negligible:
+                      description: |
+                        The number of negligible failure that were found.
+                      type: integer
+                    unknown:
+                      type: integer
+                      description: >
+                        The number of failure with unknown severity that were
+                        found.
+        description: |
+          The profiles belonging to this checklist.
+  Profile: *ref_15
+  Score: *ref_16
+  Rule: &ref_48
+    type: object
+    required:
+      - id
+      - title
+    properties:
+      id:
+        type: string
+        example: security_patches_up_to_date
+        description: |
+          The rule identifier.
+      title:
+        type: string
+        example: Ensure Software Patches Installed
+        description: |
+          The title of this rule.
+      severity:
+        type: string
+        example: medium
+        description: |
+          The severity of this rule.
+      identifier:
+        type: string
+        example: CCE-00000-0
+        description: |
+          The CCE(Common Configuration Enumeration) identifier number.
+      weight:
+        type: float
+        example: 1
+        description: |
+          The weight value of this rule.
+      result:
+        type: string
+        example: pass
+        description: |
+          The test result of this rule.
+  RegistryScanRequest: &ref_57
     type: object
     properties:
       name:
@@ -2142,8 +2371,9 @@ definitions:
           (optional) A list of web hooks to call when events happen for the
           scan.
         type: array
-        items: *ref_7
-  RegistriesDashboard: &ref_56
+        items: *ref_5
+  WebhookHeaderRequest: *ref_17
+  RegistriesDashboard: &ref_59
     type: object
     properties:
       content:
@@ -2194,7 +2424,7 @@ definitions:
             description: >
               The number of images in all registries that have been scanned and
               have encountered errors during the scan.
-      findings: *ref_11
+      findings: *ref_9
       history:
         type: object
         description: |
@@ -2222,7 +2452,7 @@ definitions:
                   The number of scans performed on images in all registries in
                   the time period. Will be `-1` if there was an error
                   calculating the value.
-  Image: &ref_55
+  Image: &ref_58
     type: object
     properties:
       registry:
@@ -2260,7 +2490,7 @@ definitions:
           - completed-no-findings
           - completed-with-findings
           - failed
-      findings: *ref_11
+      findings: *ref_9
       updated:
         type: string
         format: datetime
@@ -2274,7 +2504,7 @@ definitions:
       - digest
       - status
       - updated
-  RegistryRequest: &ref_53
+  RegistryRequest: &ref_56
     type: object
     properties:
       name:
@@ -2455,7 +2685,7 @@ definitions:
         type: boolean
         description: |
           If `true`, this registry will be scheduled for daily re-scan.
-  Registry: &ref_52
+  Registry: &ref_55
     type: object
     description: |
       The registry object. Credentials will not be included in this object.
@@ -2593,7 +2823,7 @@ definitions:
                 description: >
                   The number of images in the registry that have been scanned
                   and have encountered errors during the scan.
-          findings: *ref_11
+          findings: *ref_9
           history:
             type: object
             description: |
@@ -2664,7 +2894,7 @@ definitions:
       - status
       - created
       - updated
-  License: &ref_57
+  License: &ref_60
     type: object
     properties:
       type:
@@ -2708,7 +2938,7 @@ definitions:
     required:
       - type
 responses:
-  '400': &ref_24
+  '400': &ref_25
     description: >
       Something about your request didn't quite make sense. The error message
       should help you figure out what went wrong.
@@ -2740,8 +2970,8 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_17
-  '401': &ref_25
+    schema: *ref_18
+  '401': &ref_26
     description: >
       Did you forget to include a session token in your request? You need to
       include
@@ -2781,8 +3011,8 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_17
-  '403': &ref_26
+    schema: *ref_18
+  '403': &ref_27
     description: >
       You tried to do something that you're not allowed to do, you naughty
       scamp. Check your privileges to see what you're actually allowed to do.
@@ -2815,7 +3045,7 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-  '404': &ref_32
+  '404': &ref_33
     description: |
       The resource you were looking for doesn't exist.
     headers:
@@ -2846,7 +3076,7 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_17
+    schema: *ref_18
   '409':
     description: >
       The preconditions in the request you made could not be met. Check the
@@ -2879,8 +3109,8 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_17
-  '429': &ref_27
+    schema: *ref_18
+  '429': &ref_28
     description: >
       You have made too many requests too quickly. Check the `Retry-After`
       header for an indication of when you might be able to try again.
@@ -2917,7 +3147,7 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-  '500': &ref_28
+  '500': &ref_29
     description: >
       Something has gone terribly wrong. Sorry! The error message may help you
       figure out what went wrong, but it's unlikely that you'll be able to do
@@ -2952,8 +3182,8 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_17
-  '503': &ref_29
+    schema: *ref_18
+  '503': &ref_30
     description: >
       The service is temporarily unavailable, likely due to maintenance. It
       should be available soon, check the `Retry-After` header for an indication
@@ -2991,9 +3221,9 @@ responses:
           If this API endpoint has been deprecated, a `Link` header with the
           `sunset` relation type may be present with a link to human-readable
           article describing the API change.
-    schema: *ref_17
+    schema: *ref_18
 parameters:
-  apiversion: &ref_22
+  apiversion: &ref_23
     name: X-Api-Version
     description: |
       The version of the API to use.
@@ -3004,7 +3234,7 @@ parameters:
         - '2018-05-01'
     required: false
     default: '2018-05-01'
-  expand: &ref_18
+  expand: &ref_19
     name: expand
     in: query
     type: string
@@ -3014,7 +3244,7 @@ parameters:
     default: all
     description: |
       A comma-separated list of attributes to expand in the results.
-  cursor: &ref_19
+  cursor: &ref_20
     name: cursor
     in: query
     type: string
@@ -3023,7 +3253,7 @@ parameters:
     description: >
       An encoded value used to retrieve the next set of results for a query that
       returns more than `limit` results.
-  limit: &ref_20
+  limit: &ref_21
     name: limit
     in: query
     type: integer
@@ -3031,7 +3261,7 @@ parameters:
     default: 25
     description: |
       The maximum number of records to return.
-  query: &ref_21
+  query: &ref_22
     name: query
     in: query
     type: string
@@ -3039,7 +3269,7 @@ parameters:
     description: |
       Space-separated strings to search for.
     maxLength: 64
-  dryrunCreate: &ref_31
+  dryrunCreate: &ref_32
     name: dryrun
     in: query
     type: boolean
@@ -3049,7 +3279,7 @@ parameters:
       only be tested for validity and should not actually create a record. The
       response code will indicate whether the request was OK (`200 OK`) or
       whether there was a problem in the request.
-  dryrunUpdate: &ref_33
+  dryrunUpdate: &ref_34
     name: dryrun
     in: query
     type: boolean
@@ -3059,7 +3289,7 @@ parameters:
       only be tested for validity and should not actually modify the record. The
       response code will indicate whether the request was OK (`200 OK`) or
       whether there was a problem in the request.
-  dryrunDelete: &ref_35
+  dryrunDelete: &ref_36
     name: dryrun
     in: query
     type: boolean
@@ -3078,11 +3308,11 @@ paths:
         x-required-privileges:
           - 'identity-providers:list'
       parameters:
-        - *ref_18
         - *ref_19
         - *ref_20
         - *ref_21
         - *ref_22
+        - *ref_23
       description: |
         Retrieve a list of SAML identity providers.
       tags:
@@ -3132,7 +3362,7 @@ paths:
                 description: |
                   The list of SAML identity providers.
                 type: array
-                items: *ref_23
+                items: *ref_24
               next:
                 type: string
                 format: byte
@@ -3142,12 +3372,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     post:
       operationId: createSAMLIdentityProvider
       summary: Create a SAML identity provider
@@ -3165,9 +3395,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_30
-        - *ref_31
-        - *ref_22
+          schema: *ref_31
+        - *ref_32
+        - *ref_23
       responses:
         '200':
           description: >
@@ -3198,7 +3428,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_23
+          schema: *ref_24
         '201':
           description: |
             The response body contains the identity provider details.
@@ -3230,13 +3460,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_23
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_24
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   '/api/identity-providers/saml/{id}':
     parameters:
       - name: id
@@ -3256,8 +3486,8 @@ paths:
       tags:
         - Identity Providers
       parameters:
-        - *ref_18
-        - *ref_22
+        - *ref_19
+        - *ref_23
       produces:
         - application/json
       responses:
@@ -3288,14 +3518,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_23
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_24
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     post:
       operationId: modifySAMLIdentityProvider
       summary: Modify a SAML identity provider
@@ -3313,9 +3543,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_30
-        - *ref_33
-        - *ref_22
+          schema: *ref_31
+        - *ref_34
+        - *ref_23
       responses:
         '200':
           description: |
@@ -3344,14 +3574,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_34
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_35
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     delete:
       operationId: deleteSAMLIdentityProvider
       summary: Delete a SAML identity provider
@@ -3363,8 +3593,8 @@ paths:
       tags:
         - Identity Providers
       parameters:
-        - *ref_35
-        - *ref_22
+        - *ref_36
+        - *ref_23
       responses:
         '200':
           description: >
@@ -3421,12 +3651,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   /api/roles:
     get:
       operationId: listRoles
@@ -3435,11 +3665,11 @@ paths:
         x-required-privileges:
           - 'roles:list'
       parameters:
-        - *ref_18
         - *ref_19
         - *ref_20
         - *ref_21
         - *ref_22
+        - *ref_23
       description: |
         Retrieve a list of roles.
       tags:
@@ -3489,7 +3719,7 @@ paths:
                 description: |
                   The list of roles.
                 type: array
-                items: *ref_34
+                items: *ref_35
               next:
                 type: string
                 format: byte
@@ -3499,12 +3729,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     post:
       operationId: createRole
       summary: Create a role
@@ -3522,9 +3752,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_36
-        - *ref_31
-        - *ref_22
+          schema: *ref_37
+        - *ref_32
+        - *ref_23
       responses:
         '200':
           description: >
@@ -3554,7 +3784,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_34
+          schema: *ref_35
         '201':
           description: |
             The response body contains the role details.
@@ -3586,13 +3816,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_34
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_35
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   '/api/roles/{id}':
     parameters:
       - name: id
@@ -3612,8 +3842,8 @@ paths:
       tags:
         - Roles
       parameters:
-        - *ref_18
-        - *ref_22
+        - *ref_19
+        - *ref_23
       produces:
         - application/json
       responses:
@@ -3644,14 +3874,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_34
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_35
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     post:
       operationId: modifyRole
       summary: Modify a role
@@ -3669,9 +3899,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_36
-        - *ref_33
-        - *ref_22
+          schema: *ref_37
+        - *ref_34
+        - *ref_23
       responses:
         '200':
           description: |
@@ -3700,14 +3930,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_34
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_35
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     delete:
       operationId: deleteRole
       summary: Delete a role
@@ -3719,8 +3949,8 @@ paths:
       tags:
         - Roles
       parameters:
-        - *ref_35
-        - *ref_22
+        - *ref_36
+        - *ref_23
       responses:
         '200':
           description: >
@@ -3777,12 +4007,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   /api/users:
     get:
       operationId: listUsers
@@ -3791,11 +4021,11 @@ paths:
         x-required-privileges:
           - 'users:list'
       parameters:
-        - *ref_18
         - *ref_19
         - *ref_20
         - *ref_21
         - *ref_22
+        - *ref_23
       description: |
         Retrieve a list of users.
       tags:
@@ -3855,12 +4085,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     post:
       operationId: createUser
       summary: Create a user
@@ -3878,9 +4108,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_37
-        - *ref_31
-        - *ref_22
+          schema: *ref_38
+        - *ref_32
+        - *ref_23
       responses:
         '200':
           description: >
@@ -3943,12 +4173,12 @@ paths:
                 version is available or that the API you are using is going to
                 be removed.
           schema: *ref_2
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   '/api/users/{id}':
     parameters:
       - name: id
@@ -3968,8 +4198,8 @@ paths:
       tags:
         - Users
       parameters:
-        - *ref_18
-        - *ref_22
+        - *ref_19
+        - *ref_23
       produces:
         - application/json
       responses:
@@ -4001,13 +4231,13 @@ paths:
                 version is available or that the API you are using is going to
                 be removed.
           schema: *ref_2
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     post:
       operationId: modifyUser
       summary: Modify a user
@@ -4025,9 +4255,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_37
-        - *ref_33
-        - *ref_22
+          schema: *ref_38
+        - *ref_34
+        - *ref_23
       responses:
         '200':
           description: |
@@ -4061,13 +4291,13 @@ paths:
                 version is available or that the API you are using is going to
                 be removed.
           schema: *ref_2
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     delete:
       operationId: deleteUser
       summary: Delete a user
@@ -4079,8 +4309,8 @@ paths:
       tags:
         - Users
       parameters:
-        - *ref_35
-        - *ref_22
+        - *ref_36
+        - *ref_23
       responses:
         '200':
           description: >
@@ -4137,12 +4367,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   '/api/users/{id}/password':
     parameters:
       - name: id
@@ -4168,9 +4398,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_38
-        - *ref_33
-        - *ref_22
+          schema: *ref_39
+        - *ref_34
+        - *ref_23
       responses:
         '200':
           description: |
@@ -4200,12 +4430,12 @@ paths:
                 version is available or that the API you are using is going to
                 be removed.
           schema: *ref_2
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   /api/sessions:
     get:
       operationId: listSessions
@@ -4214,11 +4444,11 @@ paths:
         x-required-privileges:
           - 'sessions:list'
       parameters:
-        - *ref_18
         - *ref_19
         - *ref_20
         - *ref_21
         - *ref_22
+        - *ref_23
       description: |
         Retrieve a list of sessions.
       tags:
@@ -4268,7 +4498,7 @@ paths:
                 description: |
                   The list of sessions.
                 type: array
-                items: *ref_39
+                items: *ref_40
               next:
                 type: string
                 format: byte
@@ -4278,12 +4508,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     post:
       operationId: createSession
       summary: Create a session
@@ -4303,9 +4533,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_40
-        - *ref_31
-        - *ref_22
+          schema: *ref_41
+        - *ref_32
+        - *ref_23
       responses:
         '200':
           description: >
@@ -4335,7 +4565,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_39
+          schema: *ref_40
         '201':
           description: |
             The response body contains the session details.
@@ -4367,13 +4597,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_39
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_40
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   '/api/sessions/{id}':
     parameters:
       - name: id
@@ -4393,8 +4623,8 @@ paths:
       tags:
         - Sessions
       parameters:
-        - *ref_18
-        - *ref_22
+        - *ref_19
+        - *ref_23
       produces:
         - application/json
       responses:
@@ -4425,14 +4655,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_39
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_40
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     post:
       operationId: refreshSession
       summary: Refresh a session
@@ -4445,8 +4675,8 @@ paths:
       tags:
         - Sessions
       parameters:
-        - *ref_33
-        - *ref_22
+        - *ref_34
+        - *ref_23
       produces:
         - application/json
       responses:
@@ -4477,14 +4707,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_39
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_40
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     delete:
       operationId: deleteSession
       summary: Delete a session
@@ -4496,8 +4726,8 @@ paths:
       tags:
         - Sessions
       parameters:
-        - *ref_35
-        - *ref_22
+        - *ref_36
+        - *ref_23
       responses:
         '200':
           description: >
@@ -4554,12 +4784,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   /api/scans:
     get:
       operationId: listScans
@@ -4572,9 +4802,9 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_18
         - *ref_19
         - *ref_20
+        - *ref_21
         - name: registry
           in: query
           type: string
@@ -4623,7 +4853,7 @@ paths:
             provided values. Valid values in the list are `pending`,
             `in-progress`, `completed-with-findings`, `completed-no-findings`,
             `failed`. Invalid values are ignored.
-        - *ref_22
+        - *ref_23
       responses:
         '200':
           description: |
@@ -4657,7 +4887,7 @@ paths:
             properties:
               scans:
                 type: array
-                items: *ref_41
+                items: *ref_42
               next:
                 type: string
                 format: byte
@@ -4667,12 +4897,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'scans:list'
@@ -4690,8 +4920,8 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_42
-        - *ref_22
+          schema: *ref_43
+        - *ref_23
       responses:
         '200':
           description: >
@@ -4721,7 +4951,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_41
+          schema: *ref_42
         '201':
           description: >
             The scan request has been accepted, the scan has been created, and
@@ -4755,13 +4985,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_41
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_42
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'scans:create'
@@ -4774,7 +5004,7 @@ paths:
       tags:
         - Scans
       parameters:
-        - *ref_22
+        - *ref_23
       produces:
         - application/json
       responses:
@@ -4826,12 +5056,12 @@ paths:
                     type: integer
                     description: |
                       The number of scans performed in the time period.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'scans:list'
@@ -4863,7 +5093,7 @@ paths:
           enum:
             - all
             - none
-        - *ref_22
+        - *ref_23
       responses:
         '200':
           description: |
@@ -4892,14 +5122,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_41
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_42
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'scans:describe'
@@ -4927,10 +5157,10 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_18
         - *ref_19
         - *ref_20
-        - *ref_22
+        - *ref_21
+        - *ref_23
       responses:
         '200':
           description: |
@@ -4964,7 +5194,7 @@ paths:
             properties:
               malware:
                 type: array
-                items: *ref_43
+                items: *ref_44
               next:
                 type: string
                 format: byte
@@ -4974,13 +5204,13 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'scans:describe'
@@ -5008,10 +5238,25 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_18
         - *ref_19
         - *ref_20
-        - *ref_22
+        - *ref_21
+        - name: severity
+          in: query
+          required: false
+          type: string
+          description: >
+            A comma-separated list of severities. The response will contain only
+            findings with a severity that is in the list.
+          enum:
+            - defcon1
+            - critical
+            - high
+            - medium
+            - low
+            - negligible
+            - unknown
+        - *ref_23
       responses:
         '200':
           description: |
@@ -5045,7 +5290,7 @@ paths:
             properties:
               vulnerabilities:
                 type: array
-                items: *ref_44
+                items: *ref_45
               next:
                 type: string
                 format: byte
@@ -5055,13 +5300,13 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'scans:describe'
@@ -5089,10 +5334,25 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_18
         - *ref_19
         - *ref_20
-        - *ref_22
+        - *ref_21
+        - name: severity
+          in: query
+          required: false
+          type: string
+          description: >
+            A comma-separated list of severities. The response will contain only
+            findings with a severity that is in the list.
+          enum:
+            - defcon1
+            - critical
+            - high
+            - medium
+            - low
+            - negligible
+            - unknown
+        - *ref_23
       responses:
         '200':
           description: |
@@ -5126,7 +5386,7 @@ paths:
             properties:
               contents:
                 type: array
-                items: *ref_45
+                items: *ref_46
               next:
                 type: string
                 format: byte
@@ -5136,13 +5396,239 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
+      x-security:
+        x-required-privileges:
+          - 'scans:describe'
+  '/api/scans/{id}/checklists':
+    parameters:
+      - name: id
+        description: |
+          The scan ID.
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: listChecklists
+      summary: List configuration checklists
+      description: |
+        List configuration checklists.
+      tags:
+        - Scans
+      produces:
+        - application/json
+      parameters:
+        - *ref_20
+        - *ref_19
+        - *ref_21
+        - *ref_23
+      responses:
+        '200':
+          description: |
+            The response body contains the list of configuration checklists.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema:
+            type: object
+            properties:
+              checklists:
+                type: array
+                items: *ref_47
+                next:
+                  type: string
+                  format: byte
+                  example: >-
+                    dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
+                  description: >
+                    An encoded value that you can use to retrieve the next set
+                    of results for a query. If `next` is not present, then there
+                    are no more results available.
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
+      x-security:
+        x-required-privileges:
+          - 'scans:describe'
+  '/api/scans/{id}/checklists/{checklistID}':
+    parameters:
+      - name: id
+        description: |
+          The scan ID.
+        in: path
+        required: true
+        type: string
+      - name: checklistID
+        description: |
+          The checklist ID.
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: describeChecklist
+      summary: Describe configuration checklists
+      description: |
+        Describe configuration checklists.
+      tags:
+        - Scans
+      produces:
+        - application/json
+      parameters:
+        - *ref_23
+        - *ref_19
+      responses:
+        '200':
+          description: |
+            The response body contains the checklist object.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_47
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
+      x-security:
+        x-required-privileges:
+          - 'scans:describe'
+  '/api/scans/{id}/checklists/{checklistID}/profiles/{profileID}/rules':
+    parameters:
+      - name: id
+        description: |
+          The scan ID.
+        in: path
+        required: true
+        type: string
+      - name: checklistID
+        description: |
+          The checklist ID.
+        in: path
+        required: true
+        type: string
+      - name: profileID
+        description: |
+          The profile ID.
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: listChecklistProfileRules
+      summary: List rules for a certain profile on a configuration checklist
+      description: |
+        List rules for a certain profile on a configuration checklist.
+      tags:
+        - Scans
+      produces:
+        - application/json
+      parameters:
+        - *ref_20
+        - *ref_21
+        - *ref_23
+      responses:
+        '200':
+          description: |
+            The response body contains the list of rules.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema:
+            type: object
+            properties:
+              rules:
+                type: array
+                items: *ref_48
+              next:
+                type: string
+                format: byte
+                example: >-
+                  dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
+                description: >
+                  An encoded value that you can use to retrieve the next set of
+                  results for a query. If `next` is not present, then there are
+                  no more results available.
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'scans:describe'
@@ -5151,10 +5637,10 @@ paths:
       operationId: listWebhooks
       summary: List web hooks
       parameters:
-        - *ref_18
         - *ref_19
         - *ref_20
-        - *ref_22
+        - *ref_21
+        - *ref_23
       description: |
         Retrieve a list of web hooks.
       tags:
@@ -5194,7 +5680,7 @@ paths:
             properties:
               webhooks:
                 type: array
-                items: *ref_46
+                items: *ref_49
               next:
                 type: string
                 format: byte
@@ -5204,12 +5690,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'webhooks:list'
@@ -5227,8 +5713,8 @@ paths:
       parameters:
         - in: body
           name: request
-          schema: *ref_7
-        - *ref_22
+          schema: *ref_5
+        - *ref_23
       responses:
         '200':
           description: >
@@ -5258,7 +5744,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_46
+          schema: *ref_49
         '201':
           description: |
             The web hook has been created.
@@ -5291,13 +5777,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_46
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_49
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'webhooks:create'
@@ -5319,7 +5805,7 @@ paths:
       tags:
         - Web hooks
       parameters:
-        - *ref_22
+        - *ref_23
       responses:
         '200':
           description: |
@@ -5348,14 +5834,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_46
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_49
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'webhooks:describe'
@@ -5371,14 +5857,14 @@ paths:
       tags:
         - Web hooks
       parameters:
-        - *ref_22
+        - *ref_23
       responses:
         '200':
           description: >
             The web hook has been modified. Future calls to the web hook will
             contain the modified values. The response body contains the modified
             web hook object.
-          schema: *ref_46
+          schema: *ref_49
           headers:
             Sunset:
               type: string
@@ -5403,13 +5889,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'webhooks:modify'
@@ -5421,7 +5907,7 @@ paths:
       tags:
         - Web hooks
       parameters:
-        - *ref_22
+        - *ref_23
       responses:
         '200':
           description: >
@@ -5478,12 +5964,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'webhooks:delete'
@@ -5503,7 +5989,7 @@ paths:
       tags:
         - Web hooks
       parameters:
-        - *ref_22
+        - *ref_23
       responses:
         '204':
           description: |
@@ -5559,375 +6045,16 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_17
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_18
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'webhooks:describe'
-  '/api/webhooks/{id}/headers':
-    parameters:
-      - name: id
-        description: |
-          The web hook ID.
-        in: path
-        required: true
-        type: string
-    get:
-      deprecated: true
-      operationId: listWebhookHeaders
-      summary: List web hook headers
-      description: >
-        Get the list of user-defined headers to include in calls to the web
-        hook.
-      produces:
-        - application/json
-      tags:
-        - Web hooks
-      parameters:
-        - *ref_22
-      responses:
-        '200':
-          description: |
-            The response body contains the list of web hook header objects.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                If present, this API endpoint has been deprecated and may be
-                removed at any point after the reported date. The timestamp is
-                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
-                GMT`.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-          schema:
-            type: object
-            properties:
-              headers:
-                type: array
-                items: *ref_4
-              next:
-                type: string
-                format: byte
-                example: >-
-                  dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
-                description: >
-                  An encoded value that you can use to retrieve the next set of
-                  results for a query. If `next` is not present, then there are
-                  no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
-      x-security:
-        x-required-privileges:
-          - 'webhooks:describe'
-    post:
-      deprecated: true
-      operationId: createWebhookHeader
-      summary: Create a web hook header
-      description: |
-        Add a user-defined header to include in calls to the web hook.
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      tags:
-        - Web hooks
-      parameters:
-        - *ref_22
-      responses:
-        '200':
-          description: >
-            The response body contains the web hook header details. This
-            response will only be returned if the `dryrun=true` query parameter
-            was sent.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                If present, this API endpoint has been deprecated and may be
-                removed at any point after the reported date. The timestamp is
-                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
-                GMT`.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-          schema: *ref_4
-        '201':
-          description: |
-            The web hook header has been created.
-          headers:
-            Location:
-              description: |
-                The web hook header URL.
-              type: string
-              example: '/api/webhooks/{id}/headers/{headerID}'
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                If present, this API endpoint has been deprecated and may be
-                removed at any point after the reported date. The timestamp is
-                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
-                GMT`.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-          schema: *ref_4
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
-      x-security:
-        x-required-privileges:
-          - 'webhooks:modify'
-  '/api/webhooks/{id}/headers/{headerID}':
-    parameters:
-      - name: id
-        description: |
-          The web hook ID.
-        in: path
-        required: true
-        type: string
-      - name: headerID
-        description: |
-          The web hook header ID.
-        in: path
-        required: true
-        type: string
-    get:
-      deprecated: true
-      operationId: describeWebhookHeader
-      summary: Describe a web hook header
-      description: |
-        Retrieve web hook header details.
-      produces:
-        - application/json
-      tags:
-        - Web hooks
-      parameters:
-        - *ref_22
-      responses:
-        '200':
-          description: |
-            The response body contains the web hook header object.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                If present, this API endpoint has been deprecated and may be
-                removed at any point after the reported date. The timestamp is
-                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
-                GMT`.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-          schema: *ref_46
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
-      x-security:
-        x-required-privileges:
-          - 'webhooks:describe'
-    post:
-      deprecated: true
-      operationId: modifyWebhookHeader
-      summary: Modify a web hook header
-      description: |
-        Update the web hook header.
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      tags:
-        - Web hooks
-      parameters:
-        - *ref_22
-      responses:
-        '200':
-          description: >
-            The web hook header has been updated. Future calls to the web hook
-            will contain the updated values. The response body contains the
-            updated web hook header object.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                If present, this API endpoint has been deprecated and may be
-                removed at any point after the reported date. The timestamp is
-                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
-                GMT`.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-          schema: *ref_4
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
-      x-security:
-        x-required-privileges:
-          - 'webhooks:modify'
-    delete:
-      deprecated: true
-      operationId: deleteWebhookHeader
-      summary: Delete a web hook header
-      description: |
-        Delete the web hook header.
-      tags:
-        - Web hooks
-      parameters:
-        - *ref_22
-      responses:
-        '200':
-          description: >
-            The web hook header would be deleted if the `dryrun=true` parameter
-            was not present.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                If present, this API endpoint has been deprecated and may be
-                removed at any point after the reported date. The timestamp is
-                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
-                GMT`.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-        '204':
-          description: >
-            The web hook header has been deleted and will no longer be included
-            in future calls to the web hook.
-          headers:
-            Sunset:
-              type: string
-              format: datetime
-              description: >
-                If present, this API endpoint has been deprecated and may be
-                removed at any point after the reported date. The timestamp is
-                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
-                GMT`.
-            X-Request-Id:
-              type: string
-              description: |
-                The request ID assigned to this request.
-            X-Api-Version:
-              type: string
-              description: |
-                The API version used in this request.
-            X-Api-Notice:
-              type: string
-              description: >
-                If present, this header will include important API information.
-                We will use this header as one way to notify you that a new API
-                version is available or that the API you are using is going to
-                be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
-      x-security:
-        x-required-privileges:
-          - 'webhooks:modify'
   /api/collections:
     get:
       operationId: listCollections
@@ -5937,11 +6064,11 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_18
         - *ref_19
-        - *ref_21
         - *ref_20
         - *ref_22
+        - *ref_21
+        - *ref_23
       tags:
         - Content scan
       responses:
@@ -5977,7 +6104,7 @@ paths:
             properties:
               collections:
                 type: array
-                items: *ref_47
+                items: *ref_50
               next:
                 type: string
                 format: byte
@@ -5987,12 +6114,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'collections:list'
@@ -6011,9 +6138,9 @@ paths:
       parameters:
         - in: body
           name: request
-          schema: *ref_48
-        - *ref_31
-        - *ref_22
+          schema: *ref_51
+        - *ref_32
+        - *ref_23
       responses:
         '200':
           description: >
@@ -6047,7 +6174,7 @@ paths:
         '201':
           description: |
             The content scan ruleset has been created.
-          schema: *ref_47
+          schema: *ref_50
           headers:
             Location:
               description: |
@@ -6076,12 +6203,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'collections:create'
@@ -6103,7 +6230,7 @@ paths:
       tags:
         - Content scan
       parameters:
-        - *ref_22
+        - *ref_23
       responses:
         '200':
           description: |
@@ -6137,14 +6264,14 @@ paths:
             properties:
               rulesets:
                 type: array
-                items: *ref_47
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+                items: *ref_50
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'collections:describe'
@@ -6163,15 +6290,15 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_49
-        - *ref_33
-        - *ref_22
+          schema: *ref_52
+        - *ref_34
+        - *ref_23
       responses:
         '200':
           description: >
             The collection has been updated. The response body contains the
             updated content scan ruleset collection object.
-          schema: *ref_47
+          schema: *ref_50
           headers:
             Location:
               description: |
@@ -6200,13 +6327,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'collections:modify'
@@ -6218,8 +6345,8 @@ paths:
       tags:
         - Content scan
       parameters:
-        - *ref_35
-        - *ref_22
+        - *ref_36
+        - *ref_23
       responses:
         '200':
           description: >
@@ -6276,12 +6403,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'collections:delete'
@@ -6302,10 +6429,10 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_19
-        - *ref_21
         - *ref_20
         - *ref_22
+        - *ref_21
+        - *ref_23
       tags:
         - Content scan
       responses:
@@ -6341,7 +6468,7 @@ paths:
             properties:
               rulesets:
                 type: array
-                items: *ref_6
+                items: *ref_4
               next:
                 type: string
                 format: byte
@@ -6351,13 +6478,13 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'collections:list'
@@ -6375,9 +6502,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_5
-        - *ref_31
-        - *ref_22
+          schema: *ref_3
+        - *ref_32
+        - *ref_23
       responses:
         '200':
           description: >
@@ -6410,7 +6537,7 @@ paths:
         '201':
           description: |
             The content scan ruleset has been created.
-          schema: *ref_6
+          schema: *ref_4
           headers:
             Location:
               description: |
@@ -6439,13 +6566,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'rulesets:create'
@@ -6471,7 +6598,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_22
+        - *ref_23
       tags:
         - Content scan
       responses:
@@ -6502,14 +6629,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_6
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_4
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'rulesets:describe'
@@ -6528,15 +6655,15 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_5
-        - *ref_33
-        - *ref_22
+          schema: *ref_3
+        - *ref_34
+        - *ref_23
       responses:
         '200':
           description: >
             The content scan ruleset has been updated. The response body
             contains the updated ruleset object.
-          schema: *ref_6
+          schema: *ref_4
           headers:
             Location:
               description: |
@@ -6565,13 +6692,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'rulesets:modify'
@@ -6583,8 +6710,8 @@ paths:
       tags:
         - Content scan
       parameters:
-        - *ref_35
-        - *ref_22
+        - *ref_36
+        - *ref_23
       responses:
         '200':
           description: >
@@ -6641,13 +6768,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'rulesets:delete'
@@ -6658,10 +6785,10 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_19
-        - *ref_21
         - *ref_20
         - *ref_22
+        - *ref_21
+        - *ref_23
       tags:
         - Overrides
       responses:
@@ -6698,7 +6825,7 @@ paths:
             properties:
               vulnerabilities:
                 type: array
-                items: *ref_15
+                items: *ref_13
               next:
                 type: string
                 format: byte
@@ -6708,12 +6835,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'overrides:list'
@@ -6731,9 +6858,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_50
-        - *ref_31
-        - *ref_22
+          schema: *ref_53
+        - *ref_32
+        - *ref_23
       responses:
         '200':
           description: >
@@ -6766,7 +6893,7 @@ paths:
         '201':
           description: |
             The override has been created.
-          schema: *ref_15
+          schema: *ref_13
           headers:
             Location:
               description: |
@@ -6795,12 +6922,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'overrides:create'
@@ -6822,7 +6949,7 @@ paths:
       tags:
         - Overrides
       parameters:
-        - *ref_22
+        - *ref_23
       responses:
         '200':
           description: |
@@ -6851,14 +6978,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_15
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_13
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'overrides:describe'
@@ -6876,15 +7003,15 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_50
-        - *ref_33
-        - *ref_22
+          schema: *ref_53
+        - *ref_34
+        - *ref_23
       responses:
         '200':
           description: >
             The override has been updated. The response body contains the
             updated override object.
-          schema: *ref_15
+          schema: *ref_13
           headers:
             Sunset:
               type: string
@@ -6909,13 +7036,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'overrides:modify'
@@ -6927,8 +7054,8 @@ paths:
       tags:
         - Overrides
       parameters:
-        - *ref_35
-        - *ref_22
+        - *ref_36
+        - *ref_23
       responses:
         '200':
           description: >
@@ -6985,12 +7112,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'overrides:delete'
@@ -7001,10 +7128,10 @@ paths:
       produces:
         - application/json
       parameters:
-        - *ref_19
-        - *ref_21
         - *ref_20
         - *ref_22
+        - *ref_21
+        - *ref_23
       tags:
         - Overrides
       responses:
@@ -7041,7 +7168,7 @@ paths:
             properties:
               contents:
                 type: array
-                items: *ref_16
+                items: *ref_14
               next:
                 type: string
                 format: byte
@@ -7051,12 +7178,12 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'overrides:list'
@@ -7074,9 +7201,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_51
-        - *ref_31
-        - *ref_22
+          schema: *ref_54
+        - *ref_32
+        - *ref_23
       responses:
         '200':
           description: >
@@ -7109,7 +7236,7 @@ paths:
         '201':
           description: |
             The override has been created.
-          schema: *ref_16
+          schema: *ref_14
           headers:
             Location:
               description: |
@@ -7138,12 +7265,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'overrides:create'
@@ -7165,7 +7292,7 @@ paths:
       tags:
         - Overrides
       parameters:
-        - *ref_22
+        - *ref_23
       responses:
         '200':
           description: |
@@ -7194,14 +7321,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_16
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_14
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'overrides:describe'
@@ -7219,15 +7346,15 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_51
-        - *ref_33
-        - *ref_22
+          schema: *ref_54
+        - *ref_34
+        - *ref_23
       responses:
         '200':
           description: >
             The override has been updated. The response body contains the
             updated override object.
-          schema: *ref_16
+          schema: *ref_14
           headers:
             Sunset:
               type: string
@@ -7252,13 +7379,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'overrides:modify'
@@ -7270,8 +7397,8 @@ paths:
       tags:
         - Overrides
       parameters:
-        - *ref_35
-        - *ref_22
+        - *ref_36
+        - *ref_23
       responses:
         '200':
           description: >
@@ -7328,12 +7455,12 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
       x-security:
         x-required-privileges:
           - 'overrides:delete'
@@ -7349,10 +7476,10 @@ paths:
       tags:
         - Registries
       parameters:
-        - *ref_19
         - *ref_20
         - *ref_21
         - *ref_22
+        - *ref_23
       produces:
         - application/json
       responses:
@@ -7398,7 +7525,7 @@ paths:
                 type: array
                 description: |
                   The list of registries.
-                items: *ref_52
+                items: *ref_55
               next:
                 type: string
                 format: byte
@@ -7408,13 +7535,13 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     post:
       operationId: createRegistry
       summary: Create a registry
@@ -7432,8 +7559,8 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_53
-        - *ref_31
+          schema: *ref_56
+        - *ref_32
         - name: ping
           in: query
           type: boolean
@@ -7441,7 +7568,7 @@ paths:
           description: >
             Use `false` to disable automatic checking of the registry host and
             credentials during the update.
-        - *ref_22
+        - *ref_23
       responses:
         '200':
           description: >
@@ -7471,7 +7598,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_52
+          schema: *ref_55
         '201':
           description: |
             The response body contains the registry details.
@@ -7503,14 +7630,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_52
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_55
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   '/api/registries/{id}':
     parameters:
       - name: id
@@ -7531,7 +7658,7 @@ paths:
       tags:
         - Registries
       parameters:
-        - *ref_22
+        - *ref_23
       produces:
         - application/json
       responses:
@@ -7562,14 +7689,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_52
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_55
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     post:
       operationId: modifyRegistry
       summary: Modify a registry
@@ -7587,8 +7714,8 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_53
-        - *ref_33
+          schema: *ref_56
+        - *ref_34
         - name: ping
           in: query
           type: boolean
@@ -7596,7 +7723,7 @@ paths:
           description: >
             Use `false` to disable automatic checking of the registry host and
             credentials during the update.
-        - *ref_22
+        - *ref_23
       responses:
         '200':
           description: |
@@ -7625,14 +7752,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_52
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_55
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
     delete:
       operationId: deleteRegistry
       summary: Delete a registry
@@ -7644,8 +7771,8 @@ paths:
       tags:
         - Registries
       parameters:
-        - *ref_35
-        - *ref_22
+        - *ref_36
+        - *ref_23
       responses:
         '200':
           description: >
@@ -7702,13 +7829,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   '/api/registries/{id}/scans':
     post:
       operationId: createScan
@@ -7727,9 +7854,9 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_54
-        - *ref_31
-        - *ref_22
+          schema: *ref_57
+        - *ref_32
+        - *ref_23
       responses:
         '200':
           description: >
@@ -7759,7 +7886,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_41
+          schema: *ref_42
         '201':
           description: |
             The response body contains the scan details.
@@ -7791,14 +7918,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_41
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_42
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   '/api/registries/{id}/images':
     parameters:
       - name: id
@@ -7819,7 +7946,7 @@ paths:
       tags:
         - Registries
       parameters:
-        - *ref_22
+        - *ref_23
       produces:
         - application/json
       responses:
@@ -7858,7 +7985,7 @@ paths:
                 type: array
                 description: |
                   The list of images.
-                items: *ref_55
+                items: *ref_58
               next:
                 type: string
                 format: byte
@@ -7868,13 +7995,13 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   '/api/registries/{id}/images/{imageID}':
     parameters:
       - name: id
@@ -7902,7 +8029,7 @@ paths:
       tags:
         - Registries
       parameters:
-        - *ref_22
+        - *ref_23
       produces:
         - application/json
       responses:
@@ -7933,14 +8060,14 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_55
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '404': *ref_32
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_58
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   /api/registries/dashboard:
     get:
       operationId: describeDashboard
@@ -7953,7 +8080,7 @@ paths:
       tags:
         - Registries
       parameters:
-        - *ref_22
+        - *ref_23
       produces:
         - application/json
       responses:
@@ -7984,13 +8111,13 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_56
-        '400': *ref_24
-        '401': *ref_25
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_59
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
   /api/license:
     get:
       operationId: describeLicense
@@ -8013,7 +8140,7 @@ paths:
             Include the `entitlements` query parameter and its companion `count`
             (if applicable) to check whether the current license entitles use of
             the requested number of the specified resource.
-        - *ref_22
+        - *ref_23
       responses:
         '200':
           description: >
@@ -8046,9 +8173,9 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API version you are using is
                 going to be removed.
-          schema: *ref_57
-        '400': *ref_24
-        '401': *ref_25
+          schema: *ref_60
+        '400': *ref_25
+        '401': *ref_26
         '402':
           description: >
             The current license entitlements are not sufficient for the
@@ -8077,8 +8204,8 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API version you are using is
                 going to be removed.
-          schema: *ref_57
-        '403': *ref_26
-        '429': *ref_27
-        '500': *ref_28
-        '503': *ref_29
+          schema: *ref_60
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30

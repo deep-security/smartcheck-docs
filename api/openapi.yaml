@@ -60,6 +60,9 @@ definitions:
         description: |
           The user's new password.
         maxLength: 1024
+    required:
+      - oldPassword
+      - newPassword
   UserRequest: &ref_38
     type: object
     properties:
@@ -159,7 +162,6 @@ definitions:
       - userID
       - role
       - created
-      - updated
   RoleRequest: &ref_37
     type: object
     properties:
@@ -263,11 +265,11 @@ definitions:
         description: |
           The time that the role was last modified.
     required:
+      - id
       - href
       - name
       - policies
       - created
-      - updated
   Policy: *ref_0
   Statement: *ref_1
   SessionRequest: &ref_41
@@ -362,6 +364,11 @@ definitions:
           can set this by including a `RoleSessionName` claim in the SAML
           response.
         example: alice
+    required:
+      - id
+      - href
+      - created
+      - expires
   SAMLIdentityProviderRequest: &ref_31
     type: object
     properties:
@@ -528,6 +535,13 @@ definitions:
           The time that the identity provider was last modified. If the
           `metadataURL` is present, Deep Security Smart Check will periodically
           retrieve the identity provider metadata.
+    required:
+      - id
+      - href
+      - name
+      - validUntil
+      - status
+      - created
   Error: &ref_18
     type: object
     properties:
@@ -620,31 +634,6 @@ definitions:
             - scan-started
             - scan-completed
             - '*'
-        maxLength: 10
-      headers:
-        description: >
-          (optional) You can include your own headers in the web hook request.
-          Use these to provide additional context or authentication information
-          to your web hook receiver.
-        type: array
-        items: &ref_17
-          type: object
-          properties:
-            name:
-              description: The header name.
-              type: string
-              example: Authorization
-              maxLength: 128
-            value:
-              description: The header value.
-              type: string
-              example: >-
-                Bearer
-                9515e65f46cb737cd8c191db2fd80bbd05686e5992b241e8ad7727510b7142e6
-              maxLength: 255
-          required:
-            - name
-            - value
         maxLength: 10
     required:
       - hookURL
@@ -1018,7 +1007,7 @@ definitions:
             type: string
             example: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==
             description: >
-              (optional, default: `null`) If present, the web hook will use the
+              (optional, default: `null`) If present, the scan will use the
               provided root CAs as the trusted root CAs for HTTPS source
               requests. The value should be a base-64 encoded list of
               PEM-encoded certificates. If not present, source requests will use
@@ -1082,11 +1071,11 @@ definitions:
         type: string
         example: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCi4uLiBhbmQgc28gb24gLi4uCg==
         description: >
-          (optional, default: `null`) If present, the web hook will use the
-          provided root CAs as the trusted root CAs for HTTPS web hook requests.
-          The value should be a base-64 encoded list of PEM-encoded
-          certificates. If not present, the web hook will use a set of built-in
-          trusted root CAs.
+          (optional, default: `null`) If present, the scan will use the provided
+          root CAs as the trusted root CAs for HTTPS web hook requests. The
+          value should be a base-64 encoded list of PEM-encoded certificates. If
+          not present, source requests will use a set of built-in trusted root
+          CAs.
 
           If `insecureSkipVerify` is set to `true`, then the root CAs are not
           checked.
@@ -1417,6 +1406,9 @@ definitions:
                               description: >
                                 The number of content findings with unknown
                                 severity that were found.
+                      required:
+                        - total
+                        - unresolved
                     vulnerabilities:
                       type: object
                       description: |
@@ -1506,6 +1498,9 @@ definitions:
                               description: >
                                 The number of vulnerabilities with unknown
                                 severity that were found.
+                      required:
+                        - total
+                        - unresolved
                     checklists:
                       type: object
                       description: |
@@ -1592,6 +1587,18 @@ definitions:
                               description: >
                                 The number of security checklist findings with
                                 unknown severity.
+                      required:
+                        - total
+                        - unresolved
+                  required:
+                    - scanners
+                    - contents
+                    - vulnerabilities
+                    - checklists
+                    - malware
+              required:
+                - id
+                - findings
         required:
           - requested
           - results
@@ -1606,6 +1613,8 @@ definitions:
   LayerResults: *ref_11
   MalwareScanResult: &ref_44
     type: object
+    required:
+      - filename
     properties:
       filename:
         type: string
@@ -1820,6 +1829,10 @@ definitions:
                     Allowing CVE-2019-00000 for 30 days. Contact
                     alice@example.com for details.
                   maxLength: 2048
+              required:
+                - id
+                - href
+                - created
             link:
               type: string
               description: |
@@ -1913,6 +1926,7 @@ definitions:
     required:
       - name
       - vulnerabilities
+      - findings
   ContentScanResult: &ref_46
     required:
       - filename
@@ -2041,6 +2055,10 @@ definitions:
               Allowing demo.pem private key for 30 days. Contact
               alice@example.com for details.
             maxLength: 2048
+        required:
+          - id
+          - href
+          - created
   Vulnerability: *ref_12
   VulnerabilityFindingOverride: *ref_13
   VulnerabilityFindingOverrideRequest: &ref_53
@@ -2225,12 +2243,14 @@ definitions:
                     description: |
                       The scoring model name.
                   maximum:
-                    type: float
+                    type: number
+                    format: float
                     example: 100
                     description: |
                       Maximum value for this score.
                   value:
-                    type: float
+                    type: number
+                    format: float
                     example: 90
                     description: |
                       The score value.
@@ -2240,6 +2260,9 @@ definitions:
               type: object
               description: |
                 The number of rules run by results in the profile.
+              required:
+                - total
+                - unresolved
               properties:
                 total:
                   type: object
@@ -2324,7 +2347,8 @@ definitions:
         description: |
           The CCE(Common Configuration Enumeration) identifier number.
       weight:
-        type: float
+        type: number
+        format: float
         example: 1
         description: |
           The weight value of this rule.
@@ -2333,7 +2357,154 @@ definitions:
         example: pass
         description: |
           The test result of this rule.
-  RegistryScanRequest: &ref_57
+      override: &ref_17
+        type: object
+        properties:
+          id:
+            description: |
+              The unique ID assigned to this override.
+            type: string
+            example: 7a2f1d8c-7780-41d2-821b-7230005d4be8
+          href:
+            description: |
+              The URL to the override.
+            type: string
+            example: /api/overrides/checklists/7a2f1d8c-7780-41d2-821b-7230005d4be8
+          identifier:
+            description: |
+              The identifier for the finding being overridden.
+            type: string
+            example: CCE-26876-3
+            maxLength: 64
+          profile:
+            description: >
+              The profile for the identifier that is being overridden. Use `*`
+              to override findings for all profiles.
+            type: string
+            example: pci-dss
+            maxLength: 64
+          checklist:
+            description: >
+              The checklist for the profile that is being overridden. Use `*` to
+              override findings for all checklists.
+            type: string
+            example: TMCG
+            maxLength: 64
+          registry:
+            description: >
+              The image registry where the finding is overridden. Use `*` to
+              override findings in all registries.
+            type: string
+            example: registry.example.com
+            maxLength: 255
+          repository:
+            description: >
+              The image repository where the finding is overridden. Use `*` to
+              override findings in all repositories. Use `organization/*` to
+              override findings in all repositories under `organization`.
+            type: string
+            example: organization/project
+            maxLength: 255
+          tag:
+            description: >
+              The image tag where the finding is overridden. Use `*` to override
+              findings in all image tags.
+            type: string
+            example: latest
+            maxLength: 255
+          created:
+            description: |
+              The time that the override was created.
+            type: string
+            format: date-time
+            example: '2019-03-01T00:00:00Z'
+          updated:
+            description: |
+              The time that the override was last updated.
+            type: string
+            format: date-time
+            example: '2019-03-01T00:00:00Z'
+          expires:
+            description: >
+              The time that the override expires. If not present, the override
+              will not expire.
+            type: string
+            format: date-time
+            example: '2019-04-01T00:00:00Z'
+          comment:
+            description: |
+              A free-form comment field for your notes.
+            type: string
+            example: >-
+              Allowing CCE-26876-3 for 30 days. Contact alice@example.com for
+              details.
+            maxLength: 2048
+        required:
+          - id
+          - href
+          - created
+  ChecklistFindingOverride: *ref_17
+  ChecklistFindingOverrideRequest: &ref_55
+    type: object
+    properties:
+      identifier:
+        description: |
+          The identifier for the finding being overridden.
+        type: string
+        example: CCE-26876-3
+        maxLength: 64
+      profile:
+        description: >
+          The profile for the identifier that is being overridden. Use `*` to
+          override findings for all profiles.
+        type: string
+        example: pci-dss
+        maxLength: 64
+      checklist:
+        description: >
+          The checklist for the profile that is being overridden. Use `*` to
+          override findings for all checklists.
+        type: string
+        example: TMCG
+        maxLength: 64
+      registry:
+        description: >
+          The image registry where the finding is overridden. Use `*` to
+          override findings in all registries.
+        type: string
+        example: registry.example.com
+        maxLength: 255
+      repository:
+        description: >
+          The image repository where the finding is overridden. Use `*` to
+          override findings in all repositories. Use `organization/*` to
+          override findings in all repositories under `organization`.
+        type: string
+        example: organization/project
+        maxLength: 255
+      tag:
+        description: >
+          The image tag where the finding is overridden. Use `*` to override
+          findings in all image tags.
+        type: string
+        example: latest
+        maxLength: 255
+      expires:
+        description: >
+          The time that the override expires. If not present, the override will
+          not expire.
+        type: string
+        format: date-time
+        example: '2019-04-01T00:00:00Z'
+      comment:
+        description: |
+          A free-form comment field for your notes.
+        type: string
+        example: >-
+          Allowing CCE-26876-3 for 30 days. Contact alice@example.com for
+          details.
+        maxLength: 2048
+  RegistryScanRequest: &ref_58
     type: object
     properties:
       name:
@@ -2372,8 +2543,7 @@ definitions:
           scan.
         type: array
         items: *ref_5
-  WebhookHeaderRequest: *ref_17
-  RegistriesDashboard: &ref_59
+  RegistriesDashboard: &ref_60
     type: object
     properties:
       content:
@@ -2393,6 +2563,9 @@ definitions:
             type: integer
             description: |
               The number of images in all registries.
+        required:
+          - repositories
+          - images
       scans:
         type: object
         description: >
@@ -2424,6 +2597,12 @@ definitions:
             description: >
               The number of images in all registries that have been scanned and
               have encountered errors during the scan.
+        required:
+          - pending
+          - inProgress
+          - ok
+          - warnings
+          - errors
       findings: *ref_9
       history:
         type: object
@@ -2452,7 +2631,15 @@ definitions:
                   The number of scans performed on images in all registries in
                   the time period. Will be `-1` if there was an error
                   calculating the value.
-  Image: &ref_58
+        required:
+          - 1d
+          - 1w
+    required:
+      - content
+      - scans
+      - findings
+      - history
+  Image: &ref_59
     type: object
     properties:
       registry:
@@ -2503,8 +2690,7 @@ definitions:
       - tag
       - digest
       - status
-      - updated
-  RegistryRequest: &ref_56
+  RegistryRequest: &ref_57
     type: object
     properties:
       name:
@@ -2685,7 +2871,7 @@ definitions:
         type: boolean
         description: |
           If `true`, this registry will be scheduled for daily re-scan.
-  Registry: &ref_55
+  Registry: &ref_56
     type: object
     description: |
       The registry object. Credentials will not be included in this object.
@@ -2823,6 +3009,12 @@ definitions:
                 description: >
                   The number of images in the registry that have been scanned
                   and have encountered errors during the scan.
+            required:
+              - pending
+              - inProgress
+              - ok
+              - warnings
+              - errors
           findings: *ref_9
           history:
             type: object
@@ -2851,6 +3043,14 @@ definitions:
                       The number of scans performed on images in the registry in
                       the time period. Will be `-1` if there was an error
                       calculating the value.
+            required:
+              - 1d
+              - 1w
+        required:
+          - content
+          - scans
+          - findings
+          - history
       schedule:
         type: boolean
         description: |
@@ -2890,11 +3090,13 @@ definitions:
         description: |
           The time that the registry connection was last modified.
     required:
+      - id
+      - href
       - name
+      - metrics
       - status
       - created
-      - updated
-  License: &ref_60
+  License: &ref_61
     type: object
     properties:
       type:
@@ -3372,6 +3574,8 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+            required:
+              - providers
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -3470,8 +3674,8 @@ paths:
   '/api/identity-providers/saml/{id}':
     parameters:
       - name: id
-        example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
         in: path
+        required: true
         type: string
         description: |
           The system-assigned identity provider ID.
@@ -3729,6 +3933,8 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+            required:
+              - roles
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -3828,6 +4034,7 @@ paths:
       - name: id
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
         in: path
+        required: true
         type: string
         description: |
           The system-assigned role ID.
@@ -4085,6 +4292,8 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+            required:
+              - users
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -4184,6 +4393,7 @@ paths:
       - name: id
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
         in: path
+        required: true
         type: string
         description: |
           The system-assigned user ID.
@@ -4378,6 +4588,7 @@ paths:
       - name: id
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
         in: path
+        required: true
         type: string
         description: |
           The system-assigned user ID.
@@ -4508,6 +4719,8 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+            required:
+              - sessions
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -4609,6 +4822,7 @@ paths:
       - name: id
         example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
         in: path
+        required: true
         type: string
         description: |
           The system-assigned session ID.
@@ -5462,15 +5676,15 @@ paths:
               checklists:
                 type: array
                 items: *ref_47
-                next:
-                  type: string
-                  format: byte
-                  example: >-
-                    dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
-                  description: >
-                    An encoded value that you can use to retrieve the next set
-                    of results for a query. If `next` is not present, then there
-                    are no more results available.
+              next:
+                type: string
+                format: byte
+                example: >-
+                  dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
+                description: >
+                  An encoded value that you can use to retrieve the next set of
+                  results for a query. If `next` is not present, then there are
+                  no more results available.
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -6114,6 +6328,8 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+            required:
+              - collections
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -6478,6 +6694,8 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+            required:
+              - rulesets
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -6823,7 +7041,7 @@ paths:
           schema:
             type: object
             properties:
-              vulnerabilities:
+              overrides:
                 type: array
                 items: *ref_13
               next:
@@ -6835,6 +7053,8 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+            required:
+              - overrides
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -7166,7 +7386,7 @@ paths:
           schema:
             type: object
             properties:
-              contents:
+              overrides:
                 type: array
                 items: *ref_14
               next:
@@ -7178,6 +7398,8 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+            required:
+              - overrides
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -7464,6 +7686,351 @@ paths:
       x-security:
         x-required-privileges:
           - 'overrides:delete'
+  /api/overrides/checklists:
+    get:
+      operationId: listChecklistFindingOverrides
+      summary: List checklist finding overrides
+      produces:
+        - application/json
+      parameters:
+        - *ref_20
+        - *ref_22
+        - *ref_21
+        - *ref_23
+      tags:
+        - Overrides
+      responses:
+        '200':
+          description: >
+            The response body contains the list of checklist finding override
+            objects.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema:
+            type: object
+            properties:
+              overrides:
+                type: array
+                items: *ref_17
+              next:
+                type: string
+                format: byte
+                example: >-
+                  dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=
+                description: >
+                  An encoded value that you can use to retrieve the next set of
+                  results for a query. If `next` is not present, then there are
+                  no more results available.
+            required:
+              - overrides
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
+      x-security:
+        x-required-privileges:
+          - 'overrides:list'
+    post:
+      operationId: createChecklistFindingOverride
+      summary: Create a checklist finding override
+      description: |
+        Create a checklist finding override.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Overrides
+      parameters:
+        - name: request
+          in: body
+          schema: *ref_55
+        - *ref_32
+        - *ref_23
+      responses:
+        '200':
+          description: >
+            The response body contains the override details. This response will
+            only be returned if the `dryrun=true` query parameter was sent.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '201':
+          description: |
+            The override has been created.
+          schema: *ref_17
+          headers:
+            Location:
+              description: |
+                The override URL.
+              type: string
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
+      x-security:
+        x-required-privileges:
+          - 'overrides:create'
+  '/api/overrides/checklists/{id}':
+    parameters:
+      - name: id
+        description: |
+          The override ID.
+        in: path
+        required: true
+        type: string
+    get:
+      operationId: describeChecklistFindingOverride
+      summary: Describe a checklist finding override
+      description: |
+        Retrieve checklist finding override details.
+      produces:
+        - application/json
+      tags:
+        - Overrides
+      parameters:
+        - *ref_23
+      responses:
+        '200':
+          description: |
+            The response body contains the override object.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+          schema: *ref_17
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
+      x-security:
+        x-required-privileges:
+          - 'overrides:describe'
+    post:
+      operationId: modifyChecklistFindingOverride
+      summary: Modify a checklist finding override
+      description: |
+        Modify a checklist finding override.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Overrides
+      parameters:
+        - name: request
+          in: body
+          schema: *ref_55
+        - *ref_34
+        - *ref_23
+      responses:
+        '200':
+          description: >
+            The override has been updated. The response body contains the
+            updated override object.
+          schema: *ref_17
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
+      x-security:
+        x-required-privileges:
+          - 'overrides:modify'
+    delete:
+      operationId: deleteChecklistFindingOverride
+      summary: Delete a checklist finding override
+      description: |
+        Delete a checklist finding override.
+      tags:
+        - Overrides
+      parameters:
+        - *ref_36
+        - *ref_23
+      responses:
+        '200':
+          description: >
+            The override would be deleted if the `dryrun=true` parameter was not
+            present.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '204':
+          description: |
+            The override has been deleted.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
+      x-security:
+        x-required-privileges:
+          - 'overrides:delete'
   /api/registries:
     get:
       operationId: listRegistries
@@ -7525,7 +8092,7 @@ paths:
                 type: array
                 description: |
                   The list of registries.
-                items: *ref_55
+                items: *ref_56
               next:
                 type: string
                 format: byte
@@ -7535,6 +8102,8 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+            required:
+              - registries
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -7559,7 +8128,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_56
+          schema: *ref_57
         - *ref_32
         - name: ping
           in: query
@@ -7598,7 +8167,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_55
+          schema: *ref_56
         '201':
           description: |
             The response body contains the registry details.
@@ -7630,7 +8199,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_55
+          schema: *ref_56
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -7689,7 +8258,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_55
+          schema: *ref_56
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -7714,7 +8283,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_56
+          schema: *ref_57
         - *ref_34
         - name: ping
           in: query
@@ -7752,7 +8321,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_55
+          schema: *ref_56
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -7854,7 +8423,7 @@ paths:
       parameters:
         - name: request
           in: body
-          schema: *ref_57
+          schema: *ref_58
         - *ref_32
         - *ref_23
       responses:
@@ -7985,7 +8554,7 @@ paths:
                 type: array
                 description: |
                   The list of images.
-                items: *ref_58
+                items: *ref_59
               next:
                 type: string
                 format: byte
@@ -7995,6 +8564,8 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
+            required:
+              - images
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -8060,7 +8631,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_58
+          schema: *ref_59
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -8111,7 +8682,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema: *ref_59
+          schema: *ref_60
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -8130,25 +8701,24 @@ paths:
       tags:
         - License
       parameters:
-        - name: entitlements
+        - name: entitlement
           in: query
           type: string
           enum:
             - registries
             - updates
           description: >
-            Include the `entitlements` query parameter and its companion `count`
+            Include the `entitlement` query parameter and its companion `count`
             (if applicable) to check whether the current license entitles use of
             the requested number of the specified resource.
         - *ref_23
       responses:
         '200':
           description: >
-            The response body contains license information. If the
-            `entitlements` query parameter and its companion `count` (if
-            applicable) were included, the `200 OK` response indicates that the
-            current license entitles use of the requested number of the
-            specified resource.
+            The response body contains license information. If the `entitlement`
+            query parameter and its companion `count` (if applicable) were
+            included, the `200 OK` response indicates that the current license
+            entitles use of the requested number of the specified resource.
           headers:
             Sunset:
               type: string
@@ -8173,7 +8743,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API version you are using is
                 going to be removed.
-          schema: *ref_60
+          schema: *ref_61
         '400': *ref_25
         '401': *ref_26
         '402':
@@ -8204,7 +8774,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API version you are using is
                 going to be removed.
-          schema: *ref_60
+          schema: *ref_61
         '403': *ref_27
         '429': *ref_28
         '500': *ref_29

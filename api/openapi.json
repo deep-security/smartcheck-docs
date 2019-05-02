@@ -794,7 +794,8 @@
                 "hookURL": {
                     "type": "string",
                     "example": "https://target.example.com/",
-                    "maxLength": 255
+                    "maxLength": 255,
+                    "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                 },
                 "insecureSkipVerify": {
                     "type": "boolean",
@@ -809,7 +810,8 @@
                 },
                 "active": {
                     "type": "boolean",
-                    "example": true
+                    "example": true,
+                    "description": "(optional, default: `false`). If `true`, the web hook will be invoked whenever a matching event occurs.\n"
                 },
                 "events": {
                     "type": "array",
@@ -828,12 +830,14 @@
                 "created": {
                     "type": "string",
                     "format": "date-time",
-                    "example": "2018-05-01T00:00:00Z"
+                    "example": "2018-05-01T00:00:00Z",
+                    "description": "The time that the web hook was created.\n"
                 },
                 "updated": {
                     "type": "string",
                     "format": "date-time",
-                    "example": "2018-05-01T00:00:00Z"
+                    "example": "2018-05-01T00:00:00Z",
+                    "description": "The time that the web hook was last updated.\n"
                 }
             },
             "required": [
@@ -848,10 +852,7 @@
         },
         "ContentScanRulesetRequest": {
             "type": "object",
-            "required": [
-                "name",
-                "ruleset"
-            ],
+            "required": [],
             "properties": {
                 "name": {
                     "type": "string",
@@ -910,9 +911,7 @@
         },
         "ContentScanCollectionRequestWithoutRulesets": {
             "type": "object",
-            "required": [
-                "name"
-            ],
+            "required": [],
             "properties": {
                 "name": {
                     "type": "string",
@@ -930,9 +929,7 @@
         },
         "ContentScanCollectionRequest": {
             "type": "object",
-            "required": [
-                "name"
-            ],
+            "required": [],
             "properties": {
                 "name": {
                     "type": "string",
@@ -950,10 +947,7 @@
                     "type": "array",
                     "items": {
                         "type": "object",
-                        "required": [
-                            "name",
-                            "ruleset"
-                        ],
+                        "required": [],
                         "properties": {
                             "name": {
                                 "type": "string",
@@ -1063,6 +1057,7 @@
                     "properties": {
                         "type": {
                             "type": "string",
+                            "description": "The type of image that is being scanned.\n",
                             "enum": [
                                 "docker"
                             ]
@@ -1255,6 +1250,7 @@
             "properties": {
                 "type": {
                     "type": "string",
+                    "description": "The type of image that is being scanned.\n",
                     "enum": [
                         "docker"
                     ]
@@ -1380,6 +1376,7 @@
             "properties": {
                 "type": {
                     "type": "string",
+                    "description": "The type of image that is being scanned.\n",
                     "enum": [
                         "docker"
                     ]
@@ -1505,7 +1502,8 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "description": "The unique ID assigned to this scan.\n"
+                    "description": "The unique ID assigned to this scan.\n",
+                    "example": "60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff"
                 },
                 "href": {
                     "type": "string",
@@ -1515,6 +1513,7 @@
                 "name": {
                     "type": "string",
                     "description": "If you provided a name for the scan, it will be returned here.\n",
+                    "example": "My scan",
                     "maxLength": 128
                 },
                 "source": {
@@ -1522,6 +1521,7 @@
                     "properties": {
                         "type": {
                             "type": "string",
+                            "description": "The type of image that is being scanned.\n",
                             "enum": [
                                 "docker"
                             ]
@@ -1568,13 +1568,15 @@
                 },
                 "status": {
                     "type": "string",
+                    "description": "The status of the scan.\n",
                     "enum": [
                         "pending",
                         "in-progress",
                         "completed-with-findings",
                         "completed-no-findings",
                         "failed"
-                    ]
+                    ],
+                    "example": "completed-with-findings"
                 },
                 "details": {
                     "type": "object",
@@ -1635,6 +1637,7 @@
                         },
                         "results": {
                             "type": "array",
+                            "description": "A list of the scan results by layer.\n",
                             "items": {
                                 "type": "object",
                                 "properties": {
@@ -1656,15 +1659,18 @@
                                     },
                                     "malware": {
                                         "type": "string",
-                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n"
+                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n",
+                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/malware"
                                     },
                                     "vulnerabilities": {
                                         "type": "string",
-                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n"
+                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n",
+                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/vulnerabilities"
                                     },
                                     "contents": {
                                         "type": "string",
-                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n"
+                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n",
+                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/contents"
                                     },
                                     "findings": {
                                         "type": "object",
@@ -2011,6 +2017,11 @@
                                     "findings"
                                 ]
                             }
+                        },
+                        "checklists": {
+                            "type": "string",
+                            "description": "If present, a URL pointing to the list of configuration checklists that were checked for compliance during the scan. See <a href=\"#operation/listScanChecklists\">List scan configuration checklists</a>.\n",
+                            "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/checklists"
                         }
                     },
                     "required": [
@@ -2763,6 +2774,7 @@
                 },
                 "results": {
                     "type": "array",
+                    "description": "A list of the scan results by layer.\n",
                     "items": {
                         "type": "object",
                         "properties": {
@@ -2784,15 +2796,18 @@
                             },
                             "malware": {
                                 "type": "string",
-                                "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n"
+                                "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n",
+                                "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/malware"
                             },
                             "vulnerabilities": {
                                 "type": "string",
-                                "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n"
+                                "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n",
+                                "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/vulnerabilities"
                             },
                             "contents": {
                                 "type": "string",
-                                "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n"
+                                "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n",
+                                "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/contents"
                             },
                             "findings": {
                                 "type": "object",
@@ -3139,6 +3154,11 @@
                             "findings"
                         ]
                     }
+                },
+                "checklists": {
+                    "type": "string",
+                    "description": "If present, a URL pointing to the list of configuration checklists that were checked for compliance during the scan. See <a href=\"#operation/listScanChecklists\">List scan configuration checklists</a>.\n",
+                    "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/checklists"
                 }
             },
             "required": [
@@ -3167,15 +3187,18 @@
                 },
                 "malware": {
                     "type": "string",
-                    "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n"
+                    "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n",
+                    "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/malware"
                 },
                 "vulnerabilities": {
                     "type": "string",
-                    "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n"
+                    "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n",
+                    "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/vulnerabilities"
                 },
                 "contents": {
                     "type": "string",
-                    "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n"
+                    "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n",
+                    "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/contents"
                 },
                 "findings": {
                     "type": "object",
@@ -3779,6 +3802,7 @@
                 },
                 "findings": {
                     "type": "object",
+                    "description": "Metrics for the vulnerabilities that were found.\n",
                     "properties": {
                         "defcon1": {
                             "type": "integer",
@@ -3856,7 +3880,8 @@
                         "low",
                         "negligible",
                         "unknown"
-                    ]
+                    ],
+                    "description": "The severity assigned to the content finding.\n"
                 },
                 "metadata": {
                     "type": "object",
@@ -16701,12 +16726,14 @@
                             "properties": {
                                 "scans": {
                                     "type": "array",
+                                    "description": "A list of results for the query.\n",
                                     "items": {
                                         "type": "object",
                                         "properties": {
                                             "id": {
                                                 "type": "string",
-                                                "description": "The unique ID assigned to this scan.\n"
+                                                "description": "The unique ID assigned to this scan.\n",
+                                                "example": "60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff"
                                             },
                                             "href": {
                                                 "type": "string",
@@ -16716,6 +16743,7 @@
                                             "name": {
                                                 "type": "string",
                                                 "description": "If you provided a name for the scan, it will be returned here.\n",
+                                                "example": "My scan",
                                                 "maxLength": 128
                                             },
                                             "source": {
@@ -16723,6 +16751,7 @@
                                                 "properties": {
                                                     "type": {
                                                         "type": "string",
+                                                        "description": "The type of image that is being scanned.\n",
                                                         "enum": [
                                                             "docker"
                                                         ]
@@ -16769,13 +16798,15 @@
                                             },
                                             "status": {
                                                 "type": "string",
+                                                "description": "The status of the scan.\n",
                                                 "enum": [
                                                     "pending",
                                                     "in-progress",
                                                     "completed-with-findings",
                                                     "completed-no-findings",
                                                     "failed"
-                                                ]
+                                                ],
+                                                "example": "completed-with-findings"
                                             },
                                             "details": {
                                                 "type": "object",
@@ -16836,6 +16867,7 @@
                                                     },
                                                     "results": {
                                                         "type": "array",
+                                                        "description": "A list of the scan results by layer.\n",
                                                         "items": {
                                                             "type": "object",
                                                             "properties": {
@@ -16857,15 +16889,18 @@
                                                                 },
                                                                 "malware": {
                                                                     "type": "string",
-                                                                    "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n"
+                                                                    "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n",
+                                                                    "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/malware"
                                                                 },
                                                                 "vulnerabilities": {
                                                                     "type": "string",
-                                                                    "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n"
+                                                                    "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n",
+                                                                    "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/vulnerabilities"
                                                                 },
                                                                 "contents": {
                                                                     "type": "string",
-                                                                    "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n"
+                                                                    "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n",
+                                                                    "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/contents"
                                                                 },
                                                                 "findings": {
                                                                     "type": "object",
@@ -17212,6 +17247,11 @@
                                                                 "findings"
                                                             ]
                                                         }
+                                                    },
+                                                    "checklists": {
+                                                        "type": "string",
+                                                        "description": "If present, a URL pointing to the list of configuration checklists that were checked for compliance during the scan. See <a href=\"#operation/listScanChecklists\">List scan configuration checklists</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/checklists"
                                                     }
                                                 },
                                                 "required": [
@@ -17863,6 +17903,7 @@
                                     "properties": {
                                         "type": {
                                             "type": "string",
+                                            "description": "The type of image that is being scanned.\n",
                                             "enum": [
                                                 "docker"
                                             ]
@@ -18091,7 +18132,8 @@
                             "properties": {
                                 "id": {
                                     "type": "string",
-                                    "description": "The unique ID assigned to this scan.\n"
+                                    "description": "The unique ID assigned to this scan.\n",
+                                    "example": "60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff"
                                 },
                                 "href": {
                                     "type": "string",
@@ -18101,6 +18143,7 @@
                                 "name": {
                                     "type": "string",
                                     "description": "If you provided a name for the scan, it will be returned here.\n",
+                                    "example": "My scan",
                                     "maxLength": 128
                                 },
                                 "source": {
@@ -18108,6 +18151,7 @@
                                     "properties": {
                                         "type": {
                                             "type": "string",
+                                            "description": "The type of image that is being scanned.\n",
                                             "enum": [
                                                 "docker"
                                             ]
@@ -18154,13 +18198,15 @@
                                 },
                                 "status": {
                                     "type": "string",
+                                    "description": "The status of the scan.\n",
                                     "enum": [
                                         "pending",
                                         "in-progress",
                                         "completed-with-findings",
                                         "completed-no-findings",
                                         "failed"
-                                    ]
+                                    ],
+                                    "example": "completed-with-findings"
                                 },
                                 "details": {
                                     "type": "object",
@@ -18221,6 +18267,7 @@
                                         },
                                         "results": {
                                             "type": "array",
+                                            "description": "A list of the scan results by layer.\n",
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
@@ -18242,15 +18289,18 @@
                                                     },
                                                     "malware": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/malware"
                                                     },
                                                     "vulnerabilities": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/vulnerabilities"
                                                     },
                                                     "contents": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/contents"
                                                     },
                                                     "findings": {
                                                         "type": "object",
@@ -18597,6 +18647,11 @@
                                                     "findings"
                                                 ]
                                             }
+                                        },
+                                        "checklists": {
+                                            "type": "string",
+                                            "description": "If present, a URL pointing to the list of configuration checklists that were checked for compliance during the scan. See <a href=\"#operation/listScanChecklists\">List scan configuration checklists</a>.\n",
+                                            "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/checklists"
                                         }
                                     },
                                     "required": [
@@ -18983,7 +19038,8 @@
                             "properties": {
                                 "id": {
                                     "type": "string",
-                                    "description": "The unique ID assigned to this scan.\n"
+                                    "description": "The unique ID assigned to this scan.\n",
+                                    "example": "60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff"
                                 },
                                 "href": {
                                     "type": "string",
@@ -18993,6 +19049,7 @@
                                 "name": {
                                     "type": "string",
                                     "description": "If you provided a name for the scan, it will be returned here.\n",
+                                    "example": "My scan",
                                     "maxLength": 128
                                 },
                                 "source": {
@@ -19000,6 +19057,7 @@
                                     "properties": {
                                         "type": {
                                             "type": "string",
+                                            "description": "The type of image that is being scanned.\n",
                                             "enum": [
                                                 "docker"
                                             ]
@@ -19046,13 +19104,15 @@
                                 },
                                 "status": {
                                     "type": "string",
+                                    "description": "The status of the scan.\n",
                                     "enum": [
                                         "pending",
                                         "in-progress",
                                         "completed-with-findings",
                                         "completed-no-findings",
                                         "failed"
-                                    ]
+                                    ],
+                                    "example": "completed-with-findings"
                                 },
                                 "details": {
                                     "type": "object",
@@ -19113,6 +19173,7 @@
                                         },
                                         "results": {
                                             "type": "array",
+                                            "description": "A list of the scan results by layer.\n",
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
@@ -19134,15 +19195,18 @@
                                                     },
                                                     "malware": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/malware"
                                                     },
                                                     "vulnerabilities": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/vulnerabilities"
                                                     },
                                                     "contents": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/contents"
                                                     },
                                                     "findings": {
                                                         "type": "object",
@@ -19489,6 +19553,11 @@
                                                     "findings"
                                                 ]
                                             }
+                                        },
+                                        "checklists": {
+                                            "type": "string",
+                                            "description": "If present, a URL pointing to the list of configuration checklists that were checked for compliance during the scan. See <a href=\"#operation/listScanChecklists\">List scan configuration checklists</a>.\n",
+                                            "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/checklists"
                                         }
                                     },
                                     "required": [
@@ -20503,7 +20572,8 @@
                             "properties": {
                                 "id": {
                                     "type": "string",
-                                    "description": "The unique ID assigned to this scan.\n"
+                                    "description": "The unique ID assigned to this scan.\n",
+                                    "example": "60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff"
                                 },
                                 "href": {
                                     "type": "string",
@@ -20513,6 +20583,7 @@
                                 "name": {
                                     "type": "string",
                                     "description": "If you provided a name for the scan, it will be returned here.\n",
+                                    "example": "My scan",
                                     "maxLength": 128
                                 },
                                 "source": {
@@ -20520,6 +20591,7 @@
                                     "properties": {
                                         "type": {
                                             "type": "string",
+                                            "description": "The type of image that is being scanned.\n",
                                             "enum": [
                                                 "docker"
                                             ]
@@ -20566,13 +20638,15 @@
                                 },
                                 "status": {
                                     "type": "string",
+                                    "description": "The status of the scan.\n",
                                     "enum": [
                                         "pending",
                                         "in-progress",
                                         "completed-with-findings",
                                         "completed-no-findings",
                                         "failed"
-                                    ]
+                                    ],
+                                    "example": "completed-with-findings"
                                 },
                                 "details": {
                                     "type": "object",
@@ -20633,6 +20707,7 @@
                                         },
                                         "results": {
                                             "type": "array",
+                                            "description": "A list of the scan results by layer.\n",
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
@@ -20654,15 +20729,18 @@
                                                     },
                                                     "malware": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/malware"
                                                     },
                                                     "vulnerabilities": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/vulnerabilities"
                                                     },
                                                     "contents": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/contents"
                                                     },
                                                     "findings": {
                                                         "type": "object",
@@ -21009,6 +21087,11 @@
                                                     "findings"
                                                 ]
                                             }
+                                        },
+                                        "checklists": {
+                                            "type": "string",
+                                            "description": "If present, a URL pointing to the list of configuration checklists that were checked for compliance during the scan. See <a href=\"#operation/listScanChecklists\">List scan configuration checklists</a>.\n",
+                                            "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/checklists"
                                         }
                                     },
                                     "required": [
@@ -21763,6 +21846,7 @@
                             "properties": {
                                 "malware": {
                                     "type": "array",
+                                    "description": "A list of results for the query.\n",
                                     "items": {
                                         "type": "object",
                                         "required": [
@@ -22269,6 +22353,7 @@
                             "type": "object",
                             "properties": {
                                 "vulnerabilities": {
+                                    "description": "A list of results for the query.\n",
                                     "type": "array",
                                     "items": {
                                         "type": "object",
@@ -22445,6 +22530,7 @@
                                             },
                                             "findings": {
                                                 "type": "object",
+                                                "description": "Metrics for the vulnerabilities that were found.\n",
                                                 "properties": {
                                                     "defcon1": {
                                                         "type": "integer",
@@ -22907,6 +22993,7 @@
                             "type": "object",
                             "properties": {
                                 "contents": {
+                                    "description": "A list of results for the query.\n",
                                     "type": "array",
                                     "items": {
                                         "required": [
@@ -22947,7 +23034,8 @@
                                                     "low",
                                                     "negligible",
                                                     "unknown"
-                                                ]
+                                                ],
+                                                "description": "The severity assigned to the content finding.\n"
                                             },
                                             "metadata": {
                                                 "type": "object",
@@ -23365,9 +23453,9 @@
                 }
             ],
             "get": {
-                "operationId": "listChecklists",
-                "summary": "List configuration checklists",
-                "description": "List configuration checklists.\n",
+                "operationId": "listScanChecklists",
+                "summary": "List scan configuration checklists",
+                "description": "List scan configuration checklists.\n",
                 "tags": [
                     "Scans"
                 ],
@@ -23442,6 +23530,7 @@
                             "type": "object",
                             "properties": {
                                 "checklists": {
+                                    "description": "A list of results for the query.\n",
                                     "type": "array",
                                     "items": {
                                         "type": "object",
@@ -23925,9 +24014,9 @@
                 }
             ],
             "get": {
-                "operationId": "describeChecklist",
-                "summary": "Describe configuration checklists",
-                "description": "Describe configuration checklists.\n",
+                "operationId": "describeScanChecklist",
+                "summary": "Describe a configuration checklist",
+                "description": "Describe a configuration checklist.\n",
                 "tags": [
                     "Scans"
                 ],
@@ -24462,9 +24551,9 @@
                 }
             ],
             "get": {
-                "operationId": "listChecklistProfileRules",
-                "summary": "List rules for a certain profile on a configuration checklist",
-                "description": "List rules for a certain profile on a configuration checklist.\n",
+                "operationId": "listScanChecklistProfileRules",
+                "summary": "List configuration checklist profile rules",
+                "description": "List configuration checklist profile rules.\n",
                 "tags": [
                     "Scans"
                 ],
@@ -24528,6 +24617,7 @@
                             "type": "object",
                             "properties": {
                                 "rules": {
+                                    "description": "A list of results for the query.\n",
                                     "type": "array",
                                     "items": {
                                         "type": "object",
@@ -25041,6 +25131,7 @@
                             "type": "object",
                             "properties": {
                                 "webhooks": {
+                                    "description": "A list of results for the query.\n",
                                     "type": "array",
                                     "items": {
                                         "type": "object",
@@ -25059,7 +25150,8 @@
                                             "hookURL": {
                                                 "type": "string",
                                                 "example": "https://target.example.com/",
-                                                "maxLength": 255
+                                                "maxLength": 255,
+                                                "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                                             },
                                             "insecureSkipVerify": {
                                                 "type": "boolean",
@@ -25074,7 +25166,8 @@
                                             },
                                             "active": {
                                                 "type": "boolean",
-                                                "example": true
+                                                "example": true,
+                                                "description": "(optional, default: `false`). If `true`, the web hook will be invoked whenever a matching event occurs.\n"
                                             },
                                             "events": {
                                                 "type": "array",
@@ -25093,12 +25186,14 @@
                                             "created": {
                                                 "type": "string",
                                                 "format": "date-time",
-                                                "example": "2018-05-01T00:00:00Z"
+                                                "example": "2018-05-01T00:00:00Z",
+                                                "description": "The time that the web hook was created.\n"
                                             },
                                             "updated": {
                                                 "type": "string",
                                                 "format": "date-time",
-                                                "example": "2018-05-01T00:00:00Z"
+                                                "example": "2018-05-01T00:00:00Z",
+                                                "description": "The time that the web hook was last updated.\n"
                                             }
                                         },
                                         "required": [
@@ -25504,7 +25599,8 @@
                                 "hookURL": {
                                     "type": "string",
                                     "example": "https://target.example.com/",
-                                    "maxLength": 255
+                                    "maxLength": 255,
+                                    "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                                 },
                                 "insecureSkipVerify": {
                                     "type": "boolean",
@@ -25519,7 +25615,8 @@
                                 },
                                 "active": {
                                     "type": "boolean",
-                                    "example": true
+                                    "example": true,
+                                    "description": "(optional, default: `false`). If `true`, the web hook will be invoked whenever a matching event occurs.\n"
                                 },
                                 "events": {
                                     "type": "array",
@@ -25538,12 +25635,14 @@
                                 "created": {
                                     "type": "string",
                                     "format": "date-time",
-                                    "example": "2018-05-01T00:00:00Z"
+                                    "example": "2018-05-01T00:00:00Z",
+                                    "description": "The time that the web hook was created.\n"
                                 },
                                 "updated": {
                                     "type": "string",
                                     "format": "date-time",
-                                    "example": "2018-05-01T00:00:00Z"
+                                    "example": "2018-05-01T00:00:00Z",
+                                    "description": "The time that the web hook was last updated.\n"
                                 }
                             },
                             "required": [
@@ -25600,7 +25699,8 @@
                                 "hookURL": {
                                     "type": "string",
                                     "example": "https://target.example.com/",
-                                    "maxLength": 255
+                                    "maxLength": 255,
+                                    "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                                 },
                                 "insecureSkipVerify": {
                                     "type": "boolean",
@@ -25615,7 +25715,8 @@
                                 },
                                 "active": {
                                     "type": "boolean",
-                                    "example": true
+                                    "example": true,
+                                    "description": "(optional, default: `false`). If `true`, the web hook will be invoked whenever a matching event occurs.\n"
                                 },
                                 "events": {
                                     "type": "array",
@@ -25634,12 +25735,14 @@
                                 "created": {
                                     "type": "string",
                                     "format": "date-time",
-                                    "example": "2018-05-01T00:00:00Z"
+                                    "example": "2018-05-01T00:00:00Z",
+                                    "description": "The time that the web hook was created.\n"
                                 },
                                 "updated": {
                                     "type": "string",
                                     "format": "date-time",
-                                    "example": "2018-05-01T00:00:00Z"
+                                    "example": "2018-05-01T00:00:00Z",
+                                    "description": "The time that the web hook was last updated.\n"
                                 }
                             },
                             "required": [
@@ -25983,7 +26086,8 @@
                                 "hookURL": {
                                     "type": "string",
                                     "example": "https://target.example.com/",
-                                    "maxLength": 255
+                                    "maxLength": 255,
+                                    "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                                 },
                                 "insecureSkipVerify": {
                                     "type": "boolean",
@@ -25998,7 +26102,8 @@
                                 },
                                 "active": {
                                     "type": "boolean",
-                                    "example": true
+                                    "example": true,
+                                    "description": "(optional, default: `false`). If `true`, the web hook will be invoked whenever a matching event occurs.\n"
                                 },
                                 "events": {
                                     "type": "array",
@@ -26017,12 +26122,14 @@
                                 "created": {
                                     "type": "string",
                                     "format": "date-time",
-                                    "example": "2018-05-01T00:00:00Z"
+                                    "example": "2018-05-01T00:00:00Z",
+                                    "description": "The time that the web hook was created.\n"
                                 },
                                 "updated": {
                                     "type": "string",
                                     "format": "date-time",
-                                    "example": "2018-05-01T00:00:00Z"
+                                    "example": "2018-05-01T00:00:00Z",
+                                    "description": "The time that the web hook was last updated.\n"
                                 }
                             },
                             "required": [
@@ -26386,7 +26493,8 @@
                                 "hookURL": {
                                     "type": "string",
                                     "example": "https://target.example.com/",
-                                    "maxLength": 255
+                                    "maxLength": 255,
+                                    "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                                 },
                                 "insecureSkipVerify": {
                                     "type": "boolean",
@@ -26401,7 +26509,8 @@
                                 },
                                 "active": {
                                     "type": "boolean",
-                                    "example": true
+                                    "example": true,
+                                    "description": "(optional, default: `false`). If `true`, the web hook will be invoked whenever a matching event occurs.\n"
                                 },
                                 "events": {
                                     "type": "array",
@@ -26420,12 +26529,14 @@
                                 "created": {
                                     "type": "string",
                                     "format": "date-time",
-                                    "example": "2018-05-01T00:00:00Z"
+                                    "example": "2018-05-01T00:00:00Z",
+                                    "description": "The time that the web hook was created.\n"
                                 },
                                 "updated": {
                                     "type": "string",
                                     "format": "date-time",
-                                    "example": "2018-05-01T00:00:00Z"
+                                    "example": "2018-05-01T00:00:00Z",
+                                    "description": "The time that the web hook was last updated.\n"
                                 }
                             },
                             "required": [
@@ -27524,6 +27635,7 @@
                             "type": "object",
                             "properties": {
                                 "collections": {
+                                    "description": "A list of results for the query.\n",
                                     "type": "array",
                                     "items": {
                                         "type": "object",
@@ -27881,9 +27993,7 @@
                         "name": "request",
                         "schema": {
                             "type": "object",
-                            "required": [
-                                "name"
-                            ],
+                            "required": [],
                             "properties": {
                                 "name": {
                                     "type": "string",
@@ -27901,10 +28011,7 @@
                                     "type": "array",
                                     "items": {
                                         "type": "object",
-                                        "required": [
-                                            "name",
-                                            "ruleset"
-                                        ],
+                                        "required": [],
                                         "properties": {
                                             "name": {
                                                 "type": "string",
@@ -28385,15 +28492,40 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "id",
+                                "href",
+                                "default"
+                            ],
                             "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                    "description": "The unique ID assigned to this content scan ruleset.\n"
+                                },
+                                "href": {
+                                    "type": "string",
+                                    "example": "/api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff",
+                                    "description": "The URL to the collection resource.\n"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": "Deep Security Smart Check Collection",
+                                    "description": "The name of this collection.\n"
+                                },
+                                "default": {
+                                    "type": "boolean",
+                                    "example": true,
+                                    "description": "True if this is the default collection used for content scans. There can only be one default collection at all time.\n"
+                                },
                                 "rulesets": {
                                     "type": "array",
                                     "items": {
                                         "type": "object",
                                         "required": [
                                             "id",
-                                            "href",
-                                            "default"
+                                            "name",
+                                            "href"
                                         ],
                                         "properties": {
                                             "id": {
@@ -28401,62 +28533,29 @@
                                                 "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
                                                 "description": "The unique ID assigned to this content scan ruleset.\n"
                                             },
-                                            "href": {
-                                                "type": "string",
-                                                "example": "/api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff",
-                                                "description": "The URL to the collection resource.\n"
-                                            },
                                             "name": {
                                                 "type": "string",
-                                                "example": "Deep Security Smart Check Collection",
-                                                "description": "The name of this collection.\n"
+                                                "example": "Scanning ruleset",
+                                                "description": "The name of this ruleset.\n"
                                             },
-                                            "default": {
+                                            "href": {
+                                                "type": "string",
+                                                "example": "/api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/rulesets/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
+                                                "description": "The URL to the ruleset resource.\n"
+                                            },
+                                            "ruleset": {
+                                                "type": "string",
+                                                "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
+                                                "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
+                                            },
+                                            "disabled": {
                                                 "type": "boolean",
-                                                "example": true,
-                                                "description": "True if this is the default collection used for content scans. There can only be one default collection at all time.\n"
-                                            },
-                                            "rulesets": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "object",
-                                                    "required": [
-                                                        "id",
-                                                        "name",
-                                                        "href"
-                                                    ],
-                                                    "properties": {
-                                                        "id": {
-                                                            "type": "string",
-                                                            "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                                            "description": "The unique ID assigned to this content scan ruleset.\n"
-                                                        },
-                                                        "name": {
-                                                            "type": "string",
-                                                            "example": "Scanning ruleset",
-                                                            "description": "The name of this ruleset.\n"
-                                                        },
-                                                        "href": {
-                                                            "type": "string",
-                                                            "example": "/api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/rulesets/6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                                            "description": "The URL to the ruleset resource.\n"
-                                                        },
-                                                        "ruleset": {
-                                                            "type": "string",
-                                                            "example": "cnVsZSBkZXRlY3RvciB7IAoJY29uZGl0aW9uOgoJCXRydWUKfQo=",
-                                                            "description": "Base64-encoded yara ruleset. In some special rulesets, it will not be displayed.\n"
-                                                        },
-                                                        "disabled": {
-                                                            "type": "boolean",
-                                                            "example": false,
-                                                            "description": "If set to true, this ruleset will not be used for scan.\n"
-                                                        }
-                                                    }
-                                                },
-                                                "description": "The rulesets belonging to this collection.\n"
+                                                "example": false,
+                                                "description": "If set to true, this ruleset will not be used for scan.\n"
                                             }
                                         }
-                                    }
+                                    },
+                                    "description": "The rulesets belonging to this collection.\n"
                                 }
                             }
                         }
@@ -28782,9 +28881,7 @@
                         "in": "body",
                         "schema": {
                             "type": "object",
-                            "required": [
-                                "name"
-                            ],
+                            "required": [],
                             "properties": {
                                 "name": {
                                     "type": "string",
@@ -29635,6 +29732,7 @@
                             "type": "object",
                             "properties": {
                                 "rulesets": {
+                                    "description": "A list of results for the query.\n",
                                     "type": "array",
                                     "items": {
                                         "type": "object",
@@ -30005,10 +30103,7 @@
                         "in": "body",
                         "schema": {
                             "type": "object",
-                            "required": [
-                                "name",
-                                "ruleset"
-                            ],
+                            "required": [],
                             "properties": {
                                 "name": {
                                     "type": "string",
@@ -30860,10 +30955,7 @@
                         "in": "body",
                         "schema": {
                             "type": "object",
-                            "required": [
-                                "name",
-                                "ruleset"
-                            ],
+                            "required": [],
                             "properties": {
                                 "name": {
                                     "type": "string",
@@ -31723,6 +31815,7 @@
                             "type": "object",
                             "properties": {
                                 "overrides": {
+                                    "description": "A list of results for the query.\n",
                                     "type": "array",
                                     "items": {
                                         "type": "object",
@@ -33891,6 +33984,7 @@
                             "type": "object",
                             "properties": {
                                 "overrides": {
+                                    "description": "A list of results for the query.\n",
                                     "type": "array",
                                     "items": {
                                         "type": "object",
@@ -36023,6 +36117,7 @@
                             "type": "object",
                             "properties": {
                                 "overrides": {
+                                    "description": "A list of results for the query.\n",
                                     "type": "array",
                                     "items": {
                                         "type": "object",
@@ -43232,7 +43327,8 @@
                             "properties": {
                                 "id": {
                                     "type": "string",
-                                    "description": "The unique ID assigned to this scan.\n"
+                                    "description": "The unique ID assigned to this scan.\n",
+                                    "example": "60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff"
                                 },
                                 "href": {
                                     "type": "string",
@@ -43242,6 +43338,7 @@
                                 "name": {
                                     "type": "string",
                                     "description": "If you provided a name for the scan, it will be returned here.\n",
+                                    "example": "My scan",
                                     "maxLength": 128
                                 },
                                 "source": {
@@ -43249,6 +43346,7 @@
                                     "properties": {
                                         "type": {
                                             "type": "string",
+                                            "description": "The type of image that is being scanned.\n",
                                             "enum": [
                                                 "docker"
                                             ]
@@ -43295,13 +43393,15 @@
                                 },
                                 "status": {
                                     "type": "string",
+                                    "description": "The status of the scan.\n",
                                     "enum": [
                                         "pending",
                                         "in-progress",
                                         "completed-with-findings",
                                         "completed-no-findings",
                                         "failed"
-                                    ]
+                                    ],
+                                    "example": "completed-with-findings"
                                 },
                                 "details": {
                                     "type": "object",
@@ -43362,6 +43462,7 @@
                                         },
                                         "results": {
                                             "type": "array",
+                                            "description": "A list of the scan results by layer.\n",
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
@@ -43383,15 +43484,18 @@
                                                     },
                                                     "malware": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/malware"
                                                     },
                                                     "vulnerabilities": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/vulnerabilities"
                                                     },
                                                     "contents": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/contents"
                                                     },
                                                     "findings": {
                                                         "type": "object",
@@ -43738,6 +43842,11 @@
                                                     "findings"
                                                 ]
                                             }
+                                        },
+                                        "checklists": {
+                                            "type": "string",
+                                            "description": "If present, a URL pointing to the list of configuration checklists that were checked for compliance during the scan. See <a href=\"#operation/listScanChecklists\">List scan configuration checklists</a>.\n",
+                                            "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/checklists"
                                         }
                                     },
                                     "required": [
@@ -44123,7 +44232,8 @@
                             "properties": {
                                 "id": {
                                     "type": "string",
-                                    "description": "The unique ID assigned to this scan.\n"
+                                    "description": "The unique ID assigned to this scan.\n",
+                                    "example": "60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff"
                                 },
                                 "href": {
                                     "type": "string",
@@ -44133,6 +44243,7 @@
                                 "name": {
                                     "type": "string",
                                     "description": "If you provided a name for the scan, it will be returned here.\n",
+                                    "example": "My scan",
                                     "maxLength": 128
                                 },
                                 "source": {
@@ -44140,6 +44251,7 @@
                                     "properties": {
                                         "type": {
                                             "type": "string",
+                                            "description": "The type of image that is being scanned.\n",
                                             "enum": [
                                                 "docker"
                                             ]
@@ -44186,13 +44298,15 @@
                                 },
                                 "status": {
                                     "type": "string",
+                                    "description": "The status of the scan.\n",
                                     "enum": [
                                         "pending",
                                         "in-progress",
                                         "completed-with-findings",
                                         "completed-no-findings",
                                         "failed"
-                                    ]
+                                    ],
+                                    "example": "completed-with-findings"
                                 },
                                 "details": {
                                     "type": "object",
@@ -44253,6 +44367,7 @@
                                         },
                                         "results": {
                                             "type": "array",
+                                            "description": "A list of the scan results by layer.\n",
                                             "items": {
                                                 "type": "object",
                                                 "properties": {
@@ -44274,15 +44389,18 @@
                                                     },
                                                     "malware": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of malware that was found. See <a href=\"#operation/listLayerMalwareFindings\">List layer malware findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/malware"
                                                     },
                                                     "vulnerabilities": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of vulnerabilities that were found. See <a href=\"#operation/listLayerVulnerabilityFindings\">List layer vulnerability findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/vulnerabilities"
                                                     },
                                                     "contents": {
                                                         "type": "string",
-                                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n"
+                                                        "description": "If present, a URL pointing to the list of content scan results that were found. See <a href=\"#operation/listLayerContentFindings\">List layer content findings</a>.\n",
+                                                        "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/contents"
                                                     },
                                                     "findings": {
                                                         "type": "object",
@@ -44629,6 +44747,11 @@
                                                     "findings"
                                                 ]
                                             }
+                                        },
+                                        "checklists": {
+                                            "type": "string",
+                                            "description": "If present, a URL pointing to the list of configuration checklists that were checked for compliance during the scan. See <a href=\"#operation/listScanChecklists\">List scan configuration checklists</a>.\n",
+                                            "example": "/api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/checklists"
                                         }
                                     },
                                     "required": [

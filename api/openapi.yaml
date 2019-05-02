@@ -655,6 +655,9 @@ definitions:
         type: string
         example: 'https://target.example.com/'
         maxLength: 255
+        description: >
+          The URL that Deep Security Smart Check should `POST` the event payload
+          to.
       insecureSkipVerify:
         type: boolean
         example: false
@@ -679,6 +682,9 @@ definitions:
       active:
         type: boolean
         example: true
+        description: >
+          (optional, default: `false`). If `true`, the web hook will be invoked
+          whenever a matching event occurs.
       events:
         type: array
         description: >
@@ -698,10 +704,14 @@ definitions:
         type: string
         format: date-time
         example: '2018-05-01T00:00:00Z'
+        description: |
+          The time that the web hook was created.
       updated:
         type: string
         format: date-time
         example: '2018-05-01T00:00:00Z'
+        description: |
+          The time that the web hook was last updated.
     required:
       - id
       - name
@@ -712,9 +722,7 @@ definitions:
       - created
   ContentScanRulesetRequest: &ref_3
     type: object
-    required:
-      - name
-      - ruleset
+    required: []
     properties:
       name:
         type: string
@@ -770,8 +778,7 @@ definitions:
           If set to true, this ruleset will not be used for scan.
   ContentScanCollectionRequestWithoutRulesets: &ref_52
     type: object
-    required:
-      - name
+    required: []
     properties:
       name:
         type: string
@@ -789,8 +796,7 @@ definitions:
           value of other collection will be reset to false.
   ContentScanCollectionRequest: &ref_51
     type: object
-    required:
-      - name
+    required: []
     properties:
       name:
         type: string
@@ -860,6 +866,8 @@ definitions:
         properties:
           type:
             type: string
+            description: |
+              The type of image that is being scanned.
             enum:
               - docker
           registry:
@@ -1032,6 +1040,8 @@ definitions:
     properties:
       type:
         type: string
+        description: |
+          The type of image that is being scanned.
         enum:
           - docker
       registry:
@@ -1090,6 +1100,7 @@ definitions:
         type: string
         description: |
           The unique ID assigned to this scan.
+        example: 60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff
       href:
         type: string
         example: /api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff
@@ -1099,16 +1110,20 @@ definitions:
         type: string
         description: |
           If you provided a name for the scan, it will be returned here.
+        example: My scan
         maxLength: 128
       source: *ref_8
       status:
         type: string
+        description: |
+          The status of the scan.
         enum:
           - pending
           - in-progress
           - completed-with-findings
           - completed-no-findings
           - failed
+        example: completed-with-findings
       details: &ref_10
         type: object
         properties:
@@ -1174,6 +1189,8 @@ definitions:
               key: value
           results:
             type: array
+            description: |
+              A list of the scan results by layer.
             items: &ref_11
               type: object
               properties:
@@ -1210,6 +1227,8 @@ definitions:
                     found. See <a
                     href="#operation/listLayerMalwareFindings">List layer
                     malware findings</a>.
+                  example: >-
+                    /api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/malware
                 vulnerabilities:
                   type: string
                   description: >
@@ -1217,6 +1236,8 @@ definitions:
                     that were found. See <a
                     href="#operation/listLayerVulnerabilityFindings">List layer
                     vulnerability findings</a>.
+                  example: >-
+                    /api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/vulnerabilities
                 contents:
                   type: string
                   description: >
@@ -1224,6 +1245,8 @@ definitions:
                     results that were found. See <a
                     href="#operation/listLayerContentFindings">List layer
                     content findings</a>.
+                  example: >-
+                    /api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/layers/sha256:77beb64c6eca68574566d5b04b9f64c71d9b7757a446d562b7d0ae4b13b7c467/contents
                 findings: &ref_9
                   type: object
                   properties:
@@ -1599,6 +1622,14 @@ definitions:
               required:
                 - id
                 - findings
+          checklists:
+            type: string
+            description: >
+              If present, a URL pointing to the list of configuration checklists
+              that were checked for compliance during the scan. See <a
+              href="#operation/listScanChecklists">List scan configuration
+              checklists</a>.
+            example: /api/scans/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff/checklists
         required:
           - requested
           - results
@@ -1893,6 +1924,8 @@ definitions:
             - severity
       findings:
         type: object
+        description: |
+          Metrics for the vulnerabilities that were found.
         properties:
           defcon1:
             type: integer
@@ -1966,6 +1999,8 @@ definitions:
           - low
           - negligible
           - unknown
+        description: |
+          The severity assigned to the content finding.
       metadata:
         type: object
         description: |
@@ -5101,6 +5136,8 @@ paths:
             properties:
               scans:
                 type: array
+                description: |
+                  A list of results for the query.
                 items: *ref_42
               next:
                 type: string
@@ -5408,6 +5445,8 @@ paths:
             properties:
               malware:
                 type: array
+                description: |
+                  A list of results for the query.
                 items: *ref_44
               next:
                 type: string
@@ -5503,6 +5542,8 @@ paths:
             type: object
             properties:
               vulnerabilities:
+                description: |
+                  A list of results for the query.
                 type: array
                 items: *ref_45
               next:
@@ -5599,6 +5640,8 @@ paths:
             type: object
             properties:
               contents:
+                description: |
+                  A list of results for the query.
                 type: array
                 items: *ref_46
               next:
@@ -5629,10 +5672,10 @@ paths:
         required: true
         type: string
     get:
-      operationId: listChecklists
-      summary: List configuration checklists
+      operationId: listScanChecklists
+      summary: List scan configuration checklists
       description: |
-        List configuration checklists.
+        List scan configuration checklists.
       tags:
         - Scans
       produces:
@@ -5674,6 +5717,8 @@ paths:
             type: object
             properties:
               checklists:
+                description: |
+                  A list of results for the query.
                 type: array
                 items: *ref_47
               next:
@@ -5710,10 +5755,10 @@ paths:
         required: true
         type: string
     get:
-      operationId: describeChecklist
-      summary: Describe configuration checklists
+      operationId: describeScanChecklist
+      summary: Describe a configuration checklist
       description: |
-        Describe configuration checklists.
+        Describe a configuration checklist.
       tags:
         - Scans
       produces:
@@ -5781,10 +5826,10 @@ paths:
         required: true
         type: string
     get:
-      operationId: listChecklistProfileRules
-      summary: List rules for a certain profile on a configuration checklist
+      operationId: listScanChecklistProfileRules
+      summary: List configuration checklist profile rules
       description: |
-        List rules for a certain profile on a configuration checklist.
+        List configuration checklist profile rules.
       tags:
         - Scans
       produces:
@@ -5825,6 +5870,8 @@ paths:
             type: object
             properties:
               rules:
+                description: |
+                  A list of results for the query.
                 type: array
                 items: *ref_48
               next:
@@ -5893,6 +5940,8 @@ paths:
             type: object
             properties:
               webhooks:
+                description: |
+                  A list of results for the query.
                 type: array
                 items: *ref_49
               next:
@@ -6317,6 +6366,8 @@ paths:
             type: object
             properties:
               collections:
+                description: |
+                  A list of results for the query.
                 type: array
                 items: *ref_50
               next:
@@ -6475,12 +6526,7 @@ paths:
                 We will use this header as one way to notify you that a new API
                 version is available or that the API you are using is going to
                 be removed.
-          schema:
-            type: object
-            properties:
-              rulesets:
-                type: array
-                items: *ref_50
+          schema: *ref_50
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -6683,6 +6729,8 @@ paths:
             type: object
             properties:
               rulesets:
+                description: |
+                  A list of results for the query.
                 type: array
                 items: *ref_4
               next:
@@ -7042,6 +7090,8 @@ paths:
             type: object
             properties:
               overrides:
+                description: |
+                  A list of results for the query.
                 type: array
                 items: *ref_13
               next:
@@ -7387,6 +7437,8 @@ paths:
             type: object
             properties:
               overrides:
+                description: |
+                  A list of results for the query.
                 type: array
                 items: *ref_14
               next:
@@ -7732,6 +7784,8 @@ paths:
             type: object
             properties:
               overrides:
+                description: |
+                  A list of results for the query.
                 type: array
                 items: *ref_17
               next:

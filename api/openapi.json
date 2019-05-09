@@ -47,8 +47,8 @@
             "description": "Outgoing web hooks from the scanner\n"
         },
         {
-            "name": "Content scan",
-            "description": "Manage content scan rules\n"
+            "name": "Content rules",
+            "description": "Manage content rules\n"
         },
         {
             "name": "Overrides",
@@ -885,7 +885,7 @@
                 "id": {
                     "type": "string",
                     "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                    "description": "The unique ID assigned to this content scan ruleset.\n"
+                    "description": "The unique ID assigned to this content ruleset.\n"
                 },
                 "name": {
                     "type": "string",
@@ -984,7 +984,7 @@
                 "id": {
                     "type": "string",
                     "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                    "description": "The unique ID assigned to this content scan ruleset.\n"
+                    "description": "The unique ID assigned to this content ruleset.\n"
                 },
                 "href": {
                     "type": "string",
@@ -1014,7 +1014,7 @@
                             "id": {
                                 "type": "string",
                                 "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                "description": "The unique ID assigned to this content scan ruleset.\n"
+                                "description": "The unique ID assigned to this content ruleset.\n"
                             },
                             "name": {
                                 "type": "string",
@@ -3851,12 +3851,12 @@
             "properties": {
                 "filename": {
                     "type": "string",
-                    "description": "The file where the issue was detected by content scanner.\n",
+                    "description": "The file where the issue was detected by the content scanner.\n",
                     "example": "path/to/file"
                 },
                 "rule": {
                     "type": "string",
-                    "description": "The content scan name that matches the file content.\n",
+                    "description": "The content rule name that matches the file content.\n",
                     "example": "ssh_key_search_rsa"
                 },
                 "ruleset": {
@@ -3867,7 +3867,7 @@
                 "description": {
                     "type": "string",
                     "example": "This is a rule.",
-                    "description": "The description of the content scan rule.\n"
+                    "description": "The description of the content rule.\n"
                 },
                 "severity": {
                     "type": "string",
@@ -3885,7 +3885,7 @@
                 },
                 "metadata": {
                     "type": "object",
-                    "description": "The metadata of the content scan rule.\n",
+                    "description": "The metadata of the content rule.\n",
                     "example": {
                         "author": "foo",
                         "license": "http://XXX.XXX.XXX"
@@ -3897,7 +3897,7 @@
                         "type": "string",
                         "example": "config"
                     },
-                    "description": "The tags of the content scan rule.\n"
+                    "description": "The tags of the content rule.\n"
                 },
                 "override": {
                     "type": "object",
@@ -23005,12 +23005,12 @@
                                         "properties": {
                                             "filename": {
                                                 "type": "string",
-                                                "description": "The file where the issue was detected by content scanner.\n",
+                                                "description": "The file where the issue was detected by the content scanner.\n",
                                                 "example": "path/to/file"
                                             },
                                             "rule": {
                                                 "type": "string",
-                                                "description": "The content scan name that matches the file content.\n",
+                                                "description": "The content rule name that matches the file content.\n",
                                                 "example": "ssh_key_search_rsa"
                                             },
                                             "ruleset": {
@@ -23021,7 +23021,7 @@
                                             "description": {
                                                 "type": "string",
                                                 "example": "This is a rule.",
-                                                "description": "The description of the content scan rule.\n"
+                                                "description": "The description of the content rule.\n"
                                             },
                                             "severity": {
                                                 "type": "string",
@@ -23039,7 +23039,7 @@
                                             },
                                             "metadata": {
                                                 "type": "object",
-                                                "description": "The metadata of the content scan rule.\n",
+                                                "description": "The metadata of the content rule.\n",
                                                 "example": {
                                                     "author": "foo",
                                                     "license": "http://XXX.XXX.XXX"
@@ -23051,7 +23051,7 @@
                                                     "type": "string",
                                                     "example": "config"
                                                 },
-                                                "description": "The tags of the content scan rule.\n"
+                                                "description": "The tags of the content rule.\n"
                                             },
                                             "override": {
                                                 "type": "object",
@@ -27551,8 +27551,8 @@
         "/api/collections": {
             "get": {
                 "operationId": "listCollections",
-                "summary": "List content scan ruleset collections",
-                "description": "Get the list of content scan rulset collections.\n",
+                "summary": "List content ruleset collections",
+                "description": "Get the list of content ruleset collections.\n",
                 "produces": [
                     "application/json"
                 ],
@@ -27607,7 +27607,7 @@
                     }
                 ],
                 "tags": [
-                    "Content scan"
+                    "Content rules"
                 ],
                 "responses": {
                     "200": {
@@ -27648,7 +27648,7 @@
                                             "id": {
                                                 "type": "string",
                                                 "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                                "description": "The unique ID assigned to this content scan ruleset.\n"
+                                                "description": "The unique ID assigned to this content ruleset.\n"
                                             },
                                             "href": {
                                                 "type": "string",
@@ -27678,7 +27678,7 @@
                                                         "id": {
                                                             "type": "string",
                                                             "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                                            "description": "The unique ID assigned to this content scan ruleset.\n"
+                                                            "description": "The unique ID assigned to this content ruleset.\n"
                                                         },
                                                         "name": {
                                                             "type": "string",
@@ -27976,8 +27976,8 @@
             },
             "post": {
                 "operationId": "createCollection",
-                "summary": "Create a content scan ruleset collection",
-                "description": "Add a content scan ruleset collection to manage rules. Default rules will be automatically inserted into the ruleset created.\n",
+                "summary": "Create a content ruleset collection",
+                "description": "Add a content ruleset collection to manage rules. Default rules will be automatically inserted into the ruleset created.\n",
                 "consumes": [
                     "application/json"
                 ],
@@ -27985,7 +27985,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Content scan"
+                    "Content rules"
                 ],
                 "parameters": [
                     {
@@ -28083,7 +28083,7 @@
                         }
                     },
                     "201": {
-                        "description": "The content scan ruleset has been created.\n",
+                        "description": "The content ruleset has been created.\n",
                         "schema": {
                             "type": "object",
                             "required": [
@@ -28095,7 +28095,7 @@
                                 "id": {
                                     "type": "string",
                                     "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                    "description": "The unique ID assigned to this content scan ruleset.\n"
+                                    "description": "The unique ID assigned to this content ruleset.\n"
                                 },
                                 "href": {
                                     "type": "string",
@@ -28125,7 +28125,7 @@
                                             "id": {
                                                 "type": "string",
                                                 "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                                "description": "The unique ID assigned to this content scan ruleset.\n"
+                                                "description": "The unique ID assigned to this content ruleset.\n"
                                             },
                                             "name": {
                                                 "type": "string",
@@ -28155,7 +28155,7 @@
                         },
                         "headers": {
                             "Location": {
-                                "description": "The content scan ruleset URL.\n",
+                                "description": "The content ruleset URL.\n",
                                 "type": "string"
                             },
                             "Sunset": {
@@ -28445,13 +28445,13 @@
             ],
             "get": {
                 "operationId": "describeCollection",
-                "summary": "Describe a content scan ruleset collection",
-                "description": "Retrieve content scan ruleset collection details.\n",
+                "summary": "Describe a content ruleset collection",
+                "description": "Retrieve content ruleset collection details.\n",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Content scan"
+                    "Content rules"
                 ],
                 "parameters": [
                     {
@@ -28501,7 +28501,7 @@
                                 "id": {
                                     "type": "string",
                                     "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                    "description": "The unique ID assigned to this content scan ruleset.\n"
+                                    "description": "The unique ID assigned to this content ruleset.\n"
                                 },
                                 "href": {
                                     "type": "string",
@@ -28531,7 +28531,7 @@
                                             "id": {
                                                 "type": "string",
                                                 "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                                "description": "The unique ID assigned to this content scan ruleset.\n"
+                                                "description": "The unique ID assigned to this content ruleset.\n"
                                             },
                                             "name": {
                                                 "type": "string",
@@ -28864,8 +28864,8 @@
             },
             "post": {
                 "operationId": "modifyCollection",
-                "summary": "Modify a content scan ruleset collection",
-                "description": "Modify a content scan ruleset collection. Rulesets cannot be modifed with this API.\n",
+                "summary": "Modify a content ruleset collection",
+                "description": "Modify a content ruleset collection. Rulesets cannot be modifed with this API.\n",
                 "consumes": [
                     "application/json"
                 ],
@@ -28873,7 +28873,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Content scan"
+                    "Content rules"
                 ],
                 "parameters": [
                     {
@@ -28921,7 +28921,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The collection has been updated. The response body contains the updated content scan ruleset collection object.\n",
+                        "description": "The collection has been updated. The response body contains the updated content ruleset collection object.\n",
                         "schema": {
                             "type": "object",
                             "required": [
@@ -28933,7 +28933,7 @@
                                 "id": {
                                     "type": "string",
                                     "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                    "description": "The unique ID assigned to this content scan ruleset.\n"
+                                    "description": "The unique ID assigned to this content ruleset.\n"
                                 },
                                 "href": {
                                     "type": "string",
@@ -28963,7 +28963,7 @@
                                             "id": {
                                                 "type": "string",
                                                 "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                                "description": "The unique ID assigned to this content scan ruleset.\n"
+                                                "description": "The unique ID assigned to this content ruleset.\n"
                                             },
                                             "name": {
                                                 "type": "string",
@@ -29319,10 +29319,10 @@
             },
             "delete": {
                 "operationId": "deleteCollection",
-                "summary": "Delete a content scan ruleset collection",
+                "summary": "Delete a content ruleset collection",
                 "description": "Delete a ruleset collection and associated rulesets.\n",
                 "tags": [
-                    "Content scan"
+                    "Content rules"
                 ],
                 "parameters": [
                     {
@@ -29659,8 +29659,8 @@
             ],
             "get": {
                 "operationId": "listRulesets",
-                "summary": "List content scan rulesets",
-                "description": "Get the list of content scan rulesets in the indicated ruleset collection.\n",
+                "summary": "List content rulesets",
+                "description": "Get the list of content rulesets in the indicated ruleset collection.\n",
                 "produces": [
                     "application/json"
                 ],
@@ -29704,7 +29704,7 @@
                     }
                 ],
                 "tags": [
-                    "Content scan"
+                    "Content rules"
                 ],
                 "responses": {
                     "200": {
@@ -29745,7 +29745,7 @@
                                             "id": {
                                                 "type": "string",
                                                 "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                                "description": "The unique ID assigned to this content scan ruleset.\n"
+                                                "description": "The unique ID assigned to this content ruleset.\n"
                                             },
                                             "name": {
                                                 "type": "string",
@@ -30086,8 +30086,8 @@
             },
             "post": {
                 "operationId": "createRuleset",
-                "summary": "Create a content scan ruleset",
-                "description": "Add a content scan ruleset to the indicated ruleset collection.\n",
+                "summary": "Create a content ruleset",
+                "description": "Add a content ruleset to the indicated ruleset collection.\n",
                 "consumes": [
                     "application/json"
                 ],
@@ -30095,7 +30095,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Content scan"
+                    "Content rules"
                 ],
                 "parameters": [
                     {
@@ -30171,7 +30171,7 @@
                         }
                     },
                     "201": {
-                        "description": "The content scan ruleset has been created.\n",
+                        "description": "The content ruleset has been created.\n",
                         "schema": {
                             "type": "object",
                             "required": [
@@ -30183,7 +30183,7 @@
                                 "id": {
                                     "type": "string",
                                     "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                    "description": "The unique ID assigned to this content scan ruleset.\n"
+                                    "description": "The unique ID assigned to this content ruleset.\n"
                                 },
                                 "name": {
                                     "type": "string",
@@ -30209,7 +30209,7 @@
                         },
                         "headers": {
                             "Location": {
-                                "description": "The content scan ruleset URL.\n",
+                                "description": "The content ruleset URL.\n",
                                 "type": "string"
                             },
                             "Sunset": {
@@ -30553,8 +30553,8 @@
             ],
             "get": {
                 "operationId": "describeRuleset",
-                "summary": "Describe a content scan ruleset",
-                "description": "Retrieve content scan rule details.\n",
+                "summary": "Describe a content ruleset",
+                "description": "Retrieve content ruleset details.\n",
                 "produces": [
                     "application/json"
                 ],
@@ -30574,11 +30574,11 @@
                     }
                 ],
                 "tags": [
-                    "Content scan"
+                    "Content rules"
                 ],
                 "responses": {
                     "200": {
-                        "description": "The response body contains the content scan rule object.\n",
+                        "description": "The response body contains the content ruleset object.\n",
                         "headers": {
                             "Sunset": {
                                 "type": "string",
@@ -30609,7 +30609,7 @@
                                 "id": {
                                     "type": "string",
                                     "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                    "description": "The unique ID assigned to this content scan ruleset.\n"
+                                    "description": "The unique ID assigned to this content ruleset.\n"
                                 },
                                 "name": {
                                     "type": "string",
@@ -30938,8 +30938,8 @@
             },
             "post": {
                 "operationId": "modifyRuleset",
-                "summary": "Modify a content scan ruleset",
-                "description": "Update a content scan ruleset. Built-in rulesets are not allowed to be modified except disabling/enabling.\n",
+                "summary": "Modify a content ruleset",
+                "description": "Update a content ruleset. Built-in rulesets are not allowed to be modified except disabling/enabling.\n",
                 "consumes": [
                     "application/json"
                 ],
@@ -30947,7 +30947,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Content scan"
+                    "Content rules"
                 ],
                 "parameters": [
                     {
@@ -31001,7 +31001,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "The content scan ruleset has been updated. The response body contains the updated ruleset object.\n",
+                        "description": "The content ruleset has been updated. The response body contains the updated ruleset object.\n",
                         "schema": {
                             "type": "object",
                             "required": [
@@ -31013,7 +31013,7 @@
                                 "id": {
                                     "type": "string",
                                     "example": "6af2e0e1-bb7c-45b7-9a3f-152a80d154eb",
-                                    "description": "The unique ID assigned to this content scan ruleset.\n"
+                                    "description": "The unique ID assigned to this content ruleset.\n"
                                 },
                                 "name": {
                                     "type": "string",
@@ -31039,7 +31039,7 @@
                         },
                         "headers": {
                             "Location": {
-                                "description": "The content scan ruleset URL.\n",
+                                "description": "The content ruleset URL.\n",
                                 "type": "string"
                             },
                             "Sunset": {
@@ -31365,10 +31365,10 @@
             },
             "delete": {
                 "operationId": "deleteRuleset",
-                "summary": "Delete a content scan ruleset",
-                "description": "Delete a content scan ruleset.\n",
+                "summary": "Delete a content ruleset",
+                "description": "Delete a content ruleset.\n",
                 "tags": [
-                    "Content scan"
+                    "Content rules"
                 ],
                 "parameters": [
                     {
@@ -31416,7 +31416,7 @@
                         }
                     },
                     "204": {
-                        "description": "The content scan ruleset has been deleted.\n",
+                        "description": "The content ruleset has been deleted.\n",
                         "headers": {
                             "Sunset": {
                                 "type": "string",

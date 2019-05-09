@@ -32,9 +32,9 @@ tags:
   - name: Web hooks
     description: |
       Outgoing web hooks from the scanner
-  - name: Content scan
+  - name: Content rules
     description: |
-      Manage content scan rules
+      Manage content rules
   - name: Overrides
     description: |
       Manage finding overrides
@@ -753,7 +753,7 @@ definitions:
         type: string
         example: 6af2e0e1-bb7c-45b7-9a3f-152a80d154eb
         description: |
-          The unique ID assigned to this content scan ruleset.
+          The unique ID assigned to this content ruleset.
       name:
         type: string
         example: Scanning ruleset
@@ -828,7 +828,7 @@ definitions:
         type: string
         example: 6af2e0e1-bb7c-45b7-9a3f-152a80d154eb
         description: |
-          The unique ID assigned to this content scan ruleset.
+          The unique ID assigned to this content ruleset.
       href:
         type: string
         example: /api/collections/60e53669-c8ef-4d0f-a8ff-3dbbb098d8ff
@@ -1970,12 +1970,12 @@ definitions:
       filename:
         type: string
         description: |
-          The file where the issue was detected by content scanner.
+          The file where the issue was detected by the content scanner.
         example: path/to/file
       rule:
         type: string
         description: |
-          The content scan name that matches the file content.
+          The content rule name that matches the file content.
         example: ssh_key_search_rsa
       ruleset:
         type: string
@@ -1987,7 +1987,7 @@ definitions:
         type: string
         example: This is a rule.
         description: |
-          The description of the content scan rule.
+          The description of the content rule.
       severity:
         type: string
         example: critical
@@ -2004,7 +2004,7 @@ definitions:
       metadata:
         type: object
         description: |
-          The metadata of the content scan rule.
+          The metadata of the content rule.
         example:
           author: foo
           license: 'http://XXX.XXX.XXX'
@@ -2014,7 +2014,7 @@ definitions:
           type: string
           example: config
         description: |
-          The tags of the content scan rule.
+          The tags of the content rule.
       override: &ref_14
         type: object
         properties:
@@ -6321,9 +6321,9 @@ paths:
   /api/collections:
     get:
       operationId: listCollections
-      summary: List content scan ruleset collections
+      summary: List content ruleset collections
       description: |
-        Get the list of content scan rulset collections.
+        Get the list of content ruleset collections.
       produces:
         - application/json
       parameters:
@@ -6333,7 +6333,7 @@ paths:
         - *ref_21
         - *ref_23
       tags:
-        - Content scan
+        - Content rules
       responses:
         '200':
           description: |
@@ -6392,16 +6392,16 @@ paths:
           - 'collections:list'
     post:
       operationId: createCollection
-      summary: Create a content scan ruleset collection
+      summary: Create a content ruleset collection
       description: >
-        Add a content scan ruleset collection to manage rules. Default rules
-        will be automatically inserted into the ruleset created.
+        Add a content ruleset collection to manage rules. Default rules will be
+        automatically inserted into the ruleset created.
       consumes:
         - application/json
       produces:
         - application/json
       tags:
-        - Content scan
+        - Content rules
       parameters:
         - in: body
           name: request
@@ -6440,12 +6440,12 @@ paths:
                 be removed.
         '201':
           description: |
-            The content scan ruleset has been created.
+            The content ruleset has been created.
           schema: *ref_50
           headers:
             Location:
               description: |
-                The content scan ruleset URL.
+                The content ruleset URL.
               type: string
             Sunset:
               type: string
@@ -6489,13 +6489,13 @@ paths:
         type: string
     get:
       operationId: describeCollection
-      summary: Describe a content scan ruleset collection
+      summary: Describe a content ruleset collection
       description: |
-        Retrieve content scan ruleset collection details.
+        Retrieve content ruleset collection details.
       produces:
         - application/json
       tags:
-        - Content scan
+        - Content rules
       parameters:
         - *ref_23
       responses:
@@ -6539,16 +6539,16 @@ paths:
           - 'collections:describe'
     post:
       operationId: modifyCollection
-      summary: Modify a content scan ruleset collection
+      summary: Modify a content ruleset collection
       description: >
-        Modify a content scan ruleset collection. Rulesets cannot be modifed
-        with this API.
+        Modify a content ruleset collection. Rulesets cannot be modifed with
+        this API.
       consumes:
         - application/json
       produces:
         - application/json
       tags:
-        - Content scan
+        - Content rules
       parameters:
         - name: request
           in: body
@@ -6559,7 +6559,7 @@ paths:
         '200':
           description: >
             The collection has been updated. The response body contains the
-            updated content scan ruleset collection object.
+            updated content ruleset collection object.
           schema: *ref_50
           headers:
             Location:
@@ -6601,11 +6601,11 @@ paths:
           - 'collections:modify'
     delete:
       operationId: deleteCollection
-      summary: Delete a content scan ruleset collection
+      summary: Delete a content ruleset collection
       description: |
         Delete a ruleset collection and associated rulesets.
       tags:
-        - Content scan
+        - Content rules
       parameters:
         - *ref_36
         - *ref_23
@@ -6684,10 +6684,9 @@ paths:
         type: string
     get:
       operationId: listRulesets
-      summary: List content scan rulesets
-      description: >
-        Get the list of content scan rulesets in the indicated ruleset
-        collection.
+      summary: List content rulesets
+      description: |
+        Get the list of content rulesets in the indicated ruleset collection.
       produces:
         - application/json
       parameters:
@@ -6696,7 +6695,7 @@ paths:
         - *ref_21
         - *ref_23
       tags:
-        - Content scan
+        - Content rules
       responses:
         '200':
           description: |
@@ -6756,15 +6755,15 @@ paths:
           - 'collections:list'
     post:
       operationId: createRuleset
-      summary: Create a content scan ruleset
+      summary: Create a content ruleset
       description: |
-        Add a content scan ruleset to the indicated ruleset collection.
+        Add a content ruleset to the indicated ruleset collection.
       consumes:
         - application/json
       produces:
         - application/json
       tags:
-        - Content scan
+        - Content rules
       parameters:
         - name: request
           in: body
@@ -6802,12 +6801,12 @@ paths:
                 be removed.
         '201':
           description: |
-            The content scan ruleset has been created.
+            The content ruleset has been created.
           schema: *ref_4
           headers:
             Location:
               description: |
-                The content scan ruleset URL.
+                The content ruleset URL.
               type: string
             Sunset:
               type: string
@@ -6858,19 +6857,19 @@ paths:
         type: string
     get:
       operationId: describeRuleset
-      summary: Describe a content scan ruleset
+      summary: Describe a content ruleset
       description: |
-        Retrieve content scan rule details.
+        Retrieve content ruleset details.
       produces:
         - application/json
       parameters:
         - *ref_23
       tags:
-        - Content scan
+        - Content rules
       responses:
         '200':
           description: |
-            The response body contains the content scan rule object.
+            The response body contains the content ruleset object.
           headers:
             Sunset:
               type: string
@@ -6908,16 +6907,16 @@ paths:
           - 'rulesets:describe'
     post:
       operationId: modifyRuleset
-      summary: Modify a content scan ruleset
+      summary: Modify a content ruleset
       description: >
-        Update a content scan ruleset. Built-in rulesets are not allowed to be
+        Update a content ruleset. Built-in rulesets are not allowed to be
         modified except disabling/enabling.
       consumes:
         - application/json
       produces:
         - application/json
       tags:
-        - Content scan
+        - Content rules
       parameters:
         - name: request
           in: body
@@ -6927,13 +6926,13 @@ paths:
       responses:
         '200':
           description: >
-            The content scan ruleset has been updated. The response body
-            contains the updated ruleset object.
+            The content ruleset has been updated. The response body contains the
+            updated ruleset object.
           schema: *ref_4
           headers:
             Location:
               description: |
-                The content scan ruleset URL.
+                The content ruleset URL.
               type: string
             Sunset:
               type: string
@@ -6970,11 +6969,11 @@ paths:
           - 'rulesets:modify'
     delete:
       operationId: deleteRuleset
-      summary: Delete a content scan ruleset
+      summary: Delete a content ruleset
       description: |
-        Delete a content scan ruleset.
+        Delete a content ruleset.
       tags:
-        - Content scan
+        - Content rules
       parameters:
         - *ref_36
         - *ref_23
@@ -7009,7 +7008,7 @@ paths:
                 be removed.
         '204':
           description: |
-            The content scan ruleset has been deleted.
+            The content ruleset has been deleted.
           headers:
             Sunset:
               type: string

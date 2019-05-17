@@ -5458,6 +5458,16 @@
         "Image": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "cad6238a-6870-4fb2-8736-61f5aff8a2c9",
+                    "description": "The image ID.\n"
+                },
+                "href": {
+                    "type": "string",
+                    "example": "/api/registries/6552eebd-5172-411e-ac71-8c323e6ca0fe/images/cad6238a-6870-4fb2-8736-61f5aff8a2c9",
+                    "description": "The URL at which the image can be found.\n"
+                },
                 "registry": {
                     "type": "string",
                     "example": "https://registry.example.com",
@@ -5840,6 +5850,8 @@
                 }
             },
             "required": [
+                "id",
+                "href",
                 "registry",
                 "repository",
                 "tag",
@@ -45477,6 +45489,16 @@
                                     "items": {
                                         "type": "object",
                                         "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "cad6238a-6870-4fb2-8736-61f5aff8a2c9",
+                                                "description": "The image ID.\n"
+                                            },
+                                            "href": {
+                                                "type": "string",
+                                                "example": "/api/registries/6552eebd-5172-411e-ac71-8c323e6ca0fe/images/cad6238a-6870-4fb2-8736-61f5aff8a2c9",
+                                                "description": "The URL at which the image can be found.\n"
+                                            },
                                             "registry": {
                                                 "type": "string",
                                                 "example": "https://registry.example.com",
@@ -45859,6 +45881,8 @@
                                             }
                                         },
                                         "required": [
+                                            "id",
+                                            "href",
                                             "registry",
                                             "repository",
                                             "tag",
@@ -46251,6 +46275,16 @@
                         "schema": {
                             "type": "object",
                             "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "example": "cad6238a-6870-4fb2-8736-61f5aff8a2c9",
+                                    "description": "The image ID.\n"
+                                },
+                                "href": {
+                                    "type": "string",
+                                    "example": "/api/registries/6552eebd-5172-411e-ac71-8c323e6ca0fe/images/cad6238a-6870-4fb2-8736-61f5aff8a2c9",
+                                    "description": "The URL at which the image can be found.\n"
+                                },
                                 "registry": {
                                     "type": "string",
                                     "example": "https://registry.example.com",
@@ -46633,6 +46667,8 @@
                                 }
                             },
                             "required": [
+                                "id",
+                                "href",
                                 "registry",
                                 "repository",
                                 "tag",

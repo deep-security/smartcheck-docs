@@ -780,6 +780,11 @@
         "Webhook": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                    "description": "The unique ID assigned to this web hook.\n"
+                },
                 "href": {
                     "type": "string",
                     "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
@@ -16735,6 +16740,9 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "scans"
+                            ],
                             "properties": {
                                 "scans": {
                                     "type": "array",
@@ -21855,6 +21863,9 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "malware"
+                            ],
                             "properties": {
                                 "malware": {
                                     "type": "array",
@@ -22363,6 +22374,9 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "vulnerabilities"
+                            ],
                             "properties": {
                                 "vulnerabilities": {
                                     "description": "A list of results for the query.\n",
@@ -23540,6 +23554,9 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "checklists"
+                            ],
                             "properties": {
                                 "checklists": {
                                     "description": "A list of results for the query.\n",
@@ -24627,6 +24644,9 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "rules"
+                            ],
                             "properties": {
                                 "rules": {
                                     "description": "A list of results for the query.\n",
@@ -25141,6 +25161,9 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "webhooks"
+                            ],
                             "properties": {
                                 "webhooks": {
                                     "description": "A list of results for the query.\n",
@@ -25148,6 +25171,11 @@
                                     "items": {
                                         "type": "object",
                                         "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                                                "description": "The unique ID assigned to this web hook.\n"
+                                            },
                                             "href": {
                                                 "type": "string",
                                                 "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
@@ -25597,6 +25625,11 @@
                         "schema": {
                             "type": "object",
                             "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "example": "7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                                    "description": "The unique ID assigned to this web hook.\n"
+                                },
                                 "href": {
                                     "type": "string",
                                     "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
@@ -25697,6 +25730,11 @@
                         "schema": {
                             "type": "object",
                             "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "example": "7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                                    "description": "The unique ID assigned to this web hook.\n"
+                                },
                                 "href": {
                                     "type": "string",
                                     "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
@@ -26084,6 +26122,11 @@
                         "schema": {
                             "type": "object",
                             "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "example": "7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                                    "description": "The unique ID assigned to this web hook.\n"
+                                },
                                 "href": {
                                     "type": "string",
                                     "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
@@ -26491,6 +26534,11 @@
                         "schema": {
                             "type": "object",
                             "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "example": "7a2f1d8c-7780-41d2-821b-7230005d4be8",
+                                    "description": "The unique ID assigned to this web hook.\n"
+                                },
                                 "href": {
                                     "type": "string",
                                     "example": "/api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8",
@@ -27645,6 +27693,9 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "collections"
+                            ],
                             "properties": {
                                 "collections": {
                                     "description": "A list of results for the query.\n",
@@ -27725,10 +27776,7 @@
                                     "example": "dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=",
                                     "description": "An encoded value that you can use to retrieve the next set of results for a query. If `next` is not present, then there are no more results available.\n"
                                 }
-                            },
-                            "required": [
-                                "collections"
-                            ]
+                            }
                         }
                     },
                     "400": {
@@ -29742,6 +29790,9 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "rulesets"
+                            ],
                             "properties": {
                                 "rulesets": {
                                     "description": "A list of results for the query.\n",
@@ -29788,10 +29839,7 @@
                                     "example": "dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=",
                                     "description": "An encoded value that you can use to retrieve the next set of results for a query. If `next` is not present, then there are no more results available.\n"
                                 }
-                            },
-                            "required": [
-                                "rulesets"
-                            ]
+                            }
                         }
                     },
                     "400": {
@@ -31825,6 +31873,9 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "overrides"
+                            ],
                             "properties": {
                                 "overrides": {
                                     "description": "A list of results for the query.\n",
@@ -31916,10 +31967,7 @@
                                     "example": "dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=",
                                     "description": "An encoded value that you can use to retrieve the next set of results for a query. If `next` is not present, then there are no more results available.\n"
                                 }
-                            },
-                            "required": [
-                                "overrides"
-                            ]
+                            }
                         }
                     },
                     "400": {
@@ -33994,6 +34042,9 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "overrides"
+                            ],
                             "properties": {
                                 "overrides": {
                                     "description": "A list of results for the query.\n",
@@ -34079,10 +34130,7 @@
                                     "example": "dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=",
                                     "description": "An encoded value that you can use to retrieve the next set of results for a query. If `next` is not present, then there are no more results available.\n"
                                 }
-                            },
-                            "required": [
-                                "overrides"
-                            ]
+                            }
                         }
                     },
                     "400": {
@@ -36127,6 +36175,9 @@
                         },
                         "schema": {
                             "type": "object",
+                            "required": [
+                                "overrides"
+                            ],
                             "properties": {
                                 "overrides": {
                                     "description": "A list of results for the query.\n",
@@ -36218,10 +36269,7 @@
                                     "example": "dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo=",
                                     "description": "An encoded value that you can use to retrieve the next set of results for a query. If `next` is not present, then there are no more results available.\n"
                                 }
-                            },
-                            "required": [
-                                "overrides"
-                            ]
+                            }
                         }
                     },
                     "400": {

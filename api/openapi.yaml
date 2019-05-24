@@ -640,6 +640,11 @@ definitions:
   Webhook: &ref_49
     type: object
     properties:
+      id:
+        type: string
+        example: 7a2f1d8c-7780-41d2-821b-7230005d4be8
+        description: |
+          The unique ID assigned to this web hook.
       href:
         type: string
         example: /api/webhooks/7a2f1d8c-7780-41d2-821b-7230005d4be8
@@ -5146,6 +5151,8 @@ paths:
                 be removed.
           schema:
             type: object
+            required:
+              - scans
             properties:
               scans:
                 type: array
@@ -5455,6 +5462,8 @@ paths:
                 be removed.
           schema:
             type: object
+            required:
+              - malware
             properties:
               malware:
                 type: array
@@ -5553,6 +5562,8 @@ paths:
                 be removed.
           schema:
             type: object
+            required:
+              - vulnerabilities
             properties:
               vulnerabilities:
                 description: |
@@ -5728,6 +5739,8 @@ paths:
                 be removed.
           schema:
             type: object
+            required:
+              - checklists
             properties:
               checklists:
                 description: |
@@ -5881,6 +5894,8 @@ paths:
                 be removed.
           schema:
             type: object
+            required:
+              - rules
             properties:
               rules:
                 description: |
@@ -5951,6 +5966,8 @@ paths:
                 be removed.
           schema:
             type: object
+            required:
+              - webhooks
             properties:
               webhooks:
                 description: |
@@ -6377,6 +6394,8 @@ paths:
                 be removed.
           schema:
             type: object
+            required:
+              - collections
             properties:
               collections:
                 description: |
@@ -6392,8 +6411,6 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-            required:
-              - collections
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -6739,6 +6756,8 @@ paths:
                 be removed.
           schema:
             type: object
+            required:
+              - rulesets
             properties:
               rulesets:
                 description: |
@@ -6754,8 +6773,6 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-            required:
-              - rulesets
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -7100,6 +7117,8 @@ paths:
                 be removed.
           schema:
             type: object
+            required:
+              - overrides
             properties:
               overrides:
                 description: |
@@ -7115,8 +7134,6 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-            required:
-              - overrides
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -7447,6 +7464,8 @@ paths:
                 be removed.
           schema:
             type: object
+            required:
+              - overrides
             properties:
               overrides:
                 description: |
@@ -7462,8 +7481,6 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-            required:
-              - overrides
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27
@@ -7794,6 +7811,8 @@ paths:
                 be removed.
           schema:
             type: object
+            required:
+              - overrides
             properties:
               overrides:
                 description: |
@@ -7809,8 +7828,6 @@ paths:
                   An encoded value that you can use to retrieve the next set of
                   results for a query. If `next` is not present, then there are
                   no more results available.
-            required:
-              - overrides
         '400': *ref_25
         '401': *ref_26
         '403': *ref_27

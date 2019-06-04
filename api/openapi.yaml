@@ -573,7 +573,7 @@ definitions:
           (optional) A descriptive name for the web hook.
         example: (optional) a descriptive string
         maxLength: 64
-      hookURL:
+      hookUrl:
         type: string
         example: 'https://target.example.com/'
         maxLength: 255
@@ -635,6 +635,13 @@ definitions:
             - scan-completed
             - '*'
         maxLength: 10
+      hookURL:
+        type: string
+        example: 'https://target.example.com/'
+        maxLength: 255
+        description: >
+          The URL that Deep Security Smart Check should `POST` the event payload
+          to.
     required:
       - hookURL
   Webhook: &ref_49
@@ -656,7 +663,7 @@ definitions:
           (optional) A descriptive name for the web hook.
         example: (optional) a descriptive string
         maxLength: 64
-      hookURL:
+      hookUrl:
         type: string
         example: 'https://target.example.com/'
         maxLength: 255
@@ -721,7 +728,7 @@ definitions:
       - id
       - name
       - href
-      - hookURL
+      - hookUrl
       - active
       - events
       - created
@@ -1643,6 +1650,7 @@ definitions:
       - id
       - href
       - name
+      - source
       - status
   ResultsMetrics: *ref_9
   ScanStatusDetails: *ref_10

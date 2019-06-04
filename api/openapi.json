@@ -729,7 +729,7 @@
                     "example": "(optional) a descriptive string",
                     "maxLength": 64
                 },
-                "hookURL": {
+                "hookUrl": {
                     "type": "string",
                     "example": "https://target.example.com/",
                     "maxLength": 255,
@@ -771,6 +771,12 @@
                         ]
                     },
                     "maxLength": 10
+                },
+                "hookURL": {
+                    "type": "string",
+                    "example": "https://target.example.com/",
+                    "maxLength": 255,
+                    "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                 }
             },
             "required": [
@@ -796,7 +802,7 @@
                     "example": "(optional) a descriptive string",
                     "maxLength": 64
                 },
-                "hookURL": {
+                "hookUrl": {
                     "type": "string",
                     "example": "https://target.example.com/",
                     "maxLength": 255,
@@ -849,7 +855,7 @@
                 "id",
                 "name",
                 "href",
-                "hookURL",
+                "hookUrl",
                 "active",
                 "events",
                 "created"
@@ -1195,7 +1201,7 @@
                                 "example": "(optional) a descriptive string",
                                 "maxLength": 64
                             },
-                            "hookURL": {
+                            "hookUrl": {
                                 "type": "string",
                                 "example": "https://target.example.com/",
                                 "maxLength": 255,
@@ -1237,6 +1243,12 @@
                                     ]
                                 },
                                 "maxLength": 10
+                            },
+                            "hookURL": {
+                                "type": "string",
+                                "example": "https://target.example.com/",
+                                "maxLength": 255,
+                                "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                             }
                         },
                         "required": [
@@ -2378,6 +2390,7 @@
                 "id",
                 "href",
                 "name",
+                "source",
                 "status"
             ]
         },
@@ -4974,7 +4987,7 @@
                                 "example": "(optional) a descriptive string",
                                 "maxLength": 64
                             },
-                            "hookURL": {
+                            "hookUrl": {
                                 "type": "string",
                                 "example": "https://target.example.com/",
                                 "maxLength": 255,
@@ -5016,6 +5029,12 @@
                                     ]
                                 },
                                 "maxLength": 10
+                            },
+                            "hookURL": {
+                                "type": "string",
+                                "example": "https://target.example.com/",
+                                "maxLength": 255,
+                                "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                             }
                         },
                         "required": [
@@ -17623,6 +17642,7 @@
                                             "id",
                                             "href",
                                             "name",
+                                            "source",
                                             "status"
                                         ]
                                     }
@@ -18056,7 +18076,7 @@
                                                 "example": "(optional) a descriptive string",
                                                 "maxLength": 64
                                             },
-                                            "hookURL": {
+                                            "hookUrl": {
                                                 "type": "string",
                                                 "example": "https://target.example.com/",
                                                 "maxLength": 255,
@@ -18098,6 +18118,12 @@
                                                     ]
                                                 },
                                                 "maxLength": 10
+                                            },
+                                            "hookURL": {
+                                                "type": "string",
+                                                "example": "https://target.example.com/",
+                                                "maxLength": 255,
+                                                "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                                             }
                                         },
                                         "required": [
@@ -19023,6 +19049,7 @@
                                 "id",
                                 "href",
                                 "name",
+                                "source",
                                 "status"
                             ]
                         }
@@ -19929,6 +19956,7 @@
                                 "id",
                                 "href",
                                 "name",
+                                "source",
                                 "status"
                             ]
                         }
@@ -21463,6 +21491,7 @@
                                 "id",
                                 "href",
                                 "name",
+                                "source",
                                 "status"
                             ]
                         }
@@ -25187,7 +25216,7 @@
                                                 "example": "(optional) a descriptive string",
                                                 "maxLength": 64
                                             },
-                                            "hookURL": {
+                                            "hookUrl": {
                                                 "type": "string",
                                                 "example": "https://target.example.com/",
                                                 "maxLength": 255,
@@ -25240,7 +25269,7 @@
                                             "id",
                                             "name",
                                             "href",
-                                            "hookURL",
+                                            "hookUrl",
                                             "active",
                                             "events",
                                             "created"
@@ -25537,7 +25566,7 @@
                                     "example": "(optional) a descriptive string",
                                     "maxLength": 64
                                 },
-                                "hookURL": {
+                                "hookUrl": {
                                     "type": "string",
                                     "example": "https://target.example.com/",
                                     "maxLength": 255,
@@ -25579,6 +25608,12 @@
                                         ]
                                     },
                                     "maxLength": 10
+                                },
+                                "hookURL": {
+                                    "type": "string",
+                                    "example": "https://target.example.com/",
+                                    "maxLength": 255,
+                                    "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                                 }
                             },
                             "required": [
@@ -25641,7 +25676,7 @@
                                     "example": "(optional) a descriptive string",
                                     "maxLength": 64
                                 },
-                                "hookURL": {
+                                "hookUrl": {
                                     "type": "string",
                                     "example": "https://target.example.com/",
                                     "maxLength": 255,
@@ -25694,7 +25729,7 @@
                                 "id",
                                 "name",
                                 "href",
-                                "hookURL",
+                                "hookUrl",
                                 "active",
                                 "events",
                                 "created"
@@ -25746,7 +25781,7 @@
                                     "example": "(optional) a descriptive string",
                                     "maxLength": 64
                                 },
-                                "hookURL": {
+                                "hookUrl": {
                                     "type": "string",
                                     "example": "https://target.example.com/",
                                     "maxLength": 255,
@@ -25799,7 +25834,7 @@
                                 "id",
                                 "name",
                                 "href",
-                                "hookURL",
+                                "hookUrl",
                                 "active",
                                 "events",
                                 "created"
@@ -26138,7 +26173,7 @@
                                     "example": "(optional) a descriptive string",
                                     "maxLength": 64
                                 },
-                                "hookURL": {
+                                "hookUrl": {
                                     "type": "string",
                                     "example": "https://target.example.com/",
                                     "maxLength": 255,
@@ -26191,7 +26226,7 @@
                                 "id",
                                 "name",
                                 "href",
-                                "hookURL",
+                                "hookUrl",
                                 "active",
                                 "events",
                                 "created"
@@ -26550,7 +26585,7 @@
                                     "example": "(optional) a descriptive string",
                                     "maxLength": 64
                                 },
-                                "hookURL": {
+                                "hookUrl": {
                                     "type": "string",
                                     "example": "https://target.example.com/",
                                     "maxLength": 255,
@@ -26603,7 +26638,7 @@
                                 "id",
                                 "name",
                                 "href",
-                                "hookURL",
+                                "hookUrl",
                                 "active",
                                 "events",
                                 "created"
@@ -43287,7 +43322,7 @@
                                                 "example": "(optional) a descriptive string",
                                                 "maxLength": 64
                                             },
-                                            "hookURL": {
+                                            "hookUrl": {
                                                 "type": "string",
                                                 "example": "https://target.example.com/",
                                                 "maxLength": 255,
@@ -43329,6 +43364,12 @@
                                                     ]
                                                 },
                                                 "maxLength": 10
+                                            },
+                                            "hookURL": {
+                                                "type": "string",
+                                                "example": "https://target.example.com/",
+                                                "maxLength": 255,
+                                                "description": "The URL that Deep Security Smart Check should `POST` the event payload to.\n"
                                             }
                                         },
                                         "required": [
@@ -44258,6 +44299,7 @@
                                 "id",
                                 "href",
                                 "name",
+                                "source",
                                 "status"
                             ]
                         }
@@ -45163,6 +45205,7 @@
                                 "id",
                                 "href",
                                 "name",
+                                "source",
                                 "status"
                             ]
                         }

@@ -635,15 +635,7 @@ definitions:
             - scan-completed
             - '*'
         maxLength: 10
-      hookURL:
-        type: string
-        example: 'https://target.example.com/'
-        maxLength: 255
-        description: >
-          The URL that Deep Security Smart Check should `POST` the event payload
-          to.
-    required:
-      - hookURL
+    required: []
   Webhook: &ref_49
     type: object
     properties:
@@ -835,6 +827,8 @@ definitions:
       - id
       - href
       - default
+      - created
+      - updated
     properties:
       id:
         type: string
@@ -862,6 +856,18 @@ definitions:
         items: *ref_4
         description: |
           The rulesets belonging to this collection.
+      created:
+        type: string
+        format: date-time
+        example: '2018-05-01T00:00:00Z'
+        description: |
+          The time at which this collection was created.
+      updated:
+        type: string
+        format: date-time
+        example: '2018-05-02T00:00:00Z'
+        description: |
+          The time at which this collection was last updated.
   ScanRequest: &ref_43
     type: object
     properties:
@@ -1135,6 +1141,7 @@ definitions:
           - completed-with-findings
           - completed-no-findings
           - failed
+          - cancelled
         example: completed-with-findings
       details: &ref_10
         type: object
@@ -2633,24 +2640,30 @@ definitions:
           ok:
             type: integer
             description: >
-              The number of images in all registries that have been scanned and
-              have had no findings.
+              The number of images in all registries where the last scan status
+              is that the scan had no findings.
           warnings:
             type: integer
             description: >
-              The number of images in all registries that have been scanned and
-              have had findings.
+              The number of images in all registries where the last scan status
+              is that the scan had findings.
           errors:
             type: integer
             description: >
-              The number of images in all registries that have been scanned and
-              have encountered errors during the scan.
+              The number of images in all registries where the last scan status
+              is that the scan encountered an error.
+          cancelled:
+            type: integer
+            description: >
+              The number of images in all registries where the last scan status
+              is that the scan was cancelled.
         required:
           - pending
           - inProgress
           - ok
           - warnings
           - errors
+          - cancelled
       findings: *ref_9
       history:
         type: object
@@ -3058,24 +3071,30 @@ definitions:
               ok:
                 type: integer
                 description: >
-                  The number of images in the registry that have been scanned
-                  and have had no findings.
+                  The number of images in the registry where the last scan
+                  status is that the scan had no findings.
               warnings:
                 type: integer
                 description: >
-                  The number of images in the registry that have been scanned
-                  and have had findings.
+                  The number of images in the registry where the last scan
+                  status is that the scan had findings.
               errors:
                 type: integer
                 description: >
-                  The number of images in the registry that have been scanned
-                  and have encountered errors during the scan.
+                  The number of images in the registry where the last scan
+                  status is that the scan encountered an error.
+              cancelled:
+                type: integer
+                description: >
+                  The number of images in the registry where the last scan
+                  status is that the scan was cancelled.
             required:
               - pending
               - inProgress
               - ok
               - warnings
               - errors
+              - cancelled
           findings: *ref_9
           history:
             type: object
@@ -5127,7 +5146,7 @@ paths:
             scans to those scans where the `status` value contains one of the
             provided values. Valid values in the list are `pending`,
             `in-progress`, `completed-with-findings`, `completed-no-findings`,
-            `failed`. Invalid values are ignored.
+            `failed`, `cancelled`. Invalid values are ignored.
         - *ref_23
       responses:
         '200':
@@ -5412,6 +5431,84 @@ paths:
       x-security:
         x-required-privileges:
           - 'scans:describe'
+    delete:
+      operationId: cancelScan
+      summary: Cancel a scan
+      description: |
+        Cancel a pending scan.
+      tags:
+        - Scans
+      produces:
+        - application/json
+      parameters:
+        - *ref_23
+        - *ref_36
+      responses:
+        '200':
+          description: >
+            The scan would be cancelled if the `dryrun=true` parameter was not
+            present.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '202':
+          description: |
+            The scan has been cancelled.
+          headers:
+            Sunset:
+              type: string
+              format: datetime
+              description: >
+                If present, this API endpoint has been deprecated and may be
+                removed at any point after the reported date. The timestamp is
+                an HTTP date string in the format `Fri, 11 Nov 2018 11:11:11
+                GMT`.
+            X-Request-Id:
+              type: string
+              description: |
+                The request ID assigned to this request.
+            X-Api-Version:
+              type: string
+              description: |
+                The API version used in this request.
+            X-Api-Notice:
+              type: string
+              description: >
+                If present, this header will include important API information.
+                We will use this header as one way to notify you that a new API
+                version is available or that the API you are using is going to
+                be removed.
+        '400': *ref_25
+        '401': *ref_26
+        '403': *ref_27
+        '404': *ref_33
+        '429': *ref_28
+        '500': *ref_29
+        '503': *ref_30
+      x-security:
+        x-required-privileges:
+          - 'scans:delete'
   '/api/scans/{id}/layers/{layerID}/malware':
     parameters:
       - name: id
@@ -6158,6 +6255,9 @@ paths:
       tags:
         - Web hooks
       parameters:
+        - in: body
+          name: request
+          schema: *ref_5
         - *ref_23
       responses:
         '200':

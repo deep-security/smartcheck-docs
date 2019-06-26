@@ -2020,10 +2020,8 @@
                                             }
                                         },
                                         "required": [
-                                            "scanners",
                                             "contents",
                                             "vulnerabilities",
-                                            "checklists",
                                             "malware"
                                         ]
                                     }
@@ -2377,10 +2375,8 @@
                         }
                     },
                     "required": [
-                        "scanners",
                         "contents",
                         "vulnerabilities",
-                        "checklists",
                         "malware"
                     ]
                 }
@@ -2725,10 +2721,8 @@
                 }
             },
             "required": [
-                "scanners",
                 "contents",
                 "vulnerabilities",
-                "checklists",
                 "malware"
             ]
         },
@@ -3158,10 +3152,8 @@
                                     }
                                 },
                                 "required": [
-                                    "scanners",
                                     "contents",
                                     "vulnerabilities",
-                                    "checklists",
                                     "malware"
                                 ]
                             }
@@ -3549,10 +3541,8 @@
                         }
                     },
                     "required": [
-                        "scanners",
                         "contents",
                         "vulnerabilities",
-                        "checklists",
                         "malware"
                     ]
                 }
@@ -5430,10 +5420,8 @@
                         }
                     },
                     "required": [
-                        "scanners",
                         "contents",
                         "vulnerabilities",
-                        "checklists",
                         "malware"
                     ]
                 },
@@ -5520,7 +5508,8 @@
                         "in-progress",
                         "completed-no-findings",
                         "completed-with-findings",
-                        "failed"
+                        "failed",
+                        "cancelled"
                     ]
                 },
                 "findings": {
@@ -5855,10 +5844,8 @@
                         }
                     },
                     "required": [
-                        "scanners",
                         "contents",
                         "vulnerabilities",
-                        "checklists",
                         "malware"
                     ]
                 },
@@ -6495,10 +6482,8 @@
                                 }
                             },
                             "required": [
-                                "scanners",
                                 "contents",
                                 "vulnerabilities",
-                                "checklists",
                                 "malware"
                             ]
                         },
@@ -17275,10 +17260,8 @@
                                                                         }
                                                                     },
                                                                     "required": [
-                                                                        "scanners",
                                                                         "contents",
                                                                         "vulnerabilities",
-                                                                        "checklists",
                                                                         "malware"
                                                                     ]
                                                                 }
@@ -17632,10 +17615,8 @@
                                                     }
                                                 },
                                                 "required": [
-                                                    "scanners",
                                                     "contents",
                                                     "vulnerabilities",
-                                                    "checklists",
                                                     "malware"
                                                 ]
                                             }
@@ -18675,10 +18656,8 @@
                                                             }
                                                         },
                                                         "required": [
-                                                            "scanners",
                                                             "contents",
                                                             "vulnerabilities",
-                                                            "checklists",
                                                             "malware"
                                                         ]
                                                     }
@@ -19032,10 +19011,8 @@
                                         }
                                     },
                                     "required": [
-                                        "scanners",
                                         "contents",
                                         "vulnerabilities",
-                                        "checklists",
                                         "malware"
                                     ]
                                 }
@@ -19583,10 +19560,8 @@
                                                             }
                                                         },
                                                         "required": [
-                                                            "scanners",
                                                             "contents",
                                                             "vulnerabilities",
-                                                            "checklists",
                                                             "malware"
                                                         ]
                                                     }
@@ -19940,10 +19915,8 @@
                                         }
                                     },
                                     "required": [
-                                        "scanners",
                                         "contents",
                                         "vulnerabilities",
-                                        "checklists",
                                         "malware"
                                     ]
                                 }
@@ -21119,10 +21092,8 @@
                                                             }
                                                         },
                                                         "required": [
-                                                            "scanners",
                                                             "contents",
                                                             "vulnerabilities",
-                                                            "checklists",
                                                             "malware"
                                                         ]
                                                     }
@@ -21476,10 +21447,8 @@
                                         }
                                     },
                                     "required": [
-                                        "scanners",
                                         "contents",
                                         "vulnerabilities",
-                                        "checklists",
                                         "malware"
                                     ]
                                 }
@@ -39345,10 +39314,8 @@
                                                             }
                                                         },
                                                         "required": [
-                                                            "scanners",
                                                             "contents",
                                                             "vulnerabilities",
-                                                            "checklists",
                                                             "malware"
                                                         ]
                                                     },
@@ -40430,10 +40397,8 @@
                                                 }
                                             },
                                             "required": [
-                                                "scanners",
                                                 "contents",
                                                 "vulnerabilities",
-                                                "checklists",
                                                 "malware"
                                             ]
                                         },
@@ -41011,10 +40976,8 @@
                                                 }
                                             },
                                             "required": [
-                                                "scanners",
                                                 "contents",
                                                 "vulnerabilities",
-                                                "checklists",
                                                 "malware"
                                             ]
                                         },
@@ -41928,10 +41891,8 @@
                                                 }
                                             },
                                             "required": [
-                                                "scanners",
                                                 "contents",
                                                 "vulnerabilities",
-                                                "checklists",
                                                 "malware"
                                             ]
                                         },
@@ -43001,10 +42962,8 @@
                                                 }
                                             },
                                             "required": [
-                                                "scanners",
                                                 "contents",
                                                 "vulnerabilities",
-                                                "checklists",
                                                 "malware"
                                             ]
                                         },
@@ -44431,10 +44390,8 @@
                                                             }
                                                         },
                                                         "required": [
-                                                            "scanners",
                                                             "contents",
                                                             "vulnerabilities",
-                                                            "checklists",
                                                             "malware"
                                                         ]
                                                     }
@@ -44788,10 +44745,8 @@
                                         }
                                     },
                                     "required": [
-                                        "scanners",
                                         "contents",
                                         "vulnerabilities",
-                                        "checklists",
                                         "malware"
                                     ]
                                 }
@@ -45338,10 +45293,8 @@
                                                             }
                                                         },
                                                         "required": [
-                                                            "scanners",
                                                             "contents",
                                                             "vulnerabilities",
-                                                            "checklists",
                                                             "malware"
                                                         ]
                                                     }
@@ -45695,10 +45648,8 @@
                                         }
                                     },
                                     "required": [
-                                        "scanners",
                                         "contents",
                                         "vulnerabilities",
-                                        "checklists",
                                         "malware"
                                     ]
                                 }
@@ -46124,7 +46075,8 @@
                                                     "in-progress",
                                                     "completed-no-findings",
                                                     "completed-with-findings",
-                                                    "failed"
+                                                    "failed",
+                                                    "cancelled"
                                                 ]
                                             },
                                             "findings": {
@@ -46459,10 +46411,8 @@
                                                     }
                                                 },
                                                 "required": [
-                                                    "scanners",
                                                     "contents",
                                                     "vulnerabilities",
-                                                    "checklists",
                                                     "malware"
                                                 ]
                                             },
@@ -46910,7 +46860,8 @@
                                         "in-progress",
                                         "completed-no-findings",
                                         "completed-with-findings",
-                                        "failed"
+                                        "failed",
+                                        "cancelled"
                                     ]
                                 },
                                 "findings": {
@@ -47245,10 +47196,8 @@
                                         }
                                     },
                                     "required": [
-                                        "scanners",
                                         "contents",
                                         "vulnerabilities",
-                                        "checklists",
                                         "malware"
                                     ]
                                 },
@@ -48016,10 +47965,8 @@
                                         }
                                     },
                                     "required": [
-                                        "scanners",
                                         "contents",
                                         "vulnerabilities",
-                                        "checklists",
                                         "malware"
                                     ]
                                 },

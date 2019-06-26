@@ -1633,10 +1633,8 @@ definitions:
                         - total
                         - unresolved
                   required:
-                    - scanners
                     - contents
                     - vulnerabilities
-                    - checklists
                     - malware
               required:
                 - id
@@ -2749,6 +2747,7 @@ definitions:
           - completed-no-findings
           - completed-with-findings
           - failed
+          - cancelled
       findings: *ref_9
       updated:
         type: string

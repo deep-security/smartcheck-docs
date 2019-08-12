@@ -67,7 +67,7 @@
 					<h3><a name="dev-ops"></a>How does Smart Check fit into a DevOps pipeline?</h3>
 						<p>Deep Security Smart Check provides a valuable step in your continuous integration (CI) or continuous delivery (CD) pipeline.</p>
 						<p>For example, Jenkins® projects can automatically build, test, and then push Docker images to a Docker registry. Once pushed, the image may be instantly available to run in an orchestration environment. If malware or vulnerabilities exist in the image, then they become a risk when the image is run. Since images are intended to be immutable, the right time to scan the image is when it's first pushed to the registry.</p>
-						<p>That&rsquo;s where Deep Security Smart Check fits in – it can scan Docker images in any registry that implements the Docker Registry V2 API. All Deep Security Smart Check operations are available through a documented collection of APIs to simplify integration into your CI/CD pipeline. <a href="https://deep-security.github.io/smartcheck-docs/api/index.html" target="_blank" title="Deep Security Smart Check APIs" alt="https://deep-security.github.io/smartcheck-docs/api/index.html">Deep Security Smart Check APIs</a> can be invoked automatically by your CI/CD system to start scans when an image is pushed to a Docker registry. Scan results are also available through the API. You can also scan images before they reach your production registry (see <a href="https://github.com/deep-security/smartcheck-helm/wiki/Configure-pre-registry-scanning" target="_blank" title="Configure pre registry scanning" alt="https://github.com/deep-security/smartcheck-helm/wiki/Configure-pre-registry-scanning">Configure pre registry scanning</a> in the Smart Check wiki).</p>
+						<p>That&rsquo;s where Deep Security Smart Check fits in – it can scan Docker images in any registry that implements the Docker Registry V2 API. All Deep Security Smart Check operations are available through a documented collection of APIs to simplify integration into your CI/CD pipeline. <a href="https://deep-security.github.io/smartcheck-docs/api/index.html" target="_blank" title="Deep Security Smart Check APIs" alt="Deep Security Smart Check APIs">Deep Security Smart Check APIs</a> can be invoked automatically by your CI/CD system to start scans when an image is pushed to a Docker registry. Scan results are also available through the API. You can also scan images before they reach your production registry (see <a href="https://github.com/deep-security/smartcheck-helm/wiki/Configure-pre-registry-scanning" target="_blank" title="Configure pre registry scanning" alt="Configure pre registry scanning">Configure pre registry scanning</a> in the Smart Check wiki).</p>
 						<p>The Smart Check API includes a webhook facility that allows CI/CD components to register to receive notifications of scan events, including ‘scan-completed’, allowing you to automate workflows. For example, a Docker image signing service could register to receive scan results and then use those results to decide whether a particular image should be digitally signed and promoted to a “blessed” repository that is available to your orchestration environment. You could also set a webhook to call a receiver service that forwards scan results to a Slack™ channel or ServiceNow™ account.</p>
 						<p>Deep Security Smart Check also includes an administrator console that provides:</p>
 				<ul>
@@ -91,11 +91,11 @@
                 <li>Quay™ Container Registry</li>
             </ul>
             <p><strong>Note: </strong>Deep Security Smart Check requires a TLS connection to the registry.</p>
-            <p>To integrate Deep Security Smart Check into your pipeline, you may need to write integration logic to trigger scanning based on the event model of your registry. For example, Google Container Registry uses a pub/sub model to publish events about registry activity and Docker Trusted Registry uses a webhook model. If you use Jenkins, you can use the <a href="https://github.com/deep-security/smartcheck-plugin" target="_blank" title="https://github.com/deep-security/smartcheck-plugin" alt="https://github.com/deep-security/smartcheck-plugin">Deep Security Smart Check plugin for Jenkins</a> for easy integration into your pipeline. You can also use our GitHub Action directly to integrate Smart Check into your CI workflows. See <a href="https://github.com/deep-security/smartcheck-scan-action" target="_blank" title="https://github.com/deep-security/smartcheck-scan-action" alt="https://github.com/deep-security/smartcheck-scan-action">Deep Security Smart Check Scan Action</a> for details. </p>
+            <p>To integrate Deep Security Smart Check into your pipeline, you may need to write integration logic to trigger scanning based on the event model of your registry. For example, Google Container Registry uses a pub/sub model to publish events about registry activity and Docker Trusted Registry uses a webhook model. If you use Jenkins, you can use the <a href="https://github.com/deep-security/smartcheck-plugin" target="_blank" title="Deep Security Smart Check plugin for Jenkins" alt="Deep Security Smart Check plugin for Jenkins">Deep Security Smart Check plugin for Jenkins</a> for easy integration into your pipeline. You can also use our GitHub Action directly to integrate Smart Check into your CI workflows. See <a href="https://github.com/deep-security/smartcheck-scan-action" target="_blank" title="Deep Security Smart Check Scan Action" alt="Deep Security Smart Check Scan Action">Deep Security Smart Check Scan Action</a> for details. </p>
             <h3><a name="system-requirements"></a>System requirements</h3>
             <p>This release of Deep Security Smart Check requires:</p>
             <ul>
-              <li>Kubernetes 1.10.0 or greater on a Kubernetes Certified platform (or equivalent). See <a href="https://www.cncf.io/certification/software-conformance/" target="_blank" title="Software Conformance - Cloud Native Computing Foundation" alt="https://www.cncf.io/certification/software-conformance/">https://www.cncf.io/certification/software-conformance/</a></li>
+              <li>Kubernetes 1.10.0 or greater on a Kubernetes Certified platform (or equivalent). See <a href="https://www.cncf.io/certification/software-conformance/" target="_blank" title="Software Conformance - Cloud Native Computing Foundation" alt="Software Conformance - Cloud Native Computing Foundation">https://www.cncf.io/certification/software-conformance/</a></li>
               <li>Helm/Tiller 2.14.1 or greater</li>
               <li>Google Chrome™ browser to access the Smart Check administrator console. Other modern browsers may work with Smart Check but are not officially supported.</li>
             </ul>
@@ -160,7 +160,7 @@
             <p><strong>Tip: </strong>You can also enable SAML single sign-on in Deep Security Smart Check, so that users in your organization can sign in to Smart Check with their existing organization account. You can also use your identity provider to implement user authentication access control features like password strength or change enforcement,&nbsp; one-time passwords (OTP), and&nbsp; two-factor or multi-factor authentication (2FA / MFA). For instructions, see <a>Implement SAML single sign-on</a> on the Smart Check helm wiki.</p>
             <h4><a name="add-user"></a>Add or edit a user</h4>
             <ol>
-                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-users.png" height="20px" alt=""/> <strong>Users</strong>.</li>
+                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-users.png" height="20px" alt="User icon"/> <strong>Users</strong>.</li>
                 <li>On the Users page, click <strong>+ CREATE</strong> to add a user or click an existing user to edit.</li>
                 <li>On the Add/Edit User page, enter the <strong>User ID</strong> that the user will use to log in to Deep Security Smart Check. The User ID has a maximum of 64 characters.</li>
                 <li>Enter the user&rsquo;s full name.</li>
@@ -177,7 +177,7 @@
             </ol>
             <h4><a name="delete-user"></a>Delete a user</h4>
             <ol>
-                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-users.png" height="20px" alt=""/> <strong>Users</strong>.</li>
+                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-users.png" height="20px" alt="User icon"/> <strong>Users</strong>.</li>
                 <li>On the Users page, click the user you want to remove.</li>
                 <li>On the Edit User page, click <strong>DELETE</strong>.</li>
             </ol>
@@ -189,7 +189,7 @@
             <p>If you are using Google Cloud Registry, create a service account and use its JSON key file. The service account must have at least the <strong>Storage Object Viewer </strong> role and both the <strong>Google Cloud Resource Manager API</strong> and <strong>Google Container Registry API</strong> must be enabled. Google provides <a href="https://cloud.google.com/container-registry/docs/advanced-authentication" target="_blank" title="Advanced Authentication Methods" alt="Advanced Authentication Methods">an overview</a> and <a href="https://support.google.com/cloud/answer/6158849#serviceaccounts" target="_blank" title="Service accounts" alt="Service accounts">detailed instructions</a> for creating service accounts.</p>
             <h4><a name="add-registry"></a>Add a registry</h4>
             <ol>
-                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-registries.png" height="20px" alt=""/> <strong>Registries</strong>.</li>
+                <li>On the left side of the Smart Check administrator console, click <img src="images/icon-registries.png" height="20px" alt="Registries icon"/> <strong>Registries</strong>.</li>
                 <li>Click <strong> + CREATE </strong>to add a registry.</li>
                 <li>On the Create Registry page, in the <strong>Name</strong> field, enter a descriptive name for the registry. This name does not necessarily need to match the namespace of your Docker registry. If you plan to add multiple registries, you’ll use this name to tell them apart in the Smart Check administrator console. The name should be short but meaningful, with a maximum of 256 characters.</li>
                 <li>In the <strong>Description</strong> field, enter an optional description of the registry. This is useful if you need to capture a bit more information than the Name field allows.</li>
@@ -231,8 +231,8 @@
            <li>Click <strong>+ ADD FILTER</strong> to include or exclude images based on any segment of their fully qualified name in the form <code>&lt;repository&gt;/&lt;image&gt;:&lt;tag&gt;</code>. For example, the include filter <code>*latest*</code> would match <code>smartcheck/scan:latest</code> and <code>smartcheck/auth:latest</code>. The default include filter of <code>*</code> will select all images in the registry.</li>
            <li>Click <strong>CREATE REGISTRY</strong>.</li>
            </ol>
-            <p>To edit a registry, go to the Registries page, click the registry, and then click <img src="images/icon-edit.png" height="20px" alt=""/>.</p>
-            <p>To refresh the list of images in a registry, go to the Registries page, click the registry, and then click <img src="images/icon-sync.png" height="20px" alt=""/>.</p>
+            <p>To edit a registry, go to the Registries page, click the registry, and then click <img src="images/icon-edit.png" height="20px" alt="Edit icon"/>.</p>
+            <p>To refresh the list of images in a registry, go to the Registries page, click the registry, and then click <img src="images/icon-sync.png" height="20px" alt="Sync icon"/>.</p>
             <h3><a name="start-scan"></a>Start a scan</h3>
             <p>When Smart Check receives a scan request, it pulls the image(s) specified in the registry being scanned, unpacks each layer, and inspects the content for malware, vulnerabilities, secrets and keys, and compliance problems.</p>
             <p>There are several ways that a  scan can be triggered:</p>
@@ -243,18 +243,18 @@
             </ul>
             <h4><a name="sc-manual-scan"></a>Manually start a scan</h4>
             <ol>
-              <li>In the Registries section of the <img src="images/icon-dashboard.png" height="20px" alt=""/> <strong>Dashboard</strong> page or on the <img src="images/icon-registries.png" height="20px" alt=""/> <strong>Registries</strong> page, click the name of the registry that you want to scan.</li>
-              <li>Click <img src="images/icon-scan-now.png" height="20px" alt=""/>.</li>
+              <li>In the Registries section of the <img src="images/icon-dashboard.png" height="20px" alt="Dashboard icon"/> <strong>Dashboard</strong> page or on the <img src="images/icon-registries.png" height="20px" alt="Registries icon"/> <strong>Registries</strong> page, click the name of the registry that you want to scan.</li>
+              <li>Click <img src="images/icon-scan-now.png" height="20px" alt="Scan now icon"/>.</li>
                 <li>A confirmation message appears. Click <strong>OK</strong>.</li>
             </ol>
-            <p>To confirm that scans are running, on the left side of the Smart Check administrator console, click <img src="images/icon-scans.png" height="20px" alt=""/> <strong>Scans</strong>. Running scans have a spinning icon next to them.</p>
+            <p>To confirm that scans are running, on the left side of the Smart Check administrator console, click <img src="images/icon-scans.png" height="20px" alt="Scans icon"/> <strong>Scans</strong>. Running scans have a spinning icon next to them.</p>
             <h3><a name="get-results"></a>See scan results</h3>
             <p>There are several ways to get scan results:</p>
             <ul>
               <li>You can add a webhook through the Smart Check API with a destination URL that is called automatically when results are ready. See the <a href="https://deep-security.github.io/smartcheck-docs/api/index.html">API documentation</a> for details. Your webhook receiver could, for example, process the scan result and forward a notification to Slack or ServiceNow if appropriate.</li>
               <li>You can request the results directly through the Smart Check API. For details, refer to the <a href="https://deep-security.github.io/smartcheck-docs/api/index.html">API documentation</a>.</li>
               <li>You can check the scan results in the Smart Check administrator console:
-                    <p>In the Registries section of the <img src="images/icon-dashboard.png" height="20px" alt=""/> <strong>Dashboard</strong> page or on the <img src="images/icon-registries.png" height="20px" alt=""/> <strong>Registries</strong> page, click the registry. You’ll see a summary that includes information about the findings from the latest scan.</p>
+                    <p>In the Registries section of the <img src="images/icon-dashboard.png" height="20px" alt="Dashboard icon"/> <strong>Dashboard</strong> page or on the <img src="images/icon-registries.png" height="20px" alt="Registries icon"/> <strong>Registries</strong> page, click the registry. You’ll see a summary that includes information about the findings from the latest scan.</p>
 					<p>You'll also see a searchable list of images in the registry. To see specific information about an individual image, click the image to display its scan history. Click a scan to display information about it.</p>
                 </li>
             </ul>
@@ -265,20 +265,20 @@
 			<h3>Create a new content ruleset collection</h3>
 			<p>If you don't want to use the built-in Deep Security Smart Check Collection, you can make your own collection.</p>
 			<ol>
-               <li>On the left side of the Smart Check administrator console, click <img src="images/icon-content-rule.png" height="20px" alt=""/> <strong>Content Rules</strong>.</li>
+               <li>On the left side of the Smart Check administrator console, click <img src="images/icon-content-rule.png" height="20px" alt="Content rule icon"/> <strong>Content Rules</strong>.</li>
                 <li>On the Content Rules page, click <strong>+ CREATE</strong></li>
                 <li>In the pop-up that appears, enter a name for the new collection and click <strong>ADD</strong>. A new, empty ruleset collection appears on the Content Rules page.</li>
 				<li>Add some rulesets to the collection, and enable those rulesets</li>
-				<li>When you're ready to being using the new collection, click <img src="images/icon-activate.png" height="20px" alt=""/> to activate the collection. This also deactivates any other collections.</li>
+				<li>When you're ready to being using the new collection, click <img src="images/icon-activate.png" height="20px" alt="Activate icon"/> to activate the collection. This also deactivates any other collections.</li>
 			</ol>	
 			<h3>Change the name of a content ruleset collection</h3>
 			<ol>
-			   <li>On the Content Rules page, click <img src="images/icon-edit.png" height="20px" alt=""/> for the ruleset collection that you want to rename.</li>
+			   <li>On the Content Rules page, click <img src="images/icon-edit.png" height="20px" alt="Edit icon"/> for the ruleset collection that you want to rename.</li>
 			   <li>In the pop-up that appears, edit the name and click <strong>UPDATE</strong>. </li>
 			</ol>	
 			<h3>Add rulesets to a collection</h3>
 			<ol>
-               <li>On Content Rules page, click <img src="images/icon-add.png" height="20px" alt=""/> in the ruleset collection where you want to add the ruleset.</li>
+               <li>On Content Rules page, click <img src="images/icon-add.png" height="20px" alt="Add icon"/> in the ruleset collection where you want to add the ruleset.</li>
 			   <li>In the pop-up that appears:</li>
 					<ol>
 						<li>Enter a name for the ruleset.</li>
@@ -292,7 +292,7 @@
         <section>
             <h2><a name="access-api"></a>Access the API documentation</h2>
             <p>Everything you can do in the Smart Check administrator console (and more) is available as an API operation. You can use the API and webhooks to integrate Deep Security Smart Check with a variety of other products.</p>
-            <p>You can find the API documentation in the Smart Check administrator console. On the left side of the console, click <img src="images/icon-api.png" height="20px" alt=""/><strong> API Documentation</strong>.</li>
+            <p>You can find the API documentation in the Smart Check administrator console. On the left side of the console, click <img src="images/icon-api.png" height="20px" alt="API icon"/><strong> API Documentation</strong>.</li>
             </ol>
 			<p>Or go to <a href="https://deep-security.github.io/smartcheck-docs/api/index.html" target="_blank" title="Deep Security Smart Check APIs" alt="https://deep-security.github.io/smartcheck-docs/api/index.html"> https://deep-security.github.io/smartcheck-docs/api/index.html</a>.</p>
         </section>
@@ -303,19 +303,19 @@
             <p><strong>Does Smart Check get automatic security updates, or do I need to upgrade to get security updates?</strong></p>
 			<p style="margin-left: 40px">Deep Security Smart Check updates its malware details and vulnerability definitions automatically. You will need to upgrade to get software updates, including new feature and security updates.</p>
 			<p><strong>How do I scan images before they reach my production registry?</strong></p>
-			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Configure-pre-registry-scanning" target="_blank" title="Configure pre registry scanning" alt="https://github.com/deep-security/smartcheck-helm/wiki/Configure-pre-registry-scanning">Configure pre registry scanning</a> in the Smart Check wiki for instructions.</p>
+			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Configure-pre-registry-scanning" target="_blank" title="Configure pre registry scanning" alt="Configure pre registry scanning">Configure pre registry scanning</a> in the Smart Check wiki for instructions.</p>
 			<p><strong>How do I override a vulnerability  or content scan finding (CVE whitelisting)?</strong></p>
-			<p style="margin-left: 40px">If a scan finds a vulnerability or content scan issue but you know it's not a concern, you can override it using the Smart Check API. For details, see the <a href="https://deep-security.github.io/smartcheck-docs/api/index.html#tag/Overrides" target="_blank" title="Overrides" alt="https://deep-security.github.io/smartcheck-docs/api/index.html#tag/Overrides">Overrides section of the API</a>. </p>
+			<p style="margin-left: 40px">If a scan finds a vulnerability or content scan issue but you know it's not a concern, you can override it using the Smart Check API. For details, see the <a href="https://deep-security.github.io/smartcheck-docs/api/index.html#tag/Overrides" target="_blank" title="Overrides" alt="Overrides section of the API">Overrides section of the API</a>. </p>
 			<p><strong>How do I check whether images meet common PCI-DSS compliance requirements?</strong></p>
-			<p style="margin-left: 40px">You can use the checklist feature in the Smart Check API to verify whether a scanned image complies with common PCI requirements. The checklist feature is currently supported for <strong>CentOS</strong> and <strong>Red Hat</strong> images only. For details, see the <a href="https://deep-security.github.io/smartcheck-docs/api/index.html#tag/Scans" target="_blank" title="Scans" alt="https://deep-security.github.io/smartcheck-docs/api/index.html#tag/Scans">Scans section of the API</a>.</p>
+			<p style="margin-left: 40px">You can use the checklist feature in the Smart Check API to verify whether a scanned image complies with common PCI requirements. The checklist feature is currently supported for <strong>CentOS</strong> and <strong>Red Hat</strong> images only. For details, see the <a href="https://deep-security.github.io/smartcheck-docs/api/index.html#tag/Scans" target="_blank" title="Scans" alt="Scans section of the API">Scans section of the API</a>.</p>
 			<p><strong>How do I use an external database with Smart Check?</strong></p>
-			<p style="margin-left: 40px">By default, Deep Security Smart Check configures a database pod in your Kubernetes cluster. This is convenient for demonstration purposes, but for production you should use an external database. For instructions, see <a href="https://github.com/deep-security/smartcheck-helm/wiki/Use-an-external-database" target="_blank" title="Use an external database" alt="https://github.com/deep-security/smartcheck-helm/wiki/Use-an-external-database">Use an external database</a> in the Smart Check wiki.</p>
+			<p style="margin-left: 40px">By default, Deep Security Smart Check configures a database pod in your Kubernetes cluster. This is convenient for demonstration purposes, but for production you should use an external database. For instructions, see <a href="https://github.com/deep-security/smartcheck-helm/wiki/Use-an-external-database" target="_blank" title="Use an external database" alt="Use an external database">Use an external database</a> in the Smart Check wiki.</p>
 			<p><strong>How do I replace the self-signed Smart Check service certificate?</strong></p>
-			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Replace-the-service-certificate" target="_blank" title="Replace the service certificate" alt="https://github.com/deep-security/smartcheck-helm/wiki/Replace-the-service-certificate">Replace the service certificate</a> in the Smart Check wiki for instructions.</p>
+			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Replace-the-service-certificate" target="_blank" title="Replace the service certificate" alt="Replace the service certificate">Replace the service certificate</a> in the Smart Check wiki for instructions.</p>
 			<p><strong>How do I secure Smart Check webhooks?</strong></p>
-			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Secure-web-hooks" target="_blank" title="Secure web hooks" alt="https://github.com/deep-security/smartcheck-helm/wiki/Secure-web-hooks">Secure web hooks</a> in the Smart Check wiki for instructions.</p>
+			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Secure-web-hooks" target="_blank" title="Secure web hooks" alt="Secure web hooks">Secure web hooks</a> in the Smart Check wiki for instructions.</p>
 			<p><strong>I'm locked out! How do I recover my administrator account?</strong></p>
-			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Re-create-an-administrator-user" target="_blank" title="Re create an administrator user" alt="https://github.com/deep-security/smartcheck-helm/wiki/Re-create-an-administrator-user">Recreate an administrator user</a> in the Smart Check wiki for instructions.</p>
+			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Re-create-an-administrator-user" target="_blank" title="Re create an administrator user" alt="Re create an administrator user">Recreate an administrator user</a> in the Smart Check wiki for instructions.</p>
         </section>
     </article>
 </body>

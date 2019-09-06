@@ -68,7 +68,7 @@
 						<p>Deep Security Smart Check provides a valuable step in your continuous integration (CI) or continuous delivery (CD) pipeline.</p>
 						<p>For example, Jenkins® projects can automatically build, test, and then push Docker images to a Docker registry. Once pushed, the image may be instantly available to run in an orchestration environment. If malware or vulnerabilities exist in the image, then they become a risk when the image is run. Since images are intended to be immutable, the right time to scan the image is when it's first pushed to the registry.</p>
 						<p>That&rsquo;s where Deep Security Smart Check fits in – it can scan Docker images in any registry that implements the Docker Registry V2 API. All Deep Security Smart Check operations are available through a documented collection of APIs to simplify integration into your CI/CD pipeline. <a href="https://deep-security.github.io/smartcheck-docs/api/index.html" target="_blank" title="Deep Security Smart Check APIs" alt="Deep Security Smart Check APIs">Deep Security Smart Check APIs</a> can be invoked automatically by your CI/CD system to start scans when an image is pushed to a Docker registry. Scan results are also available through the API. You can also scan images before they reach your production registry (see <a href="https://github.com/deep-security/smartcheck-helm/wiki/Configure-pre-registry-scanning" target="_blank" title="Configure pre registry scanning" alt="Configure pre registry scanning">Configure pre registry scanning</a> in the Smart Check wiki).</p>
-						<p>The Smart Check API includes a webhook facility that allows CI/CD components to register to receive notifications of scan events, including ‘scan-completed’, allowing you to automate workflows. For example, a Docker image signing service could register to receive scan results and then use those results to decide whether a particular image should be digitally signed and promoted to a “blessed” repository that is available to your orchestration environment. You could also set a webhook to call a receiver service that forwards scan results to a Slack™ channel or ServiceNow™ account.</p>
+						<p>The Smart Check API includes a web hook facility that allows CI/CD components to register to receive notifications of scan events, including ‘scan-completed’, allowing you to automate workflows. For example, a Docker image signing service could register to receive scan results and then use those results to decide whether a particular image should be digitally signed and promoted to a “blessed” repository that is available to your orchestration environment. You could also set a web hook to call a receiver service that forwards scan results to a Slack™ channel or ServiceNow™ account.</p>
 						<p>Deep Security Smart Check also includes an administrator console that provides:</p>
 				<ul>
 					<li>a dashboard (system-wide summary of scan information, including metrics)</li>
@@ -91,7 +91,7 @@
                 <li>Quay™ Container Registry</li>
             </ul>
             <p><strong>Note: </strong>Deep Security Smart Check requires a TLS connection to the registry.</p>
-            <p>To integrate Deep Security Smart Check into your pipeline, you may need to write integration logic to trigger scanning based on the event model of your registry. For example, Google Container Registry uses a pub/sub model to publish events about registry activity and Docker Trusted Registry uses a webhook model. If you use Jenkins, you can use the <a href="https://github.com/deep-security/smartcheck-plugin" target="_blank" title="Deep Security Smart Check plugin for Jenkins" alt="Deep Security Smart Check plugin for Jenkins">Deep Security Smart Check plugin for Jenkins</a> for easy integration into your pipeline. You can also use our GitHub Action directly to integrate Smart Check into your CI workflows. See <a href="https://github.com/deep-security/smartcheck-scan-action" target="_blank" title="Deep Security Smart Check Scan Action" alt="Deep Security Smart Check Scan Action">Deep Security Smart Check Scan Action</a> for details. </p>
+            <p>To integrate Deep Security Smart Check into your pipeline, you may need to write integration logic to trigger scanning based on the event model of your registry. For example, Google Container Registry uses a pub/sub model to publish events about registry activity and Docker Trusted Registry uses a web hook model. If you use Jenkins, you can use the <a href="https://github.com/deep-security/smartcheck-plugin" target="_blank" title="Deep Security Smart Check plugin for Jenkins" alt="Deep Security Smart Check plugin for Jenkins">Deep Security Smart Check plugin for Jenkins</a> for easy integration into your pipeline. You can also use our GitHub Action directly to integrate Smart Check into your CI workflows. See <a href="https://github.com/deep-security/smartcheck-scan-action" target="_blank" title="Deep Security Smart Check Scan Action" alt="Deep Security Smart Check Scan Action">Deep Security Smart Check Scan Action</a> for details. </p>
             <h3><a name="system-requirements"></a>System requirements</h3>
             <p>This release of Deep Security Smart Check requires:</p>
             <ul>
@@ -134,7 +134,7 @@
 				<li><strong>Trend Micro Smart Scan Service: </strong>*.icrc.trendmicro.com:443</li>
 				<li><strong>Malware patterns: </strong>ipv6-iaus.trendmicro.com:443</li>
 				<li><strong>Target registries</strong> (for example,  GCR, on-premises DTR, ECR, etc.). Note that registries must support TLS for Deep Security Smart Check to connect to them.</li>
-				<li><strong>Webhook targets</strong></li>
+				<li><strong>Web hook targets</strong></li>
 				<li><strong>Identity provider for metadata</strong> if you have configured SAML for single sign-on</li>
 				<li><strong>Telemetry: </strong></li>telemetry.deepsecurity.trendmicro.com:443
 	        </ul>
@@ -251,7 +251,7 @@
             <h3><a name="get-results"></a>See scan results</h3>
             <p>There are several ways to get scan results:</p>
             <ul>
-              <li>You can add a webhook through the Smart Check API with a destination URL that is called automatically when results are ready. See the <a href="https://deep-security.github.io/smartcheck-docs/api/index.html">API documentation</a> for details. Your webhook receiver could, for example, process the scan result and forward a notification to Slack or ServiceNow if appropriate.</li>
+              <li>You can add a web hook through the Smart Check API with a destination URL that is called automatically when results are ready. See the <a href="https://deep-security.github.io/smartcheck-docs/api/index.html">API documentation</a> for details. Your web hook receiver could, for example, process the scan result and forward a notification to Slack or ServiceNow if appropriate.</li>
               <li>You can request the results directly through the Smart Check API. For details, refer to the <a href="https://deep-security.github.io/smartcheck-docs/api/index.html">API documentation</a>.</li>
               <li>You can check the scan results in the Smart Check administrator console:
                     <p>In the Registries section of the <img src="images/icon-dashboard.png" height="20px" alt="Dashboard icon"/> <strong>Dashboard</strong> page or on the <img src="images/icon-registries.png" height="20px" alt="Registries icon"/> <strong>Registries</strong> page, click the registry. You’ll see a summary that includes information about the findings from the latest scan.</p>
@@ -291,7 +291,7 @@
         </section>
         <section>
             <h2><a name="access-api"></a>Access the API documentation</h2>
-            <p>Everything you can do in the Smart Check administrator console (and more) is available as an API operation. You can use the API and webhooks to integrate Deep Security Smart Check with a variety of other products.</p>
+            <p>Everything you can do in the Smart Check administrator console (and more) is available as an API operation. You can use the API and web hooks to integrate Deep Security Smart Check with a variety of other products.</p>
             <p>You can find the API documentation in the Smart Check administrator console. On the left side of the console, click <img src="images/icon-api.png" height="20px" alt="API icon"/><strong> API Documentation</strong>.</li>
             </ol>
 			<p>Or go to <a href="https://deep-security.github.io/smartcheck-docs/api/index.html" target="_blank" title="Deep Security Smart Check APIs" alt="https://deep-security.github.io/smartcheck-docs/api/index.html"> https://deep-security.github.io/smartcheck-docs/api/index.html</a>.</p>
@@ -312,7 +312,7 @@
 			<p style="margin-left: 40px">By default, Deep Security Smart Check configures a database pod in your Kubernetes cluster. This is convenient for demonstration purposes, but for production you should use an external database. For instructions, see <a href="https://github.com/deep-security/smartcheck-helm/wiki/Use-an-external-database" target="_blank" title="Use an external database" alt="Use an external database">Use an external database</a> in the Smart Check wiki.</p>
 			<p><strong>How do I replace the self-signed Smart Check service certificate?</strong></p>
 			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Replace-the-service-certificate" target="_blank" title="Replace the service certificate" alt="Replace the service certificate">Replace the service certificate</a> in the Smart Check wiki for instructions.</p>
-			<p><strong>How do I secure Smart Check webhooks?</strong></p>
+			<p><strong>How do I secure Smart Check web hooks?</strong></p>
 			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Secure-web-hooks" target="_blank" title="Secure web hooks" alt="Secure web hooks">Secure web hooks</a> in the Smart Check wiki for instructions.</p>
 			<p><strong>I'm locked out! How do I recover my administrator account?</strong></p>
 			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Re-create-an-administrator-user" target="_blank" title="Re create an administrator user" alt="Re create an administrator user">Recreate an administrator user</a> in the Smart Check wiki for instructions.</p>

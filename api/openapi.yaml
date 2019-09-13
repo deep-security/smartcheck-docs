@@ -1635,7 +1635,6 @@ definitions:
                   required:
                     - contents
                     - vulnerabilities
-                    - malware
               required:
                 - id
                 - findings
@@ -8328,6 +8327,12 @@ paths:
             Use `false` to disable automatic checking of the registry host and
             credentials during the update.
         - *ref_23
+        - name: scan
+          in: query
+          type: boolean
+          default: false
+          description: |
+            Use `true` to start a scan for each image in the registry.
       responses:
         '200':
           description: >
@@ -8483,6 +8488,12 @@ paths:
             Use `false` to disable automatic checking of the registry host and
             credentials during the update.
         - *ref_23
+        - name: scan
+          in: query
+          type: boolean
+          default: false
+          description: |
+            Use `true` to start a scan for each image in the registry.
       responses:
         '200':
           description: |

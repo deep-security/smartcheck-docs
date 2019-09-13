@@ -2021,8 +2021,7 @@
                                         },
                                         "required": [
                                             "contents",
-                                            "vulnerabilities",
-                                            "malware"
+                                            "vulnerabilities"
                                         ]
                                     }
                                 },
@@ -2376,8 +2375,7 @@
                     },
                     "required": [
                         "contents",
-                        "vulnerabilities",
-                        "malware"
+                        "vulnerabilities"
                     ]
                 }
             },
@@ -2722,8 +2720,7 @@
             },
             "required": [
                 "contents",
-                "vulnerabilities",
-                "malware"
+                "vulnerabilities"
             ]
         },
         "ScanStatusDetails": {
@@ -3153,8 +3150,7 @@
                                 },
                                 "required": [
                                     "contents",
-                                    "vulnerabilities",
-                                    "malware"
+                                    "vulnerabilities"
                                 ]
                             }
                         },
@@ -3542,8 +3538,7 @@
                     },
                     "required": [
                         "contents",
-                        "vulnerabilities",
-                        "malware"
+                        "vulnerabilities"
                     ]
                 }
             },
@@ -5421,8 +5416,7 @@
                     },
                     "required": [
                         "contents",
-                        "vulnerabilities",
-                        "malware"
+                        "vulnerabilities"
                     ]
                 },
                 "history": {
@@ -5845,8 +5839,7 @@
                     },
                     "required": [
                         "contents",
-                        "vulnerabilities",
-                        "malware"
+                        "vulnerabilities"
                     ]
                 },
                 "updated": {
@@ -6483,8 +6476,7 @@
                             },
                             "required": [
                                 "contents",
-                                "vulnerabilities",
-                                "malware"
+                                "vulnerabilities"
                             ]
                         },
                         "history": {
@@ -17261,8 +17253,7 @@
                                                                     },
                                                                     "required": [
                                                                         "contents",
-                                                                        "vulnerabilities",
-                                                                        "malware"
+                                                                        "vulnerabilities"
                                                                     ]
                                                                 }
                                                             },
@@ -17616,8 +17607,7 @@
                                                 },
                                                 "required": [
                                                     "contents",
-                                                    "vulnerabilities",
-                                                    "malware"
+                                                    "vulnerabilities"
                                                 ]
                                             }
                                         },
@@ -18657,8 +18647,7 @@
                                                         },
                                                         "required": [
                                                             "contents",
-                                                            "vulnerabilities",
-                                                            "malware"
+                                                            "vulnerabilities"
                                                         ]
                                                     }
                                                 },
@@ -19012,8 +19001,7 @@
                                     },
                                     "required": [
                                         "contents",
-                                        "vulnerabilities",
-                                        "malware"
+                                        "vulnerabilities"
                                     ]
                                 }
                             },
@@ -19561,8 +19549,7 @@
                                                         },
                                                         "required": [
                                                             "contents",
-                                                            "vulnerabilities",
-                                                            "malware"
+                                                            "vulnerabilities"
                                                         ]
                                                     }
                                                 },
@@ -19916,8 +19903,7 @@
                                     },
                                     "required": [
                                         "contents",
-                                        "vulnerabilities",
-                                        "malware"
+                                        "vulnerabilities"
                                     ]
                                 }
                             },
@@ -21093,8 +21079,7 @@
                                                         },
                                                         "required": [
                                                             "contents",
-                                                            "vulnerabilities",
-                                                            "malware"
+                                                            "vulnerabilities"
                                                         ]
                                                     }
                                                 },
@@ -21448,8 +21433,7 @@
                                     },
                                     "required": [
                                         "contents",
-                                        "vulnerabilities",
-                                        "malware"
+                                        "vulnerabilities"
                                     ]
                                 }
                             },
@@ -39315,8 +39299,7 @@
                                                         },
                                                         "required": [
                                                             "contents",
-                                                            "vulnerabilities",
-                                                            "malware"
+                                                            "vulnerabilities"
                                                         ]
                                                     },
                                                     "history": {
@@ -39904,6 +39887,13 @@
                         },
                         "required": false,
                         "default": "2018-05-01"
+                    },
+                    {
+                        "name": "scan",
+                        "in": "query",
+                        "type": "boolean",
+                        "default": false,
+                        "description": "Use `true` to start a scan for each image in the registry.\n"
                     }
                 ],
                 "responses": {
@@ -40398,8 +40388,7 @@
                                             },
                                             "required": [
                                                 "contents",
-                                                "vulnerabilities",
-                                                "malware"
+                                                "vulnerabilities"
                                             ]
                                         },
                                         "history": {
@@ -40977,8 +40966,7 @@
                                             },
                                             "required": [
                                                 "contents",
-                                                "vulnerabilities",
-                                                "malware"
+                                                "vulnerabilities"
                                             ]
                                         },
                                         "history": {
@@ -41892,8 +41880,7 @@
                                             },
                                             "required": [
                                                 "contents",
-                                                "vulnerabilities",
-                                                "malware"
+                                                "vulnerabilities"
                                             ]
                                         },
                                         "history": {
@@ -42469,6 +42456,13 @@
                         },
                         "required": false,
                         "default": "2018-05-01"
+                    },
+                    {
+                        "name": "scan",
+                        "in": "query",
+                        "type": "boolean",
+                        "default": false,
+                        "description": "Use `true` to start a scan for each image in the registry.\n"
                     }
                 ],
                 "responses": {
@@ -42963,8 +42957,7 @@
                                             },
                                             "required": [
                                                 "contents",
-                                                "vulnerabilities",
-                                                "malware"
+                                                "vulnerabilities"
                                             ]
                                         },
                                         "history": {
@@ -44391,8 +44384,7 @@
                                                         },
                                                         "required": [
                                                             "contents",
-                                                            "vulnerabilities",
-                                                            "malware"
+                                                            "vulnerabilities"
                                                         ]
                                                     }
                                                 },
@@ -44746,8 +44738,7 @@
                                     },
                                     "required": [
                                         "contents",
-                                        "vulnerabilities",
-                                        "malware"
+                                        "vulnerabilities"
                                     ]
                                 }
                             },
@@ -45294,8 +45285,7 @@
                                                         },
                                                         "required": [
                                                             "contents",
-                                                            "vulnerabilities",
-                                                            "malware"
+                                                            "vulnerabilities"
                                                         ]
                                                     }
                                                 },
@@ -45649,8 +45639,7 @@
                                     },
                                     "required": [
                                         "contents",
-                                        "vulnerabilities",
-                                        "malware"
+                                        "vulnerabilities"
                                     ]
                                 }
                             },
@@ -46412,8 +46401,7 @@
                                                 },
                                                 "required": [
                                                     "contents",
-                                                    "vulnerabilities",
-                                                    "malware"
+                                                    "vulnerabilities"
                                                 ]
                                             },
                                             "updated": {
@@ -47197,8 +47185,7 @@
                                     },
                                     "required": [
                                         "contents",
-                                        "vulnerabilities",
-                                        "malware"
+                                        "vulnerabilities"
                                     ]
                                 },
                                 "updated": {
@@ -47966,8 +47953,7 @@
                                     },
                                     "required": [
                                         "contents",
-                                        "vulnerabilities",
-                                        "malware"
+                                        "vulnerabilities"
                                     ]
                                 },
                                 "history": {

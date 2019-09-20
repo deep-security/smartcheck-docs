@@ -8717,6 +8717,7 @@ paths:
         - Registries
       parameters:
         - *ref_23
+        - *ref_22
       produces:
         - application/json
       responses:

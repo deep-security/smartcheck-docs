@@ -45986,6 +45986,14 @@
                         },
                         "required": false,
                         "default": "2018-05-01"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "type": "string",
+                        "default": "",
+                        "description": "Space-separated strings to search for.\n",
+                        "maxLength": 64
                     }
                 ],
                 "produces": [

@@ -981,6 +981,7 @@
             "required": [
                 "id",
                 "href",
+                "name",
                 "default",
                 "created",
                 "updated"
@@ -28120,6 +28121,7 @@
                                         "required": [
                                             "id",
                                             "href",
+                                            "name",
                                             "default",
                                             "created",
                                             "updated"
@@ -28578,6 +28580,7 @@
                             "required": [
                                 "id",
                                 "href",
+                                "name",
                                 "default",
                                 "created",
                                 "updated"
@@ -28998,6 +29001,7 @@
                             "required": [
                                 "id",
                                 "href",
+                                "name",
                                 "default",
                                 "created",
                                 "updated"
@@ -29444,6 +29448,7 @@
                             "required": [
                                 "id",
                                 "href",
+                                "name",
                                 "default",
                                 "created",
                                 "updated"

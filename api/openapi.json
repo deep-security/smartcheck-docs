@@ -3918,7 +3918,7 @@
                         "filename": {
                             "description": "The filename for the finding being overridden.\n",
                             "type": "string",
-                            "example": "demo.pem",
+                            "example": "path/to/file",
                             "maxLength": 2048
                         },
                         "rule": {
@@ -4277,7 +4277,7 @@
                 "filename": {
                     "description": "The filename for the finding being overridden.\n",
                     "type": "string",
-                    "example": "demo.pem",
+                    "example": "path/to/file",
                     "maxLength": 2048
                 },
                 "rule": {
@@ -4341,7 +4341,7 @@
                 "filename": {
                     "description": "The filename for the finding being overridden.\n",
                     "type": "string",
-                    "example": "demo.pem",
+                    "example": "path/to/file",
                     "maxLength": 2048
                 },
                 "rule": {
@@ -23454,7 +23454,7 @@
                                                     "filename": {
                                                         "description": "The filename for the finding being overridden.\n",
                                                         "type": "string",
-                                                        "example": "demo.pem",
+                                                        "example": "path/to/file",
                                                         "maxLength": 2048
                                                     },
                                                     "rule": {
@@ -34541,7 +34541,7 @@
                                             "filename": {
                                                 "description": "The filename for the finding being overridden.\n",
                                                 "type": "string",
-                                                "example": "demo.pem",
+                                                "example": "path/to/file",
                                                 "maxLength": 2048
                                             },
                                             "rule": {
@@ -34887,7 +34887,7 @@
                                 "filename": {
                                     "description": "The filename for the finding being overridden.\n",
                                     "type": "string",
-                                    "example": "demo.pem",
+                                    "example": "path/to/file",
                                     "maxLength": 2048
                                 },
                                 "rule": {
@@ -34991,7 +34991,7 @@
                                 "filename": {
                                     "description": "The filename for the finding being overridden.\n",
                                     "type": "string",
-                                    "example": "demo.pem",
+                                    "example": "path/to/file",
                                     "maxLength": 2048
                                 },
                                 "rule": {
@@ -35402,7 +35402,7 @@
                                 "filename": {
                                     "description": "The filename for the finding being overridden.\n",
                                     "type": "string",
-                                    "example": "demo.pem",
+                                    "example": "path/to/file",
                                     "maxLength": 2048
                                 },
                                 "rule": {
@@ -35786,7 +35786,7 @@
                                 "filename": {
                                     "description": "The filename for the finding being overridden.\n",
                                     "type": "string",
-                                    "example": "demo.pem",
+                                    "example": "path/to/file",
                                     "maxLength": 2048
                                 },
                                 "rule": {
@@ -35868,7 +35868,7 @@
                                 "filename": {
                                     "description": "The filename for the finding being overridden.\n",
                                     "type": "string",
-                                    "example": "demo.pem",
+                                    "example": "path/to/file",
                                     "maxLength": 2048
                                 },
                                 "rule": {

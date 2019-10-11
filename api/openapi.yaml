@@ -2050,7 +2050,7 @@ definitions:
             description: |
               The filename for the finding being overridden.
             type: string
-            example: demo.pem
+            example: path/to/file
             maxLength: 2048
           rule:
             description: >
@@ -2183,7 +2183,7 @@ definitions:
         description: |
           The filename for the finding being overridden.
         type: string
-        example: demo.pem
+        example: path/to/file
         maxLength: 2048
       rule:
         description: >

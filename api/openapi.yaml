@@ -1,6 +1,5 @@
 swagger: '2.0'
 info:
-  version: '2018-05-01'
   title: Deep Security Smart Check
   description: |
     Deep Security Smart Check is a container image scanner from Trend Micro.
@@ -1936,6 +1935,11 @@ definitions:
                 to get backported from upstreams, and will likely not be
                 included in security updates unless there is an easy fix and
                 some other issue causes an update.
+            metadata:
+              description: |
+                Metadata about the vulnerability.
+              type: object
+              additionalProperties: true
           required:
             - description
             - name
@@ -2023,6 +2027,7 @@ definitions:
         type: object
         description: |
           The metadata of the content rule.
+        additionalProperties: true
         example:
           author: foo
           license: 'http://XXX.XXX.XXX'

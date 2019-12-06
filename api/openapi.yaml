@@ -1044,6 +1044,13 @@ definitions:
             maxLength: 32768
         required:
           - type
+      context:
+        description: |
+          A user-defined set of contextual properties for the scan.
+        type: object
+        additionalProperties: true
+        example:
+          key: value
       webhooks:
         description: >
           (optional) A list of web hooks to call when events happen for the
@@ -1131,6 +1138,13 @@ definitions:
         example: My scan
         maxLength: 128
       source: *ref_8
+      context:
+        description: |
+          A user-defined set of contextual properties for the scan.
+        type: object
+        additionalProperties: true
+        example:
+          key: value
       status:
         type: string
         description: |
@@ -2595,6 +2609,13 @@ definitions:
             example: >-
               sha256:02892826401a9d18f0ea01f8a2f35d328ef039db4e1edcc45c630314a0457d5b
             maxLength: 255
+      context:
+        description: |
+          A user-defined set of contextual properties for the scan.
+        type: object
+        additionalProperties: true
+        example:
+          key: value
       webhooks:
         description: >
           (optional) A list of web hooks to call when events happen for the

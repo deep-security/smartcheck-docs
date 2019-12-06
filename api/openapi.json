@@ -1195,6 +1195,14 @@
                         "type"
                     ]
                 },
+                "context": {
+                    "description": "A user-defined set of contextual properties for the scan.\n",
+                    "type": "object",
+                    "additionalProperties": true,
+                    "example": {
+                        "key": "value"
+                    }
+                },
                 "webhooks": {
                     "description": "(optional) A list of web hooks to call when events happen for the scan.\n",
                     "type": "array",
@@ -1580,6 +1588,14 @@
                     "required": [
                         "type"
                     ]
+                },
+                "context": {
+                    "description": "A user-defined set of contextual properties for the scan.\n",
+                    "type": "object",
+                    "additionalProperties": true,
+                    "example": {
+                        "key": "value"
+                    }
                 },
                 "status": {
                     "type": "string",
@@ -4968,6 +4984,14 @@
                             "example": "sha256:02892826401a9d18f0ea01f8a2f35d328ef039db4e1edcc45c630314a0457d5b",
                             "maxLength": 255
                         }
+                    }
+                },
+                "context": {
+                    "description": "A user-defined set of contextual properties for the scan.\n",
+                    "type": "object",
+                    "additionalProperties": true,
+                    "example": {
+                        "key": "value"
                     }
                 },
                 "webhooks": {
@@ -16824,6 +16848,14 @@
                                                     "type"
                                                 ]
                                             },
+                                            "context": {
+                                                "description": "A user-defined set of contextual properties for the scan.\n",
+                                                "type": "object",
+                                                "additionalProperties": true,
+                                                "example": {
+                                                    "key": "value"
+                                                }
+                                            },
                                             "status": {
                                                 "type": "string",
                                                 "description": "The status of the scan.\n",
@@ -18048,6 +18080,14 @@
                                         "type"
                                     ]
                                 },
+                                "context": {
+                                    "description": "A user-defined set of contextual properties for the scan.\n",
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "example": {
+                                        "key": "value"
+                                    }
+                                },
                                 "webhooks": {
                                     "description": "(optional) A list of web hooks to call when events happen for the scan.\n",
                                     "type": "array",
@@ -18217,6 +18257,14 @@
                                     "required": [
                                         "type"
                                     ]
+                                },
+                                "context": {
+                                    "description": "A user-defined set of contextual properties for the scan.\n",
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "example": {
+                                        "key": "value"
+                                    }
                                 },
                                 "status": {
                                     "type": "string",
@@ -19119,6 +19167,14 @@
                                     "required": [
                                         "type"
                                     ]
+                                },
+                                "context": {
+                                    "description": "A user-defined set of contextual properties for the scan.\n",
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "example": {
+                                        "key": "value"
+                                    }
                                 },
                                 "status": {
                                     "type": "string",
@@ -20649,6 +20705,14 @@
                                     "required": [
                                         "type"
                                     ]
+                                },
+                                "context": {
+                                    "description": "A user-defined set of contextual properties for the scan.\n",
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "example": {
+                                        "key": "value"
+                                    }
                                 },
                                 "status": {
                                     "type": "string",
@@ -43791,6 +43855,14 @@
                                         }
                                     }
                                 },
+                                "context": {
+                                    "description": "A user-defined set of contextual properties for the scan.\n",
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "example": {
+                                        "key": "value"
+                                    }
+                                },
                                 "webhooks": {
                                     "description": "(optional) A list of web hooks to call when events happen for the scan.\n",
                                     "type": "array",
@@ -43964,6 +44036,14 @@
                                     "required": [
                                         "type"
                                     ]
+                                },
+                                "context": {
+                                    "description": "A user-defined set of contextual properties for the scan.\n",
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "example": {
+                                        "key": "value"
+                                    }
                                 },
                                 "status": {
                                     "type": "string",
@@ -44865,6 +44945,14 @@
                                     "required": [
                                         "type"
                                     ]
+                                },
+                                "context": {
+                                    "description": "A user-defined set of contextual properties for the scan.\n",
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "example": {
+                                        "key": "value"
+                                    }
                                 },
                                 "status": {
                                     "type": "string",

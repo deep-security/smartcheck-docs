@@ -6987,14 +6987,18 @@
             "name": "X-Api-Version",
             "description": "The version of the API to use.\n",
             "in": "header",
+            "type": "string",
+            "enum": [
+                "2018-05-01"
+            ],
+            "required": false,
+            "default": "2018-05-01",
             "schema": {
                 "type": "string",
                 "enum": [
                     "2018-05-01"
                 ]
-            },
-            "required": false,
-            "default": "2018-05-01"
+            }
         },
         "expand": {
             "name": "expand",
@@ -7103,14 +7107,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "description": "Retrieve a list of SAML identity providers.\n",
@@ -7587,14 +7595,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -8113,14 +8125,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "produces": [
@@ -8618,14 +8634,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -9061,14 +9081,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -9416,14 +9440,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "description": "Retrieve a list of roles.\n",
@@ -9915,14 +9943,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -10442,14 +10474,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "produces": [
@@ -10962,14 +10998,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -11405,14 +11445,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -11760,14 +11804,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "description": "Retrieve a list of users.\n",
@@ -12208,14 +12256,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -12681,14 +12733,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "produces": [
@@ -13150,14 +13206,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -13570,14 +13630,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -13944,14 +14008,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -14339,14 +14407,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "description": "Retrieve a list of sessions.\n",
@@ -14845,14 +14917,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -15416,14 +15492,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "produces": [
@@ -15884,14 +15964,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "produces": [
@@ -16352,14 +16436,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -16738,14 +16826,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -18157,14 +18249,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -20252,14 +20348,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "produces": [
@@ -20605,14 +20705,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -21838,14 +21942,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     },
                     {
                         "name": "dryrun",
@@ -22262,14 +22370,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -22773,14 +22885,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -23421,14 +23537,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -23959,14 +24079,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -24496,14 +24620,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     },
                     {
                         "name": "expand",
@@ -25049,14 +25177,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -25559,14 +25691,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "description": "Retrieve a list of web hooks.\n",
@@ -26027,14 +26163,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -26524,14 +26664,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -27014,14 +27158,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -27439,14 +27587,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -27772,14 +27924,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -28152,14 +28308,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "tags": [
@@ -28620,14 +28780,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -29044,14 +29208,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -29510,14 +29678,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -29952,14 +30124,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -30309,14 +30485,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "tags": [
@@ -30753,14 +30933,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -31179,14 +31363,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "tags": [
@@ -31605,14 +31793,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -31998,14 +32190,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -32392,14 +32588,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "tags": [
@@ -32863,14 +33063,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -33283,14 +33487,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -33780,14 +33988,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -34214,14 +34426,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -34561,14 +34777,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "tags": [
@@ -35020,14 +35240,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -35434,14 +35658,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -35919,14 +36147,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -36347,14 +36579,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -36694,14 +36930,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "tags": [
@@ -37165,14 +37405,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -37585,14 +37829,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -38082,14 +38330,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -38516,14 +38768,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -38869,14 +39125,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "produces": [
@@ -39964,14 +40224,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     },
                     {
                         "name": "scan",
@@ -41460,14 +41724,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "produces": [
@@ -42533,14 +42801,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     },
                     {
                         "name": "scan",
@@ -43446,14 +43718,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -43936,14 +44212,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {
@@ -46087,14 +46367,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     },
                     {
                         "name": "query",
@@ -46885,14 +47169,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "produces": [
@@ -47639,14 +47927,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "produces": [
@@ -48393,14 +48685,18 @@
                         "name": "X-Api-Version",
                         "description": "The version of the API to use.\n",
                         "in": "header",
+                        "type": "string",
+                        "enum": [
+                            "2018-05-01"
+                        ],
+                        "required": false,
+                        "default": "2018-05-01",
                         "schema": {
                             "type": "string",
                             "enum": [
                                 "2018-05-01"
                             ]
-                        },
-                        "required": false,
-                        "default": "2018-05-01"
+                        }
                     }
                 ],
                 "responses": {

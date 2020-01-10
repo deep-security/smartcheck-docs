@@ -3535,12 +3535,15 @@ parameters:
     description: |
       The version of the API to use.
     in: header
+    type: string
+    enum:
+      - '2018-05-01'
+    required: false
+    default: '2018-05-01'
     schema:
       type: string
       enum:
         - '2018-05-01'
-    required: false
-    default: '2018-05-01'
   expand: &ref_19
     name: expand
     in: query

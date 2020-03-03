@@ -1,7 +1,156 @@
 openapi: 3.0.0
 info:
   title: Deep Security Smart Check
-  description: Deep Security Smart Check is a container image scanner from Trend Micro.
+  description: >
+    Deep Security Smart Check is a container image scanner from Trend Micro.
+
+
+    # Authentication
+
+
+    Deep Security Smart Check uses token-based authentication for API requests.
+    See
+
+    `Sessions` for APIs related to token management, then include the token in
+    an
+
+    `Authorization` header with the `Bearer` scheme:
+
+
+    ```http
+
+    Authorization: Bearer {token}
+
+    ```
+
+
+    # Pagination
+
+
+    All list operations in the Deep Security Smart Check API support paged
+    results. The default page size is 25.
+
+
+    You should be aware that your list requests can return more than one page of
+    data, so you may need to make multiple requests to retrieve all of the data.
+
+
+    When you make a request, you can specify the maximum number of records to
+    return per page using the `limit` query parameter, like this:
+
+
+    ```http
+
+    GET /api/scans?limit=5
+
+    ```
+
+
+    The response will contain up to 5 results:
+
+
+    ```json
+
+    {
+      "scans": [ ... up to 5 scans ...]
+    }
+
+    ```
+
+
+    If there are more results available, there are two ways to get the next page
+    of results:
+
+
+    - [use the `next` value from the response
+    body](#use-the-next-value-from-the-response-body-to-get-the-next-page-of-results)
+
+    - [use the `Link rel="next"`
+    header](#use-the-link-relnext-header-from-the-response-to-get-the-next-page-of-results)
+
+
+    You can use either method depending on which is most convenient for you and
+    the tools you are using to interact with the API.
+
+
+    > **TIP:** You don't need to re-send query parameters like `limit` or any
+    filter parameters for the additional pages that you retrieve with either of
+    these methods.
+
+
+    <!-- You will really want to fix the next line to use ## instead of ###.
+    When you try it, you will likely notice that Redoc messes up the page
+    rendering. It would be nice if we knew why that was happening, but figuring
+    it out will take time. -->
+
+
+    ### Use the `next` value from the response body to get the next page of
+    results
+
+
+    When there are more results available for a list operation, there will be an
+    additional attribute in the response called `next`:
+
+
+    ```json
+
+    {
+      "scans": [ 5 scans ],
+      "next": "dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo"
+    }
+
+    ```
+
+
+    You can use the value of the `next` attribute to build the next request:
+
+
+    ```http
+
+    GET
+    /api/scans?cursor=dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo
+
+    ```
+
+
+    When there are no more results, the `next` attribute will not be present.
+
+
+    <!-- You will really want to fix the next line to use ## instead of ###.
+    When you try it, you will likely notice that Redoc messes up the page
+    rendering. It would be nice if we knew why that was happening, but figuring
+    it out will take time. -->
+
+
+    ### Use the `Link rel="next"` header from the response to get the next page
+    of results
+
+
+    When there are more results available for a list operation, there will be a
+    `Link` header with the `next` relation:
+
+
+    ```http
+
+    Link:
+    </api/scans?cursor=dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo>;rel="next"
+
+    ```
+
+
+    You can extract the URL from the header to build the next request:
+
+
+    ```http
+
+    GET
+    /api/scans?cursor=dGhpcyB2YWx1ZSBpcyBvcGFxdWUsIGRlY29kaW5nIGl0IHdvbid0IGJlIHVzZWZ1bAo
+
+    ```
+
+
+    When there are no more results, the `Link rel="next"` header will not be
+    present.
   contact:
     url: 'https://trendmicro.com/smartcheck'
 security:

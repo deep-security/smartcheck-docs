@@ -5,4 +5,5 @@ Redoc.init('openapi.yaml', {
   nativeScrollbars: true,
   suppressWarnings: true,
   untrustedSpec: true,
+  noAutoAuth: true,
 }, document.getElementById('redoc-container'))

@@ -1,2 +1,3 @@
 body { margin: 0; }
 a[href*="Redocly/redoc"] { display: none !important; }
+h3 { margin-top: 2rem; }

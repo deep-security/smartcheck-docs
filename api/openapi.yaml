@@ -2222,7 +2222,7 @@ paths:
                             - failed
                             - cancelled
                           example: completed-with-findings
-                        details: &ref_101
+                        details: &ref_102
                           type: object
                           properties:
                             detail:
@@ -2286,7 +2286,7 @@ paths:
                                 This value will only
 
                                 be present for Docker scans.
-                            labels: &ref_100
+                            labels: &ref_101
                               type: object
                               additionalProperties:
                                 type: string
@@ -2300,7 +2300,7 @@ paths:
                             results:
                               type: array
                               description: A list of the scan results by layer.
-                              items: &ref_102
+                              items: &ref_103
                                 type: object
                                 properties:
                                   id:
@@ -2664,16 +2664,70 @@ paths:
                                                 description: >-
                                                   The number of vulnerability findings
                                                   with unknown severity.
+                                          fixAvailable: &ref_97
+                                            type: object
+                                            description: >-
+                                              The number of unresolved vulnerability
+                                              findings by
+
+                                              severity with a fix available.
+                                              Unresolved vulnerabilities are
+                                              vulnerability findings
+
+                                              in a layer and were not fixed by an
+                                              update in a subsequent layer
+
+                                              or were not marked as resolved by an
+                                              override.
+                                            properties:
+                                              defcon1:
+                                                type: integer
+                                                description: >-
+                                                  The number of "Defcon1" vulnerability
+                                                  findings.
+                                              critical:
+                                                type: integer
+                                                description: >-
+                                                  The number of critical vulnerability
+                                                  findings.
+                                              high:
+                                                type: integer
+                                                description: >-
+                                                  The number of high-severity
+                                                  vulnerability findings.
+                                              medium:
+                                                type: integer
+                                                description: >-
+                                                  The number of medium-severity
+                                                  vulnerabilities that were
+
+                                                  found.
+                                              low:
+                                                type: integer
+                                                description: >-
+                                                  The number of low-severity vulnerability
+                                                  findings.
+                                              negligible:
+                                                description: >-
+                                                  The number of negligible vulnerability
+                                                  findings.
+                                                type: integer
+                                              unknown:
+                                                type: integer
+                                                description: >-
+                                                  The number of vulnerability findings
+                                                  with unknown severity.
                                         required:
                                           - total
                                           - unresolved
-                                      checklists: &ref_99
+                                          - fixAvailable
+                                      checklists: &ref_100
                                         type: object
                                         description: >-
                                           The number of security checklist
                                           findings.
                                         properties:
-                                          total: &ref_97
+                                          total: &ref_98
                                             type: object
                                             description: >-
                                               The total number of security checklist
@@ -2716,7 +2770,7 @@ paths:
                                                   findings with unknown
 
                                                   severity.
-                                          unresolved: &ref_98
+                                          unresolved: &ref_99
                                             type: object
                                             description: >-
                                               The number of unresolved security
@@ -3436,7 +3490,7 @@ paths:
                   malware:
                     type: array
                     description: A list of results for the query.
-                    items: &ref_107
+                    items: &ref_108
                       type: object
                       required:
                         - filename
@@ -3445,7 +3499,7 @@ paths:
                           type: string
                           description: The file where the malware was detected.
                           example: path/to/file
-                        icrc: &ref_103
+                        icrc: &ref_104
                           type: object
                           properties:
                             name:
@@ -3462,10 +3516,10 @@ paths:
                           required:
                             - name
                             - url
-                        trendx: &ref_106
+                        trendx: &ref_107
                           type: object
                           properties:
-                            found: &ref_104
+                            found: &ref_105
                               type: object
                               properties:
                                 name:
@@ -3487,7 +3541,7 @@ paths:
                               example: 100
                             related:
                               type: array
-                              items: &ref_105
+                              items: &ref_106
                                 type: object
                                 properties:
                                   name:
@@ -3610,7 +3664,7 @@ paths:
                   vulnerabilities:
                     description: A list of results for the query.
                     type: array
-                    items: &ref_108
+                    items: &ref_109
                       type: object
                       properties:
                         name:
@@ -3632,7 +3686,7 @@ paths:
                         vulnerabilities:
                           type: array
                           description: A list of the known vulnerabilities in this package.
-                          items: &ref_112
+                          items: &ref_113
                             type: object
                             properties:
                               description:
@@ -3645,7 +3699,7 @@ paths:
                                 description: >-
                                   The version of the package where the
                                   vulnerability has been resolved.
-                              fixed: &ref_111
+                              fixed: &ref_112
                                 type: object
                                 description: >-
                                   If present, this object will describe the fix
@@ -3847,7 +3901,7 @@ paths:
                                   will likely not be included in security
                                   updates unless there is an easy fix and some
                                   other issue causes an update.
-                              metadata: &ref_113
+                              metadata: &ref_114
                                 description: Metadata about the vulnerability.
                                 type: object
                                 additionalProperties: true
@@ -3962,7 +4016,7 @@ paths:
                   contents:
                     description: A list of results for the query.
                     type: array
-                    items: &ref_109
+                    items: &ref_110
                       required:
                         - filename
                         - rule
@@ -4000,7 +4054,7 @@ paths:
                             - negligible
                             - unknown
                           description: The severity assigned to the content finding.
-                        metadata: &ref_110
+                        metadata: &ref_111
                           type: object
                           description: The metadata of the content rule.
                           additionalProperties: true
@@ -4215,7 +4269,7 @@ paths:
                           description: Checklist version.
                         profiles:
                           type: array
-                          items: &ref_116
+                          items: &ref_117
                             type: object
                             required:
                               - id
@@ -4241,7 +4295,7 @@ paths:
                                 description: The URL at which the rules can be found.
                               scores:
                                 type: array
-                                items: &ref_120
+                                items: &ref_121
                                   type: object
                                   required:
                                     - system
@@ -4261,7 +4315,7 @@ paths:
                                       example: 90
                                       description: The score value.
                                 description: The scores belonging to this profile.
-                              metrics: &ref_119
+                              metrics: &ref_120
                                 type: object
                                 description: >-
                                   The number of rules run by results in the
@@ -4270,7 +4324,7 @@ paths:
                                   - total
                                   - unresolved
                                 properties:
-                                  total: &ref_117
+                                  total: &ref_118
                                     type: object
                                     description: >-
                                       The total number of rules run by results
@@ -4301,7 +4355,7 @@ paths:
                                         description: >-
                                           The number of failure with unknown
                                           severity that were found.
-                                  unresolved: &ref_118
+                                  unresolved: &ref_119
                                     type: object
                                     description: >-
                                       The number of unresolved rules in security
@@ -4471,7 +4525,7 @@ paths:
                   rules:
                     description: A list of results for the query.
                     type: array
-                    items: &ref_121
+                    items: &ref_122
                       type: object
                       required:
                         - id
@@ -5736,7 +5790,7 @@ paths:
       requestBody: &ref_43
         content:
           application/json:
-            schema: &ref_114
+            schema: &ref_115
               type: object
               properties:
                 name:
@@ -6046,7 +6100,7 @@ paths:
       requestBody: &ref_45
         content:
           application/json:
-            schema: &ref_115
+            schema: &ref_116
               type: object
               properties:
                 filename:
@@ -6343,7 +6397,7 @@ paths:
       requestBody: &ref_47
         content:
           application/json:
-            schema: &ref_122
+            schema: &ref_123
               type: object
               properties:
                 identifier:
@@ -6612,7 +6666,7 @@ paths:
             X-Api-Notice: *ref_3
           content:
             application/json:
-              schema: &ref_124
+              schema: &ref_125
                 type: object
                 properties:
                   registries:
@@ -6730,11 +6784,11 @@ paths:
                               - '*:latest'
                             exclude:
                               - experimental/*
-                        metrics: &ref_142
+                        metrics: &ref_143
                           type: object
                           description: Registry metrics.
                           properties:
-                            content: &ref_137
+                            content: &ref_138
                               description: >-
                                 Metrics capturing information about the content
                                 of the registry.
@@ -6748,7 +6802,7 @@ paths:
                                 images:
                                   type: integer
                                   description: The number of images in the registry.
-                            scans: &ref_138
+                            scans: &ref_139
                               type: object
                               description: >-
                                 Metrics capturing information about the scan
@@ -6807,11 +6861,11 @@ paths:
                                 - errors
                                 - cancelled
                             findings: *ref_30
-                            history: &ref_141
+                            history: &ref_142
                               type: object
                               description: Aggregate metrics over a period of time.
                               properties:
-                                1d: &ref_139
+                                1d: &ref_140
                                   type: object
                                   description: Metrics over the past 24 hours.
                                   properties:
@@ -6825,7 +6879,7 @@ paths:
                                         there was an error
 
                                         calculating the value.
-                                1w: &ref_140
+                                1w: &ref_141
                                   type: object
                                   description: Metrics over the past 7 days.
                                   properties:
@@ -6946,7 +7000,7 @@ paths:
       requestBody: &ref_50
         content:
           application/json:
-            schema: &ref_136
+            schema: &ref_137
               type: object
               properties:
                 name:
@@ -6976,7 +7030,7 @@ paths:
                     when using
 
                     Amazon Elastic Container Registry.
-                credentials: &ref_134
+                credentials: &ref_135
                   type: object
                   description: Credentials to use when accessing the registry.
                   properties:
@@ -7011,7 +7065,7 @@ paths:
 
                         + password}` header.
                       example: '************'
-                    aws: &ref_135
+                    aws: &ref_136
                       type: object
                       description: >-
                         The AWS-specific information for authenticating to the
@@ -7347,7 +7401,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: &ref_127
+            schema: &ref_128
               type: object
               properties:
                 name:
@@ -7355,7 +7409,7 @@ paths:
                   description: (optional) A descriptive name for the scan.
                   example: (optional) a descriptive string
                   maxLength: 128
-                source: &ref_125
+                source: &ref_126
                   description: The source of the image to scan.
                   type: object
                   properties:
@@ -7375,7 +7429,7 @@ paths:
                       example: >-
                         sha256:02892826401a9d18f0ea01f8a2f35d328ef039db4e1edcc45c630314a0457d5b
                       maxLength: 255
-                context: &ref_126
+                context: &ref_127
                   description: A user-defined set of contextual properties for the scan.
                   type: object
                   additionalProperties: true
@@ -7484,7 +7538,7 @@ paths:
             X-Api-Notice: *ref_3
           content:
             application/json:
-              schema: &ref_123
+              schema: &ref_124
                 type: object
                 properties:
                   images:
@@ -7634,10 +7688,10 @@ paths:
             X-Api-Notice: *ref_3
           content:
             application/json:
-              schema: &ref_133
+              schema: &ref_134
                 type: object
                 properties:
-                  content: &ref_128
+                  content: &ref_129
                     description: >-
                       Metrics capturing information about the content of all
                       registries.
@@ -7657,7 +7711,7 @@ paths:
                     required:
                       - repositories
                       - images
-                  scans: &ref_129
+                  scans: &ref_130
                     type: object
                     description: >-
                       Metrics capturing information about the scan status of
@@ -7715,11 +7769,11 @@ paths:
                       - errors
                       - cancelled
                   findings: *ref_30
-                  history: &ref_132
+                  history: &ref_133
                     type: object
                     description: Aggregate metrics over a period of time.
                     properties:
-                      1d: &ref_130
+                      1d: &ref_131
                         type: object
                         description: Metrics over the past 24 hours.
                         properties:
@@ -7733,7 +7787,7 @@ paths:
                               error
 
                               calculating the value.
-                      1w: &ref_131
+                      1w: &ref_132
                         type: object
                         description: Metrics over the past 7 days.
                         properties:
@@ -7821,7 +7875,7 @@ paths:
                       update.
                     type: integer
                     example: 0
-                  entitlements: &ref_143
+                  entitlements: &ref_144
                     description: The entitlements granted by the license (if any).
                     type: object
                     properties:
@@ -7996,60 +8050,61 @@ components:
     ResultsMetricsContentsMetadata: *ref_94
     ResultsMetricsVulnerabilityMetadataTotals: *ref_95
     ResultsMetricsVulnerabilityMetadataUnresolved: *ref_96
+    ResultsMetricsVulnerabilityMetadataFixAvailable: *ref_97
     ResultsMetricsVulnerabilityMetadata: *ref_33
-    ResultsMetricsChecklistMetadataTotals: *ref_97
-    ResultsMetricsChecklistMetadataUnresolved: *ref_98
-    ResultsMetricsChecklistMetadata: *ref_99
+    ResultsMetricsChecklistMetadataTotals: *ref_98
+    ResultsMetricsChecklistMetadataUnresolved: *ref_99
+    ResultsMetricsChecklistMetadata: *ref_100
     ResultsMetrics: *ref_30
-    ScannedImageLabels: *ref_100
-    ScanStatusDetails: *ref_101
-    LayerResults: *ref_102
-    MalwareScanResultICRC: *ref_103
-    MalwareScanResultTrendXFound: *ref_104
-    MalwareScanResultTrendXRelatedItem: *ref_105
-    MalwareScanResultTrendX: *ref_106
-    MalwareScanResult: *ref_107
-    VulnerabilityScanResult: *ref_108
-    ContentScanResult: *ref_109
-    ContentScanResultRuleMetadata: *ref_110
-    VulnerabilityFix: *ref_111
-    Vulnerability: *ref_112
-    VulnerabilityMetadata: *ref_113
+    ScannedImageLabels: *ref_101
+    ScanStatusDetails: *ref_102
+    LayerResults: *ref_103
+    MalwareScanResultICRC: *ref_104
+    MalwareScanResultTrendXFound: *ref_105
+    MalwareScanResultTrendXRelatedItem: *ref_106
+    MalwareScanResultTrendX: *ref_107
+    MalwareScanResult: *ref_108
+    VulnerabilityScanResult: *ref_109
+    ContentScanResult: *ref_110
+    ContentScanResultRuleMetadata: *ref_111
+    VulnerabilityFix: *ref_112
+    Vulnerability: *ref_113
+    VulnerabilityMetadata: *ref_114
     VulnerabilityFindingOverride: *ref_42
-    VulnerabilityFindingOverrideRequest: *ref_114
+    VulnerabilityFindingOverrideRequest: *ref_115
     ContentFindingOverride: *ref_44
-    ContentFindingOverrideRequest: *ref_115
+    ContentFindingOverrideRequest: *ref_116
     Checklist: *ref_34
-    Profile: *ref_116
-    ChecklistProfileMetricsTotals: *ref_117
-    ChecklistProfileMetricsUnresolved: *ref_118
-    ChecklistProfileMetrics: *ref_119
-    Score: *ref_120
-    Rule: *ref_121
+    Profile: *ref_117
+    ChecklistProfileMetricsTotals: *ref_118
+    ChecklistProfileMetricsUnresolved: *ref_119
+    ChecklistProfileMetrics: *ref_120
+    Score: *ref_121
+    Rule: *ref_122
     ChecklistFindingOverride: *ref_46
-    ChecklistFindingOverrideRequest: *ref_122
-    ListRegistryImagesResponse: *ref_123
-    ListRegistriesResponse: *ref_124
-    RegistryScanRequestSource: *ref_125
-    RegistryScanRequestContext: *ref_126
-    RegistryScanRequest: *ref_127
-    RegistriesDashboardContentMetadata: *ref_128
-    RegistriesDashboardScanMetadata: *ref_129
-    RegistriesDashboardScanHistoryMetadataDailyMetrics: *ref_130
-    RegistriesDashboardScanHistoryMetadataWeeklyMetrics: *ref_131
-    RegistriesDashboardScanHistoryMetadata: *ref_132
-    RegistriesDashboard: *ref_133
+    ChecklistFindingOverrideRequest: *ref_123
+    ListRegistryImagesResponse: *ref_124
+    ListRegistriesResponse: *ref_125
+    RegistryScanRequestSource: *ref_126
+    RegistryScanRequestContext: *ref_127
+    RegistryScanRequest: *ref_128
+    RegistriesDashboardContentMetadata: *ref_129
+    RegistriesDashboardScanMetadata: *ref_130
+    RegistriesDashboardScanHistoryMetadataDailyMetrics: *ref_131
+    RegistriesDashboardScanHistoryMetadataWeeklyMetrics: *ref_132
+    RegistriesDashboardScanHistoryMetadata: *ref_133
+    RegistriesDashboard: *ref_134
     Image: *ref_51
-    RegistryCredentials: *ref_134
-    RegistryAWSCredentials: *ref_135
-    RegistryRequest: *ref_136
+    RegistryCredentials: *ref_135
+    RegistryAWSCredentials: *ref_136
+    RegistryRequest: *ref_137
     RegistryFilter: *ref_48
     Registry: *ref_49
-    RegistryMetricsContentMetadata: *ref_137
-    RegistryMetricsScanMetadata: *ref_138
-    RegistryMetricsHistoryMetadataDailyMetrics: *ref_139
-    RegistryMetricsHistoryMetadataWeeklyMetrics: *ref_140
-    RegistryMetricsHistoryMetadata: *ref_141
-    RegistryMetrics: *ref_142
+    RegistryMetricsContentMetadata: *ref_138
+    RegistryMetricsScanMetadata: *ref_139
+    RegistryMetricsHistoryMetadataDailyMetrics: *ref_140
+    RegistryMetricsHistoryMetadataWeeklyMetrics: *ref_141
+    RegistryMetricsHistoryMetadata: *ref_142
+    RegistryMetrics: *ref_143
     License: *ref_52
-    LicenseEntitlements: *ref_143
+    LicenseEntitlements: *ref_144

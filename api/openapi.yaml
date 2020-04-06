@@ -1,5 +1,6 @@
 openapi: 3.0.0
 info:
+  version: ''
   title: Deep Security Smart Check
   description: >
     Deep Security Smart Check is a container image scanner from Trend Micro.
@@ -7386,9 +7387,17 @@ paths:
         '500': *ref_13
         '503': *ref_14
   '/api/registries/{id}/scans':
+    parameters:
+      - name: id
+        description: The system-assigned registry ID.
+        in: path
+        required: true
+        example: 6552eebd-5172-411e-ac71-8c323e6ca0fe
+        schema:
+          type: string
     post:
-      operationId: createScan
-      summary: Create a scan
+      operationId: createScanWithRegistryDetails
+      summary: Create a scan using stored registry details
       x-security:
         x-required-privileges:
           - 'scans:create'

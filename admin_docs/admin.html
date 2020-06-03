@@ -37,11 +37,16 @@
                     <li><a href="#registry" title="Add or edit a registry" target="_self">Add or edit a registry</a></li>
                     <li><a href="#start-scan" title="Start a scan" target="_self">Start a scan</a></li>
                     <li><a href="#get-results" title="See scan results" target="_self">See scan results</a></li>
-                    <li><a href="#custom-content-rules" title="Add custom content rules" target="_self">Add custom content rules</a></li>					
+                    <li><a href="#custom-content-rules" title="Add custom content rules" target="_self">Add custom content rules</a></li>
                   </ul>
                 </li>
                 <li><a href="#access-api" title="Access the API documentation" target="_self">Access the API documentation</a></li>
 				<li><a href="#faq" title="Frequently asked questions" target="_self">Frequently asked questions</a></li>
+				<li><a href="#sizing" title="Sizing guidelines" target="_self">Sizing guidelines</a>
+					<ul>
+						<li><a href="#sizing-summary" title="Summary and recommendations" target="_self">Summary and recommendations</a></li>
+						<li><a href="#sizing-details" title="Details" target="_self">Details</a></li>
+					</ul></li>
             </ul>
         </section>
         <section>
@@ -109,7 +114,8 @@
 				</ul>
 			</li>
 			</ul>
-			<p>By default, Deep Security Smart Check requires an 8 GB persistent volume when using the built-in database. If you install using an external database, Deep Security Smart Check does not require any persistent volumes.</p>	
+			<p>By default, Deep Security Smart Check requires an 8 GB persistent volume when using the built-in database. If you install using an external database, Deep Security Smart Check does not require any persistent volumes.</p>
+			<p>For additional information about scaling and sizing your Smart Check cluster, see <a href="#sizing" title="Sizing guidelines" target="_self">Sizing guidelines</a></p>
         </section>
         <section>
             <h2><a name="install"></a>Install Deep Security Smart Check</h2>
@@ -212,7 +218,7 @@
 				<li><strong>Registry ID: </strong> (Optional) If you want to scan a registry in another account, enter the account ID here. If you do not specify an account, Smart Check will use the default registry.</li>
 				<li><strong>Use cross-account role: </strong>Select this option if you want to scan a registry in another account. </li>
 				<li><strong>Authentication method: </strong> Select either <strong>Instance Role</strong> or <strong>Access Key ID &amp; Secret</strong>. Specifying access keys is discouraged because the keys need to be updated periodically (for security reasons), which creates management overhead. </li>
-			</ul>		
+			</ul>
 		</li>
 		<li>For a Generic Registry, enter:</li>
 			<ul>
@@ -287,7 +293,7 @@
 						<li>Click <strong>ADD</strong>.	
 					</ol>
 				</li>
-			</ol>				
+			</ol>
         </section>
         <section>
             <h2><a name="access-api"></a>Access the API documentation</h2>
@@ -317,6 +323,163 @@
 			<p><strong>I'm locked out! How do I recover my administrator account?</strong></p>
 			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Re-create-an-administrator-user" target="_blank" title="Re create an administrator user" alt="Re create an administrator user">Recreate an administrator user</a> in the Smart Check wiki for instructions.</p>
         </section>
+        <section>
+            <h2><a name="sizing"></a>Sizing guidelines</h2>
+			<p>This section provides guidance on sizing your Smart Check cluster. Smart Check can be scaled either vertically (adding more CPU and memory) or horizontally (adding more worker-nodes to the cluster).</p>
+			<h3><a name="sizing-summary"></a>Summary and recommendations</h3>
+			<p>Our testing revealed that scaling vertically produces faster scan rates than scaling horizontally. For example, deploying Deep Security Smart Check using 4 worker-nodes of m5-xlarge instances resulted in a faster scan rate than using 8 worker-nodes of m5-large instances.</p>
+			<p><strong>Tip: </strong>At the time of our testing, the cost per hour for 4 m5-xlarge instances was the same as for 8 m5-large instances, and using the m5-xlarge instances to scale vertically resulted in enhanced performance.</p>
+			<p>To get the best performance per dollar spent, we recommend that you scale your pods until you see a high CPU or memory utilization (See <a href="#scale" title="Scale Smart Check pods" target="_self">Scale Smart Check pods</a>). As shown in <a href="#scale-results" title="Pod scaling results" target="_self">Pod scaling results</a>, we found that CPU utilization will cap before memory does, so you might consider increasing the CPUs in a custom EC2 instance, rather than just upgrading from m5-large to m5a-xlarge (which would increase both CPUs and memory).</p>
+			<p>We also tested Smart Check with Amazon RDS to identify the impact that Smart Check has on database
+resources. Our testing showed that there is no major impact on the RDS database during scans.</p>
+			<p>Details about how we reached these conclusions are provided below.</p>
+			<h3><a name="sizing-details"></a>Details</h3>
+			<p>This section provides details on how we reached the conclusions in the "Summary and recommendations" section.</p>
+			<h4>Test environment</h4>
+			<p><strong>Cluster configuration</strong></p>
+<p>We used these cluster configurations for our testing:</p>
+			<table>
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+				<thead>
+					<tr>
+						<th>Cluster configuration</th>
+						<th>Cluster name</th>
+						<th>Nodes</th>
+						<th>Instance type</th>
+						<th>Total vCPUs in cluster</th>
+						<th>Total memory in cluster</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Baseline configuration</td>
+						<td>sc-d-4</td>
+						<td>4</td>
+						<td>m5-large (2 CPU, 8 GB)</td>
+						<td>8</td>
+						<td>32 GB</td>
+					</tr>
+					<tr>
+						<td>Horizontal scaling</td>
+						<td>sc-d-8</td>
+						<td>8</td>
+						<td>m5-large (2 CPU, 8 GB)</td>
+						<td>16</td>
+						<td>64 GB</td>
+					</tr>
+					<tr>
+						<td>Vertical scaling</td>
+						<td>sc-xl-4</td>
+						<td>4</td>
+						<td>m5a-xlarge (4 CPU, 16 GB)</td>
+						<td>16</td>
+						<td>64 GB</td>
+					</tr>
+					<tr>
+						<td>Horizontal and vertical scaling</td>
+						<td>sc-xl-8</td>
+						<td>8</td>
+						<td>m5a-xlarge (4 CPU, 16 GB)</td>
+						<td>32</td>
+						<td>128 GB </td>
+					</tr>
+				</tbody>
+			</table>
+			<p>Because AWS instance types may change over time, here are the specifications for an m5-large instance at the time of our testing:</p>
+			<ul>
+			  <li><strong>Processor Type:</strong> 1st or 2nd generation Intel Xeon Platinum 8000 series </li>
+			  <li><strong>Clock Speed:</strong> Turbo Clock speed upto 3.1 GHz </li>
+			  <li><strong>Advanced Vector Extension Support:</strong> Yes. 512 (AVX-512) instruction set. Two times FLOPS per core compared to m4 instances. </li>
+			  <li><strong>Memory:</strong> 8 GB </li>
+			  <li><strong>Instance Storage:</strong> EBS-only </li>
+			  <li><strong>Network Bandwidth:</strong> Up to 10 Gbps </li>
+			  <li><strong>EBS Bandwidth:</strong> Up to 4750 Mbps </li>
+            </ul>
+			<h5>Registry configuration</h5>
+<p>We used this registry configuration for our testing:</p>
+<table>
+		<col />
+		<col />
+		<col />
+		<thead>
+			<tr>
+				<th>Registry size</th>
+				<th>Total images</th>
+				<th>Average image size</th>
+		    </tr>
+	    </thead>
+		<tbody>
+			<tr>
+				<td>11.949 GB</td>
+				<td>43</td>
+				<td>284.5 MB</td>
+		    </tr>
+	    </tbody>
+	  </table>
+			<h5>Database configuration</h5>
+		  <p>We used a t2.small RDS instance for each of the EKS instances, and our testing showed that there is no major impact on the RDS database during scans.</p>
+		  <p>Because Amazon RDS types may change over time, here are the specifications for a t2.small instance at the time of our testing:</p>
+		<ul>
+		  <li><strong>Core:</strong> 1</li>
+		  <li><strong>vCPU:</strong> 1</li>
+		  <li><strong>CPU credits/hour:</strong> 12</li>
+		  <li><strong>Memory:</strong> 2 GB</li>
+		  <li><strong>Network performance (Gbps):</strong> Low to moderate</li>
+			</ul>
+<h4>Cluster resource utilization</h4>
+				<img src="images/average-cluster-cpu-chart.png" />
+				<img src="images/average-cluster-memory-chart.png" />
+			<h4><a name="scale"></a>Scale Smart Check pods</h4>
+			<p>You can use the overrides.yaml file to specify the replica count for each pod:</p>
+			<ol>
+			<li>Add the following snippet to your <code>overrides.yaml</code> file:
+<p class="code">replicas<br>
+  malwareScan: 5<br>
+  scan: 5<br>
+  imageScan: 5<br>
+  vulnerabilityScan: 5<br>
+  contentScan: 5</p>
+			</li>
+			<li>Then, in your terminal, run:
+			<p class="code">helm upgrade --values /path/to/overrides.yaml &lt;release-name&gt; /path/to/smartcheck-helm/</p>
+			</li>
+			</ol>
+			<p>Using our default configuration (m5.large with 4 nodes), scaling each pod to a replica count of 5 resulted in an average CPU utilization of approximately 72%. That means you could potentially configure a replica count higher than 5.</p>
+			<p>Scaling the pods linearly (all counts at 5 instead of different numbers) is a good approach if you’re not sure what kind of content findings your images typically have. But, for example, if your content findings consist mostly of malware, you could scale your malware pod's replica count to a larger number.</p>
+			<p><b>Tip: </b>If the vulnerability scan pods become evicted, it’s usually because there is not enough room for them on the disk. To allocate more space for them, add the following to overrides.yaml:</p>
+			<p class="code">vulnerabilityScan:<br>
+  workVolume:<br>
+    ## The amount of space to request for the vulnerability scan working volume<br>
+    ##<br>
+    ## Default value: 3Gi<br>
+    sizeLimit: 4Gi</p>
+			<h4><a name="scale-results"></a>Pod scaling results</h4>
+			<p>This section details our test results with caching disabled. By default, caching is enabled for Smart Check, so actual performance in most environments should be higher than this.</p>
+			<p>In the results below, R1, R2, R3 are replica counts.</p>
+			<p>Each scan was pushed 10 times (10 iterations with one hour break). The results were:</p>
+			<ul>
+			<li><b>sc-d-4:</b> Scan rate for R3 is <b>130%</b> faster than R1, and R5 is <b>152%</b> faster than R1</li>
+			<li><b>sc-d-8:</b> Scan rate for R3 is <b>135%</b> faster than R1, and R5 is <b>237%</b> faster than R1</li>
+			<li><b>sc-xl-4:</b> Scan rate for R3 is <b>82%</b> faster than R1, and R5 is <b>144%</b> faster than R1</li>
+			<li><b>sc-xl-8:</b> Scan rate for R3 is <b>90%</b> faster than R1, and R5 is <b>161%</b> faster than R1 </li>
+	
+			</ul>
+			<img src="images/average-scan-rate.png" />
+			<img src="images/average-memory-use.png" />
+			<img src="images/average-cpu-use.png" />
+			<img src="images/scalability-improvement-factor.png" />
+			<p>Assuming R1 (replica count of 1) is the baseline (i.e. improvement factor 1:1 if comparing it to itself):
+			<ul>
+			<li>Scaling to R3 provides an improvement factor of at least 1.82 times to 2.3 when compared to R1.</li>
+			<li>Scaling to R5 provides an improvement factor of a least 2.44 to 3.37 when compared to R1.</li>
+			</ul>
+			<p>When we increased the pod replica count within the same cluster configuration, we saw significant improvement to the scan rate while using very little additional resources (CPU and memory). </p>
+	  </section>
     </article>
 </body>
 </html>

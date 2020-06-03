@@ -868,7 +868,6 @@ h1 {
 
 h2 {
   font-size: 34px;
-  font-weight: 200;
 }
 
 h3 {
@@ -877,21 +876,66 @@ h3 {
 
 h4 {
   font-size: 22px;
-  font-weight: 200;
 }
 
 h5 {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 h6 {
   font-size: 18px;
-  font-weight: 200;
 }
 
 .center {
   text-align: center;
 }
+
+/* TABLES **********************************************************************/
+
+table
+{
+	border-collapse: collapse;
+	color: #696969;
+  vertical-align: baseline;
+  overflow-x: auto;
+  width: 100%;
+  table-layout: fixed;
+  margin: 1em 0 1em 0;
+}
+thead
+{
+	background-color: #eaeaea;
+	border: thin solid #ddd;
+	border-bottom: 3px solid #ddd;
+	font-weight: bold;
+	line-height: 0.875em;
+	vertical-align: baseline;
+}
+thead td,
+thead tr > th
+{
+	padding: 8px;
+}
+td, th {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+tbody td
+{
+	line-height: 1.5em;
+	padding: 10px;
+}
+td
+{
+	border: thin solid #ddd;
+	vertical-align: baseline;
+}
+tr:nth-child(2n)
+{
+	background-color: #f9f9f9;
+	vertical-align: baseline;
+}
+
 
 /* MAIN **********************************************************************/
 .main-container {

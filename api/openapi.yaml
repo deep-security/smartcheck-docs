@@ -7870,6 +7870,7 @@ paths:
                     enum:
                       - full
                       - trial
+                      - metering
                       - none
                   expires:
                     description: Timestamp when the license will expire.

@@ -327,8 +327,7 @@
             <h2><a name="sizing"></a>Sizing guidelines</h2>
 			<p>This section provides guidance on sizing your Smart Check cluster. Smart Check can be scaled either vertically (adding more CPU and memory) or horizontally (adding more worker-nodes to the cluster).</p>
 			<h3><a name="sizing-summary"></a>Summary and recommendations</h3>
-			<p>Our testing revealed that scaling vertically produces faster scan rates than scaling horizontally. For example, deploying Deep Security Smart Check using 4 worker-nodes of m5-xlarge instances resulted in a faster scan rate than using 8 worker-nodes of m5-large instances.</p>
-			<p><strong>Tip: </strong>At the time of our testing, the cost per hour for 4 m5-xlarge instances was the same as for 8 m5-large instances, and using the m5-xlarge instances to scale vertically resulted in enhanced performance.</p>
+			<p>Our testing revealed that scaling vertically produces faster scan rates than scaling horizontally. For example, deploying Deep Security Smart Check using 4 worker-nodes of m5a-xlarge instances resulted in a faster scan rate than using 8 worker-nodes of m5-large instances.</p>
 			<p>To get the best performance per dollar spent, we recommend that you scale your pods until you see a high CPU or memory utilization (See <a href="#scale" title="Scale Smart Check pods" target="_self">Scale Smart Check pods</a>). As shown in <a href="#scale-results" title="Pod scaling results" target="_self">Pod scaling results</a>, we found that CPU utilization will cap before memory does, so you might consider increasing the CPUs in a custom EC2 instance, rather than just upgrading from m5-large to m5a-xlarge (which would increase both CPUs and memory).</p>
 			<p>We also tested Smart Check with Amazon RDS to identify the impact that Smart Check has on database
 resources. Our testing showed that there is no major impact on the RDS database during scans.</p>
@@ -390,16 +389,56 @@ resources. Our testing showed that there is no major impact on the RDS database 
 					</tr>
 				</tbody>
 			</table>
-			<p>Because AWS instance types may change over time, here are the specifications for an m5-large instance at the time of our testing:</p>
-			<ul>
-			  <li><strong>Processor Type:</strong> 1st or 2nd generation Intel Xeon Platinum 8000 series </li>
-			  <li><strong>Clock Speed:</strong> Turbo Clock speed upto 3.1 GHz </li>
-			  <li><strong>Advanced Vector Extension Support:</strong> Yes. 512 (AVX-512) instruction set. Two times FLOPS per core compared to m4 instances. </li>
-			  <li><strong>Memory:</strong> 8 GB </li>
-			  <li><strong>Instance Storage:</strong> EBS-only </li>
-			  <li><strong>Network Bandwidth:</strong> Up to 10 Gbps </li>
-			  <li><strong>EBS Bandwidth:</strong> Up to 4750 Mbps </li>
-            </ul>
+			<p>Because AWS instance types may change over time, here are the specifications for  m5-large and m5a-xlarge instances at the time of our testing:</p>
+			<table>
+				<col />
+				<col />
+				<col />
+				<thead>
+					<tr>
+						<th>Specification</th>
+						<th>m5-large</th>
+						<th>m5a-xlarge</th>
+					</tr>
+				</thead>
+				<tbody>
+				  <tr>
+					<td>Processor type</td>
+						<td>1st or 2nd generation Intel Xeon Platinum 8000 series</td>
+						<td>AMD EPYC 7000 series</td>
+					</tr>
+					<tr>
+						<td>Clock speed</td>
+						<td>Turbo Clock speed upto 3.1 GHz</td>
+						<td>Turbo Clock speed upto 2.5 GHz</td>
+					</tr>
+					<tr>
+						<td>Advanced Vector Extension Support</td>
+						<td>Yes. 512 (AVX-512) instruction set. Two times FLOPS per core compared to m4 instances.</td>
+						<td>No</td>
+					</tr>
+					<tr>
+					  <td>Memory</td>
+					  <td>8 GB</td>
+					  <td>16 GB</td>
+				  </tr>
+					<tr>
+					  <td>Instance Storage</td>
+					  <td>EBS-only</td>
+					  <td>EBS-only</td>
+				  </tr>
+					<tr>
+					  <td>Network Bandwidth</td>
+					  <td>Up to 10 Gbps</td>
+					  <td>Up to 10 Gbps</td>
+				  </tr>
+					<tr>
+						<td>EBS Bandwidth</td>
+						<td>Up to 4750 Mbps</td>
+						<td>Up to 2880 Mbps</td>
+				  </tr>
+				</tbody>
+			</table>
 			<h5>Registry configuration</h5>
 <p>We used this registry configuration for our testing:</p>
 <table>

@@ -42,6 +42,7 @@
                 </li>
                 <li><a href="#access-api" title="Access the API documentation" target="_self">Access the API documentation</a></li>
 				<li><a href="#faq" title="Frequently asked questions" target="_self">Frequently asked questions</a></li>
+				<li><a href="#outposts" title="Run Smart Check on AWS Outposts" target="_self">Run Smart Check on AWS Outposts</a></li>
 				<li><a href="#sizing" title="Sizing guidelines" target="_self">Sizing guidelines</a>
 					<ul>
 						<li><a href="#sizing-summary" title="Summary and recommendations" target="_self">Summary and recommendations</a></li>
@@ -115,6 +116,7 @@
 			</li>
 			</ul>
 			<p>By default, Deep Security Smart Check requires an 8 GB persistent volume when using the built-in database. If you install using an external database, Deep Security Smart Check does not require any persistent volumes.</p>
+			<p>You can also <a href="#outposts" title="Run Smart check on AWS Outposts" target="_self">run Smart Check on AWS Outposts</a>.</p>
 			<p>For additional information about scaling and sizing your Smart Check cluster, see <a href="#sizing" title="Sizing guidelines" target="_self">Sizing guidelines</a></p>
         </section>
         <section>
@@ -323,6 +325,10 @@
 			<p><strong>I'm locked out! How do I recover my administrator account?</strong></p>
 			<p style="margin-left: 40px">See <a href="https://github.com/deep-security/smartcheck-helm/wiki/Re-create-an-administrator-user" target="_blank" title="Re create an administrator user">Recreate an administrator user</a> in the Smart Check wiki for instructions.</p>
         </section>
+		<section>
+			<h2><a id="outposts"></a>Run Smart Check on AWS Outposts</h2>
+			<p><a href="https://aws.amazon.com/outposts/" target="_blank" title="AWS Outposts">AWS Outposts</a> enables you to run an AWS environment in a datacenter or other on-premises location. You can deploy Smart Check on an EKS cluster running on AWS Outposts, using either a built-in database (for testing) or an external RDS instance that's running on AWS Outposts (for production). Smart Check on AWS Outposts is identical to Smart Check in the AWS cloud environment. Smart Check does not currently support high availability. </p>
+		</section>
         <section>
             <h2><a id="sizing"></a>Sizing guidelines</h2>
 			<p>This section provides guidance on sizing your Smart Check cluster. Smart Check can be scaled either vertically (adding more CPU and memory) or horizontally (adding more worker-nodes to the cluster).</p>

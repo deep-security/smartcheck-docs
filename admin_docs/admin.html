@@ -483,7 +483,7 @@ resources. Our testing showed that there is no major impact on the RDS database 
 			<p>You can use the overrides.yaml file to specify the replica count for each pod:</p>
 			<ol>
 			<li>Add the following snippet to your <code>overrides.yaml</code> file:
-<p class="code">replicas<br>
+<p class="code">replicas: <br>
   malwareScan: 5<br>
   scan: 5<br>
   imageScan: 5<br>

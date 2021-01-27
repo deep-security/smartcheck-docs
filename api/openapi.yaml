@@ -2414,9 +2414,13 @@ paths:
                                                   trendX:
                                                     type: string
                                                     description: The TrendX pattern version.
+                                                  denylist:
+                                                    type: string
+                                                    description: The malware denylist pattern version.
                                                   blacklist:
                                                     type: string
                                                     description: The malware blacklist pattern version.
+                                                    deprecated: true
                                           vulnerabilities: &ref_89
                                             description: Metadata for the vulnerability scanner.
                                             type: object

@@ -200,21 +200,16 @@
             <ol>
                 <li>On the left side of the Smart Check administrator console, click <img src="images/icon-registries.png" alt="Registries icon"/> <strong>Registries</strong>.</li>
                 <li>Click <strong> + CREATE </strong>to add a registry.</li>
-                <li>On the Create Registry page, in the <strong>Name</strong> field, enter a descriptive name for the registry. This name does not necessarily need to match the namespace of your Docker registry. If you plan to add multiple registries, you’ll use this name to tell them apart in the Smart Check administrator console. The name should be short but meaningful, with a maximum of 256 characters.</li>
+                <li>On the Create Registry page, in the <strong>Name</strong> field, enter a descriptive name for the registry. This name does not necessarily need to match the namespace of your Docker registry. If you plan to add multiple registries, you’ll use this name to tell them apart in the Smart Check administrator console. The name should be short but meaningful, with a maximum of 255 characters.</li>
                 <li>In the <strong>Description</strong> field, enter an optional description of the registry. This is useful if you need to capture a bit more information than the Name field allows.</li>
                 <li>In the <strong>Registry Type</strong> field, select the type of registry you're adding:
                     <ul>
 <!-- ARGUS-1770 draft/update start -->
-                        <!-- TODO: 
-                            * Do you want me to fix the indentation of this entire HTML document in a separate commit?
-                            * Should I turn these into local links to point to the IDs mentioned in the question below?  
-                        -->
                         <li>Google Cloud Registry</li>
                         <li>Amazon Elastic Cloud Registry</li>
                         <li>Generic Registry</li>
                     </ul>
                 </li>
-                <!-- TODO: Do we want to create IDs for each of these registry types, so we can link to them from the list above?  -->
                 <li>For a Google Cloud Registry, enter:
                     <ul>
                         <li><strong>JSON key file</strong>: JSON key that Smart Check will use to access your repository.</li>
@@ -227,8 +222,8 @@
                             <ul>
                                 <li><strong>Region</strong>: The AWS region identifier for the region where the registry is located. Example: <code>us-east-1</code></li>
                                 <li><strong>Registry ID</strong>: (Optional) If you want to scan a registry in another account, put the account ID here. Example: <code>123456789012</code>. If not provided, the default registry will be used.</li>
-                                <li><strong>Access Key ID</strong>: <!-- TODO: What should be put here? --></li>
-                                <li><strong>Secret Access Key</strong>: <!-- TODO: What should be put here? --></li>
+                                <li><strong>Access Key ID</strong>: Your AWS access key ID. For example, <code>AKIAIOSFODNN7EXAMPLE</code></li>
+                                <li><strong>Secret Access Key</strong>: Your AWS secret access key. For example, <code>wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</code></li>
                             </ul>
                         </li>
                         <li>For using an Instance Role as an authentication method:
@@ -241,7 +236,7 @@
                             <ul>
                                 <li><strong>Region</strong>: The AWS region identifier for the region where the registry is located. Example: <code>us-east-1</code></li>
                                 <li><strong>Registry ID</strong>: (Optional) If you want to scan a registry in another account, put the account ID here. Example: <code>123456789012</code>. If not provided, the default registry will be used.</li>
-                                <li><strong>Role ARN</strong>: <!-- TODO: What should be put here --></li>
+                                <li><strong>Role ARN</strong>: The role ARN. For example, <code>arn:aws:iam::account-id:role/ecr-readonly-role</code></li>
                                 <li><strong>External ID</strong>: (Optional) The external ID to provide when assuming the cross-account role.</li>
                                 <li><strong>Role Session Name</strong>: (Optional) The session name to use when assuming the cross-account role.</li>
                             </ul>
@@ -250,11 +245,11 @@
                             <ul>
                                 <li><strong>Region</strong>: The AWS region identifier for the region where the registry is located. Example: <code>us-east-1</code></li>
                                 <li><strong>Registry ID</strong>: (Optional) If you want to scan a registry in another account, put the account ID here. Example: <code>123456789012</code>. If not provided, the default registry will be used.</li>
-                                <li><strong>Role ARN</strong>: <!-- TODO: What should be put here --></li>
+                                <li><strong>Role ARN</strong>: The role ARN. For example, <code>arn:aws:iam::account-id:role/ecr-readonly-role</code></li>
                                 <li><strong>External ID</strong>: (Optional) The external ID to provide when assuming the cross-account role.</li>
                                 <li><strong>Role Session Name</strong>: (Optional) The session name to use when assuming the cross-account role.</li>
-                                <li><strong>Access Key ID</strong>: <!-- TODO: What should be put here --></li>
-                                <li><strong>Secret Access Key</strong>: <!-- TODO: What should be put here --></li>
+                                <li><strong>Access Key ID</strong>: Your AWS access key ID. For example, <code>AKIAIOSFODNN7EXAMPLE</code></li>
+                                <li><strong>Secret Access Key</strong>: Your AWS secret access key. For example, <code>wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</code></li>
                             </ul>
                         </li>
                     </ul>
@@ -266,37 +261,7 @@
                         <li><strong>Registry Host</strong>: The hostname or IP address of the Docker registry to scan. Example: <code>us.gcr.io</code></li>
                     </ul>
                 </li>
-
-<!-- Old ################## -->
-                <!-- TODO: Is it okay to remove this information now that all of the info above is updated? 
-                <li>For Amazon Elastic Container Registry - Cross-account role using AWS IAM Access Key ID & Secret
-                    <ul>
-                        <li><strong>Registry Type</strong>: Amazon Elastic Container Registry</li>
-                        <li><strong>Region:</strong>
-                            <li>For an Amazon Elastic Cloud Registry, enter:
-                                <ul>
-                                    <li><strong>Region: </strong>AWS region identifier where your registry it located</li>
-                                    <li><strong>Registry ID: </strong> (Optional) If you want to scan a registry in another account, enter the account ID here. If you do not specify an account, Smart Check will use the default registry.</li>
-                                    <li><strong>Use cross-account role: </strong>Select this option if you want to scan a registry in another account. </li>
-                                    <li><strong>Authentication method: </strong> Select either <strong>Instance Role</strong> or <strong>Access Key ID &amp; Secret</strong>. Specifying access keys is discouraged because the keys need to be updated periodically (for security reasons), which creates management overhead. </li>
-                                </ul>
-                            </li>
-                            <li>For a Generic Registry, enter:
-                                <ul>
-                                    <li><strong>Registry Host: </strong>Hostname or IP address of the Docker registry you want to scan</li>
-                                    <li><strong>Registry User: </strong>Username that Smart Check will use to access your repository</li>
-                                    <li><strong>Password: </strong>Password that Smart Check will use to access your repository</li>
-                                    <li><strong>HTTPS Configuration:</strong>
-                                        <ul>
-                                            <li><strong>Skip registry certificate validation (insecure): </strong>By default, Smart Check validates the TLS certificate associated with your registry. This validation requires that Smart Check trust the certificate of the CA that issued the registry certificate. If you don&rsquo;t have the CA certificate, you can select <strong>Skip registry certificate validation (insecure)</strong>.</li>
-                                            <li><strong>Trust: </strong>Deep Security Smart Check has a built-in set of certificate authorities that it trusts. If your registry has a certificate that was issued by a well-known certificate authority, then you should not need to do anything for Smart Check to trust your registry. If the registry certificate was issued by a private certificate authority, you can upload the certificate authority's certificate (.pem file).</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                -->
-<!-- END OLD ################# -->
-<!-- ARGUS-1770 update start -->
+<!-- ARGUS-1770 update end -->
            <li>If <strong>Start scan when registry is created</strong> is selected, a scan  starts as soon as you click <strong>Create Registry</strong>. </li>
            <li>If  <strong>Perform scan periodically</strong> is selected, Smart Check automatically performs a scan every day at midnight UTC.</li>
            <li>Click <strong>+ ADD FILTER</strong> to include or exclude images based on any segment of their fully qualified name in the form <code>&lt;repository&gt;/&lt;image&gt;:&lt;tag&gt;</code>. For example, the include filter <code>*latest*</code> would match <code>smartcheck/scan:latest</code> and <code>smartcheck/auth:latest</code>. The default include filter of <code>*</code> will select all images in the registry.</li>

@@ -99,7 +99,7 @@
                     <li>Sonatype Nexus™</li>
                     <li>Quay™ Container Registry</li>
                 </ul>
-                <p class="note"><strong>Note</strong>: Deep Security Smart Check requires a TLS connection to the registry.</p>
+                <p class="note"><strong>Note:</strong> Deep Security Smart Check requires a TLS connection to the registry.</p>
                 <p>To integrate Deep Security Smart Check into your pipeline, you may need to write integration logic to trigger scanning based on the event model of your registry. For example, Google Container Registry uses a pub/sub model to publish events about registry activity and Docker Trusted Registry uses a web hook model. If you use Jenkins, you can use the <a href="https://github.com/deep-security/smartcheck-plugin" target="_blank" title="Deep Security Smart Check plugin for Jenkins">Deep Security Smart Check plugin for Jenkins</a> for easy integration into your pipeline. You can also use our GitHub Action directly to integrate Smart Check into your CI workflows. See <a href="https://github.com/deep-security/smartcheck-scan-action" target="_blank" title="Deep Security Smart Check Scan Action">Deep Security Smart Check Scan Action</a> for details. </p>
 
                 <h3><a id="system-requirements"></a>System requirements</h3>
@@ -152,7 +152,7 @@
                     <li><strong>Malware patterns: </strong>ipv6-iaus.trendmicro.com:443</li>
                     <li>
                         <p><strong>Target registries</strong> (for example,  GCR, on-premises DTR, ECR, etc.).</p> 
-                        <p class="note"><strong>Note</strong>: that registries must support TLS for Deep Security Smart Check to connect to them.</p>
+                        <p class="note"><strong>Note:</strong> Registries must support TLS for Deep Security Smart Check to connect to them.</p>
                     </li>
                     <li><strong>Web hook targets</strong></li>
                     <li><strong>Identity provider for metadata</strong> if you have configured SAML for single sign-on</li>
@@ -206,7 +206,7 @@
                     <li>On the Users page, click the user you want to remove.</li>
                     <li>On the Edit User page, click <strong>DELETE</strong>.</li>
                 </ol>
-                <p class="note"><strong>Note</strong>: You must have at least one user with the administrator role. If you have only one administrator, you cannot delete that user until you add another administrator.</p>
+                <p class="note"><strong>Note:</strong> You must have at least one user with the administrator role. If you have only one administrator, you cannot delete that user until you add another administrator.</p>
 
                 <h3><a id="registry"></a>Add or edit a registry</h3>
                 <p>Before Smart Check can scan your images, it needs to know which registries contain the images that you want to scan. You can add one or more registries (up to a maximum of 4 with a trial or basic license) to Deep Security Smart Check.</p>
@@ -236,7 +236,7 @@
                     </li>
                     <li>For an Amazon Elastic Container Registry:
                         <ul>
-                            <li>For using an AWS IAM Access Key ID & Secret as an authentication method:
+                            <li>To use an AWS IAM Access Key ID & Secret as the authentication method:
                                 <ul>
                                     <li><strong>Region</strong>: The AWS region identifier for the region where the registry is located. Example: <code>us-east-1</code></li>
                                     <li><strong>Registry ID</strong>: (Optional) If you want to scan a registry in another account, put the account ID here. Example: <code>123456789012</code>. If not provided, the default registry will be used.</li>
@@ -244,13 +244,13 @@
                                     <li><strong>Secret Access Key</strong>: Your AWS secret access key. For example, <code>wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</code></li>
                                 </ul>
                             </li>
-                            <li>For using an Instance Role as an authentication method:
+                            <li>To use an Instance Role as the authentication method:
                                 <ul>
                                     <li><strong>Region</strong>: The AWS region identifier for the region where the registry is located. Example: <code>us-east-1</code></li>
                                     <li><strong>Registry ID</strong>: (Optional) If you want to scan a registry in another account, put the account ID here. Example: <code>123456789012</code>. If not provided, the default registry will be used.</li>
                                 </ul>
                             </li>
-                            <li>For using a cross-account role with an Instance Role as an authentication method:
+                            <li>To use a cross-account role with an Instance Role as the authentication method:
                                 <ul>
                                     <li><strong>Region</strong>: The AWS region identifier for the region where the registry is located. Example: <code>us-east-1</code></li>
                                     <li><strong>Registry ID</strong>: (Optional) If you want to scan a registry in another account, put the account ID here. Example: <code>123456789012</code>. If not provided, the default registry will be used.</li>
@@ -259,7 +259,7 @@
                                     <li><strong>Role Session Name</strong>: (Optional) The session name to use when assuming the cross-account role.</li>
                                 </ul>
                             </li>
-                            <li>For using a cross-account role with an AWS IAM Access Key ID & Secret as an authentication method:
+                            <li>To use a cross-account role with an AWS IAM Access Key ID & Secret as the authentication method:
                                 <ul>
                                     <li><strong>Region</strong>: The AWS region identifier for the region where the registry is located. Example: <code>us-east-1</code></li>
                                     <li><strong>Registry ID</strong>: (Optional) If you want to scan a registry in another account, put the account ID here. Example: <code>123456789012</code>. If not provided, the default registry will be used.</li>

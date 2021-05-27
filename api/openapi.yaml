@@ -1880,7 +1880,22 @@ paths:
             application/json:
               schema: *ref_29
         '400': *ref_9
-        '401': *ref_10
+        '401':
+          description: >-
+            Please ensure the authentication values provided in SessionRequest
+            are correct.
+
+            If using userid and password, this may indicate an invalid password
+            is being used.
+          headers:
+            Link: *ref_4
+            Sunset: *ref_0
+            X-Request-Id: *ref_1
+            X-Api-Version: *ref_2
+            X-Api-Notice: *ref_3
+          content:
+            application/json:
+              schema: *ref_5
         '403': *ref_11
         '429': *ref_12
         '500': *ref_13
@@ -7872,6 +7887,7 @@ paths:
                     description: The license type.
                     type: string
                     enum:
+                      - cloudone
                       - full
                       - trial
                       - metering
@@ -7912,6 +7928,14 @@ paths:
                           malware pattern
 
                           updates and the value for `updates` will be `false`.
+                  cloudOneEnabled:
+                    description: >-
+                      Boolean to determine whether the customer is submitting
+                      scan 
+
+                      results to Cloud One.
+                    type: boolean
+                    example: true
                 required:
                   - type
         '400': *ref_9
@@ -7929,6 +7953,48 @@ paths:
           content:
             application/json:
               schema: *ref_52
+        '403': *ref_11
+        '429': *ref_12
+        '500': *ref_13
+        '503': *ref_14
+  /api/license/cloudone:
+    get:
+      operationId: describeCloudOneLicense
+      summary: Describes Cloud One License
+      x-security:
+        x-required-privileges:
+          - 'licenses:describe'
+      tags:
+        - License
+      responses:
+        '200':
+          description: |-
+            The response body determines whether or not the Cloud One 
+            subscription associated with Smartcheck is currently valid.
+            If the property `subscribed` is `true` in a 200 response, then
+            the Cloud One subscription is currently valid. 
+          headers:
+            Link: *ref_4
+            Sunset: *ref_0
+            X-Request-Id: *ref_1
+            X-Api-Version: *ref_2
+            X-Api-Notice: *ref_3
+          content:
+            application/json:
+              schema: &ref_145
+                description: >-
+                  Determines whether or not the Cloud One subscription
+                  associated with Smartcheck is currently valid.
+                type: object
+                properties:
+                  subscribed:
+                    type: boolean
+                    example: true
+                    description: >-
+                      Whether or not the Cloud One subscription associated with
+                      Smartcheck is currently valid.
+        '400': *ref_9
+        '401': *ref_10
         '403': *ref_11
         '429': *ref_12
         '500': *ref_13
@@ -8122,3 +8188,4 @@ components:
     RegistryMetrics: *ref_143
     License: *ref_52
     LicenseEntitlements: *ref_144
+    CloudOneLicense: *ref_145

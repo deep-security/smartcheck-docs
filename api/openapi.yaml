@@ -7500,6 +7500,24 @@ paths:
           content:
             application/json:
               schema: *ref_32
+        '202':
+          description: >-
+            The scan is already pending or in-progress or the image has already
+            been scanned within the rescanProhibitedDuration value (default = 12
+            hours). The response body contains the duplicate scan details.
+          headers:
+            Location:
+              description: The URL at which the scan can be found.
+              schema:
+                type: string
+            Link: *ref_4
+            Sunset: *ref_0
+            X-Request-Id: *ref_1
+            X-Api-Version: *ref_2
+            X-Api-Notice: *ref_3
+          content:
+            application/json:
+              schema: *ref_32
         '400': *ref_9
         '401': *ref_10
         '403': *ref_11

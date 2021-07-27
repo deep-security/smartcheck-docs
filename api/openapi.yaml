@@ -7503,8 +7503,8 @@ paths:
         '202':
           description: >-
             The scan is already pending or in-progress or the image has already
-            been scanned within the rescanProhibitedDuration value (default = 12
-            hours). The response body contains the duplicate scan details.
+            been scanned recently. The response body contains the duplicate scan
+            details.
           headers:
             Location:
               description: The URL at which the scan can be found.

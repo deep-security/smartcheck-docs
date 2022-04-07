@@ -7954,6 +7954,12 @@ paths:
                       results to Cloud One.
                     type: boolean
                     example: true
+                  malwareScanEnabled:
+                    description: >-
+                      Boolean to identicate if malware scan is enabled or
+                      disabled.
+                    type: boolean
+                    example: true
                 required:
                   - type
         '400': *ref_9
